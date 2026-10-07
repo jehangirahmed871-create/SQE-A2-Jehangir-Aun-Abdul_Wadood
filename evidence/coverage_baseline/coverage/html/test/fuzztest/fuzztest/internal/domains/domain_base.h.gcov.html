@@ -1,0 +1,347 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov_filtered.info - test/fuzztest/fuzztest/internal/domains/domain_base.h</title>
+  <link rel="stylesheet" type="text/css" href="../../../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../../../index.html">top level</a> - <a href="index.html">test/fuzztest/fuzztest/internal/domains</a> - domain_base.h<span style="font-size: 80%;"> (source / <a href="domain_base.h.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov_filtered.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryLo">18.0&nbsp;%</td>
+            <td class="headerCovTableEntry">50</td>
+            <td class="headerCovTableEntry">9</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-10-02 17:31:18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryLo">21.4&nbsp;%</td>
+            <td class="headerCovTableEntry">28</td>
+            <td class="headerCovTableEntry">6</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryLo">6.7&nbsp;%</td>
+            <td class="headerCovTableEntry">60</td>
+            <td class="headerCovTableEntry">4</td>
+          </tr>
+                  <tr><td><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : // Copyright 2022 Google LLC</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             : //</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             : // Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             : // you may not use this file except in compliance with the License.</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             : // You may obtain a copy of the License at</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             : //</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             : //      http://www.apache.org/licenses/LICENSE-2.0</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             : //</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             : // Unless required by applicable law or agreed to in writing, software</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             : // distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             : // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             : // See the License for the specific language governing permissions and</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             : // limitations under the License.</span>
+<span id="L14"><span class="lineNum">      14</span>                 :             : </span>
+<span id="L15"><span class="lineNum">      15</span>                 :             : // IWYU pragma: private, include &quot;fuzztest/fuzztest.h&quot;</span>
+<span id="L16"><span class="lineNum">      16</span>                 :             : // IWYU pragma: friend fuzztest/.*</span>
+<span id="L17"><span class="lineNum">      17</span>                 :             : </span>
+<span id="L18"><span class="lineNum">      18</span>                 :             : #ifndef FUZZTEST_FUZZTEST_INTERNAL_DOMAINS_DOMAIN_BASE_H_</span>
+<span id="L19"><span class="lineNum">      19</span>                 :             : #define FUZZTEST_FUZZTEST_INTERNAL_DOMAINS_DOMAIN_BASE_H_</span>
+<span id="L20"><span class="lineNum">      20</span>                 :             : </span>
+<span id="L21"><span class="lineNum">      21</span>                 :             : #include &lt;cstdint&gt;</span>
+<span id="L22"><span class="lineNum">      22</span>                 :             : #include &lt;cstdlib&gt;</span>
+<span id="L23"><span class="lineNum">      23</span>                 :             : #include &lt;functional&gt;</span>
+<span id="L24"><span class="lineNum">      24</span>                 :             : #include &lt;iostream&gt;</span>
+<span id="L25"><span class="lineNum">      25</span>                 :             : #include &lt;optional&gt;</span>
+<span id="L26"><span class="lineNum">      26</span>                 :             : #include &lt;type_traits&gt;</span>
+<span id="L27"><span class="lineNum">      27</span>                 :             : #include &lt;vector&gt;</span>
+<span id="L28"><span class="lineNum">      28</span>                 :             : </span>
+<span id="L29"><span class="lineNum">      29</span>                 :             : #include &quot;absl/random/bit_gen_ref.h&quot;</span>
+<span id="L30"><span class="lineNum">      30</span>                 :             : #include &quot;absl/random/distributions.h&quot;</span>
+<span id="L31"><span class="lineNum">      31</span>                 :             : #include &quot;absl/status/status.h&quot;</span>
+<span id="L32"><span class="lineNum">      32</span>                 :             : #include &quot;absl/strings/str_format.h&quot;</span>
+<span id="L33"><span class="lineNum">      33</span>                 :             : #include &quot;./fuzztest/internal/domains/domain_type_erasure.h&quot;</span>
+<span id="L34"><span class="lineNum">      34</span>                 :             : #include &quot;./fuzztest/internal/domains/mutation_metadata.h&quot;  // IWYU pragma: export</span>
+<span id="L35"><span class="lineNum">      35</span>                 :             : #include &quot;./fuzztest/internal/meta.h&quot;</span>
+<span id="L36"><span class="lineNum">      36</span>                 :             : #include &quot;./fuzztest/internal/printer.h&quot;</span>
+<span id="L37"><span class="lineNum">      37</span>                 :             : #include &quot;./fuzztest/internal/serialization.h&quot;</span>
+<span id="L38"><span class="lineNum">      38</span>                 :             : #include &quot;./fuzztest/internal/type_support.h&quot;</span>
+<span id="L39"><span class="lineNum">      39</span>                 :             : </span>
+<span id="L40"><span class="lineNum">      40</span>                 :             : namespace fuzztest::domain_implementor {</span>
+<span id="L41"><span class="lineNum">      41</span>                 :             : </span>
+<span id="L42"><span class="lineNum">      42</span>                 :             : // `DomainBase` is the base class for all domain implementations.</span>
+<span id="L43"><span class="lineNum">      43</span>                 :             : //</span>
+<span id="L44"><span class="lineNum">      44</span>                 :             : // The type parameters are as follows:</span>
+<span id="L45"><span class="lineNum">      45</span>                 :             : //</span>
+<span id="L46"><span class="lineNum">      46</span>                 :             : // - `Derived`: Instead of virtual inheritance, the domain hierarchy uses the</span>
+<span id="L47"><span class="lineNum">      47</span>                 :             : //   Curiously Recurring Template Pattern (CRTP). A class `X` deriving from</span>
+<span id="L48"><span class="lineNum">      48</span>                 :             : //   `DomainBase` needs to instantiate the template with `Derived = X`.</span>
+<span id="L49"><span class="lineNum">      49</span>                 :             : // - `ValueType`: The type of the user-facing values the domain represents.</span>
+<span id="L50"><span class="lineNum">      50</span>                 :             : //   If the deriving class is itself a template parameterized by its user value</span>
+<span id="L51"><span class="lineNum">      51</span>                 :             : //   type (as the first type parameter), you may omit this parameter.</span>
+<span id="L52"><span class="lineNum">      52</span>                 :             : // - `CorpusType`: The type of the corpus values that the domain implementation</span>
+<span id="L53"><span class="lineNum">      53</span>                 :             : //   uses internally. Typically this is the same as `ValueType` (which is the</span>
+<span id="L54"><span class="lineNum">      54</span>                 :             : //   default), but sometimes the domain may need to maintain different or</span>
+<span id="L55"><span class="lineNum">      55</span>                 :             : //   additional information to be able to efficiently perform value mutation.</span>
+<span id="L56"><span class="lineNum">      56</span>                 :             : //</span>
+<span id="L57"><span class="lineNum">      57</span>                 :             : // The domain implementation can access `ValueType` and `CorpusType` through</span>
+<span id="L58"><span class="lineNum">      58</span>                 :             : // the type members `DomainBase::value_type` and `DomainBase::corpus_type`.</span>
+<span id="L59"><span class="lineNum">      59</span>                 :             : //</span>
+<span id="L60"><span class="lineNum">      60</span>                 :             : // To implement a domain, a deriving class should implement at least the</span>
+<span id="L61"><span class="lineNum">      61</span>                 :             : // following methods. See the documentation of the interface class `Domain&lt;T&gt;`</span>
+<span id="L62"><span class="lineNum">      62</span>                 :             : // for a detailed description of each method.</span>
+<span id="L63"><span class="lineNum">      63</span>                 :             : //</span>
+<span id="L64"><span class="lineNum">      64</span>                 :             : // - corpus_type Init(absl::BitGenRef prng)</span>
+<span id="L65"><span class="lineNum">      65</span>                 :             : //</span>
+<span id="L66"><span class="lineNum">      66</span>                 :             : //   The method that returns an initial value. To support seeding, this function</span>
+<span id="L67"><span class="lineNum">      67</span>                 :             : //   may first call `MaybeGetRandomSeed()` and return its non-nullopt result.</span>
+<span id="L68"><span class="lineNum">      68</span>                 :             : //   TODO(b/303324603): Move the call to `MaybeGetRandomSeed()` to a wrapper.</span>
+<span id="L69"><span class="lineNum">      69</span>                 :             : //</span>
+<span id="L70"><span class="lineNum">      70</span>                 :             : // - void Mutate(corpus_type&amp; val, absl::BitGenRef prng,</span>
+<span id="L71"><span class="lineNum">      71</span>                 :             : //               const MutationMetadata&amp; metadata, bool only_shrink)</span>
+<span id="L72"><span class="lineNum">      72</span>                 :             : //</span>
+<span id="L73"><span class="lineNum">      73</span>                 :             : //   The method that mutates the corpus value.</span>
+<span id="L74"><span class="lineNum">      74</span>                 :             : //</span>
+<span id="L75"><span class="lineNum">      75</span>                 :             : // - absl::Status ValidateCorpusValue(const corpus_type&amp; val) const</span>
+<span id="L76"><span class="lineNum">      76</span>                 :             : //</span>
+<span id="L77"><span class="lineNum">      77</span>                 :             : //   The method to validate that the corpus value satisfies the domain's</span>
+<span id="L78"><span class="lineNum">      78</span>                 :             : //   constraints.</span>
+<span id="L79"><span class="lineNum">      79</span>                 :             : //</span>
+<span id="L80"><span class="lineNum">      80</span>                 :             : // - auto GetPrinter() const</span>
+<span id="L81"><span class="lineNum">      81</span>                 :             : //</span>
+<span id="L82"><span class="lineNum">      82</span>                 :             : //   The method that returns the domain's printer---a class that provides one of</span>
+<span id="L83"><span class="lineNum">      83</span>                 :             : //   the following two methods for printing user/corpus values.</span>
+<span id="L84"><span class="lineNum">      84</span>                 :             : //   TODO(b/303324603): Add more documentation about printers.</span>
+<span id="L85"><span class="lineNum">      85</span>                 :             : //</span>
+<span id="L86"><span class="lineNum">      86</span>                 :             : //     void PrintUserValue(const value_type&amp; val,</span>
+<span id="L87"><span class="lineNum">      87</span>                 :             : //                         RawSink out,</span>
+<span id="L88"><span class="lineNum">      88</span>                 :             : //                         PrintMode mode) const</span>
+<span id="L89"><span class="lineNum">      89</span>                 :             : //</span>
+<span id="L90"><span class="lineNum">      90</span>                 :             : //     void PrintCorpusValue(const corpus_type&amp; val,</span>
+<span id="L91"><span class="lineNum">      91</span>                 :             : //                           RawSink out,</span>
+<span id="L92"><span class="lineNum">      92</span>                 :             : //                           PrintMode mode) const</span>
+<span id="L93"><span class="lineNum">      93</span>                 :             : //</span>
+<span id="L94"><span class="lineNum">      94</span>                 :             : // In addition, if the domain has a custom `CorpusType`, it will need to</span>
+<span id="L95"><span class="lineNum">      95</span>                 :             : // override (by shadowing) the methods `GetValue()`, `FromValue()`,</span>
+<span id="L96"><span class="lineNum">      96</span>                 :             : // `ParseCorpus()`, and `SerializeCorpus()`. See the default implementations of</span>
+<span id="L97"><span class="lineNum">      97</span>                 :             : // these methods below.</span>
+<span id="L98"><span class="lineNum">      98</span>                 :             : template &lt;typename Derived,</span>
+<span id="L99"><span class="lineNum">      99</span>                 :             :           typename ValueType =</span>
+<span id="L100"><span class="lineNum">     100</span>                 :             :               fuzztest::internal::ExtractTemplateParameter&lt;0, Derived&gt;,</span>
+<span id="L101"><span class="lineNum">     101</span>                 :             :           typename CorpusType = ValueType&gt;</span>
+<span id="L102"><span class="lineNum">     102</span>                 :             : class DomainBase {</span>
+<span id="L103"><span class="lineNum">     103</span>                 :             :  public:</span>
+<span id="L104"><span class="lineNum">     104</span>                 :             :   using value_type = ValueType;</span>
+<span id="L105"><span class="lineNum">     105</span>                 :             :   using corpus_type = CorpusType;</span>
+<span id="L106"><span class="lineNum">     106</span>                 :             :   static constexpr bool has_custom_corpus_type =</span>
+<span id="L107"><span class="lineNum">     107</span>                 :             :       !std::is_same_v&lt;ValueType, CorpusType&gt;;</span>
+<span id="L108"><span class="lineNum">     108</span>                 :             : </span>
+<span id="L109"><span class="lineNum">     109</span>                 :<span class="tlaGNC tlaBgGNC">           6 :   DomainBase() {</span></span>
+<span id="L110"><span class="lineNum">     110</span>                 :             :     // Check that the interface of `Derived` matches the requirements for a</span>
+<span id="L111"><span class="lineNum">     111</span>                 :             :     // domain implementation. We check these inside the constructor of</span>
+<span id="L112"><span class="lineNum">     112</span>                 :             :     // `DomainBase`, where `Derived` is already fully defined. If we try to</span>
+<span id="L113"><span class="lineNum">     113</span>                 :             :     // check them at class scope we would see an incomplete `Derived` class and</span>
+<span id="L114"><span class="lineNum">     114</span>                 :             :     // the checks would not work.</span>
+<span id="L115"><span class="lineNum">     115</span>                 :             :     fuzztest::internal::CheckIsSame&lt;</span>
+<span id="L116"><span class="lineNum">     116</span>                 :<span class="tlaGNC">           6 :         ValueType, fuzztest::internal::value_type_t&lt;Derived&gt;&gt;();</span></span>
+<span id="L117"><span class="lineNum">     117</span>                 :             :     fuzztest::internal::CheckIsSame&lt;</span>
+<span id="L118"><span class="lineNum">     118</span>                 :<span class="tlaGNC">           6 :         CorpusType, fuzztest::internal::corpus_type_t&lt;Derived&gt;&gt;();</span></span>
+<span id="L119"><span class="lineNum">     119</span>                 :             :     static_assert(has_custom_corpus_type == Derived::has_custom_corpus_type);</span>
+<span id="L120"><span class="lineNum">     120</span>                 :             : </span>
+<span id="L121"><span class="lineNum">     121</span>                 :             :     // Check that `Derived` type-checks against the type-erased `Domain&lt;T&gt;`</span>
+<span id="L122"><span class="lineNum">     122</span>                 :             :     // interface by forcing the `DomainModel` template specialization.</span>
+<span id="L123"><span class="lineNum">     123</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 6 times"> + </span>]:<span class="tlaGNC">           6 :     if (Derived* domain = nullptr) {</span></span>
+<span id="L124"><span class="lineNum">     124</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC tlaBgUNC">           0 :       (void)fuzztest::internal::DomainModel&lt;Derived&gt;{*domain};</span></span>
+<span id="L125"><span class="lineNum">     125</span>                 :             :     }</span>
+<span id="L126"><span class="lineNum">     126</span>                 :<span class="tlaGNC tlaBgGNC">           6 :   }</span></span>
+<span id="L127"><span class="lineNum">     127</span>                 :             : </span>
+<span id="L128"><span class="lineNum">     128</span>                 :             :   // Returns a random user value from the domain. In general, doesn't provide</span>
+<span id="L129"><span class="lineNum">     129</span>                 :             :   // guarantees on the distribution of the returned values. Provides the same</span>
+<span id="L130"><span class="lineNum">     130</span>                 :             :   // stability/reproducibility guarantees as `prng`.</span>
+<span id="L131"><span class="lineNum">     131</span>                 :<span class="tlaUNC tlaBgUNC">           0 :   ValueType GetRandomValue(absl::BitGenRef prng) {</span></span>
+<span id="L132"><span class="lineNum">     132</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :     return derived().GetValue(derived().GetRandomCorpusValue(prng));</span></span>
+<span id="L133"><span class="lineNum">     133</span>                 :             :   }</span>
+<span id="L134"><span class="lineNum">     134</span>                 :             : </span>
+<span id="L135"><span class="lineNum">     135</span>                 :             :   // Default GetValue and FromValue functions for !has_custom_corpus_type</span>
+<span id="L136"><span class="lineNum">     136</span>                 :             :   // domains.</span>
+<span id="L137"><span class="lineNum">     137</span>                 :<span class="tlaUNC">           0 :   ValueType GetValue(const ValueType&amp; v) const {</span></span>
+<span id="L138"><span class="lineNum">     138</span>                 :             :     static_assert(!has_custom_corpus_type);</span>
+<span id="L139"><span class="lineNum">     139</span>                 :<span class="tlaUNC">           0 :     return v;</span></span>
+<span id="L140"><span class="lineNum">     140</span>                 :             :   }</span>
+<span id="L141"><span class="lineNum">     141</span>                 :<span class="tlaUNC">           0 :   std::optional&lt;ValueType&gt; FromValue(const ValueType&amp; v) const {</span></span>
+<span id="L142"><span class="lineNum">     142</span>                 :             :     static_assert(!has_custom_corpus_type);</span>
+<span id="L143"><span class="lineNum">     143</span>                 :<span class="tlaUNC">           0 :     return v;</span></span>
+<span id="L144"><span class="lineNum">     144</span>                 :             :   }</span>
+<span id="L145"><span class="lineNum">     145</span>                 :             : </span>
+<span id="L146"><span class="lineNum">     146</span>                 :<span class="tlaUNC">           0 :   std::optional&lt;CorpusType&gt; ParseCorpus(const internal::IRObject&amp; obj) const {</span></span>
+<span id="L147"><span class="lineNum">     147</span>                 :             :     static_assert(!has_custom_corpus_type);</span>
+<span id="L148"><span class="lineNum">     148</span>                 :<span class="tlaUNC">           0 :     return obj.ToCorpus&lt;CorpusType&gt;();</span></span>
+<span id="L149"><span class="lineNum">     149</span>                 :             :   }</span>
+<span id="L150"><span class="lineNum">     150</span>                 :             : </span>
+<span id="L151"><span class="lineNum">     151</span>                 :<span class="tlaUNC">           0 :   internal::IRObject SerializeCorpus(const CorpusType&amp; v) const {</span></span>
+<span id="L152"><span class="lineNum">     152</span>                 :             :     static_assert(!has_custom_corpus_type);</span>
+<span id="L153"><span class="lineNum">     153</span>                 :<span class="tlaUNC">           0 :     return internal::IRObject::FromCorpus(v);</span></span>
+<span id="L154"><span class="lineNum">     154</span>                 :             :   }</span>
+<span id="L155"><span class="lineNum">     155</span>                 :             : </span>
+<span id="L156"><span class="lineNum">     156</span>                 :             :   void UpdateMemoryDictionary(const CorpusType&amp; val, ConstCmpTablesPtr) {}</span>
+<span id="L157"><span class="lineNum">     157</span>                 :             : </span>
+<span id="L158"><span class="lineNum">     158</span>                 :<span class="tlaUNC">           0 :   uint64_t CountNumberOfFields(const CorpusType&amp;) { return 0; }</span></span>
+<span id="L159"><span class="lineNum">     159</span>                 :             : </span>
+<span id="L160"><span class="lineNum">     160</span>                 :<span class="tlaUNC">           0 :   uint64_t MutateSelectedField(CorpusType&amp;, absl::BitGenRef,</span></span>
+<span id="L161"><span class="lineNum">     161</span>                 :             :                                const MutationMetadata&amp;, bool, uint64_t) {</span>
+<span id="L162"><span class="lineNum">     162</span>                 :<span class="tlaUNC">           0 :     return 0;</span></span>
+<span id="L163"><span class="lineNum">     163</span>                 :             :   }</span>
+<span id="L164"><span class="lineNum">     164</span>                 :             : </span>
+<span id="L165"><span class="lineNum">     165</span>                 :             :   // Stores `seeds` to be occasionally sampled from during value initialization.</span>
+<span id="L166"><span class="lineNum">     166</span>                 :             :   // When called multiple times, appends to the previously added seeds.</span>
+<span id="L167"><span class="lineNum">     167</span>                 :             :   //</span>
+<span id="L168"><span class="lineNum">     168</span>                 :             :   // Note: Beware of the weird corner case when calling `.WithSeeds({0})`. This</span>
+<span id="L169"><span class="lineNum">     169</span>                 :             :   // will result in an ambiguous call, since `{0}` can be interpreted as</span>
+<span id="L170"><span class="lineNum">     170</span>                 :             :   // `std::function`. Use `.WithSeeds(std::vector{0})` instead.</span>
+<span id="L171"><span class="lineNum">     171</span>                 :             :   std::enable_if_t&lt;std::is_copy_constructible_v&lt;CorpusType&gt;, Derived&amp;&gt;</span>
+<span id="L172"><span class="lineNum">     172</span>                 :<span class="tlaUNC">           0 :   WithSeeds(const std::vector&lt;ValueType&gt;&amp; seeds) {</span></span>
+<span id="L173"><span class="lineNum">     173</span>                 :<span class="tlaUNC">           0 :     seeds_.reserve(seeds_.size() + seeds.size());</span></span>
+<span id="L174"><span class="lineNum">     174</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     for (const ValueType&amp; seed : seeds) {</span></span>
+<span id="L175"><span class="lineNum">     175</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       std::optional&lt;CorpusType&gt; corpus_value = derived().FromValue(seed);</span></span>
+<span id="L176"><span class="lineNum">     176</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       if (!corpus_value.has_value()) {</span></span>
+<span id="L177"><span class="lineNum">     177</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :         ReportBadSeedAndExit(</span></span>
+<span id="L178"><span class="lineNum">     178</span>                 :             :             seed,</span>
+<span id="L179"><span class="lineNum">     179</span>                 :<span class="tlaUNC">           0 :             absl::InvalidArgumentError(</span></span>
+<span id="L180"><span class="lineNum">     180</span>                 :             :                 &quot;Seed could not be converted to the internal corpus value&quot;));</span>
+<span id="L181"><span class="lineNum">     181</span>                 :             :       }</span>
+<span id="L182"><span class="lineNum">     182</span>                 :             : </span>
+<span id="L183"><span class="lineNum">     183</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       absl::Status valid = derived().ValidateCorpusValue(*corpus_value);</span></span>
+<span id="L184"><span class="lineNum">     184</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :       if (!valid.ok()) ReportBadSeedAndExit(seed, valid);</span></span>
+<span class="lineNum">        </span>          <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span>]
+<span id="L185"><span class="lineNum">     185</span>                 :             : </span>
+<span id="L186"><span class="lineNum">     186</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       seeds_.push_back(*std::move(corpus_value));</span></span>
+<span id="L187"><span class="lineNum">     187</span>                 :             :     }</span>
+<span id="L188"><span class="lineNum">     188</span>                 :<span class="tlaUNC">           0 :     return derived();</span></span>
+<span id="L189"><span class="lineNum">     189</span>                 :             :   }</span>
+<span id="L190"><span class="lineNum">     190</span>                 :             : </span>
+<span id="L191"><span class="lineNum">     191</span>                 :             :   // The type of a function that generates a vector of seeds.</span>
+<span id="L192"><span class="lineNum">     192</span>                 :             :   using SeedProvider = std::function&lt;std::vector&lt;ValueType&gt;()&gt;;</span>
+<span id="L193"><span class="lineNum">     193</span>                 :             : </span>
+<span id="L194"><span class="lineNum">     194</span>                 :             :   // Stores `seed_provider` to be called lazily the first time the seeds are</span>
+<span id="L195"><span class="lineNum">     195</span>                 :             :   // needed. The generated seeds are appended to any explicitly stored seeds.</span>
+<span id="L196"><span class="lineNum">     196</span>                 :             :   //</span>
+<span id="L197"><span class="lineNum">     197</span>                 :             :   // This overload can be used when the seeds need to be initialized</span>
+<span id="L198"><span class="lineNum">     198</span>                 :             :   // dynamically. For example, if the seeds depend on any global variables, this</span>
+<span id="L199"><span class="lineNum">     199</span>                 :             :   // is a way to resolve the static initialization order fiasco.</span>
+<span id="L200"><span class="lineNum">     200</span>                 :             :   std::enable_if_t&lt;std::is_copy_constructible_v&lt;CorpusType&gt;, Derived&amp;&gt;</span>
+<span id="L201"><span class="lineNum">     201</span>                 :             :   WithSeeds(SeedProvider seed_provider) {</span>
+<span id="L202"><span class="lineNum">     202</span>                 :             :     seed_provider_ = std::move(seed_provider);</span>
+<span id="L203"><span class="lineNum">     203</span>                 :             :     return derived();</span>
+<span id="L204"><span class="lineNum">     204</span>                 :             :   }</span>
+<span id="L205"><span class="lineNum">     205</span>                 :             : </span>
+<span id="L206"><span class="lineNum">     206</span>                 :             :   // Default implementation of GetRandomCorpusValue() without guarantees on the</span>
+<span id="L207"><span class="lineNum">     207</span>                 :             :   // distribution of the returned values. If possible, the derived domain should</span>
+<span id="L208"><span class="lineNum">     208</span>                 :             :   // override this with a better implementation.</span>
+<span id="L209"><span class="lineNum">     209</span>                 :<span class="tlaUNC">           0 :   CorpusType GetRandomCorpusValue(absl::BitGenRef prng) {</span></span>
+<span id="L210"><span class="lineNum">     210</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     auto corpus_val = derived().Init(prng);</span></span>
+<span id="L211"><span class="lineNum">     211</span>                 :             :     // Mutate a random number of times (including zero times). This eliminates</span>
+<span id="L212"><span class="lineNum">     212</span>                 :             :     // potential cyclicity issues (e.g., even number of mutations cancel out)</span>
+<span id="L213"><span class="lineNum">     213</span>                 :             :     // and allows returning an initial value with small but positive</span>
+<span id="L214"><span class="lineNum">     214</span>                 :             :     // probability.</span>
+<span id="L215"><span class="lineNum">     215</span>                 :<span class="tlaUNC">           0 :     constexpr int kMaxMutations = 1000;</span></span>
+<span id="L216"><span class="lineNum">     216</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :     for (int i = absl::Uniform(prng, 0, kMaxMutations); i &gt; 0; --i) {</span></span>
+<span id="L217"><span class="lineNum">     217</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       derived().Mutate(corpus_val, prng, MutationMetadata{},</span></span>
+<span id="L218"><span class="lineNum">     218</span>                 :             :                        /*only_shrink=*/false);</span>
+<span id="L219"><span class="lineNum">     219</span>                 :             :     }</span>
+<span id="L220"><span class="lineNum">     220</span>                 :<span class="tlaUNC">           0 :     return corpus_val;</span></span>
+<span id="L221"><span class="lineNum">     221</span>                 :<span class="tlaUNC">           0 :   }</span></span>
+<span id="L222"><span class="lineNum">     222</span>                 :             : </span>
+<span id="L223"><span class="lineNum">     223</span>                 :             :  protected:</span>
+<span id="L224"><span class="lineNum">     224</span>                 :             :   // `Derived::Init()` can use this to sample seeds for this domain.</span>
+<span id="L225"><span class="lineNum">     225</span>                 :<span class="tlaGNC tlaBgGNC">       13918 :   std::optional&lt;CorpusType&gt; MaybeGetRandomSeed(absl::BitGenRef prng) {</span></span>
+<span id="L226"><span class="lineNum">     226</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 13918 times"> + </span>]:<span class="tlaGNC">       13918 :     if (seed_provider_ != nullptr) {</span></span>
+<span id="L227"><span class="lineNum">     227</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC tlaBgUNC">           0 :       WithSeeds(std::invoke(seed_provider_));</span></span>
+<span id="L228"><span class="lineNum">     228</span>                 :<span class="tlaUNC">           0 :       seed_provider_ = nullptr;</span></span>
+<span id="L229"><span class="lineNum">     229</span>                 :             :     }</span>
+<span id="L230"><span class="lineNum">     230</span>                 :             : </span>
+<span id="L231"><span class="lineNum">     231</span>                 :             :     static constexpr double kProbabilityToReturnSeed = 0.5;</span>
+<span id="L232"><span class="lineNum">     232</span>   [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 13918 times"> + </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC tlaBgGNC">       13918 :     if (seeds_.empty() || !absl::Bernoulli(prng, kProbabilityToReturnSeed)) {</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 13918 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L233"><span class="lineNum">     233</span>                 :<span class="tlaGNC">       13918 :       return std::nullopt;</span></span>
+<span id="L234"><span class="lineNum">     234</span>                 :             :     }</span>
+<span id="L235"><span class="lineNum">     235</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC tlaBgUNC">           0 :     return seeds_[absl::Uniform(prng, 0u, seeds_.size())];</span></span>
+<span id="L236"><span class="lineNum">     236</span>                 :             :   }</span>
+<span id="L237"><span class="lineNum">     237</span>                 :             : </span>
+<span id="L238"><span class="lineNum">     238</span>                 :             :  private:</span>
+<span id="L239"><span class="lineNum">     239</span>                 :<span class="tlaUNC">           0 :   Derived&amp; derived() { return static_cast&lt;Derived&amp;&gt;(*this); }</span></span>
+<span id="L240"><span class="lineNum">     240</span>                 :             :   const Derived&amp; derived() const { return static_cast&lt;const Derived&amp;&gt;(*this); }</span>
+<span id="L241"><span class="lineNum">     241</span>                 :             : </span>
+<span id="L242"><span class="lineNum">     242</span>                 :<span class="tlaUNC">           0 :   static void ReportBadSeedAndExit(const ValueType&amp; seed,</span></span>
+<span id="L243"><span class="lineNum">     243</span>                 :             :                                    const absl::Status&amp; status) {</span>
+<span id="L244"><span class="lineNum">     244</span>                 :             :     // This may run during fuzz test registration (i.e., global variable</span>
+<span id="L245"><span class="lineNum">     245</span>                 :             :     // initialization), so we can't use `GetStderr()`.</span>
+<span id="L246"><span class="lineNum">     246</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :     absl::FPrintF(stderr, &quot;[!] Invalid seed value (%s):\n\n{&quot;,</span></span>
+<span id="L247"><span class="lineNum">     247</span>                 :             :                   status.ToString());</span>
+<span id="L248"><span class="lineNum">     248</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :     fuzztest::internal::AutodetectTypePrinter&lt;ValueType&gt;().PrintUserValue(</span></span>
+<span id="L249"><span class="lineNum">     249</span>                 :             :         seed, &amp;std::cerr, PrintMode::kHumanReadable);</span>
+<span id="L250"><span class="lineNum">     250</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     absl::FPrintF(stderr, &quot;}\n&quot;);</span></span>
+<span id="L251"><span class="lineNum">     251</span>                 :<span class="tlaUNC">           0 :     std::exit(1);</span></span>
+<span id="L252"><span class="lineNum">     252</span>                 :             :   }</span>
+<span id="L253"><span class="lineNum">     253</span>                 :             : </span>
+<span id="L254"><span class="lineNum">     254</span>                 :             :   std::vector&lt;CorpusType&gt; seeds_;</span>
+<span id="L255"><span class="lineNum">     255</span>                 :             :   SeedProvider seed_provider_;</span>
+<span id="L256"><span class="lineNum">     256</span>                 :             : };</span>
+<span id="L257"><span class="lineNum">     257</span>                 :             : </span>
+<span id="L258"><span class="lineNum">     258</span>                 :             : }  //  namespace fuzztest::domain_implementor</span>
+<span id="L259"><span class="lineNum">     259</span>                 :             : </span>
+<span id="L260"><span class="lineNum">     260</span>                 :             : #endif  // FUZZTEST_FUZZTEST_INTERNAL_DOMAINS_DOMAIN_BASE_H_</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

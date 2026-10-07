@@ -1,0 +1,2671 @@
+Found 1332 entries.
+Found common filename prefix "/home/jehangir_ahmed/sqe/PX4-Autopilot"
+Generating output.
+Processing file src/lib/matrix/matrix/Dcm2.hpp
+  lines=12 hit=12 functions=2 hit=2
+Processing file src/modules/navigator/mission_feasibility_checker.h
+  lines=6 hit=0 functions=3 hit=0 branches=2 hit=0
+Processing file src/modules/navigator/loiter.h
+  lines=1 hit=0 functions=2 hit=0
+Processing file src/systemcmds/tests/test_search_min.cpp
+  lines=90 hit=90 functions=11 hit=11 branches=38 hit=19
+Processing file src/examples/fake_gps/FakeGps.cpp
+  lines=73 hit=0 functions=7 hit=0 branches=36 hit=0
+Processing file src/modules/attitude_estimator_q/attitude_estimator_q_main.cpp
+  lines=225 hit=0 functions=21 hit=0 branches=578 hit=0
+Processing file src/modules/commander/ModeManagement.hpp
+  lines=23 hit=15 functions=9 hit=3 branches=12 hit=3
+Processing file src/lib/drivers/rangefinder/PX4Rangefinder.cpp
+  lines=28 hit=0 functions=5 hit=0 branches=14 hit=0
+Processing file src/lib/controllib/BlockRandGauss.hpp
+  lines=20 hit=20 functions=6 hit=5 branches=10 hit=7
+Processing file src/lib/ringbuffer/Ringbuffer.cpp
+  lines=64 hit=61 functions=7 hit=7 branches=30 hit=25
+Processing file src/modules/ekf2/EKF/aid_sources/external_vision/ev_vel.h
+  lines=63 hit=63 functions=12 hit=11 branches=126 hit=65
+Processing file src/modules/commander/HealthAndArmingChecks/checks/opticalFlowCheck.hpp
+  lines=3 hit=0 functions=4 hit=0 branches=4 hit=0
+Processing file platforms/posix/src/px4/common/print_load.cpp
+  lines=19 hit=12 functions=3 hit=2 branches=8 hit=2
+Processing file src/lib/controllib/BlockLowPass.hpp
+  lines=7 hit=7 functions=6 hit=5 branches=2 hit=1
+Processing file src/modules/flight_mode_manager/FlightModeManager.cpp
+  lines=233 hit=0 functions=18 hit=0 branches=288 hit=0
+Processing file src/lib/wind_estimator/python/generated/fuse_airspeed.h
+  lines=32 hit=32 functions=1 hit=1 branches=8 hit=4
+Processing file src/modules/gimbal/gimbal.cpp
+  lines=310 hit=0 functions=5 hit=0 branches=353 hit=0
+Processing file src/modules/commander/failsafe/framework.cpp
+  lines=333 hit=268 functions=17 hit=16 branches=412 hit=266
+Processing file src/modules/events/status_display.cpp
+  lines=28 hit=0 functions=4 hit=0 branches=18 hit=0
+Processing file src/lib/drivers/magnetometer/PX4Magnetometer.hpp
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/modules/mavlink/streams/OBSTACLE_DISTANCE.hpp
+  lines=24 hit=12 functions=8 hit=8 branches=18 hit=6
+Processing file test/fuzztest/fuzztest/internal/status.cc
+  lines=14 hit=2 functions=4 hit=1 branches=36 hit=2
+Processing file src/modules/ekf2/EKF/bias_estimator/bias_estimator.hpp
+  lines=18 hit=18 functions=11 hit=10
+Processing file src/modules/commander/HealthAndArmingChecks/checks/cpuResourceCheck.cpp
+  lines=26 hit=0 functions=2 hit=0 branches=62 hit=0
+Processing file src/modules/uxrce_dds_client/srv_base.cpp
+  lines=42 hit=0 functions=6 hit=0 branches=46 hit=0
+Processing file src/modules/rc_update/rc_update.h
+  lines=1 hit=1 functions=1 hit=1
+Processing file src/modules/flight_mode_manager/tasks/ManualAcceleration/FlightTaskManualAcceleration.cpp
+  lines=36 hit=0 functions=4 hit=0 branches=68 hit=0
+Processing file src/modules/fw_mode_manager/figure_eight/FigureEight.hpp
+  lines=9 hit=0 functions=3 hit=0 branches=12 hit=0
+Processing file src/modules/commander/worker_thread.cpp
+  lines=92 hit=0 functions=5 hit=0 branches=42 hit=0
+Processing file src/lib/matrix/test/MatrixDcm2Test.cpp
+  lines=30 hit=30 functions=8 hit=8 branches=232 hit=83
+Processing file platforms/posix/src/px4/common/px4_daemon/pxh.cpp
+  lines=274 hit=22 functions=13 hit=1 branches=346 hit=23
+Processing file src/lib/matrix/matrix/integration.hpp
+  lines=17 hit=17 functions=1 hit=1 branches=54 hit=30
+Processing file src/modules/landing_target_estimator/KalmanFilter.cpp
+  lines=65 hit=0 functions=10 hit=0 branches=56 hit=0
+Processing file src/modules/rover_ackermann/AckermannPosControl/AckermannPosControl.cpp
+  lines=92 hit=0 functions=5 hit=0 branches=164 hit=0
+Processing file src/lib/matrix/matrix/Vector4.hpp
+  lines=21 hit=21 functions=8 hit=8 branches=12 hit=6
+Processing file src/modules/simulation/sensor_airspeed_sim/SensorAirspeedSim.cpp
+  lines=84 hit=0 functions=10 hit=0 branches=88 hit=0
+Processing file src/modules/flight_mode_manager/tasks/Utility/StickTiltXY.cpp
+  lines=27 hit=15 functions=5 hit=3 branches=42 hit=7
+Processing file src/modules/commander/HealthAndArmingChecks/checks/distanceSensorChecks.cpp
+  lines=20 hit=0 functions=1 hit=0 branches=32 hit=0
+Processing file src/modules/mavlink/streams/GLOBAL_POSITION.hpp
+  lines=30 hit=13 functions=8 hit=8 branches=22 hit=6
+Processing file src/modules/ekf2/EKF/aid_sources/auxvel/auxvel_fusion.cpp
+  lines=14 hit=3 functions=2 hit=1 branches=30 hit=1
+Processing file src/modules/mc_pos_control/PositionControl/PositionControl.hpp
+  lines=7 hit=4 functions=7 hit=4 branches=6 hit=0
+Processing file src/systemcmds/tests/test_rc.cpp
+  lines=40 hit=0 functions=1 hit=0 branches=16 hit=0
+Processing file src/modules/ekf2/EKF/aid_sources/external_vision/ev_height_control.cpp
+  lines=78 hit=57 functions=2 hit=2 branches=138 hit=70
+Processing file src/lib/control_allocation/control_allocation/ControlAllocationPseudoInverse.cpp
+  lines=71 hit=54 functions=5 hit=5 branches=92 hit=45
+Processing file src/drivers/gnss/septentrio/septentrio.cpp
+  lines=918 hit=123 functions=55 hit=8 branches=830 hit=64
+Processing file src/modules/gimbal/output_rc.h
+  lines=1 hit=0 functions=2 hit=0
+Processing file src/modules/ekf2/test/test_EKF_height_fusion.cpp
+  lines=231 hit=231 functions=39 hit=39 branches=948 hit=188
+Processing file src/modules/mavlink/streams/OPEN_DRONE_ID_ARM_STATUS.hpp
+  lines=23 hit=17 functions=8 hit=8 branches=20 hit=6
+Processing file src/modules/ekf2/EKF/aid_sources/magnetometer/mag_fusion.cpp
+  lines=68 hit=55 functions=3 hit=2 branches=146 hit=73
+Processing file src/modules/mavlink/streams/SCALED_PRESSURE3.hpp
+  lines=25 hit=2 functions=8 hit=2 branches=36 hit=0
+Processing file platforms/common/include/px4_platform_common/i2c_spi_buses.h
+  lines=8 hit=0 functions=7 hit=0
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessHelicopterTest.cpp
+  lines=51 hit=51 functions=4 hit=4 branches=192 hit=64
+Processing file src/systemcmds/tests/test_file2.c
+  lines=94 hit=53 functions=4 hit=3 branches=39 hit=23
+Processing file test/fuzztest/fuzztest/internal/table_of_recent_compares.h
+  lines=201 hit=2 functions=48 hit=1 branches=206 hit=0
+Processing file src/lib/controllib/BlockLowPass.cpp
+  lines=7 hit=7 functions=1 hit=1 branches=2 hit=2
+Processing file src/lib/sensor_calibration/Utilities.cpp
+  lines=112 hit=48 functions=10 hit=6 branches=128 hit=33
+Processing file src/modules/ekf2/EKF/python/ekf_derivation/generated/compute_drag_y_innov_var_and_h.h
+  lines=130 hit=130 functions=1 hit=1 branches=4 hit=2
+Processing file src/modules/ekf2/EKF/aid_sources/range_finder/range_height_fusion.cpp
+  lines=20 hit=18 functions=1 hit=1 branches=28 hit=17
+Processing file src/lib/controllib/BlockDelay.hpp
+  lines=22 hit=18 functions=14 hit=3 branches=8 hit=6
+Processing file src/modules/ekf2/EKF/aid_sources/range_finder/range_finder_consistency_check.hpp
+  lines=6 hit=3 functions=6 hit=3
+Processing file src/systemcmds/tests/test_hrt.cpp
+  lines=24 hit=24 functions=1 hit=1 branches=6 hit=6
+Processing file src/modules/rover_differential/DifferentialDriveModes/DifferentialManualMode/DifferentialManualMode.hpp
+  lines=2 hit=0 functions=3 hit=0
+Processing file src/modules/commander/HealthAndArmingChecks/checks/airspeedCheck.hpp
+  lines=2 hit=0 functions=3 hit=0
+Processing file src/lib/rover_control/RoverControlTest.cpp
+  lines=47 hit=47 functions=8 hit=8 branches=196 hit=66
+Processing file src/modules/mc_att_control/mc_att_control.hpp
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/lib/mathlib/math/filter/NotchFilter.hpp
+  lines=104 hit=97 functions=26 hit=18 branches=132 hit=72
+Processing file src/modules/mavlink/streams/GPS2_RAW.hpp
+  lines=48 hit=14 functions=8 hit=8 branches=44 hit=8
+Processing file src/modules/commander/HealthAndArmingChecks/checks/batteryCheck.hpp
+  lines=3 hit=0 functions=4 hit=0 branches=8 hit=0
+Processing file src/modules/navigator/precland.cpp
+  lines=266 hit=0 functions=21 hit=0 branches=317 hit=0
+Processing file src/lib/parameters/autosave.cpp
+  lines=44 hit=38 functions=4 hit=4 branches=40 hit=24
+Processing file src/modules/ekf2/EKF/python/ekf_derivation/generated/compute_hagl_h.h
+  lines=7 hit=7 functions=1 hit=1 branches=2 hit=1
+Processing file src/modules/commander/HealthAndArmingChecks/checks/homePositionCheck.hpp
+  lines=2 hit=0 functions=3 hit=0 branches=2 hit=0
+Processing file src/lib/pure_pursuit/PurePursuitTest.cpp
+  lines=84 hit=84 functions=24 hit=24 branches=318 hit=101
+Processing file platforms/posix/src/px4/common/px4_daemon/server_io.cpp
+  lines=10 hit=8 functions=1 hit=1 branches=14 hit=9
+Processing file src/lib/rc/rc_tests/RCTest.cpp
+  lines=193 hit=167 functions=12 hit=12 branches=276 hit=122
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessTailsitterVTOL.hpp
+  lines=11 hit=0 functions=6 hit=0
+Processing file src/modules/ekf2/test/test_helper/comparison_helper.cpp
+  lines=11 hit=11 functions=2 hit=2 branches=14 hit=10
+Processing file src/modules/sensors/data_validator/DataValidator.hpp
+  lines=12 hit=9 functions=12 hit=9
+Processing file src/modules/mavlink/streams/DEBUG_FLOAT_ARRAY.hpp
+  lines=20 hit=11 functions=8 hit=8 branches=20 hit=6
+Processing file src/lib/mixer_module/mixer_module_tests.cpp
+  lines=289 hit=286 functions=30 hit=29 branches=1186 hit=367
+Processing file src/modules/flight_mode_manager/tasks/Orbit/FlightTaskOrbit.hpp
+  lines=2 hit=0 functions=3 hit=0
+Processing file src/modules/fw_att_control/fw_pitch_controller.h
+  lines=6 hit=0 functions=6 hit=0
+Processing file src/lib/sticks/Sticks.cpp
+  lines=31 hit=9 functions=4 hit=2 branches=58 hit=7
+Processing file src/lib/controllib/BlockHighPass.cpp
+  lines=6 hit=6 functions=1 hit=1
+Processing file src/modules/mavlink/streams/MANUAL_CONTROL.hpp
+  lines=46 hit=2 functions=8 hit=2 branches=36 hit=0
+Processing file platforms/common/board_identity_test.cpp
+  lines=38 hit=38 functions=12 hit=12 branches=192 hit=48
+Processing file src/modules/ekf2/test/test_helper/reset_logging_checker.h
+  lines=1 hit=1 functions=1 hit=1
+Processing file src/modules/ekf2/EKF/aid_sources/gravity/gravity_fusion.cpp
+  lines=41 hit=35 functions=1 hit=1 branches=104 hit=48
+Processing file src/lib/control_allocation/control_allocation/ControlAllocationSequentialDesaturationTest.cpp
+  lines=342 hit=342 functions=80 hit=80 branches=3394 hit=991
+Processing file src/lib/controllib/BlockPID.hpp
+  lines=17 hit=17 functions=9 hit=8 branches=10 hit=5
+Processing file src/modules/mavlink/streams/SYSTEM_TIME.hpp
+  lines=17 hit=2 functions=8 hit=2 branches=16 hit=0
+Processing file src/modules/replay/Replay.hpp
+  lines=10 hit=0 functions=9 hit=0
+Processing file src/lib/matrix/matrix/Dcm.hpp
+  lines=63 hit=63 functions=9 hit=9 branches=26 hit=14
+Processing file src/lib/sensor_calibration/Gyroscope.hpp
+  lines=17 hit=9 functions=14 hit=8 branches=44 hit=8
+Processing file src/systemcmds/tests/test_bitset.cpp
+  lines=52 hit=52 functions=5 hit=5 branches=76 hit=52
+Processing file src/modules/navigator/takeoff.h
+  lines=3 hit=0 functions=4 hit=0
+Processing file platforms/common/uORB/uORBDeviceMaster.cpp
+  lines=190 hit=46 functions=8 hit=4 branches=256 hit=48
+Processing file src/modules/commander/HealthAndArmingChecks/checks/externalChecks.hpp
+  lines=7 hit=0 functions=8 hit=0 branches=18 hit=0
+Processing file src/modules/rover_differential/RoverDifferential.cpp
+  lines=119 hit=0 functions=12 hit=0 branches=131 hit=0
+Processing file src/lib/mathlib/math/WelfordMeanVectorTest.cpp
+  lines=20 hit=20 functions=4 hit=4 branches=104 hit=31
+Processing file src/modules/commander/HealthAndArmingChecks/checks/escCheck.cpp
+  lines=58 hit=0 functions=3 hit=0 branches=83 hit=0
+Processing file src/modules/ekf2/EKF/aid_sources/aux_global_position/aux_global_position.cpp
+  lines=80 hit=0 functions=2 hit=0 branches=111 hit=0
+Processing file src/systemcmds/tests/test_param.c
+  lines=32 hit=16 functions=1 hit=1 branches=16 hit=8
+Processing file src/modules/uuv_att_control/uuv_att_control.hpp
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/lib/motion_planning/VelocitySmoothing.cpp
+  lines=143 hit=141 functions=16 hit=16 branches=58 hit=49
+Processing file src/modules/gyro_fft/CMSIS_5/CMSIS/DSP/Source/BasicMathFunctions/arm_mult_q15.c
+  lines=13 hit=11 functions=1 hit=1 branches=14 hit=7
+Processing file src/modules/commander/HealthAndArmingChecks/checks/modeCheck.cpp
+  lines=59 hit=0 functions=2 hit=0 branches=110 hit=0
+Processing file src/lib/matrix/matrix/Matrix.hpp
+  lines=400 hit=388 functions=847 hit=590 branches=318 hit=255
+Processing file src/systemcmds/tests/hrt_test/hrt_test_start.cpp
+  lines=21 hit=12 functions=1 hit=1 branches=14 hit=7
+Processing file src/modules/commander/HealthAndArmingChecks/checks/openDroneIDCheck.cpp
+  lines=14 hit=0 functions=1 hit=0 branches=16 hit=0
+Processing file src/modules/commander/HealthAndArmingChecks/checks/loggerCheck.cpp
+  lines=13 hit=0 functions=2 hit=0 branches=20 hit=0
+Processing file src/modules/mavlink/streams/GIMBAL_DEVICE_ATTITUDE_STATUS.hpp
+  lines=34 hit=13 functions=8 hit=8 branches=20 hit=6
+Processing file src/modules/mc_pos_control/PositionControl/PositionControlTest.cpp
+  lines=252 hit=241 functions=71 hit=71 branches=1378 hit=311
+Processing file src/modules/rover_ackermann/RoverAckermann.hpp
+  lines=1 hit=0 functions=2 hit=0
+Processing file src/modules/gimbal/output_mavlink.h
+  lines=2 hit=0 functions=4 hit=0
+Processing file src/modules/airspeed_selector/airspeed_selector_main.cpp
+  lines=370 hit=0 functions=18 hit=0 branches=504 hit=0
+Processing file src/modules/local_position_estimator/BlockLocalPositionEstimator.hpp
+  lines=4 hit=0 functions=4 hit=0
+Processing file src/modules/mavlink/streams/LOCAL_POSITION_NED.hpp
+  lines=21 hit=11 functions=8 hit=8 branches=18 hit=6
+Processing file src/drivers/gnss/septentrio/util.cpp
+  lines=7 hit=7 functions=1 hit=1 branches=2 hit=2
+Processing file src/lib/controllib/block/BlockParam.hpp
+  lines=4 hit=4 functions=17 hit=4
+Processing file src/modules/mavlink/streams/WIND_COV.hpp
+  lines=25 hit=11 functions=8 hit=8 branches=26 hit=7
+Processing file src/examples/work_item/WorkItemExample.cpp
+  lines=66 hit=0 functions=10 hit=0 branches=88 hit=0
+Processing file src/lib/npfg/CourseToAirspeedRefMapper.hpp
+  lines=1 hit=1 functions=1 hit=1
+Processing file src/modules/commander/UserModeIntention.cpp
+  lines=32 hit=0 functions=3 hit=0 branches=28 hit=0
+Processing file src/modules/local_position_estimator/sensors/baro.cpp
+  lines=51 hit=0 functions=4 hit=0 branches=112 hit=0
+Processing file platforms/common/work_queue/sq_addlast.c
+  lines=8 hit=6 functions=1 hit=1 branches=2 hit=1
+Processing file src/modules/ekf2/EKF/python/ekf_derivation/generated/compute_drag_x_innov_var_and_h.h
+  lines=130 hit=130 functions=1 hit=1 branches=4 hit=2
+Processing file src/modules/navigator/mission_base.h
+  lines=3 hit=0 functions=4 hit=0 branches=6 hit=0
+Processing file platforms/common/px4_work_queue/WorkQueueManager.cpp
+  lines=183 hit=64 functions=10 hit=5 branches=193 hit=42
+Processing file src/modules/manual_control/ManualControlSelector.hpp
+  lines=3 hit=3 functions=3 hit=3
+Processing file src/drivers/camera_trigger/interfaces/src/camera_interface.h
+  lines=9 hit=0 functions=10 hit=0
+Processing file test/fuzztest/common/blob_file.cc
+  lines=119 hit=0 functions=19 hit=0 branches=282 hit=0
+Processing file platforms/common/module.cpp
+  lines=75 hit=0 functions=14 hit=0 branches=28 hit=0
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessControlSurfaces.cpp
+  lines=108 hit=0 functions=6 hit=0 branches=115 hit=0
+Processing file src/lib/adsb/AdsbConflict.cpp
+  lines=176 hit=65 functions=11 hit=6 branches=101 hit=43
+Processing file src/modules/mavlink/streams/ATTITUDE_QUATERNION.hpp
+  lines=32 hit=11 functions=8 hit=8 branches=36 hit=8
+Processing file src/modules/logger/logged_topics.cpp
+  lines=374 hit=300 functions=20 hit=14 branches=446 hit=221
+Processing file src/modules/mavlink/streams/ATTITUDE_TARGET.hpp
+  lines=30 hit=17 functions=8 hit=8 branches=42 hit=13
+Processing file platforms/common/Serial.cpp
+  lines=66 hit=4 functions=32 hit=2 branches=4 hit=0
+Processing file src/lib/version/version.h
+  lines=6 hit=6 functions=3 hit=3
+Processing file src/lib/mathlib/math/test/AlphaFilterTest.cpp
+  lines=154 hit=154 functions=68 hit=68 branches=504 hit=166
+Processing file src/modules/ekf2/EKF/python/ekf_derivation/generated/compute_hagl_innov_var.h
+  lines=5 hit=5 functions=1 hit=1 branches=2 hit=1
+Processing file src/lib/wind_estimator/WindEstimator.cpp
+  lines=92 hit=0 functions=6 hit=0 branches=124 hit=0
+Processing file platforms/common/px4_log.cpp
+  lines=66 hit=54 functions=4 hit=3 branches=42 hit=21
+Processing file src/modules/simulation/simulator_mavlink/SimulatorMavlink.cpp
+  lines=926 hit=33 functions=27 hit=4 branches=810 hit=40
+Processing file src/lib/system_identification/arx_rls.hpp
+  lines=57 hit=56 functions=20 hit=19 branches=82 hit=50
+Processing file src/modules/mavlink/streams/PROTOCOL_VERSION.hpp
+  lines=11 hit=2 functions=8 hit=2 branches=8 hit=0
+Processing file src/modules/ekf2/EKF/aid_sources/fake_height_control.cpp
+  lines=48 hit=46 functions=4 hit=4 branches=32 hit=26
+Processing file src/drivers/gps/devices/src/rtcm.cpp
+  lines=56 hit=0 functions=5 hit=0 branches=30 hit=0
+Processing file src/modules/mavlink/streams/HEARTBEAT.hpp
+  lines=43 hit=33 functions=9 hit=9 branches=56 hit=24
+Processing file src/modules/mavlink/mavlink_simple_analyzer.cpp
+  lines=70 hit=0 functions=10 hit=0 branches=32 hit=0
+Processing file src/modules/ekf2/EKF/python/ekf_derivation/generated/compute_airspeed_innov_and_innov_var.h
+  lines=26 hit=26 functions=1 hit=1 branches=4 hit=2
+Processing file src/lib/cdev/CDev.hpp
+  lines=10 hit=6 functions=10 hit=6 branches=2 hit=1
+Processing file src/drivers/osd/msp_osd/msp_osd.hpp
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/modules/rover_differential/DifferentialDriveModes/DifferentialOffboardMode/DifferentialOffboardMode.hpp
+  lines=1 hit=0 functions=2 hit=0
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessRotors.cpp
+  lines=138 hit=26 functions=10 hit=2 branches=158 hit=31
+Processing file test/fuzztest/fuzztest/internal/domains/container_mutation_helpers.h
+  lines=117 hit=19 functions=15 hit=2 branches=136 hit=12
+Processing file src/modules/sensors/vehicle_acceleration/VehicleAcceleration.hpp
+  lines=1 hit=1 functions=1 hit=1
+Processing file src/include/containers/IntrusiveQueue.hpp
+  lines=52 hit=46 functions=21 hit=21 branches=28 hit=22
+Processing file src/lib/conversion/rotation.h
+  lines=133 hit=133 functions=2 hit=2 branches=25 hit=25
+Processing file src/modules/fw_mode_manager/runway_takeoff/RunwayTakeoff.cpp
+  lines=72 hit=0 functions=9 hit=0 branches=32 hit=0
+Processing file src/systemcmds/sd_bench/sd_bench.cpp
+  lines=173 hit=0 functions=5 hit=0 branches=145 hit=0
+Processing file platforms/posix/src/px4/common/px4_daemon/history.cpp
+  lines=35 hit=0 functions=5 hit=0 branches=26 hit=0
+Processing file src/modules/commander/HealthAndArmingChecks/checks/flightTimeCheck.hpp
+  lines=3 hit=0 functions=4 hit=0 branches=2 hit=0
+Processing file src/lib/motion_planning/PositionSmoothing.cpp
+  lines=130 hit=87 functions=8 hit=7 branches=348 hit=110
+Processing file src/modules/mavlink/streams/GIMBAL_DEVICE_INFORMATION.hpp
+  lines=31 hit=2 functions=8 hit=2 branches=24 hit=0
+Processing file src/modules/ekf2/EKF/aid_sources/gnss/gnss_yaw_control.cpp
+  lines=90 hit=79 functions=5 hit=5 branches=104 hit=60
+Processing file src/modules/ekf2/test/test_EKF_flow_generated.cpp
+  lines=34 hit=34 functions=12 hit=12 branches=148 hit=77
+Processing file src/lib/matrix/test/MatrixLeastSquaresTest.cpp
+  lines=28 hit=28 functions=12 hit=12 branches=58 hit=20
+Processing file src/modules/payload_deliverer/gripper.cpp
+  lines=85 hit=0 functions=7 hit=0 branches=33 hit=0
+Processing file src/modules/commander/failure_detector/FailureDetector.cpp
+  lines=153 hit=0 functions=7 hit=0 branches=254 hit=0
+Processing file src/modules/ekf2/EKF/yaw_estimator/derivation/generated/yaw_est_compute_measurement_update.h
+  lines=44 hit=44 functions=1 hit=1 branches=8 hit=4
+Processing file src/modules/camera_feedback/CameraFeedback.hpp
+  lines=1 hit=0 functions=2 hit=0
+Processing file src/lib/controllib/BlockLimitSym.hpp
+  lines=5 hit=5 functions=4 hit=3 branches=2 hit=1
+Processing file src/modules/ekf2/test/test_EKF_fake_pos.cpp
+  lines=48 hit=48 functions=15 hit=15 branches=136 hit=30
+Processing file src/modules/simulation/gz_bridge/GZMixingInterfaceServo.cpp
+  lines=67 hit=0 functions=5 hit=0 branches=70 hit=0
+Processing file src/lib/fw_performance_model/PerformanceModel.hpp
+  lines=2 hit=0 functions=3 hit=0
+Processing file src/drivers/tone_alarm/ToneAlarm.cpp
+  lines=129 hit=34 functions=9 hit=5 branches=149 hit=24
+Processing file src/modules/mavlink/streams/UAVIONIX_ADSB_OUT_DYNAMIC.hpp
+  lines=35 hit=2 functions=10 hit=2 branches=32 hit=0
+Processing file src/lib/parameters/parameters_common.cpp
+  lines=44 hit=33 functions=9 hit=8 branches=23 hit=14
+Processing file src/modules/commander/ModeManagementTest.cpp
+  lines=37 hit=37 functions=6 hit=6 branches=134 hit=40
+Processing file src/modules/commander/HealthAndArmingChecks/checks/missionCheck.cpp
+  lines=11 hit=0 functions=1 hit=0 branches=18 hit=0
+Processing file src/drivers/gps/devices/src/mtk.cpp
+  lines=130 hit=0 functions=7 hit=0 branches=72 hit=0
+Processing file src/lib/wind_estimator/WindEstimator.hpp
+  lines=19 hit=0 functions=19 hit=0 branches=12 hit=0
+Processing file src/modules/rover_mecanum/MecanumDriveModes/MecanumOffboardMode/MecanumOffboardMode.cpp
+  lines=53 hit=0 functions=3 hit=0 branches=74 hit=0
+Processing file src/modules/flight_mode_manager/tasks/Orbit/FlightTaskOrbit.cpp
+  lines=194 hit=0 functions=12 hit=0 branches=335 hit=0
+Processing file src/lib/slew_rate/SlewRateTest.cpp
+  lines=23 hit=23 functions=12 hit=12 branches=48 hit=16
+Processing file src/lib/mathlib/math/test/MedianFilterTest.cpp
+  lines=22 hit=22 functions=16 hit=16 branches=56 hit=20
+Processing file src/modules/ekf2/test/test_EKF_mag.cpp
+  lines=103 hit=103 functions=22 hit=22 branches=436 hit=116
+Processing file src/modules/ekf2/EKF/position_fusion.cpp
+  lines=103 hit=100 functions=12 hit=12 branches=144 hit=79
+Processing file src/systemcmds/bsondump/bsondump.cpp
+  lines=97 hit=0 functions=4 hit=0 branches=96 hit=0
+Processing file src/modules/commander/HealthAndArmingChecks/checks/accelerometerCheck.hpp
+  lines=2 hit=0 functions=3 hit=0 branches=4 hit=0
+Processing file src/modules/dataman/dataman.cpp
+  lines=401 hit=213 functions=19 hit=10 branches=294 hit=113
+Processing file src/lib/controllib/BlockOutput.hpp
+  lines=14 hit=14 functions=8 hit=7 branches=6 hit=3
+Processing file src/modules/rover_mecanum/MecanumSpeedControl/MecanumSpeedControl.hpp
+  lines=3 hit=0 functions=4 hit=0
+Processing file src/modules/mavlink/streams/FIGURE_EIGHT_EXECUTION_STATUS.hpp
+  lines=23 hit=12 functions=8 hit=8 branches=26 hit=10
+Processing file test/fuzztest/fuzztest/init_fuzztest.cc
+  lines=170 hit=106 functions=28 hit=25 branches=402 hit=103
+Processing file test/fuzztest/common/hash.cc
+  lines=8 hit=0 functions=2 hit=0 branches=6 hit=0
+Processing file src/modules/fw_att_control/FixedwingAttitudeControl.hpp
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/modules/commander/lm_fit.cpp
+  lines=194 hit=182 functions=3 hit=3 branches=320 hit=185
+Processing file test/fuzztest/common/sha1.cc
+  lines=82 hit=0 functions=9 hit=0 branches=18 hit=0
+Processing file src/modules/flight_mode_manager/tasks/Utility/StickTiltXY.hpp
+  lines=2 hit=2 functions=3 hit=2
+Processing file src/modules/mavlink/streams/ACTUATOR_OUTPUT_STATUS.hpp
+  lines=19 hit=2 functions=8 hit=2 branches=24 hit=0
+Processing file src/lib/matrix/test/MatrixPseudoInverseTest.cpp
+  lines=44 hit=44 functions=4 hit=4 branches=166 hit=34
+Processing file test/fuzztest/fuzztest/internal/googletest_adaptor.h
+  lines=44 hit=26 functions=6 hit=4 branches=137 hit=17
+Processing file platforms/common/work_queue/work_thread.c
+  lines=37 hit=19 functions=5 hit=4 branches=8 hit=1
+Processing file src/lib/modes/ui.hpp
+  lines=16 hit=0 functions=2 hit=0 branches=12 hit=0
+Processing file test/fuzztest/fuzztest/internal/type_support.h
+  lines=63 hit=0 functions=16 hit=0 branches=71 hit=0
+Processing file src/modules/mc_pos_control/Takeoff/Takeoff.cpp
+  lines=42 hit=36 functions=3 hit=3 branches=30 hit=23
+Processing file src/modules/land_detector/LandDetector.cpp
+  lines=122 hit=0 functions=6 hit=0 branches=210 hit=0
+Processing file src/modules/mavlink/streams/UAVIONIX_ADSB_OUT_CFG.hpp
+  lines=45 hit=2 functions=11 hit=2 branches=58 hit=0
+Processing file test/fuzztest/fuzztest/internal/serialization.h
+  lines=58 hit=0 functions=15 hit=0 branches=48 hit=0
+Processing file src/lib/motion_planning/HeadingSmoothing.cpp
+  lines=17 hit=17 functions=3 hit=3 branches=2 hit=1
+Processing file src/modules/navigator/rtl_base.h
+  lines=5 hit=0 functions=5 hit=0
+Processing file src/systemcmds/tests/test_hott_telemetry.c
+  lines=69 hit=0 functions=2 hit=0 branches=28 hit=0
+Processing file src/lib/mathlib/math/Limits.hpp
+  lines=16 hit=12 functions=30 hit=24 branches=12 hit=8
+Processing file src/modules/ekf2/test/test_EKF_flow.cpp
+  lines=215 hit=211 functions=34 hit=34 branches=614 hit=178
+Processing file src/modules/commander/HealthAndArmingChecks/checks/parachuteCheck.cpp
+  lines=13 hit=0 functions=1 hit=0 branches=16 hit=0
+Processing file src/drivers/gps/devices/src/crc.cpp
+  lines=10 hit=0 functions=2 hit=0 branches=6 hit=0
+Processing file src/lib/rc/spektrum_rssi.h
+  lines=4 hit=4 functions=2 hit=2
+Processing file src/modules/ekf2/EKF/bias_estimator/height_bias_estimator.hpp
+  lines=15 hit=15 functions=7 hit=6 branches=8 hit=8
+Processing file platforms/common/include/px4_platform_common/defines.h
+  lines=2 hit=2 functions=2 hit=2
+Processing file src/modules/commander/gyro_calibration.cpp
+  lines=109 hit=0 functions=2 hit=0 branches=250 hit=0
+Processing file src/modules/mag_bias_estimator/MagBiasEstimator.cpp
+  lines=124 hit=0 functions=10 hit=0 branches=224 hit=0
+Processing file src/lib/lat_lon_alt/test_lat_lon_alt.cpp
+  lines=50 hit=50 functions=24 hit=24 branches=312 hit=95
+Processing file src/modules/commander/failsafe/failsafe.h
+  lines=2 hit=0 functions=2 hit=0 branches=34 hit=0
+Processing file src/lib/systemlib/mavlink_log.cpp
+  lines=13 hit=12 functions=1 hit=1 branches=12 hit=8
+Processing file src/modules/commander/Safety.hpp
+  lines=4 hit=0 functions=4 hit=0
+Processing file src/modules/flight_mode_manager/tasks/Auto/FlightTaskAuto.hpp
+  lines=4 hit=0 functions=5 hit=0 branches=74 hit=0
+Processing file src/lib/pid/PIDTest.cpp
+  lines=72 hit=72 functions=16 hit=16 branches=488 hit=125
+Processing file src/modules/gimbal/input.h
+  lines=1 hit=0 functions=2 hit=0
+Processing file platforms/common/work_queue/dq_rem.c
+  lines=12 hit=10 functions=1 hit=1 branches=4 hit=2
+Processing file src/lib/wind_estimator/test/test_airspeed_fusion.cpp
+  lines=27 hit=27 functions=4 hit=4 branches=170 hit=28
+Processing file src/modules/events/rc_loss_alarm.h
+  lines=1 hit=0 functions=1 hit=0 branches=4 hit=0
+Processing file src/modules/mavlink/streams/FLIGHT_INFORMATION.hpp
+  lines=22 hit=2 functions=8 hit=2 branches=28 hit=0
+Processing file src/modules/mavlink/streams/LINK_NODE_STATUS.hpp
+  lines=26 hit=25 functions=8 hit=8 branches=14 hit=5
+Processing file src/modules/mavlink/MavlinkStatustextHandler.cpp
+  lines=38 hit=38 functions=2 hit=2 branches=16 hit=16
+Processing file src/lib/matrix/test/MatrixHatveeTest.cpp
+  lines=9 hit=9 functions=4 hit=4 branches=36 hit=12
+Processing file src/modules/mavlink/streams/GNSS_INTEGRITY.hpp
+  lines=37 hit=12 functions=8 hit=8 branches=36 hit=7
+Processing file src/modules/mavlink/streams/HIL_STATE_QUATERNION.hpp
+  lines=42 hit=2 functions=8 hit=2 branches=42 hit=0
+Processing file src/lib/rc/common_rc.cpp
+  lines=12 hit=7 functions=2 hit=1 branches=6 hit=4
+Processing file src/modules/mc_hover_thrust_estimator/zero_order_hover_thrust_ekf_test.cpp
+  lines=89 hit=89 functions=27 hit=27 branches=210 hit=52
+Processing file src/modules/fw_att_control/fw_wheel_controller.cpp
+  lines=27 hit=0 functions=2 hit=0 branches=30 hit=0
+Processing file src/modules/mavlink/streams/HYGROMETER_SENSOR.hpp
+  lines=20 hit=9 functions=8 hit=7 branches=18 hit=3
+Processing file src/modules/sensors/vehicle_angular_velocity/VehicleAngularVelocity.hpp
+  lines=1 hit=1 functions=1 hit=1
+Processing file src/modules/simulation/gz_bridge/GZMixingInterfaceESC.cpp
+  lines=52 hit=0 functions=4 hit=0 branches=78 hit=0
+Processing file src/modules/fw_mode_manager/FixedWingModeManager.hpp
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/lib/rc/ghst.cpp
+  lines=158 hit=85 functions=13 hit=5 branches=98 hit=45
+Processing file src/modules/rover_mecanum/MecanumAttControl/MecanumAttControl.cpp
+  lines=46 hit=0 functions=4 hit=0 branches=56 hit=0
+Processing file src/systemcmds/tests/test_IntrusiveSortedList.cpp
+  lines=106 hit=106 functions=7 hit=7 branches=138 hit=82
+Processing file src/modules/ekf2/EKF/python/ekf_derivation/generated/compute_flow_xy_innov_var_and_hx.h
+  lines=124 hit=124 functions=1 hit=1 branches=4 hit=2
+Processing file platforms/posix/src/px4/common/lockstep_scheduler/include/lockstep_scheduler/lockstep_scheduler.h
+  lines=10 hit=9 functions=3 hit=3 branches=6 hit=5
+Processing file platforms/common/work_queue/work_queue.c
+  lines=11 hit=0 functions=1 hit=0
+Processing file src/modules/land_detector/MulticopterLandDetector.cpp
+  lines=116 hit=0 functions=10 hit=0 branches=192 hit=0
+Processing file src/modules/ekf2/EKF2Selector.cpp
+  lines=446 hit=0 functions=15 hit=0 branches=592 hit=0
+Processing file src/modules/mavlink/streams/ORBIT_EXECUTION_STATUS.hpp
+  lines=23 hit=13 functions=8 hit=8 branches=20 hit=8
+Processing file src/modules/mavlink/streams/ESC_STATUS.hpp
+  lines=23 hit=11 functions=8 hit=8 branches=24 hit=6
+Processing file src/drivers/gnss/septentrio/sbf/messages.h
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/modules/ekf2/test/test_EKF_externalVision.cpp
+  lines=186 hit=186 functions=43 hit=43 branches=722 hit=211
+Processing file src/lib/lat_lon_alt/lat_lon_alt.cpp
+  lines=75 hit=70 functions=9 hit=8 branches=114 hit=49
+Processing file src/modules/ekf2/EKF/yaw_estimator/EKFGSF_yaw.cpp
+  lines=174 hit=169 functions=13 hit=13 branches=350 hit=208
+Processing file src/lib/motion_planning/VelocitySmoothing.hpp
+  lines=17 hit=17 functions=17 hit=17
+Processing file src/modules/navigator/vtol_takeoff.h
+  lines=5 hit=0 functions=6 hit=0
+Processing file src/systemcmds/tests/test_IntrusiveQueue.cpp
+  lines=160 hit=160 functions=7 hit=7 branches=214 hit=125
+Processing file src/modules/mavlink/mavlink_ulog.cpp
+  lines=120 hit=4 functions=9 hit=1 branches=82 hit=1
+Processing file src/modules/gyro_fft/CMSIS_5/CMSIS/DSP/Source/TransformFunctions/arm_bitreversal2.c
+  lines=36 hit=12 functions=3 hit=1 branches=6 hit=2
+Processing file src/modules/commander/HealthAndArmingChecks/checks/gyroCheck.cpp
+  lines=42 hit=0 functions=2 hit=0 branches=68 hit=0
+Processing file src/modules/navigator/navigator_mode.h
+  lines=4 hit=0 functions=5 hit=0
+Processing file src/lib/matrix/test/MatrixCopyToTest.cpp
+  lines=37 hit=37 functions=4 hit=4 branches=98 hit=37
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessRotorsTest.cpp
+  lines=79 hit=79 functions=12 hit=12 branches=226 hit=86
+Processing file src/modules/rover_differential/DifferentialAttControl/DifferentialAttControl.hpp
+  lines=3 hit=0 functions=4 hit=0
+Processing file src/examples/hello/hello_start.cpp
+  lines=21 hit=0 functions=1 hit=0 branches=14 hit=0
+Processing file platforms/common/include/px4_platform_common/module_params.h
+  lines=19 hit=19 functions=6 hit=5 branches=14 hit=10
+Processing file src/modules/vtol_att_control/tailsitter.h
+  lines=2 hit=0 functions=3 hit=0
+Processing file platforms/common/include/px4_platform_common/console_buffer.h
+  lines=4 hit=2 functions=2 hit=1
+Processing file src/modules/mavlink/streams/SCALED_PRESSURE2.hpp
+  lines=25 hit=2 functions=8 hit=2 branches=36 hit=0
+Processing file src/lib/sensor_calibration/Accelerometer.cpp
+  lines=122 hit=64 functions=13 hit=11 branches=173 hit=51
+Processing file src/modules/commander/airspeed_calibration.cpp
+  lines=93 hit=0 functions=2 hit=0 branches=204 hit=0
+Processing file src/lib/control_allocation/control_allocation/ControlAllocationSequentialDesaturation.cpp
+  lines=102 hit=101 functions=8 hit=8 branches=163 hit=98
+Processing file src/modules/commander/HealthAndArmingChecks/checks/vtolCheck.cpp
+  lines=8 hit=0 functions=1 hit=0 branches=14 hit=0
+Processing file src/modules/ekf2/EKF/python/ekf_derivation/generated/compute_sideslip_innov_and_innov_var.h
+  lines=77 hit=77 functions=1 hit=1 branches=4 hit=2
+Processing file src/modules/manual_control/ManualControlTest.cpp
+  lines=147 hit=147 functions=31 hit=31 branches=782 hit=167
+Processing file src/modules/commander/HealthAndArmingChecks/checks/navigatorCheck.hpp
+  lines=2 hit=0 functions=3 hit=0 branches=2 hit=0
+Processing file src/lib/airspeed/airspeed.cpp
+  lines=71 hit=0 functions=7 hit=0 branches=34 hit=0
+Processing file src/modules/local_position_estimator/sensors/mocap.cpp
+  lines=93 hit=0 functions=4 hit=0 branches=170 hit=0
+Processing file src/modules/commander/HealthAndArmingChecks/checks/armPermissionCheck.cpp
+  lines=6 hit=0 functions=1 hit=0 branches=6 hit=0
+Processing file src/modules/sensors/vehicle_magnetometer/VehicleMagnetometer.cpp
+  lines=348 hit=97 functions=14 hit=11 branches=758 hit=97
+Processing file src/modules/mavlink/streams/BATTERY_STATUS.hpp
+  lines=75 hit=37 functions=8 hit=8 branches=64 hit=21
+Processing file src/modules/ekf2/EKF/python/ekf_derivation/generated/compute_wind_init_and_cov_from_wind_speed_and_direction.h
+  lines=15 hit=0 functions=1 hit=0 branches=4 hit=0
+Processing file src/modules/commander/HealthAndArmingChecks/checks/rcCalibrationCheck.cpp
+  lines=51 hit=0 functions=3 hit=0 branches=48 hit=0
+Processing file src/drivers/osd/msp_osd/MessageDisplay/MessageDisplayTest.cpp
+  lines=51 hit=51 functions=13 hit=13 branches=204 hit=55
+Processing file src/modules/temperature_compensation/temperature_calibration/mag.cpp
+  lines=94 hit=0 functions=6 hit=0 branches=98 hit=0
+Processing file src/modules/commander/HealthAndArmingChecks/checks/geofenceCheck.cpp
+  lines=26 hit=0 functions=1 hit=0 branches=58 hit=0
+Processing file src/modules/mavlink/streams/STATUSTEXT.hpp
+  lines=40 hit=11 functions=10 hit=8 branches=44 hit=6
+Processing file src/modules/mavlink/mavlink_parameters.h
+  lines=3 hit=2 functions=2 hit=1
+Processing file src/modules/commander/HomePosition.cpp
+  lines=222 hit=0 functions=12 hit=0 branches=254 hit=0
+Processing file src/modules/navigator/navigator_mode.cpp
+  lines=26 hit=0 functions=6 hit=0 branches=6 hit=0
+Processing file src/modules/flight_mode_manager/tasks/FlightTask/FlightTask.cpp
+  lines=134 hit=0 functions=13 hit=0 branches=96 hit=0
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessFixedWing.hpp
+  lines=2 hit=0 functions=3 hit=0
+Processing file platforms/common/uORB/uORBMessageFields.hpp
+  lines=16 hit=16 functions=6 hit=6
+Processing file platforms/common/include/px4_platform_common/atomic_bitset.h
+  lines=23 hit=23 functions=28 hit=28 branches=8 hit=8
+Processing file src/modules/load_mon/LoadMon.hpp
+  lines=3 hit=0 functions=2 hit=0
+Processing file src/lib/variable_length_ringbuffer/VariableLengthRingbufferTest.cpp
+  lines=120 hit=119 functions=38 hit=38 branches=572 hit=140
+Processing file src/modules/commander/HealthAndArmingChecks/checks/opticalFlowCheck.cpp
+  lines=10 hit=0 functions=1 hit=0 branches=20 hit=0
+Processing file test/fuzztest/fuzztest/internal/registry.h
+  lines=11 hit=11 functions=6 hit=6 branches=22 hit=9
+Processing file src/modules/flight_mode_manager/tasks/ManualPosition/FlightTaskManualPosition.cpp
+  lines=48 hit=0 functions=5 hit=0 branches=104 hit=0
+Processing file src/modules/logger/log_writer_mavlink.cpp
+  lines=75 hit=13 functions=8 hit=4 branches=54 hit=5
+Processing file src/lib/matrix/matrix/helper_functions.hpp
+  lines=30 hit=30 functions=18 hit=18 branches=18 hit=18
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessHelicopterCoaxial.hpp
+  lines=2 hit=0 functions=3 hit=0
+Processing file src/modules/vtol_att_control/vtol_att_control_main.h
+  lines=27 hit=0 functions=27 hit=0
+Processing file src/modules/fw_att_control/fw_wheel_controller.h
+  lines=8 hit=0 functions=8 hit=0
+Processing file src/modules/rover_ackermann/AckermannDriveModes/AckermannManualMode/AckermannManualMode.cpp
+  lines=143 hit=0 functions=7 hit=0 branches=218 hit=0
+Processing file src/modules/ekf2/EKF/python/ekf_derivation/generated/compute_mag_innov_innov_var_and_hx.h
+  lines=145 hit=145 functions=1 hit=1 branches=6 hit=3
+Processing file src/modules/commander/HealthAndArmingChecks/checks/baroCheck.cpp
+  lines=35 hit=0 functions=2 hit=0 branches=56 hit=0
+Processing file src/lib/field_sensor_bias_estimator/FieldSensorBiasEstimator.hpp
+  lines=10 hit=9 functions=5 hit=4 branches=34 hit=14
+Processing file src/modules/mc_pos_control/Takeoff/Takeoff.hpp
+  lines=4 hit=4 functions=4 hit=4
+Processing file src/modules/sensors/voted_sensors_update.h
+  lines=2 hit=2 functions=2 hit=2 branches=18 hit=5
+Processing file src/modules/flight_mode_manager/tasks/Utility/StickAccelerationXY.cpp
+  lines=102 hit=0 functions=13 hit=0 branches=210 hit=0
+Processing file src/systemcmds/dyn/dyn.cpp
+  lines=21 hit=8 functions=2 hit=1 branches=6 hit=3
+Processing file src/modules/simulation/sensor_agp_sim/SensorAgpSim.hpp
+  lines=1 hit=0 functions=1 hit=0
+Processing file platforms/common/include/px4_platform_common/events.h
+  lines=25 hit=25 functions=155 hit=67 branches=8 hit=5
+Processing file src/lib/motion_planning/HeadingSmoothingTest.cpp
+  lines=65 hit=65 functions=21 hit=21 branches=124 hit=37
+Processing file src/lib/mixer_module/mixer_module.cpp
+  lines=330 hit=258 functions=24 hit=22 branches=388 hit=216
+Processing file src/modules/logger/util.cpp
+  lines=107 hit=40 functions=5 hit=3 branches=114 hit=26
+Processing file src/lib/cdev/test/cdevtest_main.cpp
+  lines=8 hit=5 functions=1 hit=1 branches=8 hit=2
+Processing file src/lib/adsb/AdsbConflict.h
+  lines=1 hit=1 functions=1 hit=1
+Processing file src/modules/sensors/vehicle_gps_position/gps_blending_test.cpp
+  lines=171 hit=171 functions=27 hit=27 branches=480 hit=96
+Processing file src/examples/fake_imu/FakeImu.cpp
+  lines=72 hit=54 functions=7 hit=5 branches=52 hit=23
+Processing file src/modules/mavlink/streams/POSITION_TARGET_GLOBAL_INT.hpp
+  lines=35 hit=14 functions=8 hit=8 branches=44 hit=8
+Processing file src/modules/mavlink/streams/HIGH_LATENCY2.hpp
+  lines=297 hit=2 functions=34 hit=2 branches=424 hit=0
+Processing file src/modules/mavlink/streams/DISTANCE_SENSOR.hpp
+  lines=47 hit=13 functions=8 hit=8 branches=26 hit=7
+Processing file src/modules/mavlink/streams/GLOBAL_POSITION_INT.hpp
+  lines=27 hit=11 functions=8 hit=8 branches=36 hit=9
+Processing file src/examples/fake_gps/FakeGps.hpp
+  lines=1 hit=0 functions=2 hit=0
+Processing file src/modules/mavlink/streams/OPEN_DRONE_ID_LOCATION.hpp
+  lines=91 hit=35 functions=8 hit=8 branches=148 hit=20
+Processing file src/drivers/gnss/septentrio/septentrio_fuzz_tests.cpp
+  lines=46 hit=39 functions=11 hit=11 branches=68 hit=25
+Processing file src/modules/simulation/gz_bridge/GZGimbal.cpp
+  lines=162 hit=0 functions=10 hit=0 branches=212 hit=0
+Processing file src/lib/ringbuffer/RingbufferTest.cpp
+  lines=121 hit=120 functions=42 hit=42 branches=564 hit=138
+Processing file src/modules/commander/HealthAndArmingChecks/checks/homePositionCheck.cpp
+  lines=5 hit=0 functions=1 hit=0 branches=8 hit=0
+Processing file src/modules/commander/HealthAndArmingChecks/checks/navigatorCheck.cpp
+  lines=8 hit=0 functions=1 hit=0 branches=10 hit=0
+Processing file src/modules/ekf2/test/test_EKF_utils.cpp
+  lines=8 hit=8 functions=4 hit=4 branches=18 hit=8
+Processing file src/modules/commander/commander_helper.cpp
+  lines=164 hit=0 functions=26 hit=0 branches=72 hit=0
+Processing file src/modules/ekf2/EKF/aid_sources/gnss/gnss_height_control.cpp
+  lines=100 hit=92 functions=3 hit=3 branches=140 hit=92
+Processing file test/fuzztest/fuzztest/internal/registry.cc
+  lines=25 hit=20 functions=8 hit=7 branches=56 hit=23
+Processing file src/modules/gyro_fft/CMSIS_5/CMSIS/DSP/Source/TransformFunctions/arm_cfft_radix4_q15.c
+  lines=316 hit=156 functions=3 hit=1 branches=142 hit=40
+Processing file src/modules/commander/Commander.cpp
+  lines=1525 hit=0 functions=51 hit=0 branches=1719 hit=0
+Processing file src/include/containers/BlockingQueue.hpp
+  lines=23 hit=19 functions=4 hit=3 branches=4 hit=2
+Processing file src/modules/rover_differential/DifferentialActControl/DifferentialActControl.hpp
+  lines=2 hit=0 functions=3 hit=0
+Processing file src/modules/commander/HealthAndArmingChecks/checks/missionCheck.hpp
+  lines=2 hit=0 functions=3 hit=0 branches=2 hit=0
+Processing file src/systemcmds/failure/failure.cpp
+  lines=77 hit=0 functions=3 hit=0 branches=80 hit=0
+Processing file src/modules/sensors/vehicle_optical_flow/VehicleOpticalFlow.cpp
+  lines=222 hit=29 functions=11 hit=4 branches=380 hit=46
+Processing file src/systemcmds/perf/perf.cpp
+  lines=21 hit=5 functions=2 hit=1 branches=6 hit=1
+Processing file src/modules/ekf2/EKF/wind.cpp
+  lines=30 hit=3 functions=4 hit=1 branches=12 hit=0
+Processing file src/examples/hello/hello_example.h
+  lines=2 hit=0 functions=2 hit=0
+Processing file src/lib/collision_prevention/CollisionPrevention.hpp
+  lines=2 hit=2 functions=3 hit=2
+Processing file src/modules/sensors/vehicle_optical_flow/test/VehicleOpticalFlowTest.cpp
+  lines=37 hit=37 functions=13 hit=13 branches=38 hit=11
+Processing file src/drivers/gps/devices/src/emlid_reach.cpp
+  lines=160 hit=0 functions=6 hit=0 branches=99 hit=0
+Processing file src/drivers/osd/msp_osd/MessageDisplay/MessageDisplay.cpp
+  lines=66 hit=57 functions=2 hit=2 branches=40 hit=28
+Processing file src/modules/rover_ackermann/AckermannPosControl/AckermannPosControl.hpp
+  lines=3 hit=0 functions=4 hit=0 branches=8 hit=0
+Processing file src/lib/motion_planning/TrajectoryConstraints.hpp
+  lines=41 hit=33 functions=4 hit=4 branches=72 hit=30
+Processing file src/lib/slew_rate/SlewRate.hpp
+  lines=11 hit=8 functions=6 hit=3
+Processing file src/modules/rover_ackermann/AckermannDriveModes/AckermannOffboardMode/AckermannOffboardMode.hpp
+  lines=1 hit=0 functions=2 hit=0
+Processing file src/modules/commander/mag_calibration.cpp
+  lines=479 hit=0 functions=8 hit=0 branches=916 hit=0
+Processing file src/systemcmds/work_queue/work_queue_main.cpp
+  lines=21 hit=0 functions=2 hit=0 branches=8 hit=0
+Processing file src/modules/flight_mode_manager/tasks/ManualAltitude/FlightTaskManualAltitude.cpp
+  lines=129 hit=0 functions=16 hit=0 branches=148 hit=0
+Processing file src/modules/simulation/simulator_sih/sih.hpp
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/modules/fw_att_control/fw_yaw_controller.h
+  lines=4 hit=0 functions=4 hit=0
+Processing file src/modules/mavlink/streams/ADSB_VEHICLE.hpp
+  lines=37 hit=13 functions=9 hit=9 branches=40 hit=10
+Processing file src/lib/drivers/accelerometer/PX4Accelerometer.cpp
+  lines=80 hit=25 functions=9 hit=3 branches=36 hit=6
+Processing file src/modules/land_detector/LandDetector.h
+  lines=15 hit=0 functions=14 hit=0
+Processing file src/lib/parameters/ParamLayer.h
+  lines=1 hit=1 functions=1 hit=1
+Processing file src/modules/simulation/system_power_simulator/SystemPowerSimulator.cpp
+  lines=49 hit=0 functions=9 hit=0 branches=34 hit=0
+Processing file src/modules/navigator/mission_feasibility_checker.cpp
+  lines=46 hit=0 functions=2 hit=0 branches=60 hit=0
+Processing file src/lib/mathlib/math/test/second_order_reference_model_test.cpp
+  lines=67 hit=67 functions=16 hit=16 branches=464 hit=125
+Processing file src/modules/mc_hover_thrust_estimator/zero_order_hover_thrust_ekf.cpp
+  lines=63 hit=63 functions=15 hit=15 branches=4 hit=4
+Processing file platforms/common/include/px4_platform_common/px4_work_queue/WorkQueue.hpp
+  lines=7 hit=6 functions=7 hit=6 branches=2 hit=1
+Processing file src/modules/mavlink/streams/SCALED_IMU3.hpp
+  lines=46 hit=2 functions=8 hit=2 branches=88 hit=0
+Processing file src/modules/land_detector/FixedwingLandDetector.cpp
+  lines=51 hit=0 functions=2 hit=0 branches=86 hit=0
+Processing file platforms/common/shutdown.cpp
+  lines=66 hit=21 functions=6 hit=3 branches=36 hit=6
+Processing file src/modules/flight_mode_manager/tasks/ManualPosition/FlightTaskManualPosition.hpp
+  lines=3 hit=0 functions=4 hit=0 branches=14 hit=0
+Processing file src/modules/mavlink/streams/ODOMETRY.hpp
+  lines=61 hit=2 functions=8 hit=2 branches=29 hit=0
+Processing file src/modules/mavlink/streams/GIMBAL_MANAGER_INFORMATION.hpp
+  lines=25 hit=2 functions=8 hit=2 branches=24 hit=0
+Processing file src/modules/ekf2/EKF/aid_sources/gnss/gnss_checks.hpp
+  lines=25 hit=21 functions=12 hit=8 branches=8 hit=7
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessUUV.cpp
+  lines=12 hit=0 functions=3 hit=0 branches=4 hit=0
+Processing file platforms/common/uORB/uORB_tests/uORBTest_UnitTest.hpp
+  lines=4 hit=4 functions=2 hit=2
+Processing file src/modules/mavlink/streams/DEBUG.hpp
+  lines=17 hit=11 functions=8 hit=8 branches=18 hit=6
+Processing file src/lib/collision_prevention/ObstacleMathTest.cpp
+  lines=100 hit=100 functions=24 hit=24 branches=282 hit=70
+Processing file platforms/common/px4_getopt.c
+  lines=64 hit=55 functions=3 hit=3 branches=52 hit=40
+Processing file src/systemcmds/tests/tests_main.c
+  lines=74 hit=7 functions=5 hit=1 branches=32 hit=5
+Processing file platforms/common/uORB/uORBManager.hpp
+  lines=3 hit=3 functions=2 hit=2
+Processing file src/modules/flight_mode_manager/tasks/AutoFollowTarget/follow_target_estimator/TargetEstimator.cpp
+  lines=147 hit=0 functions=15 hit=0 branches=238 hit=0
+Processing file src/modules/ekf2/EKF/aid_sources/ZeroGyroUpdate.hpp
+  lines=1 hit=1 functions=2 hit=1
+Processing file src/modules/ekf2/EKF/ekf.cpp
+  lines=250 hit=165 functions=20 hit=8 branches=520 hit=159
+Processing file src/lib/sensor_calibration/Barometer.cpp
+  lines=96 hit=13 functions=11 hit=3 branches=81 hit=2
+Processing file src/lib/system_identification/signal_generator.hpp
+  lines=11 hit=0 functions=2 hit=0 branches=4 hit=0
+Processing file src/modules/commander/HealthAndArmingChecks/checks/failureDetectorCheck.cpp
+  lines=34 hit=0 functions=1 hit=0 branches=42 hit=0
+Processing file src/lib/matrix/test/MatrixFilterTest.cpp
+  lines=17 hit=17 functions=4 hit=4 branches=22 hit=8
+Processing file src/lib/atmosphere/test_atmosphere.cpp
+  lines=36 hit=36 functions=16 hit=16 branches=80 hit=16
+Processing file src/modules/commander/ModeUtil/control_mode.cpp
+  lines=107 hit=0 functions=2 hit=0 branches=23 hit=0
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessUUV.hpp
+  lines=8 hit=0 functions=5 hit=0
+Processing file src/modules/land_detector/AirshipLandDetector.cpp
+  lines=6 hit=0 functions=2 hit=0 branches=2 hit=0
+Processing file src/modules/flight_mode_manager/tasks/ManualAcceleration/FlightTaskManualAcceleration.hpp
+  lines=3 hit=0 functions=4 hit=0 branches=8 hit=0
+Processing file src/lib/matrix/matrix/Scalar.hpp
+  lines=17 hit=17 functions=8 hit=6 branches=6 hit=3
+Processing file src/lib/motion_planning/ManualVelocitySmoothingZ.cpp
+  lines=40 hit=0 functions=6 hit=0 branches=10 hit=0
+Processing file src/modules/mavlink/streams/HIGHRES_IMU.hpp
+  lines=77 hit=2 functions=8 hit=2 branches=162 hit=0
+Processing file platforms/common/uORB/SubscriptionInterval.cpp
+  lines=16 hit=15 functions=3 hit=3 branches=12 hit=11
+Processing file src/lib/motion_planning/VelocitySmoothingTest.cpp
+  lines=125 hit=125 functions=31 hit=31 branches=458 hit=139
+Processing file src/modules/gyro_fft/CMSIS_5/CMSIS/DSP/Source/TransformFunctions/arm_rfft_q15.c
+  lines=64 hit=36 functions=3 hit=2 branches=8 hit=3
+Processing file src/modules/commander/HealthAndArmingChecks/checks/parachuteCheck.hpp
+  lines=3 hit=0 functions=4 hit=0 branches=2 hit=0
+Processing file platforms/common/uORB/PublicationMulti.hpp
+  lines=25 hit=15 functions=173 hit=46 branches=10 hit=5
+Processing file src/modules/ekf2/EKF/estimator_interface.h
+  lines=85 hit=45 functions=48 hit=22 branches=80 hit=47
+Processing file src/modules/simulation/battery_simulator/BatterySimulator.cpp
+  lines=98 hit=42 functions=10 hit=6 branches=104 hit=32
+Processing file src/examples/fake_imu/FakeImu.hpp
+  lines=1 hit=0 functions=2 hit=0
+Processing file src/modules/mavlink/mavlink_receiver.cpp
+  lines=1953 hit=77 functions=77 hit=6 branches=1620 hit=49
+Processing file src/lib/control_allocation/actuator_effectiveness/ActuatorEffectiveness.hpp
+  lines=20 hit=2 functions=12 hit=2 branches=4 hit=0
+Processing file src/modules/local_position_estimator/sensors/flow.cpp
+  lines=101 hit=0 functions=4 hit=0 branches=204 hit=0
+Processing file src/lib/matrix/test/MatrixIntegralTest.cpp
+  lines=13 hit=13 functions=5 hit=5 branches=30 hit=12
+Processing file src/modules/ekf2/EKF2.cpp
+  lines=1561 hit=0 functions=48 hit=0 branches=2079 hit=0
+Processing file test/fuzztest/fuzztest/internal/io.cc
+  lines=127 hit=15 functions=12 hit=3 branches=251 hit=8
+Processing file src/modules/navigator/GeofenceBreachAvoidance/geofence_breach_avoidance.cpp
+  lines=133 hit=132 functions=15 hit=15 branches=196 hit=109
+Processing file src/lib/motion_planning/PositionSmoothing.hpp
+  lines=75 hit=37 functions=22 hit=10 branches=18 hit=2
+Processing file src/examples/fake_magnetometer/FakeMagnetometer.hpp
+  lines=1 hit=0 functions=2 hit=0
+Processing file src/modules/ekf2/test/sensor_simulator/sensor_simulator.h
+  lines=13 hit=13 functions=13 hit=13
+Processing file src/modules/local_position_estimator/sensors/landing_target.cpp
+  lines=56 hit=0 functions=4 hit=0 branches=94 hit=0
+Processing file src/lib/tunes/tunes.h
+  lines=2 hit=0 functions=2 hit=0
+Processing file src/modules/rover_mecanum/MecanumPosControl/MecanumPosControl.hpp
+  lines=3 hit=0 functions=4 hit=0 branches=8 hit=0
+Processing file src/modules/fw_att_control/fw_roll_controller.h
+  lines=4 hit=0 functions=4 hit=0
+Processing file src/modules/flight_mode_manager/tasks/AltitudeCruise/FlightTaskAltitudeCruise.cpp
+  lines=12 hit=0 functions=3 hit=0 branches=10 hit=0
+Processing file src/lib/mixer_module/functions/FunctionGimbal.hpp
+  lines=9 hit=0 functions=4 hit=0 branches=14 hit=0
+Processing file src/lib/matrix/test/MatrixVectorAssignmentTest.cpp
+  lines=17 hit=17 functions=4 hit=4 branches=116 hit=31
+Processing file src/modules/navigator/MissionFeasibility/FeasibilityChecker.hpp
+  lines=2 hit=2 functions=1 hit=1
+Processing file src/modules/mavlink/tune_publisher.cpp
+  lines=23 hit=0 functions=2 hit=0 branches=14 hit=0
+Processing file src/modules/temperature_compensation/temperature_calibration/polyfit.hpp
+  lines=35 hit=0 functions=10 hit=0 branches=26 hit=0
+Processing file src/lib/matrix/matrix/Slice.hpp
+  lines=142 hit=141 functions=216 hit=198 branches=120 hit=91
+Processing file src/modules/ekf2/EKF/bias_estimator/position_bias_estimator.hpp
+  lines=37 hit=36 functions=15 hit=13 branches=22 hit=15
+Processing file test/fuzztest/common/remote_file_oss.cc
+  lines=155 hit=0 functions=27 hit=0 branches=356 hit=0
+Processing file src/lib/controllib/BlockLimitSym.cpp
+  lines=6 hit=6 functions=1 hit=1 branches=4 hit=4
+Processing file src/lib/sensor_calibration/Gyroscope.cpp
+  lines=112 hit=62 functions=12 hit=10 branches=145 hit=45
+Processing file src/modules/mavlink/streams/COMPONENT_INFORMATION.hpp
+  lines=18 hit=2 functions=9 hit=2 branches=12 hit=0
+Processing file platforms/common/px4_work_queue/test/wqueue_scheduled_test.cpp
+  lines=14 hit=10 functions=2 hit=2 branches=4 hit=2
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessCustom.cpp
+  lines=14 hit=0 functions=3 hit=0 branches=10 hit=0
+Processing file src/modules/simulation/sensor_mag_sim/SensorMagSim.cpp
+  lines=72 hit=0 functions=10 hit=0 branches=110 hit=0
+Processing file src/modules/commander/failure_detector/FailureDetector.hpp
+  lines=7 hit=0 functions=8 hit=0
+Processing file src/modules/navigator/navigator.h
+  lines=32 hit=0 functions=32 hit=0 branches=4 hit=0
+Processing file test/fuzztest/fuzztest/internal/logging.cc
+  lines=51 hit=6 functions=8 hit=1 branches=108 hit=3
+Processing file src/modules/mc_hover_thrust_estimator/MulticopterHoverThrustEstimator.cpp
+  lines=138 hit=0 functions=14 hit=0 branches=202 hit=0
+Processing file src/modules/mavlink/mavlink_timesync.cpp
+  lines=34 hit=3 functions=2 hit=1 branches=27 hit=0
+Processing file src/lib/rover_control/RoverControl.cpp
+  lines=107 hit=10 functions=6 hit=1 branches=180 hit=28
+Processing file src/modules/sensors/vehicle_gps_position/VehicleGPSPosition.cpp
+  lines=57 hit=36 functions=8 hit=5 branches=70 hit=25
+Processing file src/modules/commander/HealthAndArmingChecks/checks/estimatorCheck.hpp
+  lines=2 hit=0 functions=3 hit=0
+Processing file src/drivers/gps/devices/src/mtk.h
+  lines=1 hit=0 functions=2 hit=0
+Processing file src/modules/rover_mecanum/MecanumDriveModes/MecanumAutoMode/MecanumAutoMode.cpp
+  lines=46 hit=0 functions=4 hit=0 branches=68 hit=0
+Processing file src/modules/rover_ackermann/AckermannAttControl/AckermannAttControl.cpp
+  lines=59 hit=0 functions=5 hit=0 branches=68 hit=0
+Processing file src/lib/atmosphere/atmosphere.cpp
+  lines=11 hit=11 functions=4 hit=4
+Processing file src/modules/mavlink/timestamped_list.h
+  lines=28 hit=9 functions=5 hit=3 branches=16 hit=5
+Processing file src/modules/commander/HealthAndArmingChecks/checks/manualControlCheck.hpp
+  lines=2 hit=0 functions=3 hit=0 branches=2 hit=0
+Processing file src/modules/commander/HealthAndArmingChecks/checks/modeCheck.hpp
+  lines=3 hit=0 functions=4 hit=0 branches=4 hit=0
+Processing file src/lib/mixer_module/functions/FunctionGripper.hpp
+  lines=10 hit=0 functions=4 hit=0 branches=18 hit=0
+Processing file src/modules/sensors/vehicle_optical_flow/VehicleOpticalFlow.hpp
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/modules/simulation/battery_simulator/BatterySimulator.hpp
+  lines=1 hit=1 functions=1 hit=1
+Processing file src/modules/fw_rate_control/FixedwingRateControl.cpp
+  lines=265 hit=0 functions=14 hit=0 branches=476 hit=0
+Processing file src/modules/mc_pos_control/PositionControl/ControlMath.cpp
+  lines=80 hit=76 functions=8 hit=8 branches=254 hit=138
+Processing file src/modules/rover_mecanum/RoverMecanum.hpp
+  lines=1 hit=0 functions=2 hit=0
+Processing file src/modules/flight_mode_manager/tasks/AutoFollowTarget/FlightTaskAutoFollowTarget.cpp
+  lines=209 hit=0 functions=17 hit=0 branches=316 hit=0
+Processing file src/systemcmds/tests/hrt_test/hrt_test_main.cpp
+  lines=8 hit=5 functions=1 hit=1 branches=8 hit=2
+Processing file src/modules/fw_lateral_longitudinal_control/FwLateralLongitudinalControl.cpp
+  lines=411 hit=0 functions=27 hit=0 branches=530 hit=0
+Processing file src/modules/ekf2/EKF/python/ekf_derivation/generated/compute_gravity_xyz_innov_var_and_hx.h
+  lines=28 hit=28 functions=1 hit=1 branches=4 hit=2
+Processing file src/modules/landing_target_estimator/landing_target_estimator_main.cpp
+  lines=35 hit=0 functions=2 hit=0 branches=26 hit=0
+Processing file src/modules/rover_differential/DifferentialDriveModes/DifferentialManualMode/DifferentialManualMode.cpp
+  lines=139 hit=0 functions=7 hit=0 branches=214 hit=0
+Processing file src/modules/mavlink/streams/GPS_RTCM_DATA.hpp
+  lines=18 hit=2 functions=8 hit=2 branches=26 hit=0
+Processing file src/modules/flight_mode_manager/tasks/Transition/FlightTaskTransition.hpp
+  lines=1 hit=0 functions=2 hit=0
+Processing file src/lib/sensor_calibration/Accelerometer.hpp
+  lines=14 hit=10 functions=12 hit=9 branches=36 hit=11
+Processing file src/modules/flight_mode_manager/FlightModeManager.hpp
+  lines=2 hit=0 functions=2 hit=0
+Processing file src/modules/ekf2/EKF/aid_sources/range_finder/range_height_control.cpp
+  lines=179 hit=148 functions=6 hit=6 branches=256 hit=150
+Processing file src/lib/controllib/BlockLowPass2.cpp
+  lines=7 hit=5 functions=1 hit=1 branches=4 hit=2
+Processing file src/drivers/distance_sensor/lightware_laser_serial/lightware_laser_serial_main.cpp
+  lines=63 hit=0 functions=5 hit=0 branches=49 hit=0
+Processing file src/modules/ekf2/test/test_EKF_withReplayData.cpp
+  lines=28 hit=28 functions=9 hit=9 branches=28 hit=16
+Processing file src/modules/vtol_att_control/tailsitter.cpp
+  lines=169 hit=0 functions=10 hit=0 branches=219 hit=0
+Processing file test/fuzztest/fuzztest/internal/fixture_driver.h
+  lines=60 hit=47 functions=23 hit=22 branches=82 hit=29
+Processing file src/lib/rc/dsm.cpp
+  lines=271 hit=200 functions=9 hit=5 branches=203 hit=131
+Processing file src/modules/mc_rate_control/MulticopterRateControl.cpp
+  lines=155 hit=0 functions=11 hit=0 branches=366 hit=0
+Processing file src/modules/commander/failure_detector/FailureInjector.cpp
+  lines=62 hit=0 functions=3 hit=0 branches=57 hit=0
+Processing file src/systemcmds/tests/test_perf.c
+  lines=19 hit=17 functions=1 hit=1 branches=2 hit=1
+Processing file src/modules/ekf2/EKF/velocity_fusion.cpp
+  lines=65 hit=53 functions=7 hit=6 branches=76 hit=39
+Processing file src/modules/replay/Replay.cpp
+  lines=607 hit=0 functions=34 hit=0 branches=866 hit=0
+Processing file platforms/common/uORB/uORBMessageFields.cpp
+  lines=167 hit=138 functions=6 hit=6 branches=107 hit=75
+Processing file src/modules/navigator/mission.cpp
+  lines=197 hit=0 functions=10 hit=0 branches=240 hit=0
+Processing file src/lib/drivers/gyroscope/PX4Gyroscope.cpp
+  lines=80 hit=54 functions=9 hit=6 branches=36 hit=20
+Processing file src/modules/ekf2/test/test_EKF_yaw_fusion_generated.cpp
+  lines=28 hit=21 functions=5 hit=5 branches=116 hit=39
+Processing file src/modules/ekf2/EKF/python/ekf_derivation/generated/compute_mag_declination_pred_innov_var_and_h.h
+  lines=20 hit=20 functions=1 hit=1 branches=6 hit=3
+Processing file src/modules/simulation/gz_bridge/GZMixingInterfaceServo.hpp
+  lines=9 hit=0 functions=4 hit=0 branches=34 hit=0
+Processing file platforms/common/include/px4_platform_common/px4_work_queue/ScheduledWorkItem.hpp
+  lines=2 hit=2 functions=2 hit=2
+Processing file src/lib/rate_control/rate_control.hpp
+  lines=8 hit=0 functions=5 hit=0 branches=2 hit=0
+Processing file src/lib/control_allocation/control_allocation/ControlAllocation.cpp
+  lines=44 hit=24 functions=6 hit=4 branches=66 hit=15
+Processing file src/modules/sensors/vehicle_angular_velocity/VehicleAngularVelocity.cpp
+  lines=443 hit=272 functions=21 hit=17 branches=810 hit=330
+Processing file src/lib/mathlib/math/Functions.hpp
+  lines=65 hit=57 functions=22 hit=17 branches=24 hit=19
+Processing file src/modules/commander/esc_calibration.cpp
+  lines=57 hit=0 functions=3 hit=0 branches=104 hit=0
+Processing file src/modules/sensors/vehicle_imu/VehicleIMU.cpp
+  lines=427 hit=282 functions=17 hit=14 branches=764 hit=288
+Processing file src/modules/ekf2/test/sensor_simulator/vio.cpp
+  lines=57 hit=48 functions=17 hit=13 branches=30 hit=15
+Processing file src/modules/flight_mode_manager/tasks/ManualAccelerationSlow/FlightTaskManualAccelerationSlow.cpp
+  lines=69 hit=0 functions=3 hit=0 branches=44 hit=0
+Processing file src/lib/heatshrink/heatshrink/heatshrink_decoder.c
+  lines=159 hit=130 functions=13 hit=11 branches=74 hit=54
+Processing file test/fuzztest/common/remote_file.cc
+  lines=39 hit=0 functions=6 hit=0 branches=132 hit=0
+Processing file src/modules/flight_mode_manager/tasks/AltitudeCruise/FlightTaskAltitudeCruise.hpp
+  lines=1 hit=0 functions=2 hit=0
+Processing file src/modules/ekf2/test/sensor_simulator/baro.h
+  lines=1 hit=1 functions=1 hit=1
+Processing file src/modules/ekf2/EKF/aid_sources/external_vision/ev_control.cpp
+  lines=55 hit=50 functions=2 hit=2 branches=102 hit=61
+Processing file src/lib/hysteresis/hysteresis.cpp
+  lines=22 hit=22 functions=3 hit=3 branches=20 hit=17
+Processing file platforms/posix/src/px4/common/lib_crc32.c
+  lines=6 hit=0 functions=2 hit=0 branches=2 hit=0
+Processing file src/modules/mavlink/mavlink_ulog.h
+  lines=8 hit=0 functions=4 hit=0 branches=2 hit=0
+Processing file src/modules/rc_update/RCUpdateTest.cpp
+  lines=183 hit=182 functions=49 hit=48 branches=244 hit=74
+Processing file src/modules/rover_differential/DifferentialDriveModes/DifferentialAutoMode/DifferentialAutoMode.cpp
+  lines=46 hit=0 functions=4 hit=0 branches=70 hit=0
+Processing file src/modules/land_detector/land_detector_main.cpp
+  lines=40 hit=0 functions=4 hit=0 branches=56 hit=0
+Processing file src/lib/tecs/TECS.cpp
+  lines=355 hit=0 functions=29 hit=0 branches=228 hit=0
+Processing file src/modules/ekf2/test/test_EKF_grounded.cpp
+  lines=30 hit=30 functions=6 hit=6 branches=64 hit=13
+Processing file src/modules/rover_differential/DifferentialDriveModes/DifferentialAutoMode/DifferentialAutoMode.hpp
+  lines=2 hit=0 functions=3 hit=0
+Processing file platforms/common/uORB/uORBUtils.cpp
+  lines=14 hit=7 functions=2 hit=1 branches=6 hit=3
+Processing file src/modules/ekf2/EKF/aid_sources/range_finder/range_finder_consistency_check.cpp
+  lines=31 hit=28 functions=2 hit=2 branches=24 hit=14
+Processing file src/modules/commander/HealthAndArmingChecks/checks/flightTimeCheck.cpp
+  lines=30 hit=0 functions=1 hit=0 branches=42 hit=0
+Processing file src/modules/mavlink/streams/HOME_POSITION.hpp
+  lines=27 hit=11 functions=8 hit=8 branches=32 hit=7
+Processing file src/modules/commander/HealthAndArmingChecks/checks/geofenceCheck.hpp
+  lines=2 hit=0 functions=3 hit=0 branches=2 hit=0
+Processing file src/modules/mavlink/streams/SCALED_IMU.hpp
+  lines=46 hit=2 functions=8 hit=2 branches=88 hit=0
+Processing file src/lib/mathlib/math/test/UtilitiesTest.cpp
+  lines=30 hit=30 functions=20 hit=20 branches=104 hit=30
+Processing file src/systemcmds/tests/test_uart_loopback.c
+  lines=57 hit=0 functions=1 hit=0 branches=26 hit=0
+Processing file src/lib/mathlib/math/SearchMin.hpp
+  lines=13 hit=13 functions=2 hit=2 branches=4 hit=4
+Processing file src/lib/system_identification/system_identification.hpp
+  lines=18 hit=10 functions=12 hit=7 branches=4 hit=0
+Processing file src/modules/mavlink/streams/STORAGE_INFORMATION.hpp
+  lines=34 hit=2 functions=9 hit=2 branches=20 hit=0
+Processing file src/modules/gyro_calibration/GyroCalibration.cpp
+  lines=143 hit=0 functions=10 hit=0 branches=300 hit=0
+Processing file src/lib/mathlib/math/WelfordMeanVector.hpp
+  lines=50 hit=41 functions=7 hit=6 branches=88 hit=46
+Processing file src/modules/sensors/data_validator/DataValidatorGroup.cpp
+  lines=155 hit=101 functions=12 hit=8 branches=116 hit=54
+Processing file src/lib/matrix/test/MatrixMultiplicationTest.cpp
+  lines=35 hit=35 functions=4 hit=4 branches=126 hit=39
+Processing file src/modules/sensors/vehicle_air_data/VehicleAirData.hpp
+  lines=1 hit=1 functions=1 hit=1
+Processing file src/modules/manual_control/MovingDiff.hpp
+  lines=13 hit=12 functions=2 hit=2 branches=10 hit=6
+Processing file src/modules/mavlink/mavlink_receiver.h
+  lines=3 hit=1 functions=3 hit=1
+Processing file src/modules/events/set_leds.cpp
+  lines=9 hit=0 functions=1 hit=0
+Processing file src/systemcmds/tests/test_parameters.cpp
+  lines=284 hit=203 functions=15 hit=14 branches=230 hit=113
+Processing file src/lib/npfg/AirspeedDirectionController.hpp
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/modules/gimbal/output_rc.cpp
+  lines=47 hit=0 functions=4 hit=0 branches=32 hit=0
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessTilts.hpp
+  lines=5 hit=0 functions=6 hit=0
+Processing file src/modules/commander/HealthAndArmingChecks/checks/openDroneIDCheck.hpp
+  lines=3 hit=0 functions=4 hit=0 branches=2 hit=0
+Processing file src/lib/system_identification/arx_rls_test.cpp
+  lines=45 hit=45 functions=13 hit=13 branches=140 hit=53
+Processing file src/modules/rover_differential/DifferentialRateControl/DifferentialRateControl.hpp
+  lines=3 hit=0 functions=4 hit=0
+Processing file src/modules/navigator/GeofenceBreachAvoidance/geofence_breach_avoidance.h
+  lines=9 hit=9 functions=10 hit=9
+Processing file src/modules/rover_ackermann/AckermannRateControl/AckermannRateControl.cpp
+  lines=82 hit=0 functions=5 hit=0 branches=88 hit=0
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessHelicopter.hpp
+  lines=2 hit=1 functions=3 hit=1
+Processing file src/lib/stick_yaw/StickYaw.cpp
+  lines=43 hit=0 functions=6 hit=0 branches=32 hit=0
+Processing file src/modules/mavlink/streams/HIL_ACTUATOR_CONTROLS.hpp
+  lines=35 hit=2 functions=8 hit=2 branches=46 hit=0
+Processing file src/modules/rover_mecanum/MecanumActControl/MecanumActControl.hpp
+  lines=2 hit=0 functions=3 hit=0
+Processing file src/include/containers/List.hpp
+  lines=57 hit=46 functions=82 hit=54 branches=30 hit=17
+Processing file src/modules/mavlink/streams/ALTITUDE.hpp
+  lines=45 hit=26 functions=8 hit=8 branches=46 hit=13
+Processing file src/modules/ekf2/EKF/aid_sources/ZeroVelocityUpdate.cpp
+  lines=23 hit=23 functions=3 hit=3 branches=32 hit=22
+Processing file src/lib/mixer_module/functions/FunctionConstantMax.hpp
+  lines=4 hit=0 functions=4 hit=0 branches=2 hit=0
+Processing file platforms/common/uORB/uORBDeviceMaster.hpp
+  lines=15 hit=13 functions=4 hit=4 branches=10 hit=6
+Processing file src/lib/lat_lon_alt/lat_lon_alt.hpp
+  lines=30 hit=30 functions=16 hit=16
+Processing file src/drivers/gnss/septentrio/rtcm.cpp
+  lines=60 hit=0 functions=8 hit=0 branches=25 hit=0
+Processing file src/modules/uxrce_dds_client/srv_base.h
+  lines=3 hit=0 functions=2 hit=0
+Processing file src/lib/mathlib/math/WelfordMean.hpp
+  lines=38 hit=33 functions=8 hit=8 branches=10 hit=6
+Processing file src/lib/controllib/BlockLowPassVector.hpp
+  lines=18 hit=0 functions=7 hit=0 branches=34 hit=0
+Processing file src/lib/matrix/test/MatrixInverseTest.cpp
+  lines=81 hit=81 functions=4 hit=4 branches=372 hit=102
+Processing file src/modules/logger/log_writer.cpp
+  lines=85 hit=48 functions=13 hit=8 branches=86 hit=30
+Processing file src/modules/rover_ackermann/AckermannDriveModes/AckermannAutoMode/AckermannAutoMode.hpp
+  lines=2 hit=0 functions=3 hit=0
+Processing file src/modules/ekf2/EKF/height_control.cpp
+  lines=108 hit=96 functions=4 hit=4 branches=97 hit=85
+Processing file src/lib/matrix/matrix/filter.hpp
+  lines=7 hit=7 functions=1 hit=1 branches=38 hit=19
+Processing file src/modules/ekf2/test/test_EKF_measurementSampling.cpp
+  lines=7 hit=7 functions=6 hit=6 branches=2 hit=1
+Processing file src/modules/payload_deliverer/payload_deliverer.cpp
+  lines=178 hit=0 functions=17 hit=0 branches=133 hit=0
+Processing file src/modules/vtol_att_control/standard.cpp
+  lines=179 hit=0 functions=9 hit=0 branches=155 hit=0
+Processing file src/modules/flight_mode_manager/tasks/Transition/FlightTaskTransition.cpp
+  lines=50 hit=0 functions=5 hit=0 branches=92 hit=0
+Processing file src/modules/ekf2/test/test_EKF_basics.cpp
+  lines=202 hit=202 functions=39 hit=39 branches=1166 hit=214
+Processing file src/modules/mavlink/streams/BATTERY_INFO.hpp
+  lines=36 hit=2 functions=8 hit=2 branches=36 hit=0
+Processing file src/lib/mixer_module/functions/FunctionLandingGearWheel.hpp
+  lines=7 hit=0 functions=4 hit=0 branches=14 hit=0
+Processing file src/lib/sensor_calibration/Barometer.hpp
+  lines=13 hit=1 functions=11 hit=1 branches=4 hit=0
+Processing file src/modules/mavlink/streams/CURRENT_MODE.hpp
+  lines=18 hit=11 functions=8 hit=8 branches=16 hit=5
+Processing file src/modules/ekf2/test/test_EKF_airspeed.cpp
+  lines=163 hit=163 functions=19 hit=19 branches=634 hit=183
+Processing file src/modules/rover_mecanum/MecanumDriveModes/MecanumManualMode/MecanumManualMode.hpp
+  lines=2 hit=0 functions=3 hit=0
+Processing file src/modules/rover_differential/DifferentialDriveModes/DifferentialOffboardMode/DifferentialOffboardMode.cpp
+  lines=47 hit=0 functions=3 hit=0 branches=54 hit=0
+Processing file src/modules/flight_mode_manager/tasks/Failsafe/FlightTaskFailsafe.cpp
+  lines=24 hit=0 functions=2 hit=0 branches=20 hit=0
+Processing file src/modules/mavlink/mavlink_main.h
+  lines=98 hit=30 functions=60 hit=27 branches=26 hit=3
+Processing file src/modules/commander/HealthAndArmingChecks/checks/systemCheck.cpp
+  lines=37 hit=0 functions=1 hit=0 branches=116 hit=0
+Processing file src/lib/system_identification/system_identification_test.cpp
+  lines=111 hit=111 functions=19 hit=19 branches=206 hit=91
+Processing file src/modules/navigator/vtol_takeoff.cpp
+  lines=82 hit=0 functions=4 hit=0 branches=19 hit=0
+Processing file src/modules/ekf2/test/test_EKF_drag_fusion.cpp
+  lines=135 hit=135 functions=23 hit=23 branches=354 hit=127
+Processing file src/lib/matrix/test/MatrixUpperRightTriangleTest.cpp
+  lines=7 hit=7 functions=4 hit=4 branches=18 hit=7
+Processing file src/modules/ekf2/test/sensor_simulator/sensor.cpp
+  lines=13 hit=13 functions=6 hit=5 branches=10 hit=9
+Processing file src/lib/battery/battery.cpp
+  lines=231 hit=140 functions=19 hit=15 branches=248 hit=68
+Processing file src/lib/mathlib/math/MaxDistanceToCircleTest.cpp
+  lines=56 hit=56 functions=16 hit=16 branches=198 hit=64
+Processing file src/modules/ekf2/EKF/estimator_interface.cpp
+  lines=310 hit=212 functions=35 hit=28 branches=348 hit=157
+Processing file src/modules/mavlink/mavlink_command_sender.cpp
+  lines=99 hit=13 functions=6 hit=3 branches=78 hit=3
+Processing file src/modules/mavlink/streams/GPS_GLOBAL_ORIGIN.hpp
+  lines=36 hit=14 functions=9 hit=8 branches=40 hit=10
+Processing file src/modules/commander/HealthAndArmingChecks/Common.cpp
+  lines=153 hit=95 functions=19 hit=13 branches=76 hit=29
+Processing file src/lib/mixer_module/functions/FunctionManualRC.hpp
+  lines=26 hit=0 functions=5 hit=0 branches=18 hit=0
+Processing file src/modules/simulation/simulator_sih/sih.cpp
+  lines=447 hit=0 functions=30 hit=0 branches=1226 hit=0
+Processing file src/lib/matrix/test/MatrixSquareTest.cpp
+  lines=88 hit=88 functions=4 hit=4 branches=388 hit=102
+Processing file src/lib/mixer_module/mixer_module.hpp
+  lines=15 hit=11 functions=12 hit=8 branches=10 hit=6
+Processing file src/lib/controllib/controllib_test/controllib_test_main.cpp
+  lines=325 hit=325 functions=19 hit=19 branches=1204 hit=485
+Processing file src/lib/conversion/RotationTest.cpp
+  lines=28 hit=28 functions=8 hit=8 branches=134 hit=62
+Processing file src/lib/mathlib/math/test/test.cpp
+  lines=43 hit=10 functions=6 hit=3 branches=22 hit=3
+Processing file src/lib/parameters/parameters.cpp
+  lines=573 hit=368 functions=49 hit=39 branches=536 hit=217
+Processing file src/modules/commander/HealthAndArmingChecks/checks/loggerCheck.hpp
+  lines=1 hit=0 functions=2 hit=0
+Processing file src/modules/temperature_compensation/temperature_calibration/baro.cpp
+  lines=85 hit=0 functions=6 hit=0 branches=86 hit=0
+Processing file src/modules/navigator/MissionFeasibility/FeasibilityCheckerTest.cpp
+  lines=297 hit=297 functions=40 hit=40 branches=584 hit=214
+Processing file src/modules/navigator/rtl_mission_fast.h
+  lines=1 hit=0 functions=2 hit=0
+Processing file src/lib/matrix/test/MatrixScalarMultiplicationTest.cpp
+  lines=8 hit=8 functions=4 hit=4 branches=18 hit=6
+Processing file src/modules/rover_differential/DifferentialRateControl/DifferentialRateControl.cpp
+  lines=48 hit=0 functions=4 hit=0 branches=64 hit=0
+Processing file src/drivers/gps/devices/src/gps_helper.h
+  lines=28 hit=0 functions=15 hit=0
+Processing file platforms/posix/src/px4/common/test_stubs/stub_daemon.cpp
+  lines=2 hit=0 functions=2 hit=0
+Processing file src/drivers/osd/msp_osd/MessageDisplay/MessageDisplay.hpp
+  lines=4 hit=1 functions=4 hit=1
+Processing file src/drivers/camera_trigger/camera_trigger.cpp
+  lines=377 hit=0 functions=22 hit=0 branches=400 hit=0
+Processing file src/modules/commander/HealthAndArmingChecks/checks/imuConsistencyCheck.hpp
+  lines=3 hit=0 functions=4 hit=0 branches=6 hit=0
+Processing file src/examples/hello/hello_example.cpp
+  lines=8 hit=0 functions=1 hit=0 branches=6 hit=0
+Processing file src/modules/rover_mecanum/MecanumDriveModes/MecanumAutoMode/MecanumAutoMode.hpp
+  lines=2 hit=0 functions=3 hit=0
+Processing file src/modules/gimbal/input_test.cpp
+  lines=60 hit=0 functions=6 hit=0 branches=16 hit=0
+Processing file src/modules/mavlink/mavlink_messages.cpp
+  lines=16 hit=5 functions=3 hit=1 branches=14 hit=4
+Processing file src/modules/mc_att_control/AttitudeControl/AttitudeControl.hpp
+  lines=11 hit=7 functions=4 hit=3 branches=4 hit=0
+Processing file src/modules/land_detector/RoverLandDetector.cpp
+  lines=17 hit=0 functions=3 hit=0 branches=16 hit=0
+Processing file src/modules/ekf2/EKF/output_predictor/output_predictor.cpp
+  lines=197 hit=161 functions=15 hit=11 branches=376 hit=160
+Processing file platforms/common/include/px4_platform_common/px4_work_queue/WorkItem.hpp
+  lines=13 hit=12 functions=5 hit=4 branches=4 hit=4
+Processing file src/modules/temperature_compensation/temperature_calibration/task.cpp
+  lines=144 hit=0 functions=7 hit=0 branches=194 hit=0
+Processing file src/drivers/gps/devices/src/rtcm.h
+  lines=2 hit=0 functions=2 hit=0
+Processing file src/modules/rover_differential/DifferentialAttControl/DifferentialAttControl.cpp
+  lines=46 hit=0 functions=4 hit=0 branches=56 hit=0
+Processing file src/modules/mavlink/streams/SERVO_OUTPUT_RAW.hpp
+  lines=34 hit=13 functions=16 hit=10 branches=18 hit=6
+Processing file src/modules/commander/HealthAndArmingChecks/checks/armPermissionCheck.hpp
+  lines=3 hit=0 functions=4 hit=0 branches=2 hit=0
+Processing file src/modules/commander/ModeUtil/mode_requirements.cpp
+  lines=113 hit=106 functions=2 hit=2 branches=10 hit=5
+Processing file platforms/posix/src/px4/common/px4_daemon/sock_protocol.cpp
+  lines=2 hit=2 functions=1 hit=1 branches=2 hit=1
+Processing file src/modules/simulation/sensor_gps_sim/SensorGpsSim.cpp
+  lines=111 hit=0 functions=10 hit=0 branches=88 hit=0
+Processing file src/lib/cdev/test/cdevtest_example.cpp
+  lines=138 hit=68 functions=13 hit=8 branches=112 hit=34
+Processing file src/modules/mavlink/streams/FUEL_STATUS.hpp
+  lines=22 hit=10 functions=8 hit=7 branches=18 hit=6
+Processing file test/fuzztest/fuzztest/internal/configuration.cc
+  lines=201 hit=12 functions=24 hit=3 branches=596 hit=4
+Processing file src/modules/gyro_fft/GyroFFT.hpp
+  lines=13 hit=13 functions=4 hit=2 branches=12 hit=6
+Processing file src/modules/simulation/gz_bridge/GZMixingInterfaceWheel.cpp
+  lines=48 hit=0 functions=4 hit=0 branches=72 hit=0
+Processing file src/drivers/osd/msp_osd/uorb_to_msp.cpp
+  lines=262 hit=0 functions=21 hit=0 branches=180 hit=0
+Processing file src/drivers/gnss/septentrio/rtcm.h
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/modules/commander/HealthAndArmingChecks/checks/sdcardCheck.cpp
+  lines=12 hit=0 functions=1 hit=0 branches=24 hit=0
+Processing file src/lib/timesync/Timesync.hpp
+  lines=4 hit=1 functions=4 hit=1
+Processing file src/modules/commander/HealthAndArmingChecks/Common.hpp
+  lines=78 hit=63 functions=60 hit=25 branches=92 hit=53
+Processing file src/lib/collision_prevention/CollisionPreventionTest.cpp
+  lines=765 hit=765 functions=103 hit=103 branches=1916 hit=655
+Processing file src/modules/temperature_compensation/TemperatureCompensationModule.cpp
+  lines=230 hit=0 functions=15 hit=0 branches=297 hit=0
+Processing file src/lib/parameters/param.h
+  lines=6 hit=6 functions=2 hit=2 branches=4 hit=2
+Processing file src/lib/mixer_module/functions/FunctionServos.hpp
+  lines=10 hit=8 functions=6 hit=4 branches=12 hit=5
+Processing file src/modules/sensors/sensors.hpp
+  lines=1 hit=1 functions=1 hit=1
+Processing file src/lib/motion_planning/ManualVelocitySmoothingZ.hpp
+  lines=33 hit=0 functions=14 hit=0 branches=2 hit=0
+Processing file src/systemcmds/tests/test_List.cpp
+  lines=113 hit=113 functions=6 hit=6 branches=146 hit=86
+Processing file src/lib/sensor_calibration/Utilities.hpp
+  lines=7 hit=0 functions=3 hit=0 branches=8 hit=0
+Processing file src/systemcmds/tests/test_dataman.cpp
+  lines=392 hit=310 functions=20 hit=20 branches=268 hit=178
+Processing file src/modules/commander/rc_calibration.cpp
+  lines=30 hit=0 functions=1 hit=0 branches=70 hit=0
+Processing file src/lib/matrix/test/MatrixTransposeTest.cpp
+  lines=8 hit=8 functions=4 hit=4 branches=12 hit=3
+Processing file test/fuzztest/fuzztest/internal/domains/aggregate_of_impl.h
+  lines=40 hit=27 functions=15 hit=10 branches=34 hit=15
+Processing file platforms/common/px4_work_queue/test/wqueue_test.h
+  lines=2 hit=1 functions=3 hit=1
+Processing file platforms/common/uORB/SubscriptionInterval.hpp
+  lines=20 hit=19 functions=14 hit=13
+Processing file src/systemcmds/tests/test_atomic_bitset.cpp
+  lines=52 hit=52 functions=5 hit=5 branches=78 hit=54
+Processing file platforms/common/include/px4_platform_common/atomic.h
+  lines=17 hit=16 functions=204 hit=88
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessStandardVTOL.cpp
+  lines=37 hit=0 functions=5 hit=0 branches=35 hit=0
+Processing file src/modules/sensors/vehicle_gps_position/gps_blending.cpp
+  lines=281 hit=245 functions=5 hit=5 branches=316 hit=193
+Processing file src/modules/commander/HealthAndArmingChecks/checks/cpuResourceCheck.hpp
+  lines=2 hit=0 functions=3 hit=0
+Processing file src/modules/navigator/safe_point_land.hpp
+  lines=20 hit=0 functions=6 hit=0 branches=14 hit=0
+Processing file src/modules/rover_ackermann/RoverAckermann.cpp
+  lines=119 hit=0 functions=12 hit=0 branches=131 hit=0
+Processing file src/modules/mavlink/streams/MAG_CAL_REPORT.hpp
+  lines=37 hit=2 functions=8 hit=2 branches=40 hit=0
+Processing file test/fuzztest/fuzztest/internal/registration.h
+  lines=23 hit=23 functions=12 hit=12 branches=8 hit=4
+Processing file src/modules/commander/failure_detector/FailureInjector.hpp
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/lib/rc/st24.cpp
+  lines=93 hit=70 functions=2 hit=2 branches=33 hit=25
+Processing file platforms/posix/src/px4/common/gtest_runner/gtest_functional_main.cpp
+  lines=7 hit=7 functions=1 hit=1 branches=2 hit=1
+Processing file src/lib/variable_length_ringbuffer/VariableLengthRingbuffer.hpp
+  lines=1 hit=1 functions=1 hit=1
+Processing file src/modules/rover_differential/DifferentialSpeedControl/DifferentialSpeedControl.hpp
+  lines=3 hit=0 functions=4 hit=0
+Processing file src/modules/rover_ackermann/AckermannRateControl/AckermannRateControl.hpp
+  lines=3 hit=0 functions=4 hit=0
+Processing file src/modules/rover_mecanum/RoverMecanum.cpp
+  lines=119 hit=0 functions=12 hit=0 branches=131 hit=0
+Processing file platforms/posix/src/px4/common/px4_daemon/server.cpp
+  lines=124 hit=87 functions=8 hit=7 branches=126 hit=45
+Processing file src/modules/ekf2/EKF/aid_sources/zero_innovation_heading_update.cpp
+  lines=16 hit=16 functions=1 hit=1 branches=28 hit=24
+Processing file src/modules/flight_mode_manager/tasks/ManualAltitude/FlightTaskManualAltitude.hpp
+  lines=4 hit=0 functions=5 hit=0 branches=22 hit=0
+Processing file src/modules/mavlink/streams/EXTENDED_SYS_STATE.hpp
+  lines=39 hit=17 functions=8 hit=8 branches=64 hit=11
+Processing file src/modules/simulation/sensor_gps_sim/SensorGpsSim.hpp
+  lines=2 hit=0 functions=2 hit=0 branches=4 hit=0
+Processing file src/modules/commander/failsafe/failsafe_test.cpp
+  lines=349 hit=349 functions=40 hit=40 branches=1332 hit=351
+Processing file src/modules/control_allocator/ControlAllocator.cpp
+  lines=426 hit=0 functions=17 hit=0 branches=672 hit=0
+Processing file src/modules/mavlink/mavlink_rate_limiter.cpp
+  lines=6 hit=6 functions=1 hit=1 branches=4 hit=3
+Processing file src/modules/payload_deliverer/gripper.h
+  lines=15 hit=0 functions=7 hit=0 branches=4 hit=0
+Processing file src/modules/simulation/sensor_baro_sim/SensorBaroSim.hpp
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/lib/circuit_breaker/circuit_breaker.cpp
+  lines=3 hit=3 functions=1 hit=1 branches=8 hit=4
+Processing file src/modules/fw_rate_control/FixedwingRateControl.hpp
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/lib/sensor_calibration/Magnetometer.hpp
+  lines=18 hit=3 functions=16 hit=3 branches=40 hit=0
+Processing file platforms/posix/src/px4/common/px4_daemon/client.cpp
+  lines=67 hit=54 functions=5 hit=5 branches=64 hit=33
+Processing file src/lib/parameters/atomic_transaction.h
+  lines=21 hit=21 functions=6 hit=6
+Processing file src/modules/logger/logged_topics.h
+  lines=10 hit=10 functions=7 hit=7
+Processing file src/systemcmds/tests/test_sleep.c
+  lines=14 hit=12 functions=1 hit=1 branches=4 hit=3
+Processing file src/modules/mc_pos_control/GotoControl/GotoControl.cpp
+  lines=103 hit=0 functions=6 hit=0 branches=104 hit=0
+Processing file platforms/common/work_queue/dq_addlast.c
+  lines=9 hit=7 functions=1 hit=1 branches=2 hit=1
+Processing file src/modules/airspeed_selector/AirspeedValidator.hpp
+  lines=34 hit=0 functions=30 hit=0
+Processing file src/modules/mavlink/streams/COMMAND_LONG.hpp
+  lines=30 hit=13 functions=8 hit=7 branches=44 hit=6
+Processing file src/systemcmds/topic_listener/listener_main.cpp
+  lines=106 hit=35 functions=3 hit=2 branches=96 hit=21
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessSpacecraft.hpp
+  lines=8 hit=0 functions=5 hit=0
+Processing file src/lib/variable_length_ringbuffer/VariableLengthRingbuffer.cpp
+  lines=29 hit=29 functions=5 hit=5 branches=28 hit=18
+Processing file src/modules/ekf2/EKF/aid_sources/external_vision/ev_yaw_control.cpp
+  lines=74 hit=47 functions=2 hit=2 branches=100 hit=45
+Processing file src/modules/flight_mode_manager/tasks/ManualAltitudeSmoothVel/FlightTaskManualAltitudeSmoothVel.hpp
+  lines=3 hit=0 functions=4 hit=0 branches=8 hit=0
+Processing file src/lib/npfg/DirectionalGuidance.cpp
+  lines=100 hit=0 functions=16 hit=0 branches=102 hit=0
+Processing file src/modules/simulation/simulator_mavlink/SimulatorMavlink.hpp
+  lines=19 hit=0 functions=8 hit=0 branches=24 hit=0
+Processing file src/lib/controllib/block/BlockParam.cpp
+  lines=45 hit=16 functions=7 hit=2 branches=34 hit=10
+Processing file src/lib/pid/PID.cpp
+  lines=22 hit=22 functions=4 hit=4 branches=10 hit=8
+Processing file src/modules/ekf2/test/sensor_simulator/mag.cpp
+  lines=10 hit=10 functions=5 hit=4 branches=6 hit=3
+Processing file src/modules/vtol_att_control/standard.h
+  lines=2 hit=0 functions=3 hit=0
+Processing file src/lib/cdev/test/cdevtest_start.cpp
+  lines=21 hit=12 functions=1 hit=1 branches=14 hit=7
+Processing file src/modules/navigator/GeofenceBreachAvoidance/GeofenceBreachAvoidanceTest.cpp
+  lines=162 hit=162 functions=29 hit=29 branches=542 hit=205
+Processing file src/modules/ekf2/EKF2Selector.hpp
+  lines=12 hit=0 functions=3 hit=0 branches=16 hit=0
+Processing file src/drivers/gps/devices/src/base_station.h
+  lines=3 hit=0 functions=3 hit=0
+Processing file src/systemcmds/tests/test_i2c_spi_cli.cpp
+  lines=106 hit=0 functions=6 hit=0 branches=59 hit=0
+Processing file platforms/posix/src/px4/common/px4_sem.cpp
+  lines=80 hit=57 functions=8 hit=7 branches=40 hit=21
+Processing file src/include/containers/BlockingList.hpp
+  lines=17 hit=5 functions=9 hit=3 branches=6 hit=1
+Processing file src/lib/mathlib/math/filter/AlphaFilter.hpp
+  lines=35 hit=30 functions=39 hit=37 branches=60 hit=37
+Processing file src/modules/commander/HealthAndArmingChecks/checks/distanceSensorChecks.hpp
+  lines=3 hit=0 functions=4 hit=0 branches=4 hit=0
+Processing file src/lib/matrix/test/MatrixSparseVectorTest.cpp
+  lines=87 hit=87 functions=44 hit=44 branches=374 hit=92
+Processing file src/modules/navigator/geofence.h
+  lines=6 hit=0 functions=6 hit=0 branches=4 hit=0
+Processing file platforms/common/work_queue/hrt_work_cancel.c
+  lines=8 hit=8 functions=1 hit=1 branches=2 hit=2
+Processing file src/modules/ekf2/EKF/python/ekf_derivation/generated/compute_gravity_z_innov_var_and_h.h
+  lines=15 hit=15 functions=1 hit=1 branches=4 hit=2
+Processing file src/modules/events/rc_loss_alarm.cpp
+  lines=32 hit=0 functions=3 hit=0 branches=36 hit=0
+Processing file src/modules/commander/HealthAndArmingChecks/checks/baroCheck.hpp
+  lines=3 hit=0 functions=4 hit=0 branches=6 hit=0
+Processing file src/modules/ekf2/test/test_EKF_imuSampling.cpp
+  lines=95 hit=95 functions=15 hit=15 branches=550 hit=172
+Processing file src/modules/mavlink/mavlink_events.cpp
+  lines=115 hit=33 functions=13 hit=6 branches=76 hit=16
+Processing file platforms/posix/src/px4/common/px4_init.cpp
+  lines=7 hit=7 functions=1 hit=1
+Processing file src/modules/ekf2/EKF/aid_sources/airspeed/airspeed_fusion.cpp
+  lines=117 hit=92 functions=6 hit=5 branches=166 hit=98
+Processing file platforms/common/i2c_spi_buses.cpp
+  lines=239 hit=0 functions=26 hit=0 branches=201 hit=0
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessStandardVTOL.hpp
+  lines=11 hit=0 functions=6 hit=0
+Processing file src/modules/logger/logger.cpp
+  lines=1221 hit=749 functions=59 hit=45 branches=1166 hit=467
+Processing file src/include/containers/IntrusiveSortedList.hpp
+  lines=57 hit=52 functions=45 hit=34 branches=30 hit=23
+Processing file src/lib/matrix/test/MatrixUnwrapTest.cpp
+  lines=32 hit=32 functions=8 hit=8 branches=60 hit=24
+Processing file src/modules/commander/HealthAndArmingChecks/HealthAndArmingChecksTest.cpp
+  lines=134 hit=134 functions=25 hit=25 branches=848 hit=246
+Processing file src/modules/sensors/Integrator.hpp
+  lines=54 hit=42 functions=14 hit=12 branches=56 hit=30
+Processing file src/lib/controllib/BlockPD.hpp
+  lines=12 hit=12 functions=7 hit=6 branches=6 hit=3
+Processing file src/modules/mc_pos_control/Takeoff/TakeoffTest.cpp
+  lines=26 hit=26 functions=8 hit=8 branches=136 hit=35
+Processing file src/lib/mixer_module/functions/FunctionMotors.hpp
+  lines=35 hit=23 functions=9 hit=9 branches=32 hit=13
+Processing file src/lib/rate_control/rate_control.cpp
+  lines=40 hit=16 functions=7 hit=2 branches=40 hit=19
+Processing file src/lib/matrix/matrix/Vector2.hpp
+  lines=36 hit=36 functions=17 hit=17 branches=30 hit=15
+Processing file src/modules/mavlink/mavlink_messages.h
+  lines=8 hit=7 functions=93 hit=92
+Processing file src/modules/mavlink/streams/SCALED_IMU2.hpp
+  lines=46 hit=2 functions=8 hit=2 branches=88 hit=0
+Processing file src/lib/mixer_module/functions/FunctionICEngineControl.hpp
+  lines=17 hit=0 functions=5 hit=0 branches=16 hit=0
+Processing file src/modules/mavlink/streams/AUTOPILOT_STATE_FOR_GIMBAL_DEVICE.hpp
+  lines=38 hit=2 functions=8 hit=2 branches=70 hit=0
+Processing file src/modules/landing_target_estimator/LandingTargetEstimator.cpp
+  lines=138 hit=0 functions=5 hit=0 branches=208 hit=0
+Processing file src/modules/mavlink/streams/NAV_CONTROLLER_OUTPUT.hpp
+  lines=27 hit=12 functions=8 hit=8 branches=26 hit=8
+Processing file platforms/common/external_reset_lockout.cpp
+  lines=1 hit=1 functions=1 hit=1
+Processing file src/modules/ekf2/EKF/yaw_estimator/EKFGSF_yaw.h
+  lines=10 hit=10 functions=6 hit=6 branches=8 hit=8
+Processing file src/modules/mavlink/mavlink_shell.h
+  lines=4 hit=0 functions=4 hit=0
+Processing file src/modules/commander/px4_custom_mode.h
+  lines=104 hit=27 functions=1 hit=1 branches=28 hit=7
+Processing file src/systemcmds/led_control/led_control.cpp
+  lines=131 hit=0 functions=4 hit=0 branches=104 hit=0
+Processing file src/modules/mc_rate_control/MulticopterRateControl.hpp
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/modules/commander/accelerometer_calibration.cpp
+  lines=213 hit=0 functions=4 hit=0 branches=460 hit=0
+Processing file platforms/common/include/px4_platform_common/sem.hpp
+  lines=2 hit=2 functions=2 hit=2 branches=2 hit=1
+Processing file src/modules/rover_ackermann/AckermannDriveModes/AckermannManualMode/AckermannManualMode.hpp
+  lines=2 hit=0 functions=3 hit=0
+Processing file src/modules/mc_pos_control/MulticopterPositionControl.hpp
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/modules/commander/HealthAndArmingChecks/checks/imuConsistencyCheck.cpp
+  lines=19 hit=0 functions=1 hit=0 branches=36 hit=0
+Processing file src/examples/fake_magnetometer/FakeMagnetometer.cpp
+  lines=48 hit=0 functions=7 hit=0 branches=86 hit=0
+Processing file src/modules/navigator/takeoff.cpp
+  lines=107 hit=0 functions=4 hit=0 branches=59 hit=0
+Processing file src/modules/ekf2/test/sensor_simulator/ekf_wrapper.cpp
+  lines=164 hit=138 functions=61 hit=52 branches=14 hit=7
+Processing file src/modules/events/send_event.h
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/modules/rover_mecanum/MecanumActControl/MecanumActControl.cpp
+  lines=59 hit=0 functions=5 hit=0 branches=66 hit=0
+Processing file src/modules/ekf2/EKF/python/ekf_derivation/generated/compute_sideslip_h.h
+  lines=56 hit=56 functions=1 hit=1 branches=2 hit=1
+Processing file src/modules/ekf2/test/sensor_simulator/flow.cpp
+  lines=17 hit=17 functions=6 hit=5 branches=12 hit=6
+Processing file src/modules/local_position_estimator/sensors/vision.cpp
+  lines=101 hit=0 functions=4 hit=0 branches=184 hit=0
+Processing file src/modules/commander/HealthAndArmingChecks/checks/magnetometerCheck.hpp
+  lines=3 hit=0 functions=4 hit=0 branches=10 hit=0
+Processing file src/modules/uuv_pos_control/uuv_pos_control.hpp
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/modules/mavlink/streams/ATTITUDE.hpp
+  lines=24 hit=11 functions=8 hit=8 branches=34 hit=7
+Processing file platforms/posix/src/px4/common/lockstep_scheduler/src/lockstep_components.cpp
+  lines=40 hit=8 functions=6 hit=2 branches=32 hit=1
+Processing file platforms/common/include/px4_platform_common/param.h
+  lines=80 hit=32 functions=3770 hit=523 branches=10 hit=2
+Processing file src/modules/fw_autotune_attitude_control/fw_autotune_attitude_control.cpp
+  lines=510 hit=0 functions=23 hit=0 branches=658 hit=0
+Processing file test/fuzztest/fuzztest/internal/domains/domain_type_erasure.h
+  lines=53 hit=23 functions=57 hit=10 branches=50 hit=11
+Processing file src/modules/sensors/vehicle_air_data/VehicleAirData.cpp
+  lines=259 hit=66 functions=13 hit=8 branches=398 hit=73
+Processing file src/lib/collision_prevention/ObstacleMath.cpp
+  lines=54 hit=35 functions=7 hit=7 branches=36 hit=12
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessSpacecraft.cpp
+  lines=10 hit=0 functions=3 hit=0 branches=4 hit=0
+Processing file src/modules/mavlink/mavlink_shell.cpp
+  lines=52 hit=0 functions=6 hit=0 branches=34 hit=0
+Processing file src/modules/fw_att_control/fw_yaw_controller.cpp
+  lines=23 hit=0 functions=1 hit=0 branches=20 hit=0
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessHelicopterCoaxial.cpp
+  lines=97 hit=0 functions=7 hit=0 branches=98 hit=0
+Processing file test/fuzztest/fuzztest/internal/corpus_database.cc
+  lines=24 hit=19 functions=7 hit=6 branches=30 hit=11
+Processing file src/drivers/distance_sensor/lightware_laser_serial/lightware_laser_serial.cpp
+  lines=168 hit=0 functions=10 hit=0 branches=157 hit=0
+Processing file src/modules/commander/calibration_routines.cpp
+  lines=167 hit=0 functions=4 hit=0 branches=252 hit=0
+Processing file src/systemcmds/tests/hrt_test/hrt_test.h
+  lines=2 hit=1 functions=2 hit=1
+Processing file src/modules/gyro_calibration/GyroCalibration.hpp
+  lines=7 hit=0 functions=2 hit=0 branches=2 hit=0
+Processing file src/modules/commander/HealthAndArmingChecks/checks/offboardCheck.hpp
+  lines=3 hit=0 functions=4 hit=0 branches=4 hit=0
+Processing file src/lib/controllib/BlockIntegralTrap.hpp
+  lines=10 hit=10 functions=8 hit=7 branches=2 hit=1
+Processing file platforms/posix/src/px4/common/lockstep_scheduler/src/lockstep_scheduler.cpp
+  lines=71 hit=64 functions=4 hit=4 branches=44 hit=34
+Processing file src/modules/rover_differential/DifferentialSpeedControl/DifferentialSpeedControl.cpp
+  lines=72 hit=0 functions=6 hit=0 branches=108 hit=0
+Processing file src/modules/mavlink/streams/VIBRATION.hpp
+  lines=40 hit=9 functions=8 hit=7 branches=46 hit=6
+Processing file src/modules/navigator/GeofenceBreachAvoidance/fake_geofence.hpp
+  lines=37 hit=35 functions=9 hit=8 branches=23 hit=16
+Processing file src/modules/commander/HealthAndArmingChecks/checks/manualControlCheck.cpp
+  lines=16 hit=0 functions=1 hit=0 branches=36 hit=0
+Processing file src/lib/mathlib/math/FunctionsTest.cpp
+  lines=145 hit=145 functions=48 hit=48 branches=1278 hit=273
+Processing file src/lib/parameters/ParameterTest.cpp
+  lines=32 hit=32 functions=9 hit=9 branches=116 hit=27
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessCustom.hpp
+  lines=2 hit=0 functions=3 hit=0
+Processing file src/modules/ekf2/EKF/imu_down_sampler/imu_down_sampler.hpp
+  lines=4 hit=4 functions=1 hit=1 branches=6 hit=3
+Processing file src/lib/matrix/test/MatrixSetIdentityTest.cpp
+  lines=16 hit=16 functions=4 hit=4 branches=56 hit=22
+Processing file src/examples/hello/hello_main.cpp
+  lines=8 hit=0 functions=1 hit=0 branches=8 hit=0
+Processing file src/modules/ekf2/EKF/aid_sources/external_vision/ev_vel_control.cpp
+  lines=82 hit=74 functions=4 hit=4 branches=128 hit=80
+Processing file src/lib/rtl/rtl_time_estimator.h
+  lines=4 hit=0 functions=5 hit=0
+Processing file src/modules/flight_mode_manager/tasks/AutoFollowTarget/follow_target_estimator/TargetEstimator.hpp
+  lines=7 hit=0 functions=3 hit=0 branches=16 hit=0
+Processing file src/lib/controllib/BlockIntegralTrap.cpp
+  lines=5 hit=5 functions=1 hit=1
+Processing file src/drivers/gps/devices/src/unicore.cpp
+  lines=100 hit=0 functions=7 hit=0 branches=54 hit=0
+Processing file src/modules/fw_mode_manager/FixedWingModeManager.cpp
+  lines=1359 hit=0 functions=62 hit=0 branches=2019 hit=0
+Processing file src/lib/wind_estimator/python/generated/init_wind_using_airspeed.h
+  lines=21 hit=0 functions=1 hit=0 branches=4 hit=0
+Processing file src/modules/navigator/mission.h
+  lines=3 hit=0 functions=4 hit=0
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessTiltrotorVTOL.cpp
+  lines=102 hit=0 functions=8 hit=0 branches=157 hit=0
+Processing file src/modules/mavlink/mavlink_log_handler.cpp
+  lines=285 hit=12 functions=16 hit=3 branches=215 hit=2
+Processing file src/systemcmds/ver/ver.cpp
+  lines=111 hit=61 functions=2 hit=1 branches=80 hit=23
+Processing file src/modules/mavlink/mavlink_events.h
+  lines=1 hit=1 functions=1 hit=1
+Processing file src/systemcmds/tests/test_bson.cpp
+  lines=138 hit=77 functions=4 hit=4 branches=76 hit=45
+Processing file src/modules/commander/HealthAndArmingChecks/checks/externalChecks.cpp
+  lines=160 hit=0 functions=8 hit=0 branches=156 hit=0
+Processing file src/modules/mc_hover_thrust_estimator/MulticopterHoverThrustEstimator.hpp
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/drivers/gnss/septentrio/sbf/decoder.cpp
+  lines=102 hit=42 functions=16 hit=7 branches=99 hit=25
+Processing file src/modules/flight_mode_manager/tasks/Failsafe/FlightTaskFailsafe.hpp
+  lines=3 hit=0 functions=4 hit=0 branches=2 hit=0
+Processing file src/modules/rover_mecanum/MecanumSpeedControl/MecanumSpeedControl.cpp
+  lines=93 hit=0 functions=6 hit=0 branches=148 hit=0
+Processing file src/modules/rover_mecanum/MecanumDriveModes/MecanumOffboardMode/MecanumOffboardMode.hpp
+  lines=1 hit=0 functions=2 hit=0
+Processing file platforms/common/uORB/SubscriptionMultiArray.hpp
+  lines=27 hit=26 functions=106 hit=40 branches=34 hit=20
+Processing file src/modules/commander/baro_calibration.cpp
+  lines=70 hit=0 functions=1 hit=0 branches=108 hit=0
+Processing file src/modules/local_position_estimator/sensors/lidar.cpp
+  lines=64 hit=0 functions=4 hit=0 branches=126 hit=0
+Processing file src/modules/navigator/land.h
+  lines=1 hit=0 functions=2 hit=0
+Processing file src/modules/logger/messages.h
+  lines=2 hit=2 functions=1 hit=1
+Processing file src/modules/mavlink/streams/TIME_ESTIMATE_TO_TARGET.hpp
+  lines=21 hit=11 functions=8 hit=8 branches=16 hit=4
+Processing file src/lib/tinybson/tinybson.cpp
+  lines=274 hit=213 functions=28 hit=27 branches=267 hit=122
+Processing file src/modules/manual_control/ManualControl.cpp
+  lines=322 hit=160 functions=21 hit=9 branches=400 hit=135
+Processing file src/lib/matrix/matrix/PseudoInverse.hpp
+  lines=41 hit=39 functions=11 hit=11 branches=100 hit=58
+Processing file src/modules/sensors/voted_sensors_update.cpp
+  lines=234 hit=185 functions=11 hit=11 branches=374 hit=180
+Processing file src/modules/temperature_compensation/temperature_calibration/accel.cpp
+  lines=102 hit=0 functions=6 hit=0 branches=110 hit=0
+Processing file platforms/posix/src/px4/generic/generic/tone_alarm/ToneAlarmInterface.cpp
+  lines=6 hit=4 functions=3 hit=2
+Processing file src/modules/mavlink/mavlink_stream.cpp
+  lines=29 hit=22 functions=2 hit=2 branches=26 hit=17
+Processing file src/lib/mathlib/math/WelfordMeanTest.cpp
+  lines=16 hit=16 functions=4 hit=4 branches=42 hit=12
+Processing file src/modules/sensors/vehicle_gps_position/VehicleGPSPosition.hpp
+  lines=1 hit=1 functions=1 hit=1
+Processing file src/lib/mathlib/math/filter/second_order_reference_model.hpp
+  lines=86 hit=10 functions=17 hit=8 branches=94 hit=3
+Processing file src/lib/control_allocation/control_allocation/ControlAllocationPseudoInverseTest.cpp
+  lines=38 hit=38 functions=8 hit=8 branches=70 hit=23
+Processing file src/modules/local_position_estimator/sensors/sonar.cpp
+  lines=74 hit=0 functions=4 hit=0 branches=140 hit=0
+Processing file src/modules/ekf2/test/test_EKF_mag_declination_generated.cpp
+  lines=24 hit=24 functions=8 hit=8 branches=110 hit=51
+Processing file test/fuzztest/fuzztest/internal/domains/domain_base.h
+  lines=50 hit=9 functions=28 hit=6 branches=60 hit=4
+Processing file platforms/common/uORB/uORB_tests/uORBTest_UnitTest.cpp
+  lines=519 hit=417 functions=21 hit=19 branches=850 hit=363
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessMultirotor.cpp
+  lines=8 hit=0 functions=2 hit=0 branches=4 hit=0
+Processing file src/modules/fw_mode_manager/launchdetection/LaunchDetector.cpp
+  lines=36 hit=0 functions=3 hit=0 branches=21 hit=0
+Processing file src/modules/sensors/vehicle_magnetometer/VehicleMagnetometer.hpp
+  lines=1 hit=1 functions=1 hit=1
+Processing file src/systemcmds/tests/test_float.cpp
+  lines=81 hit=81 functions=4 hit=4 branches=88 hit=44
+Processing file test/fuzztest/fuzztest/internal/domains/arbitrary_impl.h
+  lines=37 hit=20 functions=7 hit=4 branches=36 hit=11
+Processing file src/modules/fw_att_control/fw_pitch_controller.cpp
+  lines=12 hit=0 functions=1 hit=0 branches=10 hit=0
+Processing file src/modules/mavlink/streams/ESTIMATOR_STATUS.hpp
+  lines=28 hit=12 functions=8 hit=8 branches=32 hit=9
+Processing file src/modules/rover_ackermann/AckermannAttControl/AckermannAttControl.hpp
+  lines=3 hit=0 functions=4 hit=0
+Processing file src/modules/ekf2/EKF/bias_estimator/bias_estimator.cpp
+  lines=57 hit=55 functions=10 hit=10 branches=18 hit=14
+Processing file src/lib/slew_rate/SlewRateYawTest.cpp
+  lines=55 hit=55 functions=28 hit=28 branches=178 hit=57
+Processing file src/lib/timesync/Timesync.cpp
+  lines=54 hit=0 functions=4 hit=0 branches=24 hit=0
+Processing file platforms/common/work_queue/sq_addafter.c
+  lines=6 hit=6 functions=1 hit=1 branches=4 hit=3
+Processing file src/modules/ekf2/test/test_EKF_yaw_estimator.cpp
+  lines=40 hit=40 functions=7 hit=7 branches=132 hit=31
+Processing file src/lib/pure_pursuit/PurePursuit.cpp
+  lines=39 hit=39 functions=1 hit=1 branches=146 hit=83
+Processing file src/modules/mavlink/MavlinkStatustextHandlerTest.cpp
+  lines=132 hit=132 functions=28 hit=28 branches=602 hit=112
+Processing file src/modules/land_detector/VtolLandDetector.cpp
+  lines=14 hit=0 functions=4 hit=0 branches=8 hit=0
+Processing file src/modules/navigator/rtl_mission_fast_reverse.cpp
+  lines=139 hit=0 functions=9 hit=0 branches=102 hit=0
+Processing file src/modules/ekf2/EKF/aid_sources/range_finder/sensor_range_finder.cpp
+  lines=59 hit=57 functions=9 hit=9 branches=50 hit=49
+Processing file test/fuzztest/fuzztest/internal/domains/container_of_impl.h
+  lines=124 hit=61 functions=21 hit=10 branches=190 hit=50
+Processing file src/lib/field_sensor_bias_estimator/FieldSensorBiasEstimatorTest.cpp
+  lines=18 hit=18 functions=4 hit=4 branches=96 hit=31
+Processing file platforms/common/px4_work_queue/test/wqueue_main.cpp
+  lines=11 hit=8 functions=1 hit=1 branches=16 hit=6
+Processing file src/modules/uxrce_dds_client/uxrce_dds_client.cpp
+  lines=496 hit=0 functions=28 hit=0 branches=548 hit=0
+Processing file src/modules/mavlink/streams/LANDING_TARGET.hpp
+  lines=20 hit=2 functions=8 hit=2 branches=18 hit=0
+Processing file platforms/common/work_queue/hrt_thread.c
+  lines=36 hit=35 functions=4 hit=4 branches=8 hit=7
+Processing file src/lib/controllib/BlockIntegral.hpp
+  lines=7 hit=7 functions=6 hit=5 branches=2 hit=1
+Processing file src/lib/sticks/Sticks.hpp
+  lines=14 hit=0 functions=15 hit=0 branches=16 hit=0
+Processing file src/modules/commander/HealthAndArmingChecks/checks/systemCheck.hpp
+  lines=3 hit=0 functions=4 hit=0 branches=12 hit=0
+Processing file src/lib/pid_design/pid_design_test.cpp
+  lines=9 hit=9 functions=4 hit=4 branches=42 hit=12
+Processing file src/modules/mc_att_control/AttitudeControl/AttitudeControl.cpp
+  lines=27 hit=27 functions=2 hit=2 branches=98 hit=53
+Processing file src/modules/fw_mode_manager/ControllerConfigurationHandler.cpp
+  lines=66 hit=0 functions=12 hit=0 branches=12 hit=0
+Processing file src/lib/matrix/test/MatrixHelperTest.cpp
+  lines=71 hit=71 functions=12 hit=12 branches=684 hit=139
+Processing file src/modules/flight_mode_manager/tasks/FlightTask/FlightTask.hpp
+  lines=20 hit=0 functions=15 hit=0 branches=14 hit=0
+Processing file src/modules/camera_feedback/CameraFeedback.cpp
+  lines=84 hit=0 functions=7 hit=0 branches=100 hit=0
+Processing file src/modules/fw_mode_manager/launchdetection/LaunchDetector.h
+  lines=4 hit=0 functions=5 hit=0 branches=6 hit=0
+Processing file src/modules/commander/HealthAndArmingChecks/checks/escCheck.hpp
+  lines=3 hit=0 functions=4 hit=0 branches=6 hit=0
+Processing file src/lib/controllib/block/Block.hpp
+  lines=13 hit=8 functions=12 hit=8 branches=2 hit=0
+Processing file src/lib/tecs/TECS.hpp
+  lines=46 hit=0 functions=42 hit=0 branches=2 hit=0
+Processing file src/modules/temperature_compensation/temperature_calibration/common.h
+  lines=33 hit=0 functions=12 hit=0 branches=26 hit=0
+Processing file src/modules/ekf2/EKF/aid_sources/optical_flow/optical_flow_control.cpp
+  lines=139 hit=101 functions=5 hit=4 branches=282 hit=134
+Processing file src/modules/uuv_pos_control/uuv_pos_control.cpp
+  lines=174 hit=0 functions=14 hit=0 branches=265 hit=0
+Processing file src/modules/land_detector/FixedwingLandDetector.h
+  lines=3 hit=0 functions=4 hit=0
+Processing file src/modules/fw_att_control/FixedwingAttitudeControl.cpp
+  lines=212 hit=0 functions=14 hit=0 branches=360 hit=0
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessRotors.hpp
+  lines=14 hit=0 functions=11 hit=0
+Processing file src/drivers/osd/msp_osd/msp_osd.cpp
+  lines=333 hit=0 functions=17 hit=0 branches=414 hit=0
+Processing file src/modules/simulation/pwm_out_sim/PWMSim.cpp
+  lines=80 hit=31 functions=10 hit=5 branches=68 hit=22
+Processing file src/lib/mathlib/math/Utilities.hpp
+  lines=70 hit=48 functions=12 hit=11 branches=90 hit=25
+Processing file src/modules/rover_ackermann/AckermannActControl/AckermannActControl.hpp
+  lines=2 hit=0 functions=3 hit=0
+Processing file src/modules/commander/UserModeIntention.hpp
+  lines=5 hit=0 functions=5 hit=0 branches=4 hit=0
+Processing file src/modules/mc_pos_control/GotoControl/GotoControl.hpp
+  lines=13 hit=0 functions=13 hit=0 branches=4 hit=0
+Processing file src/modules/uxrce_dds_client/vehicle_command_srv.cpp
+  lines=27 hit=0 functions=5 hit=0 branches=32 hit=0
+Processing file platforms/common/uORB/Subscription.cpp
+  lines=25 hit=16 functions=3 hit=2 branches=18 hit=12
+Processing file src/modules/logger/log_writer_file.cpp
+  lines=243 hit=158 functions=22 hit=18 branches=150 hit=65
+Processing file src/lib/drivers/gyroscope/PX4Gyroscope.hpp
+  lines=3 hit=1 functions=3 hit=1
+Processing file src/modules/mavlink/mavlink_stream.h
+  lines=10 hit=6 functions=10 hit=6
+Processing file src/modules/fw_mode_manager/ControllerConfigurationHandler.hpp
+  lines=9 hit=0 functions=4 hit=0 branches=6 hit=0
+Processing file src/lib/matrix/test/MatrixVectorTest.cpp
+  lines=26 hit=26 functions=4 hit=4 branches=184 hit=52
+Processing file src/lib/controllib/BlockIntegral.cpp
+  lines=3 hit=3 functions=1 hit=1
+Processing file src/lib/perf/perf_counter.cpp
+  lines=290 hit=202 functions=19 hit=14 branches=127 hit=67
+Processing file src/modules/replay/ReplayEkf2.cpp
+  lines=128 hit=0 functions=9 hit=0 branches=136 hit=0
+Processing file src/modules/mavlink/streams/GPS_RAW_INT.hpp
+  lines=48 hit=14 functions=8 hit=8 branches=44 hit=8
+Processing file src/modules/commander/MulticopterThrowLaunch/MulticopterThrowLaunch.hpp
+  lines=6 hit=0 functions=5 hit=0 branches=4 hit=0
+Processing file src/drivers/gps/devices/src/ubx.cpp
+  lines=1373 hit=0 functions=33 hit=0 branches=1367 hit=0
+Processing file src/modules/ekf2/EKF/python/ekf_derivation/generated/compute_gnss_yaw_pred_innov_var_and_h.h
+  lines=53 hit=53 functions=1 hit=1 branches=6 hit=3
+Processing file src/lib/pid_design/pid_design.hpp
+  lines=25 hit=24 functions=1 hit=1 branches=10 hit=1
+Processing file src/modules/ekf2/EKF/aid_sources/sideslip/sideslip_fusion.cpp
+  lines=52 hit=39 functions=3 hit=3 branches=66 hit=31
+Processing file src/lib/drivers/rangefinder/PX4Rangefinder.hpp
+  lines=5 hit=0 functions=5 hit=0
+Processing file src/modules/navigator/rtl_direct_mission_land.h
+  lines=3 hit=0 functions=4 hit=0
+Processing file platforms/common/work_queue/hrt_queue.c
+  lines=12 hit=12 functions=1 hit=1 branches=2 hit=2
+Processing file src/modules/ekf2/EKF/python/ekf_derivation/generated/compute_yaw_innov_var_and_h.h
+  lines=9 hit=9 functions=1 hit=1 branches=4 hit=2
+Processing file src/modules/commander/factory_calibration_storage.h
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/modules/fw_mode_manager/runway_takeoff/RunwayTakeoff.h
+  lines=7 hit=0 functions=8 hit=0 branches=12 hit=0
+Processing file src/modules/mavlink/mavlink_parameters.cpp
+  lines=194 hit=83 functions=8 hit=7 branches=233 hit=62
+Processing file src/modules/gyro_fft/CMSIS_5/CMSIS/Core/Include/cmsis_gcc.h
+  lines=8 hit=3 branches=480 hit=140
+Processing file src/lib/battery/battery.h
+  lines=6 hit=5 functions=7 hit=5
+Processing file src/modules/local_position_estimator/sensors/gps.cpp
+  lines=133 hit=0 functions=4 hit=0 branches=234 hit=0
+Processing file platforms/posix/src/px4/common/px4_posix_impl.cpp
+  lines=19 hit=19 functions=2 hit=2
+Processing file src/modules/navigator/rtl_mission_fast.cpp
+  lines=82 hit=0 functions=6 hit=0 branches=100 hit=0
+Processing file src/modules/simulation/sensor_airspeed_sim/SensorAirspeedSim.hpp
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/lib/control_allocation/actuator_effectiveness/ActuatorEffectiveness.cpp
+  lines=37 hit=25 functions=4 hit=3 branches=16 hit=8
+Processing file src/modules/navigator/mission_base.cpp
+  lines=734 hit=0 functions=53 hit=0 branches=714 hit=0
+Processing file test/fuzztest/fuzztest/internal/any.h
+  lines=58 hit=55 functions=40 hit=21 branches=78 hit=24
+Processing file src/modules/ekf2/EKF/aid_sources/ZeroVelocityUpdate.hpp
+  lines=2 hit=2 functions=3 hit=2
+Processing file src/lib/adsb/AdsbConflictTest.h
+  lines=2 hit=2 functions=3 hit=2
+Processing file src/modules/mavlink/streams/GIMBAL_MANAGER_STATUS.hpp
+  lines=23 hit=12 functions=8 hit=8 branches=24 hit=7
+Processing file src/lib/mixer_module/actuator_test.hpp
+  lines=1 hit=1 functions=1 hit=1
+Processing file src/lib/controllib/BlockHighPass.hpp
+  lines=11 hit=11 functions=8 hit=7 branches=2 hit=1
+Processing file src/modules/ekf2/test/test_SensorRangeFinder.cpp
+  lines=210 hit=207 functions=48 hit=48 branches=592 hit=128
+Processing file platforms/common/uORB/Publication.hpp
+  lines=25 hit=18 functions=523 hit=122 branches=8 hit=7
+Processing file src/modules/mavlink/streams/OPTICAL_FLOW_RAD.hpp
+  lines=27 hit=2 functions=8 hit=2 branches=20 hit=0
+Processing file src/modules/landing_target_estimator/KalmanFilter.h
+  lines=2 hit=0 functions=3 hit=0
+Processing file src/modules/ekf2/EKF/aid_sources/magnetometer/mag_control.cpp
+  lines=306 hit=275 functions=10 hit=10 branches=666 hit=387
+Processing file src/modules/sensors/vehicle_gps_position/gps_blending.hpp
+  lines=18 hit=17 functions=11 hit=11 branches=4 hit=2
+Processing file src/lib/matrix/matrix/AxisAngle.hpp
+  lines=46 hit=46 functions=9 hit=9 branches=66 hit=34
+Processing file src/lib/controllib/BlockP.hpp
+  lines=7 hit=7 functions=5 hit=4 branches=2 hit=1
+Processing file src/modules/mavlink/streams/CAMERA_TRIGGER.hpp
+  lines=48 hit=2 functions=9 hit=2 branches=44 hit=0
+Processing file src/modules/commander/HomePosition.hpp
+  lines=3 hit=0 functions=4 hit=0
+Processing file src/modules/ekf2/test/test_EKF_accelerometer.cpp
+  lines=114 hit=114 functions=40 hit=40 branches=334 hit=64
+Processing file src/modules/mavlink/streams/GPS_STATUS.hpp
+  lines=22 hit=11 functions=8 hit=8 branches=20 hit=6
+Processing file src/modules/navigator/rtl_mission_fast_reverse.h
+  lines=3 hit=0 functions=4 hit=0
+Processing file src/systemcmds/tune_control/tune_control.cpp
+  lines=114 hit=0 functions=3 hit=0 branches=108 hit=0
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessControlSurfaces.hpp
+  lines=2 hit=0 functions=3 hit=0
+Processing file platforms/common/px4_work_queue/WorkItem.cpp
+  lines=51 hit=24 functions=11 hit=5 branches=30 hit=9
+Processing file src/lib/cdev/posix/cdev_platform.cpp
+  lines=201 hit=133 functions=18 hit=10 branches=158 hit=72
+Processing file src/modules/ekf2/EKF/aid_sources/fake_pos_control.cpp
+  lines=57 hit=57 functions=3 hit=3 branches=88 hit=65
+Processing file src/modules/land_detector/RoverLandDetector.h
+  lines=3 hit=0 functions=4 hit=0 branches=6 hit=0
+Processing file src/modules/ekf2/EKF/python/ekf_derivation/generated/compute_flow_y_innov_var_and_h.h
+  lines=73 hit=73 functions=1 hit=1 branches=4 hit=2
+Processing file src/modules/commander/factory_calibration_storage.cpp
+  lines=43 hit=0 functions=6 hit=0 branches=32 hit=0
+Processing file src/modules/fw_mode_manager/figure_eight/FigureEight.cpp
+  lines=189 hit=0 functions=12 hit=0 branches=438 hit=0
+Processing file src/modules/sensors/vehicle_acceleration/VehicleAcceleration.cpp
+  lines=111 hit=93 functions=11 hit=8 branches=216 hit=117
+Processing file src/modules/mavlink/mavlink_rate_limiter.h
+  lines=1 hit=1 functions=1 hit=1
+Processing file src/modules/ekf2/test/test_helper/reset_logging_checker.cpp
+  lines=52 hit=47 functions=8 hit=7 branches=52 hit=22
+Processing file src/lib/rc/crsf.cpp
+  lines=155 hit=65 functions=15 hit=4 branches=92 hit=40
+Processing file src/modules/ekf2/EKF/yaw_fusion.cpp
+  lines=68 hit=40 functions=5 hit=4 branches=108 hit=37
+Processing file src/modules/mavlink/streams/ESC_INFO.hpp
+  lines=26 hit=11 functions=8 hit=8 branches=22 hit=6
+Processing file src/modules/fw_att_control/fw_roll_controller.cpp
+  lines=11 hit=0 functions=1 hit=0 branches=10 hit=0
+Processing file src/systemcmds/topic_listener/topic_listener.hpp
+  lines=8 hit=6 functions=1 hit=1 branches=10 hit=4
+Processing file platforms/common/uORB/SubscriptionCallback.hpp
+  lines=48 hit=39 functions=12 hit=9 branches=34 hit=21
+Processing file src/modules/mc_pos_control/PositionControl/PositionControl.cpp
+  lines=120 hit=119 functions=14 hit=14 branches=244 hit=149
+Processing file src/modules/sensors/sensors.cpp
+  lines=308 hit=183 functions=18 hit=14 branches=403 hit=152
+Processing file src/lib/matrix/test/MatrixAttitudeTest.cpp
+  lines=301 hit=301 functions=4 hit=4 branches=1826 hit=591
+Processing file src/systemcmds/tests/test_mathlib.cpp
+  lines=198 hit=182 functions=11 hit=11 branches=170 hit=134
+Processing file src/modules/navigator/loiter.cpp
+  lines=53 hit=0 functions=5 hit=0 branches=38 hit=0
+Processing file src/modules/mavlink/mavlink_mission.h
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/modules/ekf2/EKF/aid_sources/ZeroGyroUpdate.cpp
+  lines=26 hit=24 functions=3 hit=3 branches=28 hit=18
+Processing file platforms/posix/src/px4/common/drv_hrt.cpp
+  lines=121 hit=108 functions=19 hit=15 branches=38 hit=32
+Processing file src/modules/commander/Commander.hpp
+  lines=2 hit=0 functions=2 hit=0
+Processing file src/modules/ekf2/EKF/RingBuffer.h
+  lines=62 hit=51 functions=172 hit=101 branches=82 hit=63
+Processing file src/modules/mavlink/streams/OPEN_DRONE_ID_BASIC_ID.hpp
+  lines=19 hit=2 functions=8 hit=2 branches=22 hit=0
+Processing file src/modules/mc_pos_control/MulticopterPositionControl.cpp
+  lines=375 hit=0 functions=13 hit=0 branches=770 hit=0
+Processing file platforms/common/px4_cli.cpp
+  lines=38 hit=6 functions=2 hit=1 branches=32 hit=2
+Processing file src/modules/ekf2/test/sensor_simulator/sensor_simulator.cpp
+  lines=265 hit=240 functions=21 hit=21 branches=318 hit=185
+Processing file src/modules/navigator/rtl.cpp
+  lines=362 hit=0 functions=19 hit=0 branches=391 hit=0
+Processing file src/drivers/gps/devices/src/femtomes.cpp
+  lines=346 hit=0 functions=13 hit=0 branches=328 hit=0
+Processing file src/lib/matrix/matrix/Dual.hpp
+  lines=121 hit=118 functions=64 hit=63 branches=164 hit=88
+Processing file src/modules/ekf2/EKF/aid_sources/barometer/baro_height_control.cpp
+  lines=97 hit=96 functions=3 hit=3 branches=176 hit=116
+Processing file src/modules/rc_update/rc_update.cpp
+  lines=357 hit=183 functions=22 hit=12 branches=466 hit=156
+Processing file src/modules/control_allocator/ControlAllocator.hpp
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/modules/ekf2/test/sensor_simulator/range_finder.cpp
+  lines=17 hit=17 functions=6 hit=5 branches=2 hit=1
+Processing file src/modules/navigator/geofence.cpp
+  lines=339 hit=8 functions=20 hit=2 branches=306 hit=10
+Processing file src/modules/logger/logger.h
+  lines=9 hit=6 functions=5 hit=4 branches=4 hit=0
+Processing file src/modules/gimbal/input_test.h
+  lines=1 hit=0 functions=2 hit=0
+Processing file src/lib/controllib/BlockStats.hpp
+  lines=22 hit=21 functions=25 hit=7 branches=32 hit=14
+Processing file src/lib/slew_rate/SlewRateYaw.hpp
+  lines=4 hit=3 functions=2 hit=1
+Processing file src/modules/mavlink/streams/TIMESYNC.hpp
+  lines=14 hit=2 functions=8 hit=2 branches=12 hit=0
+Processing file src/modules/mc_att_control/AttitudeControl/AttitudeControlTest.cpp
+  lines=50 hit=50 functions=14 hit=14 branches=184 hit=80
+Processing file src/modules/rover_differential/RoverDifferential.hpp
+  lines=1 hit=0 functions=2 hit=0
+Processing file src/modules/simulation/simulator_sih/aero.hpp
+  lines=128 hit=0 functions=14 hit=0 branches=82 hit=0
+Processing file src/include/containers/Bitset.hpp
+  lines=18 hit=18 functions=31 hit=30 branches=6 hit=6
+Processing file src/systemcmds/actuator_test/actuator_test.cpp
+  lines=87 hit=0 functions=3 hit=0 branches=78 hit=0
+Processing file test/fuzztest/fuzztest/internal/seed_seq.cc
+  lines=32 hit=20 functions=6 hit=5 branches=42 hit=13
+Processing file src/modules/commander/ModeManagement.cpp
+  lines=315 hit=49 functions=24 hit=3 branches=321 hit=41
+Processing file src/lib/controllib/block/Block.cpp
+  lines=51 hit=25 functions=5 hit=3 branches=32 hit=10
+Processing file src/modules/simulation/gz_bridge/GZMixingInterfaceESC.hpp
+  lines=8 hit=0 functions=3 hit=0 branches=4 hit=0
+Processing file src/lib/control_allocation/control_allocation/ControlAllocationPseudoInverse.hpp
+  lines=3 hit=3 functions=4 hit=3
+Processing file platforms/common/px4_work_queue/test/wqueue_test.cpp
+  lines=15 hit=15 functions=2 hit=2 branches=4 hit=4
+Processing file src/lib/matrix/matrix/Euler.hpp
+  lines=37 hit=37 functions=19 hit=19 branches=12 hit=9
+Processing file src/modules/mavlink/streams/AVAILABLE_MODES.hpp
+  lines=99 hit=14 functions=13 hit=8 branches=104 hit=10
+Processing file src/lib/parameters/ConstLayer.h
+  lines=22 hit=6 functions=9 hit=3 branches=6 hit=1
+Processing file src/systemcmds/system_time/system_time.cpp
+  lines=38 hit=0 functions=2 hit=0 branches=24 hit=0
+Processing file src/modules/mavlink/streams/POSITION_TARGET_LOCAL_NED.hpp
+  lines=49 hit=11 functions=8 hit=8 branches=40 hit=6
+Processing file src/modules/mavlink/streams/COMPONENT_METADATA.hpp
+  lines=18 hit=2 functions=9 hit=2 branches=12 hit=0
+Processing file src/drivers/gps/devices/src/ashtech.cpp
+  lines=483 hit=0 functions=14 hit=0 branches=679 hit=0
+Processing file src/lib/npfg/AirspeedDirectionController.cpp
+  lines=10 hit=10 functions=2 hit=2 branches=18 hit=10
+Processing file src/modules/ekf2/EKF/yaw_estimator/derivation/generated/yaw_est_predict_covariance.h
+  lines=19 hit=19 functions=1 hit=1 branches=2 hit=1
+Processing file src/modules/rover_ackermann/AckermannSpeedControl/AckermannSpeedControl.hpp
+  lines=3 hit=0 functions=4 hit=0
+Processing file src/lib/mathlib/math/filter/LowPassFilter2p.hpp
+  lines=55 hit=52 functions=15 hit=14 branches=130 hit=72
+Processing file src/modules/ekf2/EKF/output_predictor/output_predictor.h
+  lines=22 hit=15 functions=13 hit=7 branches=54 hit=36
+Processing file src/modules/load_mon/LoadMon.cpp
+  lines=90 hit=0 functions=9 hit=0 branches=56 hit=0
+Processing file src/lib/matrix/test/MatrixDualTest.cpp
+  lines=152 hit=152 functions=8 hit=8 branches=1054 hit=305
+Processing file src/modules/ekf2/EKF/python/ekf_derivation/generated/predict_covariance.h
+  lines=589 hit=589 functions=1 hit=1
+Processing file src/modules/commander/HealthAndArmingChecks/HealthAndArmingChecks.cpp
+  lines=53 hit=0 functions=4 hit=0 branches=106 hit=0
+Processing file platforms/posix/include/hrt_work.h
+  lines=6 hit=6 functions=2 hit=2
+Processing file src/modules/logger/watchdog.cpp
+  lines=4 hit=0 functions=2 hit=0
+Processing file platforms/common/uORB/uORBManager.cpp
+  lines=145 hit=110 functions=28 hit=24 branches=120 hit=68
+Processing file platforms/common/uORB/uORBDeviceNode.cpp
+  lines=151 hit=110 functions=19 hit=18 branches=92 hit=47
+Processing file src/modules/navigator/land.cpp
+  lines=44 hit=0 functions=3 hit=0 branches=22 hit=0
+Processing file src/modules/ekf2/test/test_EKF_ringbuffer.cpp
+  lines=55 hit=55 functions=26 hit=26 branches=220 hit=51
+Processing file src/modules/mc_att_control/AttitudeControl/AttitudeControlMathTest.cpp
+  lines=27 hit=27 functions=12 hit=12 branches=134 hit=52
+Processing file src/examples/px4_mavlink_debug/px4_mavlink_debug.cpp
+  lines=38 hit=0 functions=1 hit=0 branches=28 hit=0
+Processing file src/modules/mavlink/streams/NAMED_VALUE_FLOAT.hpp
+  lines=18 hit=11 functions=8 hit=8 branches=18 hit=6
+Processing file platforms/common/px4_work_queue/WorkQueue.cpp
+  lines=87 hit=41 functions=10 hit=6 branches=56 hit=17
+Processing file src/modules/mavlink/mavlink_mission.cpp
+  lines=982 hit=97 functions=36 hit=9 branches=856 hit=45
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessMCTilt.hpp
+  lines=8 hit=0 functions=5 hit=0
+Processing file src/modules/ekf2/EKF/python/ekf_derivation/generated/compute_body_vel_y_innov_var.h
+  lines=41 hit=41 functions=1 hit=1 branches=2 hit=1
+Processing file src/modules/mc_att_control/mc_att_control_main.cpp
+  lines=189 hit=0 functions=12 hit=0 branches=361 hit=0
+Processing file src/drivers/drv_hrt.h
+  lines=30 hit=19 functions=12 hit=8 branches=4 hit=4
+Processing file src/modules/mavlink/open_drone_id_translations.cpp
+  lines=112 hit=0 functions=5 hit=0 branches=102 hit=0
+Processing file src/modules/manual_control/ManualControl.hpp
+  lines=1 hit=1 functions=1 hit=1
+Processing file test/fuzztest/common/defs.h
+  lines=6 hit=0 functions=2 hit=0
+Processing file src/lib/control_allocation/control_allocation/ControlAllocationSequentialDesaturation.hpp
+  lines=3 hit=3 functions=4 hit=3 branches=4 hit=2
+Processing file src/systemcmds/tests/test_versioning.cpp
+  lines=97 hit=93 functions=3 hit=3 branches=178 hit=89
+Processing file src/lib/matrix/test/MatrixAssignmentTest.cpp
+  lines=170 hit=170 functions=4 hit=4 branches=752 hit=192
+Processing file src/lib/weather_vane/WeatherVane.hpp
+  lines=4 hit=0 functions=5 hit=0
+Processing file src/systemcmds/tests/hrt_test/hrt_test.cpp
+  lines=26 hit=22 functions=2 hit=2 branches=40 hit=15
+Processing file src/modules/mavlink/streams/AUTOPILOT_VERSION.hpp
+  lines=10 hit=2 functions=8 hit=2 branches=8 hit=0
+Processing file src/drivers/gps/devices/src/ubx.h
+  lines=2 hit=0 functions=2 hit=0 branches=4 hit=0
+Processing file src/modules/ekf2/EKF2.hpp
+  lines=16 hit=0 functions=11 hit=0 branches=8 hit=0
+Processing file test/fuzztest/fuzztest/internal/coverage.cc
+  lines=158 hit=5 functions=27 hit=3 branches=215 hit=0
+Processing file src/lib/matrix/matrix/SquareMatrix.hpp
+  lines=255 hit=250 functions=118 hit=107 branches=232 hit=170
+Processing file test/fuzztest/fuzztest/internal/runtime.cc
+  lines=692 hit=198 functions=69 hit=31 branches=1251 hit=150
+Processing file src/lib/matrix/matrix/Vector3.hpp
+  lines=50 hit=50 functions=28 hit=21 branches=54 hit=27
+Processing file src/modules/ekf2/EKF/python/ekf_derivation/generated/compute_body_vel_z_innov_var.h
+  lines=42 hit=42 functions=1 hit=1 branches=2 hit=1
+Processing file src/modules/mavlink/streams/MOUNT_ORIENTATION.hpp
+  lines=21 hit=11 functions=8 hit=8 branches=24 hit=7
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessTiltrotorVTOL.hpp
+  lines=11 hit=0 functions=6 hit=0
+Processing file src/lib/controllib/BlockPI.hpp
+  lines=12 hit=12 functions=7 hit=6 branches=6 hit=3
+Processing file platforms/common/uORB/uORB.cpp
+  lines=212 hit=123 functions=19 hit=15 branches=265 hit=107
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessHelicopter.cpp
+  lines=141 hit=98 functions=9 hit=7 branches=154 hit=80
+Processing file src/modules/ekf2/EKF/covariance.cpp
+  lines=132 hit=123 functions=12 hit=11 branches=88 hit=65
+Processing file src/modules/gimbal/output_mavlink.cpp
+  lines=121 hit=0 functions=10 hit=0 branches=70 hit=0
+Processing file src/lib/dataman_client/DatamanClient.hpp
+  lines=3 hit=3 functions=3 hit=3
+Processing file src/modules/mavlink/streams/SYS_STATUS.hpp
+  lines=73 hit=61 functions=10 hit=10 branches=64 hit=30
+Processing file src/modules/land_detector/MulticopterLandDetector.h
+  lines=8 hit=0 functions=9 hit=0
+Processing file src/modules/gimbal/output.h
+  lines=1 hit=0 functions=2 hit=0
+Processing file src/include/containers/Array.hpp
+  lines=21 hit=21 functions=16 hit=16 branches=6 hit=5
+Processing file src/modules/rover_mecanum/MecanumDriveModes/MecanumManualMode/MecanumManualMode.cpp
+  lines=147 hit=0 functions=7 hit=0 branches=248 hit=0
+Processing file platforms/common/uORB/uORB_tests/uORB_tests_main.cpp
+  lines=17 hit=7 functions=2 hit=1 branches=8 hit=2
+Processing file src/modules/mc_autotune_attitude_control/mc_autotune_attitude_control.hpp
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/lib/geo/test_geo.cpp
+  lines=98 hit=98 functions=33 hit=33 branches=224 hit=52
+Processing file src/modules/ekf2/EKF/aid_sources/range_finder/sensor_range_finder.hpp
+  lines=36 hit=34 functions=23 hit=21 branches=8 hit=8
+Processing file test/fuzztest/common/bazel.cc
+  lines=54 hit=20 functions=4 hit=4 branches=174 hit=20
+Processing file src/systemcmds/uorb/uorb.cpp
+  lines=21 hit=0 functions=2 hit=0 branches=8 hit=0
+Processing file src/modules/fw_lateral_longitudinal_control/FwLateralLongitudinalControl.hpp
+  lines=1 hit=0 functions=1 hit=0
+Processing file platforms/common/px4_work_queue/test/wqueue_scheduled_test.h
+  lines=2 hit=1 functions=3 hit=1
+Processing file src/systemcmds/tests/test_ppm.cpp
+  lines=3 hit=0 functions=1 hit=0
+Processing file src/modules/commander/Arming/ArmAuthorization/ArmAuthorization.cpp
+  lines=130 hit=0 functions=7 hit=0 branches=106 hit=0
+Processing file src/modules/simulation/sensor_agp_sim/SensorAgpSim.cpp
+  lines=84 hit=0 functions=10 hit=0 branches=72 hit=0
+Processing file platforms/posix/src/px4/common/lockstep_scheduler/test/src/lockstep_scheduler_test.cpp
+  lines=164 hit=161 functions=21 hit=21 branches=226 hit=95
+Processing file src/modules/mavlink/mavlink_timesync.h
+  lines=2 hit=0 functions=2 hit=0
+Processing file src/lib/hysteresis/HysteresisTest.cpp
+  lines=114 hit=114 functions=28 hit=28 branches=406 hit=71
+Processing file src/modules/mavlink/mavlink_main.cpp
+  lines=1755 hit=392 functions=63 hit=32 branches=2158 hit=309
+Processing file src/systemcmds/tests/test_matrix.cpp
+  lines=451 hit=451 functions=21 hit=21 branches=304 hit=167
+Processing file test/fuzztest/fuzztest/internal/coverage.h
+  lines=30 hit=0 functions=11 hit=0 branches=10 hit=0
+Processing file src/modules/mc_autotune_attitude_control/mc_autotune_attitude_control.cpp
+  lines=389 hit=0 functions=22 hit=0 branches=496 hit=0
+Processing file src/modules/manual_control/ManualControlSelectorTest.cpp
+  lines=481 hit=481 functions=52 hit=52 branches=2024 hit=452
+Processing file platforms/common/board_identity.c
+  lines=27 hit=25 functions=4 hit=4 branches=18 hit=16
+Processing file src/modules/mavlink/streams/OPEN_DRONE_ID_SYSTEM.hpp
+  lines=33 hit=12 functions=8 hit=8 branches=36 hit=9
+Processing file src/modules/commander/HealthAndArmingChecks/checks/offboardCheck.cpp
+  lines=16 hit=0 functions=1 hit=0 branches=40 hit=0
+Processing file src/modules/ekf2/test/test_EKF_terrain.cpp
+  lines=118 hit=118 functions=24 hit=24 branches=314 hit=77
+Processing file src/include/unit_test.h
+  lines=18 hit=11 functions=8 hit=5 branches=2 hit=1
+Processing file src/modules/commander/HealthAndArmingChecks/checks/windCheck.cpp
+  lines=27 hit=0 functions=1 hit=0 branches=68 hit=0
+Processing file src/lib/controllib/BlockRandUniform.hpp
+  lines=12 hit=12 functions=6 hit=5 branches=4 hit=2
+Processing file src/lib/control_allocation/control_allocation/ControlAllocation.hpp
+  lines=18 hit=6 functions=17 hit=5 branches=10 hit=4
+Processing file src/modules/ekf2/test/test_EKF_gnss_yaw.cpp
+  lines=160 hit=160 functions=52 hit=52 branches=384 hit=97
+Processing file src/modules/temperature_compensation/temperature_calibration/gyro.cpp
+  lines=92 hit=0 functions=4 hit=0 branches=96 hit=0
+Processing file platforms/common/uORB/test/uORBSubscriptionTest.cpp
+  lines=27 hit=27 functions=14 hit=14 branches=34 hit=9
+Processing file src/lib/dataman_client/DatamanClient.cpp
+  lines=346 hit=307 functions=21 hit=20 branches=270 hit=157
+Processing file platforms/common/uORB/Subscription.hpp
+  lines=52 hit=51 functions=172 hit=57 branches=12 hit=11
+Processing file src/modules/manual_control/ManualControlSelector.cpp
+  lines=61 hit=61 functions=6 hit=6 branches=77 hit=74
+Processing file src/lib/motion_planning/PositionSmoothingTest.cpp
+  lines=100 hit=98 functions=18 hit=18 branches=410 hit=142
+Processing file src/modules/mc_hover_thrust_estimator/zero_order_hover_thrust_ekf.hpp
+  lines=15 hit=7 functions=15 hit=7
+Processing file src/modules/commander/HealthAndArmingChecks/checks/accelerometerCheck.cpp
+  lines=42 hit=0 functions=2 hit=0 branches=68 hit=0
+Processing file src/drivers/distance_sensor/lightware_laser_serial/tests/lightware_laser_test.cpp
+  lines=23 hit=22 functions=3 hit=3 branches=40 hit=21
+Processing file src/lib/circuit_breaker/circuit_breaker.h
+  lines=2 hit=0 functions=1 hit=0
+Processing file src/drivers/gps/gps.cpp
+  lines=665 hit=0 functions=26 hit=0 branches=697 hit=0
+Processing file test/fuzztest/fuzztest/internal/runtime.h
+  lines=55 hit=38 functions=29 hit=22 branches=16 hit=6
+Processing file src/modules/mc_pos_control/PositionControl/ControlMathTest.cpp
+  lines=140 hit=140 functions=36 hit=36 branches=850 hit=245
+Processing file src/modules/logger/log_writer_file.h
+  lines=31 hit=30 functions=17 hit=16 branches=4 hit=3
+Processing file src/modules/flight_mode_manager/tasks/ManualAccelerationSlow/FlightTaskManualAccelerationSlow.hpp
+  lines=3 hit=0 functions=4 hit=0 branches=34 hit=0
+Processing file src/modules/landing_target_estimator/LandingTargetEstimator.h
+  lines=1 hit=0 functions=2 hit=0
+Processing file src/modules/flight_mode_manager/tasks/Descend/FlightTaskDescend.hpp
+  lines=3 hit=0 functions=4 hit=0 branches=12 hit=0
+Processing file src/drivers/gps/devices/src/unicore.h
+  lines=5 hit=0 functions=3 hit=0
+Processing file src/lib/controllib/BlockDerivative.hpp
+  lines=9 hit=9 functions=6 hit=5 branches=2 hit=1
+Processing file test/fuzztest/fuzztest/internal/domains/domain.h
+  lines=30 hit=18 functions=15 hit=9 branches=12 hit=5
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessTilts.cpp
+  lines=55 hit=0 functions=5 hit=0 branches=88 hit=0
+Processing file src/drivers/osd/msp_osd/MspV1.cpp
+  lines=79 hit=0 functions=5 hit=0 branches=50 hit=0
+Processing file src/modules/commander/worker_thread.hpp
+  lines=4 hit=0 functions=4 hit=0
+Processing file platforms/common/uORB/test/uORBMessageFieldsTest.cpp
+  lines=104 hit=94 functions=17 hit=17 branches=289 hit=89
+Processing file src/modules/navigator/precland.h
+  lines=4 hit=0 functions=5 hit=0
+Processing file src/modules/commander/HealthAndArmingChecks/checks/rcAndDataLinkCheck.cpp
+  lines=25 hit=0 functions=1 hit=0 branches=52 hit=0
+Processing file src/modules/land_detector/AirshipLandDetector.h
+  lines=3 hit=0 functions=4 hit=0
+Processing file src/modules/rover_differential/DifferentialActControl/DifferentialActControl.cpp
+  lines=46 hit=0 functions=5 hit=0 branches=56 hit=0
+Processing file src/modules/local_position_estimator/BlockLocalPositionEstimator.cpp
+  lines=570 hit=0 functions=20 hit=0 branches=912 hit=0
+Processing file src/modules/simulation/gz_bridge/GZMixingInterfaceWheel.hpp
+  lines=8 hit=0 functions=3 hit=0 branches=4 hit=0
+Processing file src/lib/drivers/magnetometer/PX4Magnetometer.cpp
+  lines=25 hit=4 functions=4 hit=1 branches=6 hit=0
+Processing file src/modules/ekf2/EKF/python/ekf_derivation/generated/compute_airspeed_h.h
+  lines=15 hit=15 functions=1 hit=1 branches=2 hit=1
+Processing file src/modules/ekf2/EKF/imu_down_sampler/imu_down_sampler.cpp
+  lines=32 hit=32 functions=3 hit=3 branches=52 hit=32
+Processing file src/modules/mavlink/streams/VFR_HUD.hpp
+  lines=49 hit=12 functions=8 hit=8 branches=66 hit=14
+Processing file platforms/posix/src/px4/common/main.cpp
+  lines=333 hit=201 functions=18 hit=14 branches=426 hit=153
+Processing file src/lib/geo/geo.h
+  lines=13 hit=13 functions=7 hit=7 branches=8 hit=4
+Processing file src/lib/cdev/test/cdevtest_example.h
+  lines=1 hit=1 functions=1 hit=1
+Processing file platforms/common/include/px4_platform_common/log.h
+  lines=2 hit=2 functions=2 hit=2
+Processing file src/modules/ekf2/EKF/aid_sources/external_vision/ev_pos_control.cpp
+  lines=135 hit=98 functions=4 hit=4 branches=311 hit=135
+Processing file src/modules/temperature_compensation/TemperatureCompensation.h
+  lines=10 hit=0 functions=2 hit=0 branches=4 hit=0
+Processing file src/modules/ekf2/test/test_EKF_fusionLogic.cpp
+  lines=248 hit=248 functions=55 hit=55 branches=1188 hit=213
+Processing file src/lib/matrix/matrix/Vector.hpp
+  lines=82 hit=82 functions=142 hit=116 branches=68 hit=40
+Processing file src/modules/commander/HealthAndArmingChecks/checks/powerCheck.cpp
+  lines=49 hit=0 functions=2 hit=0 branches=98 hit=0
+Processing file platforms/posix/src/px4/common/tasks.cpp
+  lines=186 hit=104 functions=10 hit=6 branches=94 hit=37
+Processing file src/modules/navigator/rtl_direct_mission_land.cpp
+  lines=192 hit=0 functions=8 hit=0 branches=259 hit=0
+Processing file src/lib/matrix/test/MatrixSliceTest.cpp
+  lines=181 hit=181 functions=16 hit=16 branches=778 hit=256
+Processing file platforms/common/work_queue/work_lock.c
+  lines=6 hit=6 functions=2 hit=2
+Processing file src/systemcmds/param/param.cpp
+  lines=418 hit=54 functions=20 hit=3 branches=495 hit=52
+Processing file src/lib/motion_planning/HeadingSmoothing.hpp
+  lines=4 hit=4 functions=4 hit=4
+Processing file src/modules/logger/log_writer_mavlink.h
+  lines=3 hit=1 functions=2 hit=1
+Processing file src/lib/weather_vane/WeatherVane.cpp
+  lines=28 hit=0 functions=3 hit=0 branches=60 hit=0
+Processing file src/modules/commander/failsafe/framework.h
+  lines=21 hit=15 functions=17 hit=14 branches=4 hit=0
+Processing file src/lib/mixer_module/functions/FunctionParachute.hpp
+  lines=5 hit=0 functions=5 hit=0 branches=2 hit=0
+Processing file src/modules/mavlink/mavlink_command_sender.h
+  lines=7 hit=7 functions=3 hit=3 branches=2 hit=1
+Processing file src/modules/commander/HealthAndArmingChecks/checks/estimatorCheck.cpp
+  lines=305 hit=0 functions=9 hit=0 branches=504 hit=0
+Processing file src/modules/navigator/MissionFeasibility/FeasibilityChecker.cpp
+  lines=360 hit=290 functions=17 hit=16 branches=433 hit=224
+Processing file src/lib/npfg/NpfgTest.cpp
+  lines=145 hit=145 functions=32 hit=32 branches=382 hit=105
+Processing file src/modules/vtol_att_control/vtol_type.cpp
+  lines=271 hit=0 functions=28 hit=0 branches=355 hit=0
+Processing file src/modules/uxrce_dds_client/uxrce_dds_client.h
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/modules/ekf2/EKF/aid_sources/optical_flow/optical_flow_fusion.cpp
+  lines=62 hit=57 functions=5 hit=5 branches=102 hit=54
+Processing file platforms/common/work_queue/queue.c
+  lines=27 hit=27 functions=3 hit=3 branches=22 hit=19
+Processing file platforms/common/uORB/uORBDeviceNode.hpp
+  lines=33 hit=31 functions=12 hit=10 branches=20 hit=18
+Processing file src/lib/mixer_module/actuator_test.cpp
+  lines=55 hit=48 functions=4 hit=4 branches=62 hit=41
+Processing file src/modules/mavlink/streams/SCALED_PRESSURE.hpp
+  lines=25 hit=12 functions=8 hit=8 branches=36 hit=10
+Processing file test/fuzztest/fuzztest/internal/domains/value_mutation_helpers.h
+  lines=51 hit=24 functions=13 hit=3 branches=62 hit=11
+Processing file src/modules/ekf2/test/sensor_simulator/ekf_logger.cpp
+  lines=38 hit=36 functions=4 hit=4 branches=44 hit=27
+Processing file src/modules/land_detector/VtolLandDetector.h
+  lines=2 hit=0 functions=3 hit=0
+Processing file src/modules/temperature_compensation/temperature_calibration/gyro.h
+  lines=1 hit=0 functions=2 hit=0
+Processing file src/modules/sensors/data_validator/DataValidatorGroup.hpp
+  lines=1 hit=1 functions=1 hit=1
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessTailsitterVTOL.cpp
+  lines=37 hit=0 functions=5 hit=0 branches=37 hit=0
+Processing file src/examples/dyn_hello/hello.cpp
+  lines=6 hit=6 functions=1 hit=1 branches=2 hit=2
+Processing file test/fuzztest/fuzztest/internal/printer.h
+  lines=5 hit=0 functions=4 hit=0 branches=8 hit=0
+Processing file src/lib/collision_prevention/CollisionPrevention.cpp
+  lines=287 hit=284 functions=19 hit=19 branches=390 hit=270
+Processing file src/lib/world_magnetic_model/geo_mag_declination.cpp
+  lines=31 hit=29 functions=6 hit=6 branches=8 hit=4
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessFixedWing.cpp
+  lines=22 hit=0 functions=4 hit=0 branches=26 hit=0
+Processing file src/lib/version/version.c
+  lines=158 hit=149 functions=17 hit=13 branches=126 hit=123
+Processing file src/lib/rtl/rtl_time_estimator.cpp
+  lines=100 hit=0 functions=12 hit=0 branches=164 hit=0
+Processing file src/modules/mavlink/streams/RAW_RPM.hpp
+  lines=18 hit=13 functions=8 hit=8 branches=18 hit=7
+Processing file src/modules/rover_mecanum/MecanumPosControl/MecanumPosControl.cpp
+  lines=90 hit=0 functions=5 hit=0 branches=178 hit=0
+Processing file src/lib/adsb/AdsbConflictTest.cpp
+  lines=203 hit=203 functions=15 hit=15 branches=204 hit=47
+Processing file src/lib/rc/sbus.cpp
+  lines=184 hit=77 functions=9 hit=2 branches=103 hit=44
+Processing file src/examples/work_item/WorkItemExample.hpp
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/modules/payload_deliverer/payload_deliverer.h
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/lib/fw_performance_model/PerformanceModel.cpp
+  lines=84 hit=0 functions=14 hit=0 branches=86 hit=0
+Processing file src/modules/ekf2/EKF/python/ekf_derivation/generated/state.h
+  lines=2 hit=2 functions=1 hit=1
+Processing file src/modules/commander/HealthAndArmingChecks/checks/powerCheck.hpp
+  lines=2 hit=0 functions=3 hit=0
+Processing file src/drivers/distance_sensor/lightware_laser_serial/parser.cpp
+  lines=54 hit=50 functions=1 hit=1 branches=32 hit=23
+Processing file test/fuzztest/fuzztest/domain_core.h
+  lines=5 hit=5 functions=2 hit=2 branches=2 hit=1
+Processing file src/lib/matrix/matrix/LeastSquaresSolver.hpp
+  lines=52 hit=52 functions=9 hit=9 branches=64 hit=48
+Processing file src/lib/stick_yaw/StickYaw.hpp
+  lines=3 hit=0 functions=4 hit=0
+Processing file src/lib/drivers/accelerometer/PX4Accelerometer.hpp
+  lines=2 hit=1 functions=2 hit=1
+Processing file src/modules/flight_mode_manager/tasks/ManualAltitudeSmoothVel/FlightTaskManualAltitudeSmoothVel.cpp
+  lines=38 hit=0 functions=6 hit=0 branches=10 hit=0
+Processing file src/modules/ekf2/test/sensor_simulator/imu.h
+  lines=2 hit=2 functions=1 hit=1 branches=4 hit=4
+Processing file src/modules/commander/HealthAndArmingChecks/checks/rcAndDataLinkCheck.hpp
+  lines=3 hit=0 functions=4 hit=0 branches=6 hit=0
+Processing file src/modules/commander/HealthAndArmingChecks/HealthAndArmingChecks.hpp
+  lines=6 hit=0 functions=7 hit=0
+Processing file src/modules/vtol_att_control/tiltrotor.h
+  lines=2 hit=0 functions=3 hit=0
+Processing file src/lib/cdev/posix/cdev_platform.hpp
+  lines=1 hit=1 functions=1 hit=1
+Processing file test/fuzztest/fuzztest/internal/configuration.h
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/lib/npfg/DirectionalGuidance.hpp
+  lines=14 hit=0 functions=14 hit=0
+Processing file src/modules/flight_mode_manager/tasks/Descend/FlightTaskDescend.cpp
+  lines=22 hit=0 functions=2 hit=0 branches=26 hit=0
+Processing file src/modules/gimbal/input_mavlink.cpp
+  lines=517 hit=0 functions=33 hit=0 branches=346 hit=0
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessRoverAckermann.hpp
+  lines=3 hit=0 functions=4 hit=0
+Processing file src/modules/ekf2/EKF/control.cpp
+  lines=47 hit=34 functions=1 hit=1 branches=32 hit=12
+Processing file test/fuzztest/common/blob_file.h
+  lines=4 hit=0 functions=6 hit=0
+Processing file src/systemcmds/tests/test_uart_send.c
+  lines=19 hit=0 functions=1 hit=0 branches=6 hit=0
+Processing file src/modules/commander/mag_calibration_test.cpp
+  lines=112 hit=110 functions=15 hit=15 branches=594 hit=142
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessRoverAckermann.cpp
+  lines=10 hit=0 functions=2 hit=0 branches=14 hit=0
+Processing file src/lib/drivers/device/Device.hpp
+  lines=37 hit=14 functions=17 hit=5 branches=7 hit=1
+Processing file src/modules/commander/MulticopterThrowLaunch/MulticopterThrowLaunch.cpp
+  lines=33 hit=0 functions=2 hit=0 branches=41 hit=0
+Processing file src/modules/fw_autotune_attitude_control/fw_autotune_attitude_control.hpp
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/modules/rover_differential/DifferentialPosControl/DifferentialPosControl.hpp
+  lines=3 hit=0 functions=4 hit=0 branches=8 hit=0
+Processing file test/fuzztest/fuzztest/internal/googletest_adaptor.cc
+  lines=80 hit=68 functions=20 hit=16 branches=106 hit=40
+Processing file src/modules/airship_att_control/airship_att_control_main.cpp
+  lines=75 hit=0 functions=13 hit=0 branches=74 hit=0
+Processing file src/modules/ekf2/EKF/python/ekf_derivation/generated/compute_gravity_y_innov_var_and_h.h
+  lines=14 hit=14 functions=1 hit=1 branches=4 hit=2
+Processing file src/modules/commander/HealthAndArmingChecks/checks/batteryCheck.cpp
+  lines=120 hit=0 functions=3 hit=0 branches=201 hit=0
+Processing file src/lib/matrix/matrix/SparseVector.hpp
+  lines=64 hit=64 functions=36 hit=36 branches=36 hit=27
+Processing file src/modules/ekf2/test/test_EKF_gnss_yaw_generated.cpp
+  lines=24 hit=24 functions=8 hit=8 branches=112 hit=58
+Processing file src/drivers/gps/devices/src/emlid_reach.h
+  lines=1 hit=0 functions=2 hit=0
+Processing file src/modules/logger/log_writer.h
+  lines=31 hit=23 functions=11 hit=10 branches=26 hit=12
+Processing file src/lib/events/events.cpp
+  lines=9 hit=9 functions=1 hit=1 branches=2 hit=2
+Processing file src/modules/commander/HealthAndArmingChecks/checks/magnetometerCheck.cpp
+  lines=74 hit=0 functions=3 hit=0 branches=128 hit=0
+Processing file src/modules/rover_differential/DifferentialPosControl/DifferentialPosControl.cpp
+  lines=92 hit=0 functions=5 hit=0 branches=174 hit=0
+Processing file src/lib/mathlib/math/test/NotchFilterTest.cpp
+  lines=183 hit=183 functions=48 hit=48 branches=398 hit=151
+Processing file src/lib/system_identification/system_identification.cpp
+  lines=43 hit=43 functions=5 hit=5 branches=12 hit=8
+Processing file src/modules/ekf2/EKF/python/ekf_derivation/generated/compute_wind_init_and_cov_from_airspeed.h
+  lines=21 hit=21 functions=1 hit=1 branches=4 hit=2
+Processing file src/modules/commander/HealthAndArmingChecks/checks/vtolCheck.hpp
+  lines=2 hit=0 functions=3 hit=0 branches=2 hit=0
+Processing file platforms/common/uORB/SubscriptionBlocking.hpp
+  lines=33 hit=0 functions=28 hit=0 branches=30 hit=0
+Processing file src/modules/temperature_compensation/TemperatureCompensation.cpp
+  lines=292 hit=0 functions=15 hit=0 branches=302 hit=0
+Processing file src/modules/flight_mode_manager/tasks/Utility/StickTiltXYTest.cpp
+  lines=45 hit=45 functions=12 hit=12 branches=282 hit=100
+Processing file src/lib/matrix/test/MatrixVector3Test.cpp
+  lines=45 hit=45 functions=4 hit=4 branches=346 hit=107
+Processing file platforms/common/px4_work_queue/test/wqueue_start.cpp
+  lines=22 hit=12 functions=1 hit=1 branches=14 hit=7
+Processing file src/modules/mavlink/MavlinkStatustextHandler.hpp
+  lines=1 hit=1 functions=1 hit=1
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessMultirotor.hpp
+  lines=8 hit=0 functions=5 hit=0
+Processing file src/systemcmds/tests/test_int.cpp
+  lines=16 hit=16 functions=4 hit=4 branches=8 hit=4
+Processing file src/lib/mathlib/math/TrajMath.hpp
+  lines=21 hit=15 functions=5 hit=3 branches=20 hit=12
+Processing file src/modules/navigator/rtl_direct.h
+  lines=5 hit=0 functions=6 hit=0 branches=4 hit=0
+Processing file src/lib/sensor_calibration/Magnetometer.cpp
+  lines=164 hit=25 functions=15 hit=5 branches=257 hit=16
+Processing file test/fuzztest/fuzztest/internal/type_support.cc
+  lines=49 hit=0 functions=11 hit=0 branches=77 hit=0
+Processing file src/lib/tunes/tunes.cpp
+  lines=243 hit=18 functions=14 hit=2 branches=110 hit=2
+Processing file platforms/common/include/px4_platform_common/module.h
+  lines=110 hit=53 functions=861 hit=58 branches=54 hit=16
+Processing file src/modules/commander/HealthAndArmingChecks/checks/failureDetectorCheck.hpp
+  lines=2 hit=0 functions=3 hit=0
+Processing file src/modules/rover_mecanum/MecanumAttControl/MecanumAttControl.hpp
+  lines=3 hit=0 functions=4 hit=0
+Processing file src/modules/commander/HealthAndArmingChecks/checks/gyroCheck.hpp
+  lines=2 hit=0 functions=3 hit=0 branches=4 hit=0
+Processing file src/modules/ekf2/EKF/python/ekf_derivation/generated/compute_mag_z_innov_var_and_h.h
+  lines=53 hit=53 functions=1 hit=1 branches=4 hit=2
+Processing file src/modules/ekf2/EKF/aid_sources/drag/drag_fusion.cpp
+  lines=67 hit=63 functions=2 hit=2 branches=166 hit=98
+Processing file src/modules/mavlink/streams/CAMERA_IMAGE_CAPTURED.hpp
+  lines=29 hit=12 functions=9 hit=9 branches=26 hit=10
+Processing file src/modules/ekf2/EKF/aid_sources/EstimatorAidSource.hpp
+  lines=2 hit=2 functions=3 hit=2
+Processing file src/modules/vtol_att_control/tiltrotor.cpp
+  lines=211 hit=0 functions=13 hit=0 branches=179 hit=0
+Processing file src/modules/uuv_att_control/uuv_att_control.cpp
+  lines=200 hit=0 functions=16 hit=0 branches=330 hit=0
+Processing file src/modules/ekf2/test/sensor_simulator/gps.cpp
+  lines=76 hit=72 functions=18 hit=16 branches=40 hit=24
+Processing file src/lib/matrix/test/MatrixVector2Test.cpp
+  lines=22 hit=22 functions=4 hit=4 branches=142 hit=38
+Processing file src/modules/ekf2/test/sensor_simulator/sensor.h
+  lines=4 hit=4 functions=4 hit=4
+Processing file src/modules/commander/HealthAndArmingChecks/checks/sdcardCheck.hpp
+  lines=3 hit=0 functions=4 hit=0 branches=4 hit=0
+Processing file src/lib/npfg/CourseToAirspeedRefMapper.cpp
+  lines=30 hit=30 functions=6 hit=6 branches=72 hit=41
+Processing file src/lib/mixer_module/functions/FunctionProviderBase.hpp
+  lines=7 hit=4 functions=8 hit=4
+Processing file platforms/common/px4_work_queue/ScheduledWorkItem.cpp
+  lines=26 hit=17 functions=8 hit=5 branches=4 hit=1
+Processing file src/modules/sensors/vehicle_imu/VehicleIMU.hpp
+  lines=2 hit=2 functions=2 hit=2
+Processing file src/modules/gimbal/output.cpp
+  lines=131 hit=0 functions=8 hit=0 branches=154 hit=0
+Processing file src/modules/gimbal/input.cpp
+  lines=14 hit=0 functions=2 hit=0
+Processing file src/modules/commander/ModeUtil/conversions.hpp
+  lines=28 hit=0 functions=1 hit=0 branches=26 hit=0
+Processing file src/modules/uxrce_dds_client/utilities.hpp
+  lines=57 hit=0 functions=4 hit=0 branches=68 hit=0
+Processing file src/modules/control_allocator/VehicleActuatorEffectiveness/ActuatorEffectivenessMCTilt.cpp
+  lines=44 hit=0 functions=4 hit=0 branches=48 hit=0
+Processing file src/modules/navigator/rtl_direct.cpp
+  lines=302 hit=0 functions=13 hit=0 branches=273 hit=0
+Processing file src/lib/controllib/BlockLowPass2.hpp
+  lines=10 hit=10 functions=6 hit=5 branches=4 hit=2
+Processing file src/modules/mavlink/streams/RC_CHANNELS.hpp
+  lines=35 hit=11 functions=8 hit=8 branches=56 hit=6
+Processing file src/lib/modes/standard_modes.hpp
+  lines=50 hit=0 functions=2 hit=0 branches=55 hit=0
+Processing file src/modules/ekf2/test/sensor_simulator/gps.h
+  lines=1 hit=1 functions=1 hit=1
+Processing file src/drivers/gps/devices/src/nmea.cpp
+  lines=493 hit=0 functions=10 hit=0 branches=725 hit=0
+Processing file test/fuzztest/fuzztest/internal/fixture_driver.cc
+  lines=7 hit=1 functions=4 hit=1
+Processing file src/examples/px4_simple_app/px4_simple_app.c
+  lines=25 hit=0 functions=1 hit=0 branches=12 hit=0
+Processing file src/drivers/gnss/septentrio/septentrio.h
+  lines=6 hit=4 functions=2 hit=2 branches=6 hit=3
+Processing file src/modules/ekf2/EKF/python/ekf_derivation/generated/compute_body_vel_innov_var_h.h
+  lines=133 hit=133 functions=1 hit=1 branches=8 hit=4
+Processing file src/lib/mathlib/math/filter/MedianFilter.hpp
+  lines=14 hit=14 functions=20 hit=17 branches=4 hit=3
+Processing file src/modules/local_position_estimator/sensors/land.cpp
+  lines=53 hit=0 functions=4 hit=0 branches=84 hit=0
+Processing file src/modules/rover_mecanum/MecanumRateControl/MecanumRateControl.hpp
+  lines=3 hit=0 functions=4 hit=0
+Processing file src/modules/ekf2/EKF/aid_sources/gnss/gps_control.cpp
+  lines=263 hit=255 functions=18 hit=18 branches=362 hit=256
+Processing file src/modules/gimbal/input_rc.cpp
+  lines=97 hit=0 functions=10 hit=0 branches=51 hit=0
+Processing file src/lib/ringbuffer/Ringbuffer.hpp
+  lines=1 hit=1 functions=1 hit=1
+Processing file src/modules/navigator/rtl.h
+  lines=5 hit=0 functions=6 hit=0
+Processing file src/lib/rc/sumd.cpp
+  lines=134 hit=90 functions=3 hit=3 branches=85 hit=41
+Processing file src/lib/matrix/matrix/Quaternion.hpp
+  lines=208 hit=208 functions=29 hit=29 branches=464 hit=248
+Processing file src/modules/rover_ackermann/AckermannActControl/AckermannActControl.cpp
+  lines=57 hit=0 functions=4 hit=0 branches=72 hit=0
+Processing file src/modules/ekf2/EKF/aid_sources/gnss/gnss_checks.cpp
+  lines=108 hit=103 functions=5 hit=5 branches=154 hit=73
+Processing file src/modules/ekf2/EKF/ekf.h
+  lines=184 hit=125 functions=108 hit=63 branches=230 hit=123
+Processing file platforms/posix/src/px4/common/SerialImpl.cpp
+  lines=216 hit=17 functions=32 hit=4 branches=155 hit=3
+Processing file src/modules/gyro_fft/CMSIS_5/CMSIS/DSP/Source/TransformFunctions/arm_cfft_q15.c
+  lines=82 hit=10 functions=3 hit=1 branches=18 hit=3
+Processing file src/modules/mavlink/streams/PING.hpp
+  lines=17 hit=9 functions=9 hit=8 branches=12 hit=2
+Processing file test/fuzztest/fuzztest/internal/meta.h
+  lines=14 hit=12 functions=27 hit=11 branches=2 hit=1
+Processing file src/modules/rover_ackermann/AckermannDriveModes/AckermannOffboardMode/AckermannOffboardMode.cpp
+  lines=36 hit=0 functions=3 hit=0 branches=40 hit=0
+Processing file src/lib/conversion/rotation.cpp
+  lines=26 hit=16 functions=4 hit=3 branches=48 hit=14
+Processing file src/modules/commander/Safety.cpp
+  lines=19 hit=0 functions=3 hit=0 branches=20 hit=0
+Processing file src/modules/ekf2/EKF/terrain_control.cpp
+  lines=44 hit=43 functions=3 hit=3 branches=54 hit=48
+Processing file src/modules/replay/ReplayEkf2.hpp
+  lines=2 hit=0 functions=1 hit=0
+Processing file src/drivers/tone_alarm/ToneAlarm.h
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/modules/mavlink/streams/EFI_STATUS.hpp
+  lines=32 hit=12 functions=8 hit=8 branches=18 hit=6
+Processing file platforms/posix/src/px4/common/px4_daemon/server.h
+  lines=10 hit=10 functions=4 hit=4
+Processing file src/modules/flight_mode_manager/tasks/Utility/StickAccelerationXY.hpp
+  lines=4 hit=0 functions=5 hit=0
+Processing file src/modules/sensors/data_validator/DataValidator.cpp
+  lines=58 hit=43 functions=4 hit=3 branches=30 hit=21
+Processing file src/modules/ekf2/test/test_EKF_gyroscope.cpp
+  lines=34 hit=34 functions=16 hit=16 branches=66 hit=29
+Processing file src/modules/vtol_att_control/vtol_att_control_main.cpp
+  lines=261 hit=0 functions=15 hit=0 branches=376 hit=0
+Processing file src/modules/flight_mode_manager/tasks/AutoFollowTarget/FlightTaskAutoFollowTarget.hpp
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/modules/ekf2/test/sensor_simulator/airspeed.cpp
+  lines=19 hit=19 functions=5 hit=4 branches=10 hit=7
+Processing file src/modules/flight_mode_manager/tasks/Utility/Gimbal.hpp
+  lines=3 hit=0 functions=3 hit=0
+Processing file test/fuzztest/fuzztest/fuzztest_gtest_main.cc
+  lines=5 hit=5 functions=1 hit=1 branches=2 hit=1
+Processing file platforms/posix/src/px4/common/test_stubs/stub_daemon.h
+  lines=2 hit=0 functions=2 hit=0
+Processing file src/lib/rate_control/rate_control_test.cpp
+  lines=5 hit=5 functions=4 hit=4 branches=20 hit=11
+Processing file src/modules/mavlink/mavlink_ftp.cpp
+  lines=498 hit=9 functions=29 hit=2 branches=318 hit=4
+Processing file src/lib/parameters/param_translation_unit_tests.cpp
+  lines=2 hit=2 functions=1 hit=1
+Processing file src/modules/rover_ackermann/AckermannSpeedControl/AckermannSpeedControl.cpp
+  lines=58 hit=0 functions=5 hit=0 branches=90 hit=0
+Processing file src/modules/flight_mode_manager/tasks/Auto/FlightTaskAuto.cpp
+  lines=401 hit=0 functions=26 hit=0 branches=752 hit=0
+Processing file src/modules/simulation/gz_bridge/GZBridge.hpp
+  lines=1 hit=0 functions=1 hit=0
+Processing file src/lib/parameters/autosave.h
+  lines=2 hit=0 functions=2 hit=0
+Processing file src/modules/ekf2/test/test_EKF_initialization.cpp
+  lines=233 hit=209 functions=46 hit=46 branches=786 hit=184
+Processing file src/modules/rover_ackermann/AckermannDriveModes/AckermannAutoMode/AckermannAutoMode.cpp
+  lines=70 hit=0 functions=6 hit=0 branches=106 hit=0
+Processing file platforms/posix/src/px4/common/cpuload.cpp
+  lines=7 hit=4 functions=2 hit=1 branches=2 hit=1
+Processing file src/lib/mixer_module/functions/FunctionLandingGear.hpp
+  lines=10 hit=0 functions=4 hit=0 branches=18 hit=0
+Processing file src/lib/mixer_module/functions/FunctionConstantMin.hpp
+  lines=4 hit=0 functions=4 hit=0 branches=2 hit=0
+Processing file src/lib/cdev/CDev.cpp
+  lines=133 hit=98 functions=13 hit=10 branches=72 hit=37
+Processing file src/lib/pid/PID.hpp
+  lines=7 hit=5 functions=8 hit=5
+Processing file src/lib/mathlib/math/test/LowPassFilter2pVector3fTest.cpp
+  lines=36 hit=36 functions=9 hit=9 branches=116 hit=47
+Processing file src/lib/mixer_module/functions/FunctionActuatorSet.hpp
+  lines=19 hit=0 functions=4 hit=0 branches=32 hit=0
+Processing file src/modules/events/send_event.cpp
+  lines=58 hit=0 functions=11 hit=0 branches=60 hit=0
+Processing file src/modules/navigator/mission_block.cpp
+  lines=505 hit=9 functions=31 hit=1 branches=422 hit=13
+Processing file src/modules/ekf2/test/sensor_simulator/baro.cpp
+  lines=10 hit=10 functions=5 hit=4 branches=4 hit=2
+Processing file src/drivers/gps/devices/src/gps_helper.cpp
+  lines=36 hit=0 functions=4 hit=0
+Processing file test/fuzztest/fuzztest/internal/serialization.cc
+  lines=196 hit=0 functions=22 hit=0 branches=254 hit=0
+Processing file src/modules/flight_mode_manager/tasks/Utility/Gimbal.cpp
+  lines=66 hit=0 functions=7 hit=0 branches=60 hit=0
+Processing file test/fuzztest/fuzztest/internal/corpus_database.h
+  lines=1 hit=1 functions=1 hit=1
+Processing file src/modules/navigator/navigator_main.cpp
+  lines=861 hit=0 functions=44 hit=0 branches=913 hit=0
+Processing file src/modules/airspeed_selector/AirspeedValidator.cpp
+  lines=167 hit=0 functions=14 hit=0 branches=168 hit=0
+Processing file src/modules/simulation/sensor_baro_sim/SensorBaroSim.cpp
+  lines=90 hit=0 functions=10 hit=0 branches=58 hit=0
+Processing file src/lib/controllib/BlockLimit.cpp
+  lines=6 hit=6 functions=1 hit=1 branches=4 hit=4
+Processing file src/modules/replay/replay_main.cpp
+  lines=6 hit=0 functions=1 hit=0 branches=6 hit=0
+Processing file src/lib/hysteresis/hysteresis.h
+  lines=5 hit=5 functions=2 hit=2
+Processing file src/modules/mc_att_control/AttitudeControl/AttitudeControlMath.hpp
+  lines=9 hit=9 functions=1 hit=1 branches=30 hit=11
+Processing file src/modules/ekf2/EKF/python/ekf_derivation/generated/compute_mag_y_innov_var_and_h.h
+  lines=53 hit=53 functions=1 hit=1 branches=4 hit=2
+Processing file src/modules/sensors/vehicle_optical_flow/RingBuffer.hpp
+  lines=34 hit=0 functions=4 hit=0 branches=30 hit=0
+Processing file src/modules/ekf2/EKF/aid_sources/aux_global_position/aux_global_position.hpp
+  lines=11 hit=0 functions=7 hit=0 branches=20 hit=0
+Processing file src/modules/commander/level_calibration.cpp
+  lines=74 hit=0 functions=1 hit=0 branches=180 hit=0
+Processing file src/lib/world_magnetic_model/test_geo_lookup.cpp
+  lines=5043 hit=5043 functions=12 hit=12 branches=60444 hit=15111
+Processing file src/modules/simulation/gz_bridge/GZGimbal.hpp
+  lines=3 hit=0 functions=1 hit=0 branches=16 hit=0
+Processing file src/modules/commander/HealthAndArmingChecks/checks/windCheck.hpp
+  lines=3 hit=0 functions=4 hit=0 branches=8 hit=0
+Processing file src/modules/ekf2/test/sensor_simulator/ekf_logger.h
+  lines=1 hit=1 functions=1 hit=1
+Processing file src/lib/controllib/BlockLimit.hpp
+  lines=7 hit=7 functions=5 hit=4 branches=4 hit=2
+Processing file src/modules/navigator/mission_block.h
+  lines=2 hit=0 functions=3 hit=0
+Processing file src/lib/parameters/DynamicSparseLayer.h
+  lines=107 hit=98 functions=15 hit=13 branches=70 hit=47
+Processing file src/modules/simulation/sensor_mag_sim/SensorMagSim.hpp
+  lines=2 hit=0 functions=2 hit=0 branches=4 hit=0
+Processing file src/modules/mag_bias_estimator/MagBiasEstimator.hpp
+  lines=3 hit=0 functions=2 hit=0
+Processing file src/lib/mathlib/math/filter/FilteredDerivative.hpp
+  lines=18 hit=0 functions=5 hit=0 branches=6 hit=0
+Processing file src/lib/geo/geo.cpp
+  lines=187 hit=115 functions=14 hit=11 branches=40 hit=11
+Processing file src/modules/rover_mecanum/MecanumRateControl/MecanumRateControl.cpp
+  lines=51 hit=0 functions=4 hit=0 branches=70 hit=0
+Processing file src/modules/commander/HealthAndArmingChecks/checks/rcCalibrationCheck.hpp
+  lines=2 hit=0 functions=3 hit=0
+Processing file src/lib/controllib/BlockDerivative.cpp
+  lines=8 hit=8 functions=1 hit=1 branches=2 hit=2
+Processing file src/modules/ekf2/test/test_EKF_gps.cpp
+  lines=133 hit=133 functions=31 hit=31 branches=456 hit=117
+Processing file src/lib/wind_estimator/python/generated/fuse_beta.h
+  lines=45 hit=0 functions=1 hit=0 branches=8 hit=0
+Processing file platforms/common/include/px4_platform_common/app.h
+  lines=6 hit=6 functions=6 hit=6
+Processing file src/modules/gyro_fft/CMSIS_5/CMSIS/DSP/Source/SupportFunctions/arm_float_to_q15.c
+  lines=14 hit=9 functions=1 hit=1 branches=14 hit=4
+Processing file src/modules/mavlink/mavlink_simple_analyzer.h
+  lines=12 hit=0 functions=2 hit=0 branches=12 hit=0
+Processing file src/modules/commander/HealthAndArmingChecks/checks/airspeedCheck.cpp
+  lines=26 hit=0 functions=2 hit=0 branches=68 hit=0
+Processing file src/modules/ekf2/test/sensor_simulator/imu.cpp
+  lines=32 hit=32 functions=8 hit=7 branches=12 hit=6
+Processing file src/include/containers/LockGuard.hpp
+  lines=7 hit=7 functions=2 hit=2
+Processing file src/modules/simulation/gz_bridge/GZBridge.cpp
+  lines=602 hit=0 functions=35 hit=0 branches=775 hit=0
+Processing file src/modules/gyro_fft/GyroFFT.cpp
+  lines=359 hit=256 functions=18 hit=13 branches=344 hit=188
+Processing file src/modules/commander/failsafe/failsafe.cpp
+  lines=431 hit=0 functions=14 hit=0 branches=325 hit=0
+Processing file src/modules/mavlink/streams/GIMBAL_DEVICE_SET_ATTITUDE.hpp
+  lines=26 hit=12 functions=8 hit=8 branches=24 hit=7
+Processing file src/modules/vtol_att_control/vtol_type.h
+  lines=7 hit=0 functions=8 hit=0
+Processing file platforms/common/px4_work_queue/WorkItemSingleShot.cpp
+  lines=19 hit=0 functions=6 hit=0 branches=8 hit=0
+Processing file src/modules/mavlink/streams/DEBUG_VECT.hpp
+  lines=20 hit=11 functions=8 hit=8 branches=18 hit=6
+Processing file src/modules/ekf2/EKF/ekf_helper.cpp
+  lines=512 hit=296 functions=44 hit=25 branches=802 hit=376
+Overall coverage rate:
+  lines......: 41.5% (46189 of 111171 lines)
+  functions......: 44.2% (8668 of 19631 functions)
+  branches......: 22.1% (47599 of 215341 branches)

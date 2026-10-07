@@ -1,0 +1,258 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov_filtered.info - test/fuzztest/fuzztest/internal/domains/value_mutation_helpers.h</title>
+  <link rel="stylesheet" type="text/css" href="../../../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../../../index.html">top level</a> - <a href="index.html">test/fuzztest/fuzztest/internal/domains</a> - value_mutation_helpers.h<span style="font-size: 80%;"> (source / <a href="value_mutation_helpers.h.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov_filtered.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryLo">47.1&nbsp;%</td>
+            <td class="headerCovTableEntry">51</td>
+            <td class="headerCovTableEntry">24</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-10-02 17:31:18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryLo">23.1&nbsp;%</td>
+            <td class="headerCovTableEntry">13</td>
+            <td class="headerCovTableEntry">3</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryLo">17.7&nbsp;%</td>
+            <td class="headerCovTableEntry">62</td>
+            <td class="headerCovTableEntry">11</td>
+          </tr>
+                  <tr><td><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : // Copyright 2022 Google LLC</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             : //</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             : // Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             : // you may not use this file except in compliance with the License.</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             : // You may obtain a copy of the License at</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             : //</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             : //      http://www.apache.org/licenses/LICENSE-2.0</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             : //</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             : // Unless required by applicable law or agreed to in writing, software</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             : // distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             : // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             : // See the License for the specific language governing permissions and</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             : // limitations under the License.</span>
+<span id="L14"><span class="lineNum">      14</span>                 :             : </span>
+<span id="L15"><span class="lineNum">      15</span>                 :             : #ifndef FUZZTEST_FUZZTEST_INTERNAL_DOMAINS_VALUE_MUTATION_HELPERS_H_</span>
+<span id="L16"><span class="lineNum">      16</span>                 :             : #define FUZZTEST_FUZZTEST_INTERNAL_DOMAINS_VALUE_MUTATION_HELPERS_H_</span>
+<span id="L17"><span class="lineNum">      17</span>                 :             : </span>
+<span id="L18"><span class="lineNum">      18</span>                 :             : #include &lt;cstddef&gt;</span>
+<span id="L19"><span class="lineNum">      19</span>                 :             : #include &lt;limits&gt;</span>
+<span id="L20"><span class="lineNum">      20</span>                 :             : #include &lt;optional&gt;</span>
+<span id="L21"><span class="lineNum">      21</span>                 :             : </span>
+<span id="L22"><span class="lineNum">      22</span>                 :             : #include &quot;absl/numeric/bits.h&quot;</span>
+<span id="L23"><span class="lineNum">      23</span>                 :             : #include &quot;absl/numeric/int128.h&quot;</span>
+<span id="L24"><span class="lineNum">      24</span>                 :             : #include &quot;absl/random/bit_gen_ref.h&quot;</span>
+<span id="L25"><span class="lineNum">      25</span>                 :             : #include &quot;absl/random/random.h&quot;</span>
+<span id="L26"><span class="lineNum">      26</span>                 :             : #include &quot;./fuzztest/internal/domains/mutation_metadata.h&quot;</span>
+<span id="L27"><span class="lineNum">      27</span>                 :             : #include &quot;./fuzztest/internal/meta.h&quot;</span>
+<span id="L28"><span class="lineNum">      28</span>                 :             : #include &quot;./fuzztest/internal/table_of_recent_compares.h&quot;</span>
+<span id="L29"><span class="lineNum">      29</span>                 :             : </span>
+<span id="L30"><span class="lineNum">      30</span>                 :             : namespace fuzztest::internal {</span>
+<span id="L31"><span class="lineNum">      31</span>                 :             : </span>
+<span id="L32"><span class="lineNum">      32</span>                 :             : // Random bit flip: minimal mutation to a field, it will converge</span>
+<span id="L33"><span class="lineNum">      33</span>                 :             : // the hamming distance of a value to its target in constant steps.</span>
+<span id="L34"><span class="lineNum">      34</span>                 :             : template &lt;typename T&gt;</span>
+<span id="L35"><span class="lineNum">      35</span>                 :<span class="tlaGNC tlaBgGNC">        9173 : void RandomBitFlip(absl::BitGenRef prng, T&amp; val, size_t range) {</span></span>
+<span id="L36"><span class="lineNum">      36</span>                 :             :   using U = MakeUnsignedT&lt;T&gt;;</span>
+<span id="L37"><span class="lineNum">      37</span>                 :<span class="tlaGNC">        9173 :   U u = static_cast&lt;U&gt;(val);</span></span>
+<span id="L38"><span class="lineNum">      38</span>                 :<span class="tlaGNC">        9173 :   u ^= U{1} &lt;&lt; absl::Uniform(prng, 0u, range);</span></span>
+<span id="L39"><span class="lineNum">      39</span>                 :<span class="tlaGNC">        9173 :   val = static_cast&lt;T&gt;(u);</span></span>
+<span id="L40"><span class="lineNum">      40</span>                 :<span class="tlaGNC">        9173 : }</span></span>
+<span id="L41"><span class="lineNum">      41</span>                 :             : </span>
+<span id="L42"><span class="lineNum">      42</span>                 :             : // BitWidth of the value of val, specially handle uint12 and int128, because</span>
+<span id="L43"><span class="lineNum">      43</span>                 :             : // they don't have overloads in absl::bit_width.</span>
+<span id="L44"><span class="lineNum">      44</span>                 :             : template &lt;typename T&gt;</span>
+<span id="L45"><span class="lineNum">      45</span>                 :             : size_t BitWidth(T val) {</span>
+<span id="L46"><span class="lineNum">      46</span>                 :             :   if constexpr (std::is_same_v&lt;T, absl::int128&gt; ||</span>
+<span id="L47"><span class="lineNum">      47</span>                 :             :                 std::is_same_v&lt;T, absl::uint128&gt;) {</span>
+<span id="L48"><span class="lineNum">      48</span>                 :             :     auto val_unsigned = MakeUnsignedT&lt;T&gt;(val);</span>
+<span id="L49"><span class="lineNum">      49</span>                 :             :     size_t res = 0;</span>
+<span id="L50"><span class="lineNum">      50</span>                 :             :     while (val_unsigned &gt;&gt;= 1) ++res;</span>
+<span id="L51"><span class="lineNum">      51</span>                 :             :     return res;</span>
+<span id="L52"><span class="lineNum">      52</span>                 :             :   } else {</span>
+<span id="L53"><span class="lineNum">      53</span>                 :             :     return absl::bit_width(static_cast&lt;MakeUnsignedT&lt;T&gt;&gt;(val));</span>
+<span id="L54"><span class="lineNum">      54</span>                 :             :   }</span>
+<span id="L55"><span class="lineNum">      55</span>                 :             : }</span>
+<span id="L56"><span class="lineNum">      56</span>                 :             : </span>
+<span id="L57"><span class="lineNum">      57</span>                 :             : // Given a parameter pack of functions `f`, run exactly one of the functions.</span>
+<span id="L58"><span class="lineNum">      58</span>                 :             : template &lt;typename... F&gt;</span>
+<span id="L59"><span class="lineNum">      59</span>                 :<span class="tlaUNC tlaBgUNC">           0 : void RunOne(absl::BitGenRef prng, F... f) {</span></span>
+<span id="L60"><span class="lineNum">      60</span>                 :<span class="tlaUNC">           0 :   ApplyIndex&lt;sizeof...(F)&gt;([&amp;](auto... I) {</span></span>
+<span id="L61"><span class="lineNum">      61</span>                 :<span class="tlaUNC">           0 :     int i = absl::Uniform&lt;int&gt;(prng, 0, sizeof...(F));</span></span>
+<span id="L62"><span class="lineNum">      62</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :     ((i == I ? (void)f() : (void)0), ...);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span><span class="tlaUNC" title="Branch 6 was not executed"> # </span><span class="tlaUNC" title="Branch 7 was not executed"> # </span><span class="tlaUNC" title="Branch 8 was not executed"> # </span> 
+<span class="lineNum">        </span>    <span class="tlaUNC" title="Branch 9 was not executed"> # </span><span class="tlaUNC" title="Branch 10 was not executed"> # </span><span class="tlaUNC" title="Branch 11 was not executed"> # </span><span class="tlaUNC" title="Branch 12 was not executed"> # </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 13 was not executed"> # </span>]
+<span id="L63"><span class="lineNum">      63</span>                 :             :   });</span>
+<span id="L64"><span class="lineNum">      64</span>                 :<span class="tlaUNC">           0 : }</span></span>
+<span id="L65"><span class="lineNum">      65</span>                 :             : </span>
+<span id="L66"><span class="lineNum">      66</span>                 :             : template &lt;typename T, size_t N, typename F&gt;</span>
+<span id="L67"><span class="lineNum">      67</span>                 :             : T ChooseOneOr(const T (&amp;values)[N], absl::BitGenRef prng, F f) {</span>
+<span id="L68"><span class="lineNum">      68</span>                 :             :   const int i = absl::Uniform&lt;int&gt;(absl::IntervalClosedClosed, prng, 0, N);</span>
+<span id="L69"><span class="lineNum">      69</span>                 :             :   return i == N ? f() : values[i];</span>
+<span id="L70"><span class="lineNum">      70</span>                 :             : }</span>
+<span id="L71"><span class="lineNum">      71</span>                 :             : </span>
+<span id="L72"><span class="lineNum">      72</span>                 :             : template &lt;typename C, typename F&gt;</span>
+<span id="L73"><span class="lineNum">      73</span>                 :             : auto ChooseOneOr(const C&amp; values, absl::BitGenRef prng, F f) {</span>
+<span id="L74"><span class="lineNum">      74</span>                 :             :   const int i =</span>
+<span id="L75"><span class="lineNum">      75</span>                 :             :       absl::Uniform&lt;int&gt;(absl::IntervalClosedClosed, prng, 0, values.size());</span>
+<span id="L76"><span class="lineNum">      76</span>                 :             :   return i &lt; values.size() ? values[i] : f();</span>
+<span id="L77"><span class="lineNum">      77</span>                 :             : }</span>
+<span id="L78"><span class="lineNum">      78</span>                 :             : </span>
+<span id="L79"><span class="lineNum">      79</span>                 :             : template &lt;typename T&gt;</span>
+<span id="L80"><span class="lineNum">      80</span>                 :<span class="tlaGNC tlaBgGNC">       27736 : T SampleFromUniformRange(absl::BitGenRef prng, T min, T max) {</span></span>
+<span id="L81"><span class="lineNum">      81</span>         [<span class="tlaGBC" title="Branch 0 was taken 27736 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">       27736 :   return absl::Uniform(absl::IntervalClosedClosed, prng, min, max);</span></span>
+<span id="L82"><span class="lineNum">      82</span>                 :             : }</span>
+<span id="L83"><span class="lineNum">      83</span>                 :             : </span>
+<span id="L84"><span class="lineNum">      84</span>                 :             : // Randomly apply Randomwalk or Uniform distribution or dictionary to mutate</span>
+<span id="L85"><span class="lineNum">      85</span>                 :             : // the val:</span>
+<span id="L86"><span class="lineNum">      86</span>                 :             : //  RandomWalk: converge the absolute distance of a value to its target</span>
+<span id="L87"><span class="lineNum">      87</span>                 :             : //  more efficiently.</span>
+<span id="L88"><span class="lineNum">      88</span>                 :             : //  Uniform Distribution: go across some non-linear boundary that cannot</span>
+<span id="L89"><span class="lineNum">      89</span>                 :             : //  be solved by bit flipping or randomwalk.</span>
+<span id="L90"><span class="lineNum">      90</span>                 :             : //  Dictionary: if applicable, choose randomly from the dictionary. if</span>
+<span id="L91"><span class="lineNum">      91</span>                 :             : //  dictionary fails to mutate, fall back to uniform.</span>
+<span id="L92"><span class="lineNum">      92</span>                 :             : template &lt;unsigned char RANGE, typename T, typename IntegerDictionaryT&gt;</span>
+<span id="L93"><span class="lineNum">      93</span>                 :<span class="tlaGNC">       27736 : void RandomWalkOrUniformOrDict(absl::BitGenRef prng, T&amp; val, T min, T max,</span></span>
+<span id="L94"><span class="lineNum">      94</span>                 :             :                                domain_implementor::ConstCmpTablesPtr cmp_tables,</span>
+<span id="L95"><span class="lineNum">      95</span>                 :             :                                const IntegerDictionaryT&amp; temporary_dict,</span>
+<span id="L96"><span class="lineNum">      96</span>                 :             :                                const IntegerDictionaryT&amp; permanent_dict,</span>
+<span id="L97"><span class="lineNum">      97</span>                 :             :                                std::optional&lt;T&gt;&amp; permanent_dict_candidate) {</span>
+<span id="L98"><span class="lineNum">      98</span>                 :<span class="tlaGNC">       27736 :   constexpr bool is_memory_dictionary_compatible_integer =</span></span>
+<span id="L99"><span class="lineNum">      99</span>                 :             :       std::numeric_limits&lt;T&gt;::is_integer &amp;&amp;</span>
+<span id="L100"><span class="lineNum">     100</span>                 :             :       (sizeof(T) == 1 || sizeof(T) == 2 || sizeof(T) == 4 || sizeof(T) == 8);</span>
+<span id="L101"><span class="lineNum">     101</span>                 :<span class="tlaGNC">       27736 :   const bool can_use_memory_dictionary =</span></span>
+<span id="L102"><span class="lineNum">     102</span>                 :<span class="tlaGNC">       27736 :       is_memory_dictionary_compatible_integer &amp;&amp; cmp_tables != nullptr;</span></span>
+<span id="L103"><span class="lineNum">     103</span>                 :<span class="tlaGNC">       27736 :   const int action_count = 2 + can_use_memory_dictionary;</span></span>
+<span id="L104"><span class="lineNum">     104</span>                 :<span class="tlaGNC">       27736 :   int action = absl::Uniform(prng, 0, action_count);</span></span>
+<span id="L105"><span class="lineNum">     105</span>                 :             :   // Random walk.</span>
+<span id="L106"><span class="lineNum">     106</span>         [<span class="tlaGBC" title="Branch 0 was taken 13876 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 13860 times"> + </span>]:<span class="tlaGNC">       27736 :   if (action-- == 0) {</span></span>
+<span id="L107"><span class="lineNum">     107</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 13876 times"> + </span>]:<span class="tlaGNC">       13876 :     if (max / 2 - min / 2 &lt;= RANGE) {</span></span>
+<span id="L108"><span class="lineNum">     108</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC tlaBgUNC">           0 :       val = SampleFromUniformRange(prng, min, max);</span></span>
+<span id="L109"><span class="lineNum">     109</span>                 :             :     } else {</span>
+<span id="L110"><span class="lineNum">     110</span>                 :<span class="tlaGNC tlaBgGNC">       13876 :       T lo = min;</span></span>
+<span id="L111"><span class="lineNum">     111</span>                 :<span class="tlaGNC">       13876 :       T hi = max;</span></span>
+<span id="L112"><span class="lineNum">     112</span>         [<span class="tlaGBC" title="Branch 0 was taken 13530 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 346 times"> + </span>]:<span class="tlaGNC">       13876 :       if (val &gt; lo + RANGE) lo = val - RANGE;</span></span>
+<span id="L113"><span class="lineNum">     113</span>         [<span class="tlaGBC" title="Branch 0 was taken 13446 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 430 times"> + </span>]:<span class="tlaGNC">       13876 :       if (val &lt; hi - RANGE) hi = val + RANGE;</span></span>
+<span id="L114"><span class="lineNum">     114</span>         [<span class="tlaGBC" title="Branch 0 was taken 13876 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">       13876 :       val = SampleFromUniformRange(prng, lo, hi);</span></span>
+<span id="L115"><span class="lineNum">     115</span>                 :             :     }</span>
+<span id="L116"><span class="lineNum">     116</span>                 :<span class="tlaGNC">       13876 :     return;</span></span>
+<span id="L117"><span class="lineNum">     117</span>                 :             :   }</span>
+<span id="L118"><span class="lineNum">     118</span>                 :             :   // Random choose.</span>
+<span id="L119"><span class="lineNum">     119</span>         [<span class="tlaGBC" title="Branch 0 was taken 13860 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">       13860 :   if (action-- == 0) {</span></span>
+<span id="L120"><span class="lineNum">     120</span>         [<span class="tlaGBC" title="Branch 0 was taken 13860 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">       13860 :     val = SampleFromUniformRange(prng, min, max);</span></span>
+<span id="L121"><span class="lineNum">     121</span>                 :<span class="tlaGNC">       13860 :     return;</span></span>
+<span id="L122"><span class="lineNum">     122</span>                 :             :   }</span>
+<span id="L123"><span class="lineNum">     123</span>                 :             :   // Dictionary</span>
+<span id="L124"><span class="lineNum">     124</span>                 :             :   if constexpr (is_memory_dictionary_compatible_integer) {</span>
+<span id="L125"><span class="lineNum">     125</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC tlaBgUNC">           0 :     if (can_use_memory_dictionary) {</span></span>
+<span id="L126"><span class="lineNum">     126</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       if (action-- == 0) {</span></span>
+<span id="L127"><span class="lineNum">     127</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         RunOne(</span></span>
+<span id="L128"><span class="lineNum">     128</span>                 :             :             prng,</span>
+<span id="L129"><span class="lineNum">     129</span>                 :<span class="tlaUNC">           0 :             [&amp;] {</span></span>
+<span id="L130"><span class="lineNum">     130</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :               if (temporary_dict.IsEmpty()) {</span></span>
+<span id="L131"><span class="lineNum">     131</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 val = SampleFromUniformRange(prng, min, max);</span></span>
+<span id="L132"><span class="lineNum">     132</span>                 :             :               } else {</span>
+<span id="L133"><span class="lineNum">     133</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 val = temporary_dict.GetRandomSavedEntry(prng);</span></span>
+<span id="L134"><span class="lineNum">     134</span>                 :<span class="tlaUNC">           0 :                 permanent_dict_candidate = val;</span></span>
+<span id="L135"><span class="lineNum">     135</span>                 :             :               }</span>
+<span id="L136"><span class="lineNum">     136</span>                 :             :             },</span>
+<span id="L137"><span class="lineNum">     137</span>                 :<span class="tlaUNC">           0 :             [&amp;] {</span></span>
+<span id="L138"><span class="lineNum">     138</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :               if (permanent_dict.IsEmpty()) {</span></span>
+<span id="L139"><span class="lineNum">     139</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 val = SampleFromUniformRange(prng, min, max);</span></span>
+<span id="L140"><span class="lineNum">     140</span>                 :             :               } else {</span>
+<span id="L141"><span class="lineNum">     141</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 val = permanent_dict.GetRandomSavedEntry(prng);</span></span>
+<span id="L142"><span class="lineNum">     142</span>                 :             :               }</span>
+<span id="L143"><span class="lineNum">     143</span>                 :             :             },</span>
+<span id="L144"><span class="lineNum">     144</span>                 :<span class="tlaUNC">           0 :             [&amp;] {</span></span>
+<span id="L145"><span class="lineNum">     145</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :               auto entry = IntegerDictionary&lt;T&gt;::GetRandomTORCEntry(</span></span>
+<span id="L146"><span class="lineNum">     146</span>                 :             :                   val, prng, *cmp_tables, min, max);</span>
+<span id="L147"><span class="lineNum">     147</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :               if (entry.has_value()) {</span></span>
+<span id="L148"><span class="lineNum">     148</span>                 :<span class="tlaUNC">           0 :                 val = *entry;</span></span>
+<span id="L149"><span class="lineNum">     149</span>                 :             :               } else {</span>
+<span id="L150"><span class="lineNum">     150</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 val = SampleFromUniformRange(prng, min, max);</span></span>
+<span id="L151"><span class="lineNum">     151</span>                 :             :               }</span>
+<span id="L152"><span class="lineNum">     152</span>                 :             :             });</span>
+<span id="L153"><span class="lineNum">     153</span>                 :             :       }</span>
+<span id="L154"><span class="lineNum">     154</span>                 :             :     }</span>
+<span id="L155"><span class="lineNum">     155</span>                 :             :   }</span>
+<span id="L156"><span class="lineNum">     156</span>                 :             : }</span>
+<span id="L157"><span class="lineNum">     157</span>                 :             : </span>
+<span id="L158"><span class="lineNum">     158</span>                 :             : // REQUIRES: |target| &lt; |val|</span>
+<span id="L159"><span class="lineNum">     159</span>                 :             : template &lt;typename T&gt;</span>
+<span id="L160"><span class="lineNum">     160</span>                 :<span class="tlaUNC">           0 : T ShrinkTowards(absl::BitGenRef prng, T val, T target) {</span></span>
+<span id="L161"><span class="lineNum">     161</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   if (val &lt; target) {</span></span>
+<span id="L162"><span class="lineNum">     162</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     return absl::Uniform(absl::IntervalOpenClosed, prng, val, target);</span></span>
+<span id="L163"><span class="lineNum">     163</span>                 :             :   } else {</span>
+<span id="L164"><span class="lineNum">     164</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     return absl::Uniform(absl::IntervalClosedOpen, prng, target, val);</span></span>
+<span id="L165"><span class="lineNum">     165</span>                 :             :   }</span>
+<span id="L166"><span class="lineNum">     166</span>                 :             : }</span>
+<span id="L167"><span class="lineNum">     167</span>                 :             : </span>
+<span id="L168"><span class="lineNum">     168</span>                 :             : }  // namespace fuzztest::internal</span>
+<span id="L169"><span class="lineNum">     169</span>                 :             : </span>
+<span id="L170"><span class="lineNum">     170</span>                 :             : #endif  // FUZZTEST_FUZZTEST_INTERNAL_DOMAINS_VALUE_MUTATION_HELPERS_H_</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

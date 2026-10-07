@@ -1,0 +1,7 @@
+Linux Al-Khwarizmi 6.6.87.2-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Thu Jun  5 18:30:46 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux
+Architecture:                         x86_64
+Model name:                           Intel(R) Core(TM) i5-6300U CPU @ 2.40GHz
+gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+cmake version 3.28.3
+lcov: LCOV version 2.0-1
+PRETTY_NAME="Ubuntu 24.04.4 LTS"

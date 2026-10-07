@@ -1,0 +1,433 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov_filtered.info - src/modules/ekf2/EKF/aid_sources/external_vision/ev_pos_control.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../../../../index.html">top level</a> - <a href="index.html">src/modules/ekf2/EKF/aid_sources/external_vision</a> - ev_pos_control.cpp<span style="font-size: 80%;"> (source / <a href="ev_pos_control.cpp.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov_filtered.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryLo">72.6&nbsp;%</td>
+            <td class="headerCovTableEntry">135</td>
+            <td class="headerCovTableEntry">98</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-10-02 17:31:18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntry">4</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryLo">43.4&nbsp;%</td>
+            <td class="headerCovTableEntry">311</td>
+            <td class="headerCovTableEntry">135</td>
+          </tr>
+                  <tr><td><img src="../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : /****************************************************************************</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             :  *</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             :  *   Copyright (c) 2022 PX4 Development Team. All rights reserved.</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             :  *</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             :  * Redistribution and use in source and binary forms, with or without</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             :  * modification, are permitted provided that the following conditions</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             :  * are met:</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             :  *</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             :  * 1. Redistributions of source code must retain the above copyright</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             :  *    notice, this list of conditions and the following disclaimer.</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             :  * 2. Redistributions in binary form must reproduce the above copyright</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             :  *    notice, this list of conditions and the following disclaimer in</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             :  *    the documentation and/or other materials provided with the</span>
+<span id="L14"><span class="lineNum">      14</span>                 :             :  *    distribution.</span>
+<span id="L15"><span class="lineNum">      15</span>                 :             :  * 3. Neither the name PX4 nor the names of its contributors may be</span>
+<span id="L16"><span class="lineNum">      16</span>                 :             :  *    used to endorse or promote products derived from this software</span>
+<span id="L17"><span class="lineNum">      17</span>                 :             :  *    without specific prior written permission.</span>
+<span id="L18"><span class="lineNum">      18</span>                 :             :  *</span>
+<span id="L19"><span class="lineNum">      19</span>                 :             :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span id="L20"><span class="lineNum">      20</span>                 :             :  * &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span id="L21"><span class="lineNum">      21</span>                 :             :  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS</span>
+<span id="L22"><span class="lineNum">      22</span>                 :             :  * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE</span>
+<span id="L23"><span class="lineNum">      23</span>                 :             :  * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,</span>
+<span id="L24"><span class="lineNum">      24</span>                 :             :  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,</span>
+<span id="L25"><span class="lineNum">      25</span>                 :             :  * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS</span>
+<span id="L26"><span class="lineNum">      26</span>                 :             :  * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED</span>
+<span id="L27"><span class="lineNum">      27</span>                 :             :  * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT</span>
+<span id="L28"><span class="lineNum">      28</span>                 :             :  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN</span>
+<span id="L29"><span class="lineNum">      29</span>                 :             :  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</span>
+<span id="L30"><span class="lineNum">      30</span>                 :             :  * POSSIBILITY OF SUCH DAMAGE.</span>
+<span id="L31"><span class="lineNum">      31</span>                 :             :  *</span>
+<span id="L32"><span class="lineNum">      32</span>                 :             :  ****************************************************************************/</span>
+<span id="L33"><span class="lineNum">      33</span>                 :             : </span>
+<span id="L34"><span class="lineNum">      34</span>                 :             : /**</span>
+<span id="L35"><span class="lineNum">      35</span>                 :             :  * @file ev_pos_control.cpp</span>
+<span id="L36"><span class="lineNum">      36</span>                 :             :  * Control functions for ekf external vision position fusion</span>
+<span id="L37"><span class="lineNum">      37</span>                 :             :  */</span>
+<span id="L38"><span class="lineNum">      38</span>                 :             : </span>
+<span id="L39"><span class="lineNum">      39</span>                 :             : #include &quot;ekf.h&quot;</span>
+<span id="L40"><span class="lineNum">      40</span>                 :             : </span>
+<span id="L41"><span class="lineNum">      41</span>                 :             : static constexpr const char *EV_AID_SRC_NAME = &quot;EV position&quot;;</span>
+<span id="L42"><span class="lineNum">      42</span>                 :             : </span>
+<span id="L43"><span class="lineNum">      43</span>                 :             : </span>
+<span id="L44"><span class="lineNum">      44</span>                 :<span class="tlaGNC tlaBgGNC">       18381 : void Ekf::controlEvPosFusion(const imuSample &amp;imu_sample, const extVisionSample &amp;ev_sample,</span></span>
+<span id="L45"><span class="lineNum">      45</span>                 :             :                              const bool common_starting_conditions_passing, const bool ev_reset, const bool quality_sufficient,</span>
+<span id="L46"><span class="lineNum">      46</span>                 :             :                              estimator_aid_source2d_s &amp;aid_src)</span>
+<span id="L47"><span class="lineNum">      47</span>                 :             : {</span>
+<span id="L48"><span class="lineNum">      48</span>         [<span class="tlaGBC" title="Branch 0 was taken 17735 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 3 times"> + </span>]:<span class="tlaGNC">       17738 :         const bool yaw_alignment_changed = (!_control_status_prev.flags.ev_yaw &amp;&amp; _control_status.flags.ev_yaw)</span></span>
+<span id="L49"><span class="lineNum">      49</span>   [<span class="tlaGBC" title="Branch 0 was taken 17738 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 643 times"> + </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 18378 times"> + </span>]:<span class="tlaGNC">       36119 :                                            || (_control_status_prev.flags.yaw_align != _control_status.flags.yaw_align);</span></span>
+<span id="L50"><span class="lineNum">      50</span>                 :             : </span>
+<span id="L51"><span class="lineNum">      51</span>                 :             :         // determine if we should use EV position aiding</span>
+<span id="L52"><span class="lineNum">      52</span>                 :<span class="tlaGNC">       18381 :         bool continuing_conditions_passing = (_params.ekf2_ev_ctrl &amp; static_cast&lt;int32_t&gt;(EvCtrl::HPOS))</span></span>
+<span id="L53"><span class="lineNum">      53</span>         [<span class="tlaGBC" title="Branch 0 was taken 808 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         808 :                                              &amp;&amp; _control_status.flags.tilt_align</span></span>
+<span id="L54"><span class="lineNum">      54</span>   [<span class="tlaGBC" title="Branch 0 was taken 808 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 808 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">         808 :                                              &amp;&amp; PX4_ISFINITE(ev_sample.pos(0))</span></span>
+<span id="L55"><span class="lineNum">      55</span>   [<span class="tlaGBC" title="Branch 0 was taken 808 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 17573 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 808 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">       19189 :                                              &amp;&amp; PX4_ISFINITE(ev_sample.pos(1));</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 808 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L56"><span class="lineNum">      56</span>                 :             : </span>
+<span id="L57"><span class="lineNum">      57</span>                 :             :         // correct position for offset relative to IMU</span>
+<span id="L58"><span class="lineNum">      58</span>   [<span class="tlaGBC" title="Branch 0 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">       18381 :         const Vector3f pos_offset_body = _params.ev_pos_body - _params.imu_pos_body;</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L59"><span class="lineNum">      59</span>   [<span class="tlaGBC" title="Branch 0 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">       18381 :         const Vector3f pos_offset_earth = _R_to_earth * pos_offset_body;</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L60"><span class="lineNum">      60</span>                 :             : </span>
+<span id="L61"><span class="lineNum">      61</span>                 :<span class="tlaGNC">       18381 :         const bool bias_fusion_was_active = _ev_pos_b_est.fusionActive();</span></span>
+<span id="L62"><span class="lineNum">      62</span>                 :             : </span>
+<span id="L63"><span class="lineNum">      63</span>                 :             :         // rotate measurement into correct earth frame if required</span>
+<span id="L64"><span class="lineNum">      64</span>         [<span class="tlaGBC" title="Branch 0 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">       18381 :         Vector3f pos{NAN, NAN, NAN};</span></span>
+<span id="L65"><span class="lineNum">      65</span>                 :<span class="tlaGNC">       18381 :         Matrix3f pos_cov{};</span></span>
+<span id="L66"><span class="lineNum">      66</span>                 :             : </span>
+<span id="L67"><span class="lineNum">      67</span>      [<span class="tlaGBC" title="Branch 0 was taken 213 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 18168 times"> + </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span>]:<span class="tlaGNC">       18381 :         switch (ev_sample.pos_frame) {</span></span>
+<span id="L68"><span class="lineNum">      68</span>                 :<span class="tlaGNC">         213 :         case PositionFrame::LOCAL_FRAME_NED:</span></span>
+<span id="L69"><span class="lineNum">      69</span>         [<span class="tlaGBC" title="Branch 0 was taken 213 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         213 :                 if (_control_status.flags.yaw_align) {</span></span>
+<span id="L70"><span class="lineNum">      70</span>   [<span class="tlaGBC" title="Branch 0 was taken 213 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 213 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">         213 :                         pos = ev_sample.pos - pos_offset_earth;</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 213 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L71"><span class="lineNum">      71</span>   [<span class="tlaGBC" title="Branch 0 was taken 213 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 213 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">         213 :                         pos_cov = matrix::diag(ev_sample.position_var);</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 213 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L72"><span class="lineNum">      72</span>                 :             : </span>
+<span id="L73"><span class="lineNum">      73</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 213 times"> + </span>]:<span class="tlaGNC">         213 :                         if (_control_status.flags.gnss_pos) {</span></span>
+<span id="L74"><span class="lineNum">      74</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                                 _ev_pos_b_est.setFusionActive();</span></span>
+<span id="L75"><span class="lineNum">      75</span>                 :             : </span>
+<span id="L76"><span class="lineNum">      76</span>                 :             :                         } else {</span>
+<span id="L77"><span class="lineNum">      77</span>                 :<span class="tlaGNC tlaBgGNC">         213 :                                 _ev_pos_b_est.setFusionInactive();</span></span>
+<span id="L78"><span class="lineNum">      78</span>                 :             :                         }</span>
+<span id="L79"><span class="lineNum">      79</span>                 :             : </span>
+<span id="L80"><span class="lineNum">      80</span>                 :             :                 } else {</span>
+<span id="L81"><span class="lineNum">      81</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                         continuing_conditions_passing = false;</span></span>
+<span id="L82"><span class="lineNum">      82</span>                 :<span class="tlaUNC">           0 :                         _ev_pos_b_est.setFusionInactive();</span></span>
+<span id="L83"><span class="lineNum">      83</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                         _ev_pos_b_est.reset();</span></span>
+<span id="L84"><span class="lineNum">      84</span>                 :             :                 }</span>
+<span id="L85"><span class="lineNum">      85</span>                 :             : </span>
+<span id="L86"><span class="lineNum">      86</span>                 :<span class="tlaGNC tlaBgGNC">         213 :                 break;</span></span>
+<span id="L87"><span class="lineNum">      87</span>                 :             : </span>
+<span id="L88"><span class="lineNum">      88</span>                 :<span class="tlaGNC">       18168 :         case PositionFrame::LOCAL_FRAME_FRD:</span></span>
+<span id="L89"><span class="lineNum">      89</span>         [<span class="tlaGBC" title="Branch 0 was taken 587 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 17581 times"> + </span>]:<span class="tlaGNC">       18168 :                 if (_control_status.flags.ev_yaw) {</span></span>
+<span id="L90"><span class="lineNum">      90</span>                 :             :                         // using EV frame</span>
+<span id="L91"><span class="lineNum">      91</span>   [<span class="tlaGBC" title="Branch 0 was taken 587 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 587 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">         587 :                         pos = ev_sample.pos - pos_offset_earth;</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 587 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L92"><span class="lineNum">      92</span>   [<span class="tlaGBC" title="Branch 0 was taken 587 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 587 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">         587 :                         pos_cov = matrix::diag(ev_sample.position_var);</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 587 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L93"><span class="lineNum">      93</span>                 :             : </span>
+<span id="L94"><span class="lineNum">      94</span>                 :<span class="tlaGNC">         587 :                         _ev_pos_b_est.setFusionInactive();</span></span>
+<span id="L95"><span class="lineNum">      95</span>         [<span class="tlaGBC" title="Branch 0 was taken 587 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         587 :                         _ev_pos_b_est.reset();</span></span>
+<span id="L96"><span class="lineNum">      96</span>                 :             : </span>
+<span id="L97"><span class="lineNum">      97</span>                 :             :                 } else {</span>
+<span id="L98"><span class="lineNum">      98</span>                 :             :                         // rotate EV to the EKF reference frame</span>
+<span id="L99"><span class="lineNum">      99</span>   [<span class="tlaGBC" title="Branch 0 was taken 17581 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 17581 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">       17581 :                         const Dcmf R_ev_to_ekf = Dcmf(_ev_q_error_filt.getState());</span></span>
+<span id="L100"><span class="lineNum">     100</span>                 :             : </span>
+<span id="L101"><span class="lineNum">     101</span>   [<span class="tlaGBC" title="Branch 0 was taken 17581 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 17581 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">       17581 :                         pos = R_ev_to_ekf * ev_sample.pos - pos_offset_earth;</span></span>
+<span class="lineNum">        </span>    <span class="tlaGBC" title="Branch 4 was taken 17581 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 17581 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span>]
+<span id="L102"><span class="lineNum">     102</span>   [<span class="tlaGBC" title="Branch 0 was taken 17581 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 17581 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">       17581 :                         pos_cov = R_ev_to_ekf * matrix::diag(ev_sample.position_var) * R_ev_to_ekf.transpose();</span></span>
+<span class="lineNum">        </span> <span class="tlaGBC" title="Branch 4 was taken 17581 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 17581 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaGBC" title="Branch 8 was taken 17581 times"> + </span> 
+<span class="lineNum">        </span>       <span class="tlaUNC" title="Branch 9 was not taken"> - </span><span class="tlaGBC" title="Branch 10 was taken 17581 times"> + </span><span class="tlaUNC" title="Branch 11 was not taken"> - </span>]
+<span id="L103"><span class="lineNum">     103</span>                 :             : </span>
+<span id="L104"><span class="lineNum">     104</span>                 :             :                         // increase minimum variance to include EV orientation variance</span>
+<span id="L105"><span class="lineNum">     105</span>                 :             :                         // TODO: do this properly</span>
+<span id="L106"><span class="lineNum">     106</span>         [<span class="tlaGBC" title="Branch 0 was taken 17581 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">       17581 :                         const float orientation_var_max = ev_sample.orientation_var.max();</span></span>
+<span id="L107"><span class="lineNum">     107</span>                 :             : </span>
+<span id="L108"><span class="lineNum">     108</span>         [<span class="tlaGBC" title="Branch 0 was taken 35162 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 17581 times"> + </span>]:<span class="tlaGNC">       52743 :                         for (int i = 0; i &lt; 2; i++) {</span></span>
+<span id="L109"><span class="lineNum">     109</span>                 :<span class="tlaGNC">       35162 :                                 pos_cov(i, i) = math::max(pos_cov(i, i), orientation_var_max);</span></span>
+<span id="L110"><span class="lineNum">     110</span>                 :             :                         }</span>
+<span id="L111"><span class="lineNum">     111</span>                 :             : </span>
+<span id="L112"><span class="lineNum">     112</span>         [<span class="tlaGBC" title="Branch 0 was taken 11653 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 5928 times"> + </span>]:<span class="tlaGNC">       17581 :                         if (_control_status.flags.gnss_pos) {</span></span>
+<span id="L113"><span class="lineNum">     113</span>                 :<span class="tlaGNC">       11653 :                                 _ev_pos_b_est.setFusionActive();</span></span>
+<span id="L114"><span class="lineNum">     114</span>                 :             : </span>
+<span id="L115"><span class="lineNum">     115</span>                 :             :                         } else {</span>
+<span id="L116"><span class="lineNum">     116</span>                 :<span class="tlaGNC">        5928 :                                 _ev_pos_b_est.setFusionInactive();</span></span>
+<span id="L117"><span class="lineNum">     117</span>                 :             :                         }</span>
+<span id="L118"><span class="lineNum">     118</span>                 :             :                 }</span>
+<span id="L119"><span class="lineNum">     119</span>                 :             : </span>
+<span id="L120"><span class="lineNum">     120</span>                 :<span class="tlaGNC">       18168 :                 break;</span></span>
+<span id="L121"><span class="lineNum">     121</span>                 :             : </span>
+<span id="L122"><span class="lineNum">     122</span>                 :<span class="tlaUNC tlaBgUNC">           0 :         default:</span></span>
+<span id="L123"><span class="lineNum">     123</span>                 :<span class="tlaUNC">           0 :                 continuing_conditions_passing = false;</span></span>
+<span id="L124"><span class="lineNum">     124</span>                 :<span class="tlaUNC">           0 :                 _ev_pos_b_est.setFusionInactive();</span></span>
+<span id="L125"><span class="lineNum">     125</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 _ev_pos_b_est.reset();</span></span>
+<span id="L126"><span class="lineNum">     126</span>                 :<span class="tlaUNC">           0 :                 break;</span></span>
+<span id="L127"><span class="lineNum">     127</span>                 :             :         }</span>
+<span id="L128"><span class="lineNum">     128</span>                 :             : </span>
+<span id="L129"><span class="lineNum">     129</span>                 :             : #if defined(CONFIG_EKF2_GNSS)</span>
+<span id="L130"><span class="lineNum">     130</span>                 :             : </span>
+<span id="L131"><span class="lineNum">     131</span>                 :             :         // increase minimum variance if GNSS is active (position reference)</span>
+<span id="L132"><span class="lineNum">     132</span>         [<span class="tlaGBC" title="Branch 0 was taken 11653 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 6728 times"> + </span>]:<span class="tlaGNC tlaBgGNC">       18381 :         if (_control_status.flags.gnss_pos) {</span></span>
+<span id="L133"><span class="lineNum">     133</span>         [<span class="tlaGBC" title="Branch 0 was taken 23306 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 11653 times"> + </span>]:<span class="tlaGNC">       34959 :                 for (int i = 0; i &lt; 2; i++) {</span></span>
+<span id="L134"><span class="lineNum">     134</span>                 :<span class="tlaGNC">       23306 :                         pos_cov(i, i) = math::max(pos_cov(i, i), sq(_params.ekf2_gps_p_noise));</span></span>
+<span id="L135"><span class="lineNum">     135</span>                 :             :                 }</span>
+<span id="L136"><span class="lineNum">     136</span>                 :             :         }</span>
+<span id="L137"><span class="lineNum">     137</span>                 :             : </span>
+<span id="L138"><span class="lineNum">     138</span>                 :             : #endif // CONFIG_EKF2_GNSS</span>
+<span id="L139"><span class="lineNum">     139</span>                 :             : </span>
+<span id="L140"><span class="lineNum">     140</span>   [<span class="tlaGBC" title="Branch 0 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">       18381 :         const Vector2f position_estimate = getLocalHorizontalPosition();</span></span>
+<span id="L141"><span class="lineNum">     141</span>                 :             : </span>
+<span id="L142"><span class="lineNum">     142</span>   [<span class="tlaGBC" title="Branch 0 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">       18381 :         const Vector2f measurement{pos(0), pos(1)};</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L143"><span class="lineNum">     143</span>                 :             : </span>
+<span id="L144"><span class="lineNum">     144</span>                 :             :         const Vector2f measurement_var{</span>
+<span id="L145"><span class="lineNum">     145</span>                 :<span class="tlaGNC">       18381 :                 math::max(pos_cov(0, 0), sq(_params.ekf2_evp_noise), sq(0.01f)),</span></span>
+<span id="L146"><span class="lineNum">     146</span>                 :<span class="tlaGNC">       18381 :                 math::max(pos_cov(1, 1), sq(_params.ekf2_evp_noise), sq(0.01f))</span></span>
+<span id="L147"><span class="lineNum">     147</span>         [<span class="tlaGBC" title="Branch 0 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">       55143 :         };</span></span>
+<span id="L148"><span class="lineNum">     148</span>                 :             : </span>
+<span id="L149"><span class="lineNum">     149</span>   [<span class="tlaGBC" title="Branch 0 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">       18381 :         const bool measurement_valid = measurement.isAllFinite() &amp;&amp; measurement_var.isAllFinite();</span></span>
+<span class="lineNum">        </span>    <span class="tlaGBC" title="Branch 4 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span>]
+<span id="L150"><span class="lineNum">     150</span>                 :             : </span>
+<span id="L151"><span class="lineNum">     151</span>                 :             :         // bias fusion activated (GNSS position activated)</span>
+<span id="L152"><span class="lineNum">     152</span>   [<span class="tlaGBC" title="Branch 0 was taken 6735 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 11646 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 9 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 6726 times"> + </span> :<span class="tlaGNC">       18381 :         if (!bias_fusion_was_active &amp;&amp; _ev_pos_b_est.fusionActive()) {</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 9 times"> + </span><span class="tlaGBC" title="Branch 5 was taken 18372 times"> + </span>]
+<span id="L153"><span class="lineNum">     153</span>         [<span class="tlaGBC" title="Branch 0 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           9 :                 if (quality_sufficient) {</span></span>
+<span id="L154"><span class="lineNum">     154</span>                 :             :                         // reset the bias estimator</span>
+<span id="L155"><span class="lineNum">     155</span>   [<span class="tlaGBC" title="Branch 0 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">           9 :                         _ev_pos_b_est.setBias(-position_estimate + measurement);</span></span>
+<span class="lineNum">        </span>    <span class="tlaGBC" title="Branch 4 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span>]
+<span id="L156"><span class="lineNum">     156</span>                 :             : </span>
+<span id="L157"><span class="lineNum">     157</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC tlaBgUNC">           0 :                 } else if (isOtherSourceOfHorizontalAidingThan(_control_status.flags.ev_pos)) {</span></span>
+<span id="L158"><span class="lineNum">     158</span>                 :             :                         // otherwise stop EV position, when quality is good again it will restart with reset bias</span>
+<span id="L159"><span class="lineNum">     159</span>                 :<span class="tlaUNC">           0 :                         stopEvPosFusion();</span></span>
+<span id="L160"><span class="lineNum">     160</span>                 :             :                 }</span>
+<span id="L161"><span class="lineNum">     161</span>                 :             :         }</span>
+<span id="L162"><span class="lineNum">     162</span>                 :             : </span>
+<span id="L163"><span class="lineNum">     163</span>   [<span class="tlaGBC" title="Branch 0 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC tlaBgGNC">       18381 :         const Vector2f position = measurement - _ev_pos_b_est.getBias();</span></span>
+<span class="lineNum">        </span>    <span class="tlaGBC" title="Branch 4 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span>]
+<span id="L164"><span class="lineNum">     164</span>   [<span class="tlaGBC" title="Branch 0 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">       18381 :         const Vector2f pos_obs_var = measurement_var + _ev_pos_b_est.getBiasVar();</span></span>
+<span class="lineNum">        </span>    <span class="tlaGBC" title="Branch 4 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span>]
+<span id="L165"><span class="lineNum">     165</span>                 :             : </span>
+<span id="L166"><span class="lineNum">     166</span>                 :<span class="tlaGNC">       18381 :         updateAidSourceStatus(aid_src,</span></span>
+<span id="L167"><span class="lineNum">     167</span>         [<span class="tlaGBC" title="Branch 0 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">       18381 :                               ev_sample.time_us,                                      // sample timestamp</span></span>
+<span id="L168"><span class="lineNum">     168</span>                 :             :                               position,                                               // observation</span>
+<span id="L169"><span class="lineNum">     169</span>                 :             :                               pos_obs_var,                                            // observation variance</span>
+<span id="L170"><span class="lineNum">     170</span>   [<span class="tlaGBC" title="Branch 0 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">       18381 :                               position_estimate - position,                           // innovation</span></span>
+<span id="L171"><span class="lineNum">     171</span>   [<span class="tlaGBC" title="Branch 0 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">       18381 :                               Vector2f(getStateVariance&lt;State::pos&gt;()) + pos_obs_var, // innovation variance</span></span>
+<span class="lineNum">        </span>    <span class="tlaGBC" title="Branch 4 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span>]
+<span id="L172"><span class="lineNum">     172</span>                 :             :                               math::max(_params.ekf2_evp_gate, 1.f));             // innovation gate</span>
+<span id="L173"><span class="lineNum">     173</span>                 :             : </span>
+<span id="L174"><span class="lineNum">     174</span>                 :             :         // update the bias estimator before updating the main filter but after</span>
+<span id="L175"><span class="lineNum">     175</span>                 :             :         // using its current state to compute the vertical position innovation</span>
+<span id="L176"><span class="lineNum">     176</span>   [<span class="tlaGBC" title="Branch 0 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">       18381 :         if (measurement_valid &amp;&amp; quality_sufficient) {</span></span>
+<span id="L177"><span class="lineNum">     177</span>   [<span class="tlaGBC" title="Branch 0 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">       18381 :                 _ev_pos_b_est.setMaxStateNoise(Vector2f(sqrtf(measurement_var(0)), sqrtf(measurement_var(1))));</span></span>
+<span class="lineNum">        </span>    <span class="tlaGBC" title="Branch 4 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span>]
+<span id="L178"><span class="lineNum">     178</span>                 :<span class="tlaGNC">       18381 :                 _ev_pos_b_est.setProcessNoiseSpectralDensity(_params.ev_hgt_bias_nsd); // TODO</span></span>
+<span id="L179"><span class="lineNum">     179</span>   [<span class="tlaGBC" title="Branch 0 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">       18381 :                 _ev_pos_b_est.fuseBias(measurement - position_estimate,</span></span>
+<span class="lineNum">        </span> <span class="tlaGBC" title="Branch 4 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaGBC" title="Branch 8 was taken 18381 times"> + </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L180"><span class="lineNum">     180</span>   [<span class="tlaGBC" title="Branch 0 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">       36762 :                                        measurement_var + Vector2f(getStateVariance&lt;State::pos&gt;()));</span></span>
+<span class="lineNum">        </span>    <span class="tlaGBC" title="Branch 4 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 18381 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span>]
+<span id="L181"><span class="lineNum">     181</span>                 :             :         }</span>
+<span id="L182"><span class="lineNum">     182</span>                 :             : </span>
+<span id="L183"><span class="lineNum">     183</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 18381 times"> + </span>]:<span class="tlaGNC">       18381 :         if (!measurement_valid) {</span></span>
+<span id="L184"><span class="lineNum">     184</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                 continuing_conditions_passing = false;</span></span>
+<span id="L185"><span class="lineNum">     185</span>                 :             :         }</span>
+<span id="L186"><span class="lineNum">     186</span>                 :             : </span>
+<span id="L187"><span class="lineNum">     187</span>                 :<span class="tlaGNC tlaBgGNC">       18381 :         const bool starting_conditions_passing = common_starting_conditions_passing</span></span>
+<span id="L188"><span class="lineNum">     188</span>   [<span class="tlaGBC" title="Branch 0 was taken 18273 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 108 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 802 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 17471 times"> + </span>]:<span class="tlaGNC">       18381 :                         &amp;&amp; continuing_conditions_passing;</span></span>
+<span id="L189"><span class="lineNum">     189</span>                 :             : </span>
+<span id="L190"><span class="lineNum">     190</span>         [<span class="tlaGBC" title="Branch 0 was taken 796 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 17585 times"> + </span>]:<span class="tlaGNC">       18381 :         if (_control_status.flags.ev_pos) {</span></span>
+<span id="L191"><span class="lineNum">     191</span>                 :             : </span>
+<span id="L192"><span class="lineNum">     192</span>         [<span class="tlaGBC" title="Branch 0 was taken 796 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         796 :                 if (continuing_conditions_passing) {</span></span>
+<span id="L193"><span class="lineNum">     193</span>                 :<span class="tlaGNC">         796 :                         const bool bias_estimator_change = (bias_fusion_was_active != _ev_pos_b_est.fusionActive());</span></span>
+<span id="L194"><span class="lineNum">     194</span>   [<span class="tlaGBC" title="Branch 0 was taken 796 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 795 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span> :<span class="tlaGNC">         796 :                         const bool reset = ev_reset || yaw_alignment_changed || bias_estimator_change;</span></span>
+<span class="lineNum">        </span>          <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaGBC" title="Branch 5 was taken 795 times"> + </span>]
+<span id="L195"><span class="lineNum">     195</span>                 :             : </span>
+<span id="L196"><span class="lineNum">     196</span>         [<span class="tlaGBC" title="Branch 0 was taken 796 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         796 :                         updateEvPosFusion(measurement, measurement_var, quality_sufficient, reset, aid_src);</span></span>
+<span id="L197"><span class="lineNum">     197</span>                 :             : </span>
+<span id="L198"><span class="lineNum">     198</span>                 :             :                 } else {</span>
+<span id="L199"><span class="lineNum">     199</span>                 :             :                         // Stop fusion but do not declare it faulty</span>
+<span id="L200"><span class="lineNum">     200</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC tlaBgUNC">           0 :                         ECL_WARN(&quot;stopping %s fusion, continuing conditions failing&quot;, EV_AID_SRC_NAME);</span></span>
+<span id="L201"><span class="lineNum">     201</span>                 :<span class="tlaUNC">           0 :                         stopEvPosFusion();</span></span>
+<span id="L202"><span class="lineNum">     202</span>                 :             :                 }</span>
+<span id="L203"><span class="lineNum">     203</span>                 :             : </span>
+<span id="L204"><span class="lineNum">     204</span>                 :             :         } else {</span>
+<span id="L205"><span class="lineNum">     205</span>         [<span class="tlaGBC" title="Branch 0 was taken 6 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 17579 times"> + </span>]:<span class="tlaGNC tlaBgGNC">       17585 :                 if (starting_conditions_passing) {</span></span>
+<span id="L206"><span class="lineNum">     206</span>         [<span class="tlaGBC" title="Branch 0 was taken 6 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           6 :                         startEvPosFusion(measurement, measurement_var, aid_src);</span></span>
+<span id="L207"><span class="lineNum">     207</span>                 :             :                 }</span>
+<span id="L208"><span class="lineNum">     208</span>                 :             :         }</span>
+<span id="L209"><span class="lineNum">     209</span>                 :<span class="tlaGNC">       18381 : }</span></span>
+<span id="L210"><span class="lineNum">     210</span>                 :             : </span>
+<span id="L211"><span class="lineNum">     211</span>                 :<span class="tlaGNC">           6 : void Ekf::startEvPosFusion(const Vector2f &amp;measurement, const Vector2f &amp;measurement_var,</span></span>
+<span id="L212"><span class="lineNum">     212</span>                 :             :                            estimator_aid_source2d_s &amp;aid_src)</span>
+<span id="L213"><span class="lineNum">     213</span>                 :             : {</span>
+<span id="L214"><span class="lineNum">     214</span>                 :             :         // activate fusion</span>
+<span id="L215"><span class="lineNum">     215</span>                 :             :         // TODO:  (_params.position_sensor_ref == PositionSensor::EV)</span>
+<span id="L216"><span class="lineNum">     216</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 6 times"> + </span>]:<span class="tlaGNC">           6 :         if (_control_status.flags.gnss_pos) {</span></span>
+<span id="L217"><span class="lineNum">     217</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                 ECL_INFO(&quot;starting %s fusion&quot;, EV_AID_SRC_NAME);</span></span>
+<span id="L218"><span class="lineNum">     218</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :                 _ev_pos_b_est.setBias(-getLocalHorizontalPosition() + measurement);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span><span class="tlaUNC" title="Branch 6 was not executed"> # </span><span class="tlaUNC" title="Branch 7 was not executed"> # </span><span class="tlaUNC" title="Branch 8 was not executed"> # </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not executed"> # </span>]
+<span id="L219"><span class="lineNum">     219</span>                 :<span class="tlaUNC">           0 :                 _ev_pos_b_est.setFusionActive();</span></span>
+<span id="L220"><span class="lineNum">     220</span>                 :             : </span>
+<span id="L221"><span class="lineNum">     221</span>                 :             :         } else {</span>
+<span id="L222"><span class="lineNum">     222</span>                 :<span class="tlaGNC tlaBgGNC">           6 :                 ECL_INFO(&quot;starting %s fusion, resetting state&quot;, EV_AID_SRC_NAME);</span></span>
+<span id="L223"><span class="lineNum">     223</span>                 :             :                 //_position_sensor_ref = PositionSensor::EV;</span>
+<span id="L224"><span class="lineNum">     224</span>                 :<span class="tlaGNC">           6 :                 _information_events.flags.reset_pos_to_vision = true;</span></span>
+<span id="L225"><span class="lineNum">     225</span>                 :<span class="tlaGNC">           6 :                 resetHorizontalPositionTo(measurement, measurement_var);</span></span>
+<span id="L226"><span class="lineNum">     226</span>                 :<span class="tlaGNC">           6 :                 _ev_pos_b_est.reset();</span></span>
+<span id="L227"><span class="lineNum">     227</span>                 :             :         }</span>
+<span id="L228"><span class="lineNum">     228</span>                 :             : </span>
+<span id="L229"><span class="lineNum">     229</span>                 :<span class="tlaGNC">           6 :         aid_src.time_last_fuse = _time_delayed_us;</span></span>
+<span id="L230"><span class="lineNum">     230</span>                 :             : </span>
+<span id="L231"><span class="lineNum">     231</span>                 :<span class="tlaGNC">           6 :         _nb_ev_pos_reset_available = 5;</span></span>
+<span id="L232"><span class="lineNum">     232</span>                 :<span class="tlaGNC">           6 :         _information_events.flags.starting_vision_pos_fusion = true;</span></span>
+<span id="L233"><span class="lineNum">     233</span>                 :<span class="tlaGNC">           6 :         _control_status.flags.ev_pos = true;</span></span>
+<span id="L234"><span class="lineNum">     234</span>                 :<span class="tlaGNC">           6 : }</span></span>
+<span id="L235"><span class="lineNum">     235</span>                 :             : </span>
+<span id="L236"><span class="lineNum">     236</span>                 :<span class="tlaGNC">         796 : void Ekf::updateEvPosFusion(const Vector2f &amp;measurement, const Vector2f &amp;measurement_var, bool quality_sufficient,</span></span>
+<span id="L237"><span class="lineNum">     237</span>                 :             :                             bool reset, estimator_aid_source2d_s &amp;aid_src)</span>
+<span id="L238"><span class="lineNum">     238</span>                 :             : {</span>
+<span id="L239"><span class="lineNum">     239</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 795 times"> + </span>]:<span class="tlaGNC">         796 :         if (reset) {</span></span>
+<span id="L240"><span class="lineNum">     240</span>                 :             : </span>
+<span id="L241"><span class="lineNum">     241</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :                 if (quality_sufficient) {</span></span>
+<span id="L242"><span class="lineNum">     242</span>                 :             : </span>
+<span id="L243"><span class="lineNum">     243</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :                         if (!_control_status.flags.gnss_pos) {</span></span>
+<span id="L244"><span class="lineNum">     244</span>                 :<span class="tlaGNC">           1 :                                 ECL_INFO(&quot;reset to %s&quot;, EV_AID_SRC_NAME);</span></span>
+<span id="L245"><span class="lineNum">     245</span>                 :<span class="tlaGNC">           1 :                                 _information_events.flags.reset_pos_to_vision = true;</span></span>
+<span id="L246"><span class="lineNum">     246</span>                 :<span class="tlaGNC">           1 :                                 resetHorizontalPositionTo(measurement, measurement_var);</span></span>
+<span id="L247"><span class="lineNum">     247</span>                 :<span class="tlaGNC">           1 :                                 _ev_pos_b_est.reset();</span></span>
+<span id="L248"><span class="lineNum">     248</span>                 :             : </span>
+<span id="L249"><span class="lineNum">     249</span>                 :             :                         } else {</span>
+<span id="L250"><span class="lineNum">     250</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC tlaBgUNC">           0 :                                 _ev_pos_b_est.setBias(-getLocalHorizontalPosition() + measurement);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span><span class="tlaUNC" title="Branch 6 was not executed"> # </span><span class="tlaUNC" title="Branch 7 was not executed"> # </span><span class="tlaUNC" title="Branch 8 was not executed"> # </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not executed"> # </span>]
+<span id="L251"><span class="lineNum">     251</span>                 :             :                         }</span>
+<span id="L252"><span class="lineNum">     252</span>                 :             : </span>
+<span id="L253"><span class="lineNum">     253</span>                 :<span class="tlaGNC tlaBgGNC">           1 :                         aid_src.time_last_fuse = _time_delayed_us;</span></span>
+<span id="L254"><span class="lineNum">     254</span>                 :             : </span>
+<span id="L255"><span class="lineNum">     255</span>                 :             :                 } else {</span>
+<span id="L256"><span class="lineNum">     256</span>                 :             :                         // EV has reset, but quality isn't sufficient</span>
+<span id="L257"><span class="lineNum">     257</span>                 :             :                         // we have no choice but to stop EV and try to resume once quality is acceptable</span>
+<span id="L258"><span class="lineNum">     258</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                         stopEvPosFusion();</span></span>
+<span id="L259"><span class="lineNum">     259</span>                 :<span class="tlaUNC">           0 :                         return;</span></span>
+<span id="L260"><span class="lineNum">     260</span>                 :             :                 }</span>
+<span id="L261"><span class="lineNum">     261</span>                 :             : </span>
+<span id="L262"><span class="lineNum">     262</span>         [<span class="tlaGBC" title="Branch 0 was taken 795 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC tlaBgGNC">         795 :         } else if (quality_sufficient) {</span></span>
+<span id="L263"><span class="lineNum">     263</span>                 :<span class="tlaGNC">         795 :                 fuseHorizontalPosition(aid_src);</span></span>
+<span id="L264"><span class="lineNum">     264</span>                 :             : </span>
+<span id="L265"><span class="lineNum">     265</span>                 :             :         } else {</span>
+<span id="L266"><span class="lineNum">     266</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                 aid_src.innovation_rejected = true;</span></span>
+<span id="L267"><span class="lineNum">     267</span>                 :             :         }</span>
+<span id="L268"><span class="lineNum">     268</span>                 :             : </span>
+<span id="L269"><span class="lineNum">     269</span>                 :<span class="tlaGNC tlaBgGNC">         796 :         const bool is_fusion_failing = isTimedOut(aid_src.time_last_fuse, _params.no_aid_timeout_max); // 1 second</span></span>
+<span id="L270"><span class="lineNum">     270</span>                 :             : </span>
+<span id="L271"><span class="lineNum">     271</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 796 times"> + </span>]:<span class="tlaGNC">         796 :         if (is_fusion_failing) {</span></span>
+<span id="L272"><span class="lineNum">     272</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                 bool pos_xy_fusion_failing = isTimedOut(_time_last_hor_pos_fuse, _params.no_aid_timeout_max);</span></span>
+<span id="L273"><span class="lineNum">     273</span>                 :             : </span>
+<span id="L274"><span class="lineNum">     274</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 if ((_nb_ev_pos_reset_available &gt; 0) &amp;&amp; quality_sufficient) {</span></span>
+<span id="L275"><span class="lineNum">     275</span>                 :             :                         // Data seems good, attempt a reset</span>
+<span id="L276"><span class="lineNum">     276</span>                 :<span class="tlaUNC">           0 :                         ECL_WARN(&quot;%s fusion failing, resetting&quot;, EV_AID_SRC_NAME);</span></span>
+<span id="L277"><span class="lineNum">     277</span>                 :             : </span>
+<span id="L278"><span class="lineNum">     278</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :                         if (_control_status.flags.gnss_pos &amp;&amp; !pos_xy_fusion_failing) {</span></span>
+<span id="L279"><span class="lineNum">     279</span>                 :             :                                 // reset EV position bias</span>
+<span id="L280"><span class="lineNum">     280</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :                                 _ev_pos_b_est.setBias(-Vector2f(getLocalHorizontalPosition()) + measurement);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span><span class="tlaUNC" title="Branch 6 was not executed"> # </span><span class="tlaUNC" title="Branch 7 was not executed"> # </span><span class="tlaUNC" title="Branch 8 was not executed"> # </span> 
+<span class="lineNum">        </span>       <span class="tlaUNC" title="Branch 9 was not executed"> # </span><span class="tlaUNC" title="Branch 10 was not executed"> # </span><span class="tlaUNC" title="Branch 11 was not executed"> # </span>]
+<span id="L281"><span class="lineNum">     281</span>                 :             : </span>
+<span id="L282"><span class="lineNum">     282</span>                 :             :                         } else {</span>
+<span id="L283"><span class="lineNum">     283</span>                 :<span class="tlaUNC">           0 :                                 _information_events.flags.reset_pos_to_vision = true;</span></span>
+<span id="L284"><span class="lineNum">     284</span>                 :             : </span>
+<span id="L285"><span class="lineNum">     285</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                                 if (_control_status.flags.gnss_pos) {</span></span>
+<span id="L286"><span class="lineNum">     286</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :                                         resetHorizontalPositionTo(measurement - _ev_pos_b_est.getBias(), measurement_var + _ev_pos_b_est.getBiasVar());</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span><span class="tlaUNC" title="Branch 6 was not executed"> # </span><span class="tlaUNC" title="Branch 7 was not executed"> # </span><span class="tlaUNC" title="Branch 8 was not executed"> # </span> 
+<span class="lineNum">        </span>    <span class="tlaUNC" title="Branch 9 was not executed"> # </span><span class="tlaUNC" title="Branch 10 was not executed"> # </span><span class="tlaUNC" title="Branch 11 was not executed"> # </span><span class="tlaUNC" title="Branch 12 was not executed"> # </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 13 was not executed"> # </span>]
+<span id="L287"><span class="lineNum">     287</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :                                         _ev_pos_b_est.setBias(-getLocalHorizontalPosition() + measurement);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span><span class="tlaUNC" title="Branch 6 was not executed"> # </span><span class="tlaUNC" title="Branch 7 was not executed"> # </span><span class="tlaUNC" title="Branch 8 was not executed"> # </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not executed"> # </span>]
+<span id="L288"><span class="lineNum">     288</span>                 :             : </span>
+<span id="L289"><span class="lineNum">     289</span>                 :             :                                 } else {</span>
+<span id="L290"><span class="lineNum">     290</span>                 :<span class="tlaUNC">           0 :                                         resetHorizontalPositionTo(measurement, measurement_var);</span></span>
+<span id="L291"><span class="lineNum">     291</span>                 :<span class="tlaUNC">           0 :                                         _ev_pos_b_est.reset();</span></span>
+<span id="L292"><span class="lineNum">     292</span>                 :             :                                 }</span>
+<span id="L293"><span class="lineNum">     293</span>                 :             :                         }</span>
+<span id="L294"><span class="lineNum">     294</span>                 :             : </span>
+<span id="L295"><span class="lineNum">     295</span>                 :<span class="tlaUNC">           0 :                         aid_src.time_last_fuse = _time_delayed_us;</span></span>
+<span id="L296"><span class="lineNum">     296</span>                 :             : </span>
+<span id="L297"><span class="lineNum">     297</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                         if (_control_status.flags.in_air) {</span></span>
+<span id="L298"><span class="lineNum">     298</span>                 :<span class="tlaUNC">           0 :                                 _nb_ev_pos_reset_available--;</span></span>
+<span id="L299"><span class="lineNum">     299</span>                 :             :                         }</span>
+<span id="L300"><span class="lineNum">     300</span>                 :             : </span>
+<span id="L301"><span class="lineNum">     301</span>                 :             :                 } else {</span>
+<span id="L302"><span class="lineNum">     302</span>                 :             :                         // A reset did not fix the issue but all the starting checks are not passing</span>
+<span id="L303"><span class="lineNum">     303</span>                 :             :                         // This could be a temporary issue, stop the fusion without declaring the sensor faulty</span>
+<span id="L304"><span class="lineNum">     304</span>                 :<span class="tlaUNC">           0 :                         ECL_WARN(&quot;stopping %s, fusion failing&quot;, EV_AID_SRC_NAME);</span></span>
+<span id="L305"><span class="lineNum">     305</span>                 :<span class="tlaUNC">           0 :                         stopEvPosFusion();</span></span>
+<span id="L306"><span class="lineNum">     306</span>                 :             :                 }</span>
+<span id="L307"><span class="lineNum">     307</span>                 :             :         }</span>
+<span id="L308"><span class="lineNum">     308</span>                 :             : }</span>
+<span id="L309"><span class="lineNum">     309</span>                 :             : </span>
+<span id="L310"><span class="lineNum">     310</span>                 :<span class="tlaGNC tlaBgGNC">           4 : void Ekf::stopEvPosFusion()</span></span>
+<span id="L311"><span class="lineNum">     311</span>                 :             : {</span>
+<span id="L312"><span class="lineNum">     312</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 3 times"> + </span>]:<span class="tlaGNC">           4 :         if (_control_status.flags.ev_pos) {</span></span>
+<span id="L313"><span class="lineNum">     313</span>                 :<span class="tlaGNC">           1 :                 _control_status.flags.ev_pos = false;</span></span>
+<span id="L314"><span class="lineNum">     314</span>                 :             :         }</span>
+<span id="L315"><span class="lineNum">     315</span>                 :<span class="tlaGNC">           4 : }</span></span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

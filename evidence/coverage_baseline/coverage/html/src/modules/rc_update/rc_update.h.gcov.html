@@ -1,0 +1,342 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov_filtered.info - src/modules/rc_update/rc_update.h</title>
+  <link rel="stylesheet" type="text/css" href="../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../index.html">top level</a> - <a href="index.html">src/modules/rc_update</a> - rc_update.h<span style="font-size: 80%;"> (source / <a href="rc_update.h.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov_filtered.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">1</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-10-02 17:31:18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">1</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryHi">-</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+                  <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : /****************************************************************************</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             :  *</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             :  *   Copyright (c) 2016-2022 PX4 Development Team. All rights reserved.</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             :  *</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             :  * Redistribution and use in source and binary forms, with or without</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             :  * modification, are permitted provided that the following conditions</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             :  * are met:</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             :  *</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             :  * 1. Redistributions of source code must retain the above copyright</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             :  *    notice, this list of conditions and the following disclaimer.</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             :  * 2. Redistributions in binary form must reproduce the above copyright</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             :  *    notice, this list of conditions and the following disclaimer in</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             :  *    the documentation and/or other materials provided with the</span>
+<span id="L14"><span class="lineNum">      14</span>                 :             :  *    distribution.</span>
+<span id="L15"><span class="lineNum">      15</span>                 :             :  * 3. Neither the name PX4 nor the names of its contributors may be</span>
+<span id="L16"><span class="lineNum">      16</span>                 :             :  *    used to endorse or promote products derived from this software</span>
+<span id="L17"><span class="lineNum">      17</span>                 :             :  *    without specific prior written permission.</span>
+<span id="L18"><span class="lineNum">      18</span>                 :             :  *</span>
+<span id="L19"><span class="lineNum">      19</span>                 :             :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span id="L20"><span class="lineNum">      20</span>                 :             :  * &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span id="L21"><span class="lineNum">      21</span>                 :             :  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS</span>
+<span id="L22"><span class="lineNum">      22</span>                 :             :  * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE</span>
+<span id="L23"><span class="lineNum">      23</span>                 :             :  * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,</span>
+<span id="L24"><span class="lineNum">      24</span>                 :             :  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,</span>
+<span id="L25"><span class="lineNum">      25</span>                 :             :  * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS</span>
+<span id="L26"><span class="lineNum">      26</span>                 :             :  * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED</span>
+<span id="L27"><span class="lineNum">      27</span>                 :             :  * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT</span>
+<span id="L28"><span class="lineNum">      28</span>                 :             :  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN</span>
+<span id="L29"><span class="lineNum">      29</span>                 :             :  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</span>
+<span id="L30"><span class="lineNum">      30</span>                 :             :  * POSSIBILITY OF SUCH DAMAGE.</span>
+<span id="L31"><span class="lineNum">      31</span>                 :             :  *</span>
+<span id="L32"><span class="lineNum">      32</span>                 :             :  ****************************************************************************/</span>
+<span id="L33"><span class="lineNum">      33</span>                 :             : </span>
+<span id="L34"><span class="lineNum">      34</span>                 :             : #pragma once</span>
+<span id="L35"><span class="lineNum">      35</span>                 :             : </span>
+<span id="L36"><span class="lineNum">      36</span>                 :             : /**</span>
+<span id="L37"><span class="lineNum">      37</span>                 :             :  * @file rc_update.h</span>
+<span id="L38"><span class="lineNum">      38</span>                 :             :  *</span>
+<span id="L39"><span class="lineNum">      39</span>                 :             :  * @author Beat Kueng &lt;beat-kueng@gmx.net&gt;</span>
+<span id="L40"><span class="lineNum">      40</span>                 :             :  */</span>
+<span id="L41"><span class="lineNum">      41</span>                 :             : </span>
+<span id="L42"><span class="lineNum">      42</span>                 :             : #include &lt;px4_platform_common/px4_config.h&gt;</span>
+<span id="L43"><span class="lineNum">      43</span>                 :             : #include &lt;px4_platform_common/defines.h&gt;</span>
+<span id="L44"><span class="lineNum">      44</span>                 :             : #include &lt;px4_platform_common/module.h&gt;</span>
+<span id="L45"><span class="lineNum">      45</span>                 :             : #include &lt;px4_platform_common/module_params.h&gt;</span>
+<span id="L46"><span class="lineNum">      46</span>                 :             : #include &lt;px4_platform_common/posix.h&gt;</span>
+<span id="L47"><span class="lineNum">      47</span>                 :             : #include &lt;px4_platform_common/px4_work_queue/WorkItem.hpp&gt;</span>
+<span id="L48"><span class="lineNum">      48</span>                 :             : #include &lt;drivers/drv_hrt.h&gt;</span>
+<span id="L49"><span class="lineNum">      49</span>                 :             : #include &lt;lib/hysteresis/hysteresis.h&gt;</span>
+<span id="L50"><span class="lineNum">      50</span>                 :             : #include &lt;lib/mathlib/mathlib.h&gt;</span>
+<span id="L51"><span class="lineNum">      51</span>                 :             : #include &lt;lib/perf/perf_counter.h&gt;</span>
+<span id="L52"><span class="lineNum">      52</span>                 :             : #include &lt;uORB/Publication.hpp&gt;</span>
+<span id="L53"><span class="lineNum">      53</span>                 :             : #include &lt;uORB/PublicationMulti.hpp&gt;</span>
+<span id="L54"><span class="lineNum">      54</span>                 :             : #include &lt;uORB/Subscription.hpp&gt;</span>
+<span id="L55"><span class="lineNum">      55</span>                 :             : #include &lt;uORB/SubscriptionCallback.hpp&gt;</span>
+<span id="L56"><span class="lineNum">      56</span>                 :             : #include &lt;uORB/topics/manual_control_setpoint.h&gt;</span>
+<span id="L57"><span class="lineNum">      57</span>                 :             : #include &lt;uORB/topics/manual_control_switches.h&gt;</span>
+<span id="L58"><span class="lineNum">      58</span>                 :             : #include &lt;uORB/topics/input_rc.h&gt;</span>
+<span id="L59"><span class="lineNum">      59</span>                 :             : #include &lt;uORB/topics/rc_channels.h&gt;</span>
+<span id="L60"><span class="lineNum">      60</span>                 :             : #include &lt;uORB/topics/rc_parameter_map.h&gt;</span>
+<span id="L61"><span class="lineNum">      61</span>                 :             : #include &lt;uORB/topics/parameter_update.h&gt;</span>
+<span id="L62"><span class="lineNum">      62</span>                 :             : </span>
+<span id="L63"><span class="lineNum">      63</span>                 :             : using namespace time_literals;</span>
+<span id="L64"><span class="lineNum">      64</span>                 :             : </span>
+<span id="L65"><span class="lineNum">      65</span>                 :             : namespace rc_update</span>
+<span id="L66"><span class="lineNum">      66</span>                 :             : {</span>
+<span id="L67"><span class="lineNum">      67</span>                 :             : </span>
+<span id="L68"><span class="lineNum">      68</span>                 :             : /**</span>
+<span id="L69"><span class="lineNum">      69</span>                 :             :  ** class RCUpdate</span>
+<span id="L70"><span class="lineNum">      70</span>                 :             :  *</span>
+<span id="L71"><span class="lineNum">      71</span>                 :             :  * Handling of RC updates</span>
+<span id="L72"><span class="lineNum">      72</span>                 :             :  */</span>
+<span id="L73"><span class="lineNum">      73</span>                 :             : class RCUpdate : public ModuleBase&lt;RCUpdate&gt;, public ModuleParams, public px4::WorkItem</span>
+<span id="L74"><span class="lineNum">      74</span>                 :             : {</span>
+<span id="L75"><span class="lineNum">      75</span>                 :             : public:</span>
+<span id="L76"><span class="lineNum">      76</span>                 :             :         RCUpdate();</span>
+<span id="L77"><span class="lineNum">      77</span>                 :             :         ~RCUpdate() override;</span>
+<span id="L78"><span class="lineNum">      78</span>                 :             : </span>
+<span id="L79"><span class="lineNum">      79</span>                 :             :         /** @see ModuleBase */</span>
+<span id="L80"><span class="lineNum">      80</span>                 :             :         static int task_spawn(int argc, char *argv[]);</span>
+<span id="L81"><span class="lineNum">      81</span>                 :             : </span>
+<span id="L82"><span class="lineNum">      82</span>                 :             :         /** @see ModuleBase */</span>
+<span id="L83"><span class="lineNum">      83</span>                 :             :         static int custom_command(int argc, char *argv[]);</span>
+<span id="L84"><span class="lineNum">      84</span>                 :             : </span>
+<span id="L85"><span class="lineNum">      85</span>                 :             :         /** @see ModuleBase */</span>
+<span id="L86"><span class="lineNum">      86</span>                 :             :         static int print_usage(const char *reason = nullptr);</span>
+<span id="L87"><span class="lineNum">      87</span>                 :             : </span>
+<span id="L88"><span class="lineNum">      88</span>                 :             :         bool init();</span>
+<span id="L89"><span class="lineNum">      89</span>                 :             : </span>
+<span id="L90"><span class="lineNum">      90</span>                 :             :         int print_status() override;</span>
+<span id="L91"><span class="lineNum">      91</span>                 :             : </span>
+<span id="L92"><span class="lineNum">      92</span>                 :             : protected:</span>
+<span id="L93"><span class="lineNum">      93</span>                 :             :         static constexpr uint64_t VALID_DATA_MIN_INTERVAL_US{1_s / 3}; // assume valid RC input is at least 3 Hz</span>
+<span id="L94"><span class="lineNum">      94</span>                 :             : </span>
+<span id="L95"><span class="lineNum">      95</span>                 :             :         void Run() override;</span>
+<span id="L96"><span class="lineNum">      96</span>                 :             : </span>
+<span id="L97"><span class="lineNum">      97</span>                 :             :         /**</span>
+<span id="L98"><span class="lineNum">      98</span>                 :             :          * Check for changes in rc_parameter_map</span>
+<span id="L99"><span class="lineNum">      99</span>                 :             :          */</span>
+<span id="L100"><span class="lineNum">     100</span>                 :             :         void            rc_parameter_map_poll(bool forced = false);</span>
+<span id="L101"><span class="lineNum">     101</span>                 :             : </span>
+<span id="L102"><span class="lineNum">     102</span>                 :             :         /**</span>
+<span id="L103"><span class="lineNum">     103</span>                 :             :          * update the RC functions. Call this when the parameters change.</span>
+<span id="L104"><span class="lineNum">     104</span>                 :             :          */</span>
+<span id="L105"><span class="lineNum">     105</span>                 :             :         void            update_rc_functions();</span>
+<span id="L106"><span class="lineNum">     106</span>                 :             : </span>
+<span id="L107"><span class="lineNum">     107</span>                 :             :         void            UpdateManualControlInput(const hrt_abstime &amp;timestamp_sample);</span>
+<span id="L108"><span class="lineNum">     108</span>                 :             :         void            UpdateManualSwitches(const hrt_abstime &amp;timestamp_sample);</span>
+<span id="L109"><span class="lineNum">     109</span>                 :             : </span>
+<span id="L110"><span class="lineNum">     110</span>                 :             :         /**</span>
+<span id="L111"><span class="lineNum">     111</span>                 :             :          * Update our local parameter cache.</span>
+<span id="L112"><span class="lineNum">     112</span>                 :             :          */</span>
+<span id="L113"><span class="lineNum">     113</span>                 :             :         void updateParams() override;</span>
+<span id="L114"><span class="lineNum">     114</span>                 :             : </span>
+<span id="L115"><span class="lineNum">     115</span>                 :             :         /**</span>
+<span id="L116"><span class="lineNum">     116</span>                 :             :          * Get and limit value for specified RC function. Returns NAN if not mapped.</span>
+<span id="L117"><span class="lineNum">     117</span>                 :             :          */</span>
+<span id="L118"><span class="lineNum">     118</span>                 :             :         float           get_rc_value(uint8_t func, float min_value, float max_value) const;</span>
+<span id="L119"><span class="lineNum">     119</span>                 :             : </span>
+<span id="L120"><span class="lineNum">     120</span>                 :             :         /**</span>
+<span id="L121"><span class="lineNum">     121</span>                 :             :          * Get on/off switch position from the RC channel of the specified function</span>
+<span id="L122"><span class="lineNum">     122</span>                 :             :          *</span>
+<span id="L123"><span class="lineNum">     123</span>                 :             :          * @param function according to rc_channels_s::FUNCTION_XXX</span>
+<span id="L124"><span class="lineNum">     124</span>                 :             :          * @param threshold according to RC_XXX_TH parameters, negative means on and off are flipped</span>
+<span id="L125"><span class="lineNum">     125</span>                 :             :          */</span>
+<span id="L126"><span class="lineNum">     126</span>                 :             :         switch_pos_t getRCSwitchOnOffPosition(uint8_t function, float threshold) const;</span>
+<span id="L127"><span class="lineNum">     127</span>                 :             : </span>
+<span id="L128"><span class="lineNum">     128</span>                 :             :         /**</span>
+<span id="L129"><span class="lineNum">     129</span>                 :             :          * Get 3-way switch position from the RC channel of the specified function</span>
+<span id="L130"><span class="lineNum">     130</span>                 :             :          *</span>
+<span id="L131"><span class="lineNum">     131</span>                 :             :          * @param function according to rc_channels_s::FUNCTION_XXX</span>
+<span id="L132"><span class="lineNum">     132</span>                 :             :          * @param on_threshold according to RC_XXX_TH parameters, negative means comparison is flipped</span>
+<span id="L133"><span class="lineNum">     133</span>                 :             :          * @param mid_threshold according to RC_XXX_MIDTH parameters, negative means comparison is flipped</span>
+<span id="L134"><span class="lineNum">     134</span>                 :             :          */</span>
+<span id="L135"><span class="lineNum">     135</span>                 :             :         switch_pos_t getRCSwitch3WayPosition(uint8_t function, float on_threshold, float mid_threshold) const;</span>
+<span id="L136"><span class="lineNum">     136</span>                 :             : </span>
+<span id="L137"><span class="lineNum">     137</span>                 :             :         /**</span>
+<span id="L138"><span class="lineNum">     138</span>                 :             :          * Update parameters from RC channels if the functionality is activated and the</span>
+<span id="L139"><span class="lineNum">     139</span>                 :             :          * input has changed since the last update</span>
+<span id="L140"><span class="lineNum">     140</span>                 :             :          */</span>
+<span id="L141"><span class="lineNum">     141</span>                 :             :         void            set_params_from_rc();</span>
+<span id="L142"><span class="lineNum">     142</span>                 :             : </span>
+<span id="L143"><span class="lineNum">     143</span>                 :             :         void            map_flight_modes_buttons();</span>
+<span id="L144"><span class="lineNum">     144</span>                 :             : </span>
+<span id="L145"><span class="lineNum">     145</span>                 :             :         static constexpr uint8_t RC_MAX_CHAN_COUNT{input_rc_s::RC_INPUT_MAX_CHANNELS}; /**&lt; maximum number of r/c channels we handle */</span>
+<span id="L146"><span class="lineNum">     146</span>                 :             : </span>
+<span id="L147"><span class="lineNum">     147</span>                 :             :         struct Parameters {</span>
+<span id="L148"><span class="lineNum">     148</span>                 :             :                 uint16_t min[RC_MAX_CHAN_COUNT];</span>
+<span id="L149"><span class="lineNum">     149</span>                 :             :                 uint16_t trim[RC_MAX_CHAN_COUNT];</span>
+<span id="L150"><span class="lineNum">     150</span>                 :             :                 uint16_t max[RC_MAX_CHAN_COUNT];</span>
+<span id="L151"><span class="lineNum">     151</span>                 :             :                 bool rev[RC_MAX_CHAN_COUNT];</span>
+<span id="L152"><span class="lineNum">     152</span>                 :             : </span>
+<span id="L153"><span class="lineNum">     153</span>                 :             :                 int32_t rc_map_param[rc_parameter_map_s::RC_PARAM_MAP_NCHAN];</span>
+<span id="L154"><span class="lineNum">     154</span>                 :             :         } _parameters{};</span>
+<span id="L155"><span class="lineNum">     155</span>                 :             : </span>
+<span id="L156"><span class="lineNum">     156</span>                 :             :         struct ParameterHandles {</span>
+<span id="L157"><span class="lineNum">     157</span>                 :             :                 param_t min[RC_MAX_CHAN_COUNT];</span>
+<span id="L158"><span class="lineNum">     158</span>                 :             :                 param_t trim[RC_MAX_CHAN_COUNT];</span>
+<span id="L159"><span class="lineNum">     159</span>                 :             :                 param_t max[RC_MAX_CHAN_COUNT];</span>
+<span id="L160"><span class="lineNum">     160</span>                 :             :                 param_t rev[RC_MAX_CHAN_COUNT];</span>
+<span id="L161"><span class="lineNum">     161</span>                 :             : </span>
+<span id="L162"><span class="lineNum">     162</span>                 :             :                 param_t rc_map_param[rc_parameter_map_s::RC_PARAM_MAP_NCHAN];</span>
+<span id="L163"><span class="lineNum">     163</span>                 :             :                 param_t rc_param[rc_parameter_map_s::RC_PARAM_MAP_NCHAN];       /**&lt; param handles for the parameters which are bound</span>
+<span id="L164"><span class="lineNum">     164</span>                 :             :                                                                 to a RC channel, equivalent float values in the</span>
+<span id="L165"><span class="lineNum">     165</span>                 :             :                                                                 _parameters struct are not existing</span>
+<span id="L166"><span class="lineNum">     166</span>                 :             :                                                                 because these parameters are never read. */</span>
+<span id="L167"><span class="lineNum">     167</span>                 :             :         } _parameter_handles{};</span>
+<span id="L168"><span class="lineNum">     168</span>                 :             : </span>
+<span id="L169"><span class="lineNum">     169</span>                 :             :         uORB::SubscriptionCallbackWorkItem _input_rc_sub{this, ORB_ID(input_rc)};</span>
+<span id="L170"><span class="lineNum">     170</span>                 :             : </span>
+<span id="L171"><span class="lineNum">     171</span>                 :             :         uORB::SubscriptionInterval _parameter_update_sub{ORB_ID(parameter_update), 1_s};</span>
+<span id="L172"><span class="lineNum">     172</span>                 :             : </span>
+<span id="L173"><span class="lineNum">     173</span>                 :             :         uORB::Subscription _rc_parameter_map_sub{ORB_ID(rc_parameter_map)};</span>
+<span id="L174"><span class="lineNum">     174</span>                 :             : </span>
+<span id="L175"><span class="lineNum">     175</span>                 :             :         uORB::Publication&lt;rc_channels_s&gt; _rc_channels_pub{ORB_ID(rc_channels)};</span>
+<span id="L176"><span class="lineNum">     176</span>                 :             :         uORB::PublicationMulti&lt;manual_control_setpoint_s&gt; _manual_control_input_pub{ORB_ID(manual_control_input)};</span>
+<span id="L177"><span class="lineNum">     177</span>                 :             :         uORB::Publication&lt;manual_control_switches_s&gt; _manual_control_switches_pub{ORB_ID(manual_control_switches)};</span>
+<span id="L178"><span class="lineNum">     178</span>                 :             : </span>
+<span id="L179"><span class="lineNum">     179</span>                 :             :         manual_control_switches_s _manual_switches_previous{};</span>
+<span id="L180"><span class="lineNum">     180</span>                 :             :         manual_control_switches_s _manual_switches_last_publish{};</span>
+<span id="L181"><span class="lineNum">     181</span>                 :             :         rc_channels_s _rc{};</span>
+<span id="L182"><span class="lineNum">     182</span>                 :             :         bool _rc_calibrated{false};</span>
+<span id="L183"><span class="lineNum">     183</span>                 :             : </span>
+<span id="L184"><span class="lineNum">     184</span>                 :             :         rc_parameter_map_s _rc_parameter_map {};</span>
+<span id="L185"><span class="lineNum">     185</span>                 :             :         float _param_rc_values[rc_parameter_map_s::RC_PARAM_MAP_NCHAN] {};      /**&lt; parameter values for RC control */</span>
+<span id="L186"><span class="lineNum">     186</span>                 :             : </span>
+<span id="L187"><span class="lineNum">     187</span>                 :             :         hrt_abstime _last_manual_control_input_publish{0};</span>
+<span id="L188"><span class="lineNum">     188</span>                 :             :         hrt_abstime _last_rc_to_param_map_time{0};</span>
+<span id="L189"><span class="lineNum">     189</span>                 :             :         hrt_abstime _last_timestamp_signal{0};</span>
+<span id="L190"><span class="lineNum">     190</span>                 :             : </span>
+<span id="L191"><span class="lineNum">     191</span>                 :             :         uint16_t _rc_values_previous[RC_MAX_CHAN_COUNT] {};</span>
+<span id="L192"><span class="lineNum">     192</span>                 :             :         float _last_manual_control_input[3] {};</span>
+<span id="L193"><span class="lineNum">     193</span>                 :             :         bool _aux_already_active[3] = {false, false, false};</span>
+<span id="L194"><span class="lineNum">     194</span>                 :             : </span>
+<span id="L195"><span class="lineNum">     195</span>                 :             :         uint8_t _channel_count_previous{0};</span>
+<span id="L196"><span class="lineNum">     196</span>                 :             :         uint8_t _input_source_previous{input_rc_s::RC_INPUT_SOURCE_UNKNOWN};</span>
+<span id="L197"><span class="lineNum">     197</span>                 :             : </span>
+<span id="L198"><span class="lineNum">     198</span>                 :             :         uint8_t _potential_button_press_slot{0};</span>
+<span id="L199"><span class="lineNum">     199</span>                 :             :         systemlib::Hysteresis _button_pressed_hysteresis{false};</span>
+<span id="L200"><span class="lineNum">     200</span>                 :             :         systemlib::Hysteresis _rc_signal_lost_hysteresis{true};</span>
+<span id="L201"><span class="lineNum">     201</span>                 :             : </span>
+<span id="L202"><span class="lineNum">     202</span>                 :             :         uint8_t _channel_count_max{0};</span>
+<span id="L203"><span class="lineNum">     203</span>                 :             : </span>
+<span id="L204"><span class="lineNum">     204</span>                 :             :         perf_counter_t _loop_perf{perf_alloc(PC_ELAPSED, MODULE_NAME&quot;: cycle&quot;)};</span>
+<span id="L205"><span class="lineNum">     205</span>                 :             :         perf_counter_t _loop_interval_perf{perf_alloc(PC_INTERVAL, MODULE_NAME&quot;: cycle interval&quot;)};</span>
+<span id="L206"><span class="lineNum">     206</span>                 :             :         perf_counter_t _valid_data_interval_perf{perf_alloc(PC_INTERVAL, MODULE_NAME&quot;: valid data interval&quot;)};</span>
+<span id="L207"><span class="lineNum">     207</span>                 :             : </span>
+<span id="L208"><span class="lineNum">     208</span>                 :<span class="tlaGNC tlaBgGNC">          97 :         DEFINE_PARAMETERS(</span></span>
+<span id="L209"><span class="lineNum">     209</span>                 :             : </span>
+<span id="L210"><span class="lineNum">     210</span>                 :             :                 (ParamInt&lt;px4::params::RC_MAP_ROLL&gt;) _param_rc_map_roll,</span>
+<span id="L211"><span class="lineNum">     211</span>                 :             :                 (ParamInt&lt;px4::params::RC_MAP_PITCH&gt;) _param_rc_map_pitch,</span>
+<span id="L212"><span class="lineNum">     212</span>                 :             :                 (ParamInt&lt;px4::params::RC_MAP_YAW&gt;) _param_rc_map_yaw,</span>
+<span id="L213"><span class="lineNum">     213</span>                 :             :                 (ParamInt&lt;px4::params::RC_MAP_THROTTLE&gt;) _param_rc_map_throttle,</span>
+<span id="L214"><span class="lineNum">     214</span>                 :             :                 (ParamInt&lt;px4::params::RC_MAP_FAILSAFE&gt;) _param_rc_map_failsafe,</span>
+<span id="L215"><span class="lineNum">     215</span>                 :             : </span>
+<span id="L216"><span class="lineNum">     216</span>                 :             :                 (ParamInt&lt;px4::params::RC_MAP_FLTMODE&gt;) _param_rc_map_fltmode,</span>
+<span id="L217"><span class="lineNum">     217</span>                 :             : </span>
+<span id="L218"><span class="lineNum">     218</span>                 :             :                 (ParamInt&lt;px4::params::RC_MAP_FLAPS&gt;) _param_rc_map_flaps,</span>
+<span id="L219"><span class="lineNum">     219</span>                 :             : </span>
+<span id="L220"><span class="lineNum">     220</span>                 :             :                 (ParamInt&lt;px4::params::RC_MAP_RETURN_SW&gt;) _param_rc_map_return_sw,</span>
+<span id="L221"><span class="lineNum">     221</span>                 :             :                 (ParamInt&lt;px4::params::RC_MAP_LOITER_SW&gt;) _param_rc_map_loiter_sw,</span>
+<span id="L222"><span class="lineNum">     222</span>                 :             :                 (ParamInt&lt;px4::params::RC_MAP_OFFB_SW&gt;) _param_rc_map_offb_sw,</span>
+<span id="L223"><span class="lineNum">     223</span>                 :             :                 (ParamInt&lt;px4::params::RC_MAP_KILL_SW&gt;) _param_rc_map_kill_sw,</span>
+<span id="L224"><span class="lineNum">     224</span>                 :             :                 (ParamInt&lt;px4::params::RC_MAP_TERM_SW&gt;) _param_rc_map_term_sw,</span>
+<span id="L225"><span class="lineNum">     225</span>                 :             :                 (ParamInt&lt;px4::params::RC_MAP_ARM_SW&gt;) _param_rc_map_arm_sw,</span>
+<span id="L226"><span class="lineNum">     226</span>                 :             :                 (ParamInt&lt;px4::params::RC_MAP_TRANS_SW&gt;) _param_rc_map_trans_sw,</span>
+<span id="L227"><span class="lineNum">     227</span>                 :             :                 (ParamInt&lt;px4::params::RC_MAP_GEAR_SW&gt;) _param_rc_map_gear_sw,</span>
+<span id="L228"><span class="lineNum">     228</span>                 :             :                 (ParamInt&lt;px4::params::RC_MAP_FLTM_BTN&gt;) _param_rc_map_fltm_btn,</span>
+<span id="L229"><span class="lineNum">     229</span>                 :             : </span>
+<span id="L230"><span class="lineNum">     230</span>                 :             :                 (ParamInt&lt;px4::params::RC_MAP_AUX1&gt;) _param_rc_map_aux1,</span>
+<span id="L231"><span class="lineNum">     231</span>                 :             :                 (ParamInt&lt;px4::params::RC_MAP_AUX2&gt;) _param_rc_map_aux2,</span>
+<span id="L232"><span class="lineNum">     232</span>                 :             :                 (ParamInt&lt;px4::params::RC_MAP_AUX3&gt;) _param_rc_map_aux3,</span>
+<span id="L233"><span class="lineNum">     233</span>                 :             :                 (ParamInt&lt;px4::params::RC_MAP_AUX4&gt;) _param_rc_map_aux4,</span>
+<span id="L234"><span class="lineNum">     234</span>                 :             :                 (ParamInt&lt;px4::params::RC_MAP_AUX5&gt;) _param_rc_map_aux5,</span>
+<span id="L235"><span class="lineNum">     235</span>                 :             :                 (ParamInt&lt;px4::params::RC_MAP_AUX6&gt;) _param_rc_map_aux6,</span>
+<span id="L236"><span class="lineNum">     236</span>                 :             : </span>
+<span id="L237"><span class="lineNum">     237</span>                 :             :                 (ParamInt&lt;px4::params::RC_MAP_ENG_MOT&gt;) _param_rc_map_eng_mot,</span>
+<span id="L238"><span class="lineNum">     238</span>                 :             : </span>
+<span id="L239"><span class="lineNum">     239</span>                 :             :                 (ParamInt&lt;px4::params::RC_FAILS_THR&gt;) _param_rc_fails_thr,</span>
+<span id="L240"><span class="lineNum">     240</span>                 :             : </span>
+<span id="L241"><span class="lineNum">     241</span>                 :             :                 (ParamInt&lt;px4::params::RC_MAP_PAY_SW&gt;) _param_rc_map_pay_sw,</span>
+<span id="L242"><span class="lineNum">     242</span>                 :             : </span>
+<span id="L243"><span class="lineNum">     243</span>                 :             :                 (ParamFloat&lt;px4::params::RC_LOITER_TH&gt;) _param_rc_loiter_th,</span>
+<span id="L244"><span class="lineNum">     244</span>                 :             :                 (ParamFloat&lt;px4::params::RC_OFFB_TH&gt;) _param_rc_offb_th,</span>
+<span id="L245"><span class="lineNum">     245</span>                 :             :                 (ParamFloat&lt;px4::params::RC_KILLSWITCH_TH&gt;) _param_rc_killswitch_th,</span>
+<span id="L246"><span class="lineNum">     246</span>                 :             :                 (ParamFloat&lt;px4::params::RC_ARMSWITCH_TH&gt;) _param_rc_armswitch_th,</span>
+<span id="L247"><span class="lineNum">     247</span>                 :             :                 (ParamFloat&lt;px4::params::RC_TRANS_TH&gt;) _param_rc_trans_th,</span>
+<span id="L248"><span class="lineNum">     248</span>                 :             :                 (ParamFloat&lt;px4::params::RC_GEAR_TH&gt;) _param_rc_gear_th,</span>
+<span id="L249"><span class="lineNum">     249</span>                 :             :                 (ParamFloat&lt;px4::params::RC_RETURN_TH&gt;) _param_rc_return_th,</span>
+<span id="L250"><span class="lineNum">     250</span>                 :             :                 (ParamFloat&lt;px4::params::RC_ENG_MOT_TH&gt;) _param_rc_eng_mot_th,</span>
+<span id="L251"><span class="lineNum">     251</span>                 :             :                 (ParamFloat&lt;px4::params::RC_PAYLOAD_TH&gt;) _param_rc_payload_th,</span>
+<span id="L252"><span class="lineNum">     252</span>                 :             :                 (ParamFloat&lt;px4::params::RC_PAYLOAD_MIDTH&gt;) _param_rc_payload_midth,</span>
+<span id="L253"><span class="lineNum">     253</span>                 :             : </span>
+<span id="L254"><span class="lineNum">     254</span>                 :             :                 (ParamInt&lt;px4::params::RC_CHAN_CNT&gt;) _param_rc_chan_cnt</span>
+<span id="L255"><span class="lineNum">     255</span>                 :             :         )</span>
+<span id="L256"><span class="lineNum">     256</span>                 :             : };</span>
+<span id="L257"><span class="lineNum">     257</span>                 :             : } /* namespace rc_update */</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

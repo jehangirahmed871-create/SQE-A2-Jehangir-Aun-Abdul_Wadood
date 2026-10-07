@@ -1,0 +1,12 @@
+[1/3] Building CXX object src/modules/manual_control/CMakeFiles/functional-ManualControlSQE.dir/ManualControlSQETest.cpp.o
+[2/3] Linking CXX executable functional-ManualControlSQE
+[2/3] Running tests
+   Site: Al-Khwarizmi
+   Build name: Linux-c++
+Test project /home/jehangir_ahmed/sqe/PX4-Autopilot/build/px4_sitl_test
+    Start 108: functional-ManualControlSQE
+1/1 Test #108: functional-ManualControlSQE ......   Passed    0.09 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.14 sec

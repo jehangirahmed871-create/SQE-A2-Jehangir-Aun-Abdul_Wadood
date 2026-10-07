@@ -1,0 +1,280 @@
+FILE: src/modules/manual_control/ManualControl.cpp
+
+== UNCOVERED LINES (162) ==
+  53 | bool ManualControl::init()
+  55 | ScheduleNow();
+  56 | return true;
+  59 | void ManualControl::Run()
+  61 | if (should_exit()) {
+  62 | ScheduleClear();
+  63 | exit_and_cleanup();
+  64 | return;
+  67 | perf_begin(_loop_perf);
+  68 | perf_count(_loop_interval_perf);
+  70 | processInput(hrt_absolute_time());
+  73 | ScheduleDelayed(200_ms);
+  75 | perf_end(_loop_perf);
+ 132 | && (_previous_manual_control_input_instance < MAX_MANUAL_INPUT_COUNT)) {
+ 133 | _manual_control_input_subs[_previous_manual_control_input_instance].unregisterCallback();
+ 182 | const bool previous_button_arm_hysteresis = _button_arm_hysteresis.get_state();
+ 183 | _button_arm_hysteresis.set_state_and_update(switches.arm_switch == manual_control_switches_s::SWITCH
+ 185 | if (!previous_button_arm_hysteresis && _button_arm_hysteresis.get_state()) {
+ 186 | sendActionRequest(action_request_s::ACTION_TOGGLE_ARMING, action_request_s::SOURCE_RC_BUTTON);
+ 192 | if (switches.arm_switch == manual_control_switches_s::SWITCH_POS_ON) {
+ 193 | sendActionRequest(action_request_s::ACTION_ARM, action_request_s::SOURCE_RC_SWITCH);
+ 195 | } else if (switches.arm_switch == manual_control_switches_s::SWITCH_POS_OFF) {
+ 196 | sendActionRequest(action_request_s::ACTION_DISARM, action_request_s::SOURCE_RC_SWITCH);
+ 202 | if (switches.return_switch == manual_control_switches_s::SWITCH_POS_ON) {
+ 203 | sendActionRequest(action_request_s::ACTION_SWITCH_MODE, action_request_s::SOURCE_RC_SWITCH,
+ 206 | } else if (switches.return_switch == manual_control_switches_s::SWITCH_POS_OFF) {
+ 207 | evaluateModeSlot(switches.mode_slot);
+ 212 | if (switches.loiter_switch == manual_control_switches_s::SWITCH_POS_ON) {
+ 213 | sendActionRequest(action_request_s::ACTION_SWITCH_MODE, action_request_s::SOURCE_RC_SWITCH,
+ 216 | } else if (switches.loiter_switch == manual_control_switches_s::SWITCH_POS_OFF) {
+ 217 | evaluateModeSlot(switches.mode_slot);
+ 222 | if (switches.offboard_switch == manual_control_switches_s::SWITCH_POS_ON) {
+ 223 | sendActionRequest(action_request_s::ACTION_SWITCH_MODE, action_request_s::SOURCE_RC_SWITCH,
+ 226 | } else if (switches.offboard_switch == manual_control_switches_s::SWITCH_POS_OFF) {
+ 227 | evaluateModeSlot(switches.mode_slot);
+ 241 | && switches.termination_switch == manual_control_switches_s::SWITCH_POS_ON) {
+ 242 | sendActionRequest(action_request_s::ACTION_TERMINATION, action_request_s::SOURCE_RC_SWITCH);
+ 246 | && _previous_switches.gear_switch != manual_control_switches_s::SWITCH_POS_NONE) {
+ 248 | if (switches.gear_switch == manual_control_switches_s::SWITCH_POS_ON) {
+ 249 | publishLandingGear(landing_gear_s::GEAR_UP);
+ 251 | } else if (switches.gear_switch == manual_control_switches_s::SWITCH_POS_OFF) {
+ 252 | publishLandingGear(landing_gear_s::GEAR_DOWN);
+ 266 | if (switches.photo_switch == manual_control_switches_s::SWITCH_POS_ON) {
+ 267 | send_camera_mode_command(CameraMode::Image);
+ 268 | send_photo_command();
+ 273 | if (switches.video_switch == manual_control_switches_s::SWITCH_POS_ON) {
+ 274 | send_camera_mode_command(CameraMode::Video);
+ 275 | send_video_command();
+ 330 | _param_man_arm_gesture.set(0); // disable arm gesture
+ 331 | _param_man_arm_gesture.commit();
+ 333 | orb_advert_t mavlink_log_pub = nullptr;
+ 334 | mavlink_log_critical(&mavlink_log_pub, "Arm stick gesture disabled if arm switch in use\t")
+ 338 | events::send(events::ID("stick_gesture_disabled_by_arm_switch"), {events::Log::Info, events::LogInte
+ 345 | param_t param_mc_airmode = param_find("MC_AIRMODE");
+ 347 | if (param_mc_airmode != PARAM_INVALID) {
+ 348 | int32_t airmode = 0;
+ 349 | param_get(param_mc_airmode, &airmode);
+ 351 | if (airmode == 2) {
+ 352 | airmode = 1; // change to roll/pitch airmode
+ 353 | param_set(param_mc_airmode, &airmode);
+ 355 | orb_advert_t mavlink_log_pub = nullptr;
+ 356 | mavlink_log_critical(&mavlink_log_pub, "Yaw Airmode requires disabling the stick arm gesture\t")
+ 360 | events::send(events::ID("commander_airmode_requires_no_arm_gesture"), {events::Log::Error, events::L
+ 378 | sendActionRequest(action_request_s::ACTION_ARM, action_request_s::SOURCE_STICK_GESTURE);
+ 388 | sendActionRequest(action_request_s::ACTION_DISARM, action_request_s::SOURCE_STICK_GESTURE);
+ 393 | const bool right_stick_lower_right = (input.pitch < -0.9f) && (input.roll > 0.9f);
+ 395 | const bool previous_stick_kill_hysteresis = _stick_kill_hysteresis.get_state();
+ 396 | _stick_kill_hysteresis.set_state_and_update(left_stick_lower_left && right_stick_lower_right, input.
+ 398 | if (!previous_stick_kill_hysteresis && _stick_kill_hysteresis.get_state()) {
+ 399 | sendActionRequest(action_request_s::ACTION_KILL, action_request_s::SOURCE_STICK_GESTURE);
+ 440 | default:
+ 441 | PX4_WARN("mode slot overflow");
+ 442 | break;
+ 450 | return;
+ 461 | void ManualControl::publishLandingGear(int8_t action)
+ 463 | landing_gear_s landing_gear{};
+ 464 | landing_gear.landing_gear = action;
+ 465 | landing_gear.timestamp = hrt_absolute_time();
+ 466 | _landing_gear_pub.publish(landing_gear);
+ 467 | }
+ 469 | void ManualControl::send_camera_mode_command(CameraMode camera_mode)
+ 471 | vehicle_command_s command{};
+ 472 | command.command = vehicle_command_s::VEHICLE_CMD_SET_CAMERA_MODE;
+ 473 | command.param2 = static_cast<float>(camera_mode);
+ 474 | command.target_system = _system_id;
+ 475 | command.target_component = 100; // MAV_COMP_ID_CAMERA
+ 477 | uORB::Publication<vehicle_command_s> command_pub{ORB_ID(vehicle_command)};
+ 478 | command.timestamp = hrt_absolute_time();
+ 479 | command_pub.publish(command);
+ 480 | }
+ 482 | void ManualControl::send_photo_command()
+ 484 | vehicle_command_s command{};
+ 485 | command.command = vehicle_command_s::VEHICLE_CMD_IMAGE_START_CAPTURE;
+ 486 | command.param3 = 1; // one picture
+ 487 | command.param4 = _image_sequence++;
+ 488 | command.target_system = _system_id;
+ 489 | command.target_component = 100; // MAV_COMP_ID_CAMERA
+ 491 | uORB::Publication<vehicle_command_s> command_pub{ORB_ID(vehicle_command)};
+ 492 | command.timestamp = hrt_absolute_time();
+ 493 | command_pub.publish(command);
+ 494 | }
+ 496 | void ManualControl::send_video_command()
+ 498 | vehicle_command_s command{};
+ 500 | if (_video_recording) {
+ 501 | command.command = vehicle_command_s::VEHICLE_CMD_VIDEO_STOP_CAPTURE;
+ 502 | command.param2 = 1; // status at 1 Hz
+ 505 | command.command = vehicle_command_s::VEHICLE_CMD_VIDEO_START_CAPTURE;
+ 508 | command.target_system = _system_id;
+ 509 | command.target_component = 100; // any camera
+ 511 | uORB::Publication<vehicle_command_s> command_pub{ORB_ID(vehicle_command)};
+ 512 | command.timestamp = hrt_absolute_time();
+ 513 | command_pub.publish(command);
+ 515 | _video_recording = !_video_recording;
+ 516 | }
+ 518 | int ManualControl::task_spawn(int argc, char *argv[])
+ 520 | ManualControl *instance = new ManualControl();
+ 522 | if (instance) {
+ 523 | _object.store(instance);
+ 524 | _task_id = task_id_is_work_queue;
+ 526 | if (instance->init()) {
+ 527 | return PX4_OK;
+ 531 | PX4_ERR("alloc failed");
+ 534 | delete instance;
+ 535 | _object.store(nullptr);
+ 536 | _task_id = -1;
+ 538 | return PX4_ERROR;
+ 541 | int ManualControl::print_status()
+ 543 | perf_print_counter(_loop_perf);
+ 544 | perf_print_counter(_loop_interval_perf);
+ 545 | return 0;
+ 548 | int ManualControl::custom_command(int argc, char *argv[])
+ 550 | return print_usage("unknown command");
+ 553 | int ManualControl::print_usage(const char *reason)
+ 555 | if (reason) {
+ 556 | PX4_WARN("%s\n", reason);
+ 559 | PRINT_MODULE_DESCRIPTION(
+ 566 | PRINT_MODULE_USAGE_NAME("manual_control", "system");
+ 567 | PRINT_MODULE_USAGE_COMMAND("start");
+ 568 | PRINT_MODULE_USAGE_DEFAULT_COMMANDS();
+ 570 | return 0;
+ 582 | case 5: return vehicle_status_s::NAVIGATION_STATE_AUTO_RTL;
+ 583 | case 6: return vehicle_status_s::NAVIGATION_STATE_ACRO;
+ 584 | case 7: return vehicle_status_s::NAVIGATION_STATE_OFFBOARD;
+ 585 | case 8: return vehicle_status_s::NAVIGATION_STATE_STAB;
+ 586 | case 9: return vehicle_status_s::NAVIGATION_STATE_POSITION_SLOW;
+ 588 | case 11: return vehicle_status_s::NAVIGATION_STATE_AUTO_LAND;
+ 589 | case 12: return vehicle_status_s::NAVIGATION_STATE_AUTO_FOLLOW_TARGET;
+ 590 | case 13: return vehicle_status_s::NAVIGATION_STATE_AUTO_PRECLAND;
+ 591 | case 14: return vehicle_status_s::NAVIGATION_STATE_ORBIT;
+ 592 | case 15: return vehicle_status_s::NAVIGATION_STATE_AUTO_VTOL_TAKEOFF;
+ 593 | case 16: return vehicle_status_s::NAVIGATION_STATE_ALTITUDE_CRUISE;
+ 595 | case 100: return vehicle_status_s::NAVIGATION_STATE_EXTERNAL1;
+ 596 | case 101: return vehicle_status_s::NAVIGATION_STATE_EXTERNAL2;
+ 597 | case 102: return vehicle_status_s::NAVIGATION_STATE_EXTERNAL3;
+ 598 | case 103: return vehicle_status_s::NAVIGATION_STATE_EXTERNAL4;
+ 599 | case 104: return vehicle_status_s::NAVIGATION_STATE_EXTERNAL5;
+ 600 | case 105: return vehicle_status_s::NAVIGATION_STATE_EXTERNAL6;
+ 601 | case 106: return vehicle_status_s::NAVIGATION_STATE_EXTERNAL7;
+ 602 | case 107: return vehicle_status_s::NAVIGATION_STATE_EXTERNAL8;
+ 604 | return -1;
+ 607 | extern "C" __EXPORT int manual_control_main(int argc, char *argv[])
+ 609 | return ManualControl::main(argc, argv);
+
+== LINES WITH MISSED BRANCHES (113 lines) ==
+  42 | missed=29 | ScheduledWorkItem(MODULE_NAME, px4::wq_configurations::hp_default)
+  44 | missed=1 | updateParams();
+  45 | missed=2 | }
+  47 | missed=1 | ManualControl::~ManualControl()
+  61 | missed=2 | if (should_exit()) {
+  83 | missed=2 | if (_vehicle_status_sub.copy(&vehicle_status)) {
+  95 | missed=1 | _parameter_update_sub.copy(&param_update);
+  97 | missed=1 | updateParams();
+ 105 | missed=1 | if (_manual_control_input_subs[i].update(&manual_control_input)) {
+ 106 | missed=1 | _selector.updateWithNewInputSample(now, manual_control_input, i);
+ 120 | missed=1 | || (fabsf(_pitch_diff.update(_selector.setpoint().pitch, dt_s)) > minimum_stick_change)
+ 121 | missed=1 | || (fabsf(_yaw_diff.update(_selector.setpoint().yaw, dt_s)) > minimum_stick_change)
+ 122 | missed=2 | || (fabsf(_throttle_diff.update(_selector.setpoint().throttle, dt_s)) > minimum_stick_change);
+ 131 | missed=1 | if ((0 <= _previous_manual_control_input_instance)
+ 132 | missed=2 | && (_previous_manual_control_input_instance < MAX_MANUAL_INPUT_COUNT)) {
+ 136 | missed=2 | if ((0 <= instance) && (instance < MAX_MANUAL_INPUT_COUNT)) {
+ 146 | missed=1 | if (!_published_invalid_once) {
+ 169 | missed=1 | const bool switches_updated = _manual_control_switches_sub.update(&switches);
+ 172 | missed=1 | if (_selector.setpoint().valid
+ 173 | missed=2 | && _selector.setpoint().data_source == manual_control_setpoint_s::SOURCE_RC) {
+ 177 | missed=1 | evaluateModeSlot(switches.mode_slot);
+ 180 | missed=1 | if (_param_com_arm_swisbtn.get()) {
+ 183 | missed=2 | _button_arm_hysteresis.set_state_and_update(switches.arm_switch == manual_control_switches_s::SWITCH
+ 185 | missed=6 | if (!previous_button_arm_hysteresis && _button_arm_hysteresis.get_state()) {
+ 186 | missed=2 | sendActionRequest(action_request_s::ACTION_TOGGLE_ARMING, action_request_s::SOURCE_RC_BUTTON);
+ 191 | missed=1 | if (switches.arm_switch != _previous_switches.arm_switch) {
+ 192 | missed=2 | if (switches.arm_switch == manual_control_switches_s::SWITCH_POS_ON) {
+ 193 | missed=2 | sendActionRequest(action_request_s::ACTION_ARM, action_request_s::SOURCE_RC_SWITCH);
+ 195 | missed=2 | } else if (switches.arm_switch == manual_control_switches_s::SWITCH_POS_OFF) {
+ 196 | missed=2 | sendActionRequest(action_request_s::ACTION_DISARM, action_request_s::SOURCE_RC_SWITCH);
+ 201 | missed=1 | if (switches.return_switch != _previous_switches.return_switch) {
+ 202 | missed=2 | if (switches.return_switch == manual_control_switches_s::SWITCH_POS_ON) {
+ 203 | missed=2 | sendActionRequest(action_request_s::ACTION_SWITCH_MODE, action_request_s::SOURCE_RC_SWITCH,
+ 206 | missed=2 | } else if (switches.return_switch == manual_control_switches_s::SWITCH_POS_OFF) {
+ 207 | missed=2 | evaluateModeSlot(switches.mode_slot);
+ 211 | missed=1 | if (switches.loiter_switch != _previous_switches.loiter_switch) {
+ 212 | missed=2 | if (switches.loiter_switch == manual_control_switches_s::SWITCH_POS_ON) {
+ 213 | missed=2 | sendActionRequest(action_request_s::ACTION_SWITCH_MODE, action_request_s::SOURCE_RC_SWITCH,
+ 216 | missed=2 | } else if (switches.loiter_switch == manual_control_switches_s::SWITCH_POS_OFF) {
+ 217 | missed=2 | evaluateModeSlot(switches.mode_slot);
+ 221 | missed=1 | if (switches.offboard_switch != _previous_switches.offboard_switch) {
+ 222 | missed=2 | if (switches.offboard_switch == manual_control_switches_s::SWITCH_POS_ON) {
+ 223 | missed=2 | sendActionRequest(action_request_s::ACTION_SWITCH_MODE, action_request_s::SOURCE_RC_SWITCH,
+ 226 | missed=2 | } else if (switches.offboard_switch == manual_control_switches_s::SWITCH_POS_OFF) {
+ 227 | missed=2 | evaluateModeSlot(switches.mode_slot);
+ 233 | missed=1 | sendActionRequest(action_request_s::ACTION_KILL, action_request_s::SOURCE_RC_SWITCH);
+ 235 | missed=1 | } else if (switches.kill_switch == manual_control_switches_s::SWITCH_POS_OFF) {
+ 236 | missed=1 | sendActionRequest(action_request_s::ACTION_UNKILL, action_request_s::SOURCE_RC_SWITCH);
+ 240 | missed=1 | if (switches.termination_switch != _previous_switches.termination_switch
+ 241 | missed=2 | && switches.termination_switch == manual_control_switches_s::SWITCH_POS_ON) {
+ 242 | missed=2 | sendActionRequest(action_request_s::ACTION_TERMINATION, action_request_s::SOURCE_RC_SWITCH);
+ 245 | missed=1 | if (switches.gear_switch != _previous_switches.gear_switch
+ 246 | missed=2 | && _previous_switches.gear_switch != manual_control_switches_s::SWITCH_POS_NONE) {
+ 248 | missed=2 | if (switches.gear_switch == manual_control_switches_s::SWITCH_POS_ON) {
+ 249 | missed=2 | publishLandingGear(landing_gear_s::GEAR_UP);
+ 251 | missed=2 | } else if (switches.gear_switch == manual_control_switches_s::SWITCH_POS_OFF) {
+ 252 | missed=2 | publishLandingGear(landing_gear_s::GEAR_DOWN);
+ 258 | missed=1 | sendActionRequest(action_request_s::ACTION_VTOL_TRANSITION_TO_FIXEDWING, action_request_s::SOURCE_RC
+ 260 | missed=1 | } else if (switches.transition_switch == manual_control_switches_s::SWITCH_POS_OFF) {
+ 261 | missed=1 | sendActionRequest(action_request_s::ACTION_VTOL_TRANSITION_TO_MULTICOPTER, action_request_s::SOURCE_
+ 265 | missed=1 | if (switches.photo_switch != _previous_switches.photo_switch) {
+ 266 | missed=2 | if (switches.photo_switch == manual_control_switches_s::SWITCH_POS_ON) {
+ 267 | missed=2 | send_camera_mode_command(CameraMode::Image);
+ 268 | missed=2 | send_photo_command();
+ 272 | missed=1 | if (switches.video_switch != _previous_switches.video_switch) {
+ 273 | missed=2 | if (switches.video_switch == manual_control_switches_s::SWITCH_POS_ON) {
+ 274 | missed=2 | send_camera_mode_command(CameraMode::Video);
+ 275 | missed=2 | send_video_command();
+ 295 | missed=1 | evaluateModeSlot(switches.mode_slot);
+ 321 | missed=1 | if (_param_man_arm_gesture.get() == 1) {
+ 325 | missed=1 | if (param_rc_map_arm_sw != PARAM_INVALID) {
+ 327 | missed=1 | param_get(param_rc_map_arm_sw, &rc_map_arm_sw);
+ 329 | missed=1 | if (rc_map_arm_sw > 0) {
+ 331 | missed=2 | _param_man_arm_gesture.commit();
+ 334 | missed=4 | mavlink_log_critical(&mavlink_log_pub, "Arm stick gesture disabled if arm switch in use\t")
+ 338 | missed=2 | events::send(events::ID("stick_gesture_disabled_by_arm_switch"), {events::Log::Info, events::LogInte
+ 344 | missed=4 | if ((_param_man_arm_gesture.get() == 1) && (_rotary_wing || _vtol)) {
+ 347 | missed=2 | if (param_mc_airmode != PARAM_INVALID) {
+ 349 | missed=2 | param_get(param_mc_airmode, &airmode);
+ 351 | missed=2 | if (airmode == 2) {
+ 353 | missed=2 | param_set(param_mc_airmode, &airmode);
+ 356 | missed=4 | mavlink_log_critical(&mavlink_log_pub, "Yaw Airmode requires disabling the stick arm gesture\t")
+ 360 | missed=2 | events::send(events::ID("commander_airmode_requires_no_arm_gesture"), {events::Log::Error, events::L
+ 371 | missed=2 | const bool right_stick_centered = (fabsf(input.pitch) < 0.1f) && (fabsf(input.roll) < 0.1f);
+ 372 | missed=3 | const bool left_stick_lower_right = (input.throttle < -0.8f) && (input.yaw > 0.9f);
+ 375 | missed=3 | _stick_arm_hysteresis.set_state_and_update(left_stick_lower_right && right_stick_centered, input.tim
+ 377 | missed=4 | if (_param_man_arm_gesture.get() && !previous_stick_arm_hysteresis && _stick_arm_hysteresis.get_stat
+ 382 | missed=3 | const bool left_stick_lower_left = (input.throttle < -0.8f) && (input.yaw < -0.9f);
+ 385 | missed=3 | _stick_disarm_hysteresis.set_state_and_update(left_stick_lower_left && right_stick_centered, input.t
+ 387 | missed=4 | if (_param_man_arm_gesture.get() && !previous_stick_disarm_hysteresis && _stick_disarm_hysteresis.ge
+ 392 | missed=1 | if (_param_man_kill_gest_t.get() > 0.f) {
+ 393 | missed=4 | const bool right_stick_lower_right = (input.pitch < -0.9f) && (input.roll > 0.9f);
+ 396 | missed=4 | _stick_kill_hysteresis.set_state_and_update(left_stick_lower_left && right_stick_lower_right, input.
+ 398 | missed=6 | if (!previous_stick_kill_hysteresis && _stick_kill_hysteresis.get_state()) {
+ 406 | missed=1 | switch (mode_slot) {
+ 449 | missed=1 | if (action == action_request_s::ACTION_SWITCH_MODE && mode < 0) {
+ 457 | missed=1 | action_request.timestamp = hrt_absolute_time();
+ 458 | missed=1 | _action_request_pub.publish(action_request);
+ 465 | missed=2 | landing_gear.timestamp = hrt_absolute_time();
+ 466 | missed=2 | _landing_gear_pub.publish(landing_gear);
+ 478 | missed=2 | command.timestamp = hrt_absolute_time();
+ 479 | missed=2 | command_pub.publish(command);
+ 492 | missed=2 | command.timestamp = hrt_absolute_time();
+ 493 | missed=2 | command_pub.publish(command);
+ 500 | missed=2 | if (_video_recording) {
+ 512 | missed=2 | command.timestamp = hrt_absolute_time();
+ 513 | missed=2 | command_pub.publish(command);
+ 520 | missed=8 | ManualControl *instance = new ManualControl();
+ 522 | missed=2 | if (instance) {
+ 526 | missed=2 | if (instance->init()) {
+ 534 | missed=2 | delete instance;
+ 555 | missed=2 | if (reason) {
+ 576 | missed=20 | switch(param_value) {

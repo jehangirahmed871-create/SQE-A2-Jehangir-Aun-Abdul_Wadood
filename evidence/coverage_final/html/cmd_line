@@ -1,0 +1,1 @@
+genhtml --branch-coverage /home/jehangir_ahmed/sqe/evidence/coverage_final/coverage_final_filtered.info --output-directory /home/jehangir_ahmed/sqe/evidence/coverage_final/html --title 'PX4 v1.17.0 SQE Assignment 2 Final Coverage' --ignore-errors source,mismatch

@@ -1,0 +1,533 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov_filtered.info - src/modules/navigator/navigator.h</title>
+  <link rel="stylesheet" type="text/css" href="../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../index.html">top level</a> - <a href="index.html">src/modules/navigator</a> - navigator.h<span style="font-size: 80%;"> (source / <a href="navigator.h.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov_filtered.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntry">32</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-10-02 17:31:18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntry">32</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+                  <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : /***************************************************************************</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             :  *</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             :  *   Copyright (c) 2013-2017 PX4 Development Team. All rights reserved.</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             :  *</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             :  * Redistribution and use in source and binary forms, with or without</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             :  * modification, are permitted provided that the following conditions</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             :  * are met:</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             :  *</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             :  * 1. Redistributions of source code must retain the above copyright</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             :  *    notice, this list of conditions and the following disclaimer.</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             :  * 2. Redistributions in binary form must reproduce the above copyright</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             :  *    notice, this list of conditions and the following disclaimer in</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             :  *    the documentation and/or other materials provided with the</span>
+<span id="L14"><span class="lineNum">      14</span>                 :             :  *    distribution.</span>
+<span id="L15"><span class="lineNum">      15</span>                 :             :  * 3. Neither the name PX4 nor the names of its contributors may be</span>
+<span id="L16"><span class="lineNum">      16</span>                 :             :  *    used to endorse or promote products derived from this software</span>
+<span id="L17"><span class="lineNum">      17</span>                 :             :  *    without specific prior written permission.</span>
+<span id="L18"><span class="lineNum">      18</span>                 :             :  *</span>
+<span id="L19"><span class="lineNum">      19</span>                 :             :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span id="L20"><span class="lineNum">      20</span>                 :             :  * &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span id="L21"><span class="lineNum">      21</span>                 :             :  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS</span>
+<span id="L22"><span class="lineNum">      22</span>                 :             :  * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE</span>
+<span id="L23"><span class="lineNum">      23</span>                 :             :  * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,</span>
+<span id="L24"><span class="lineNum">      24</span>                 :             :  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,</span>
+<span id="L25"><span class="lineNum">      25</span>                 :             :  * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS</span>
+<span id="L26"><span class="lineNum">      26</span>                 :             :  * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED</span>
+<span id="L27"><span class="lineNum">      27</span>                 :             :  * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT</span>
+<span id="L28"><span class="lineNum">      28</span>                 :             :  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN</span>
+<span id="L29"><span class="lineNum">      29</span>                 :             :  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</span>
+<span id="L30"><span class="lineNum">      30</span>                 :             :  * POSSIBILITY OF SUCH DAMAGE.</span>
+<span id="L31"><span class="lineNum">      31</span>                 :             :  *</span>
+<span id="L32"><span class="lineNum">      32</span>                 :             :  ****************************************************************************/</span>
+<span id="L33"><span class="lineNum">      33</span>                 :             : /**</span>
+<span id="L34"><span class="lineNum">      34</span>                 :             :  * @file navigator.h</span>
+<span id="L35"><span class="lineNum">      35</span>                 :             :  * Helper class to access missions</span>
+<span id="L36"><span class="lineNum">      36</span>                 :             :  * @author Julian Oes &lt;julian@oes.ch&gt;</span>
+<span id="L37"><span class="lineNum">      37</span>                 :             :  * @author Anton Babushkin &lt;anton.babushkin@me.com&gt;</span>
+<span id="L38"><span class="lineNum">      38</span>                 :             :  * @author Thomas Gubler &lt;thomasgubler@gmail.com&gt;</span>
+<span id="L39"><span class="lineNum">      39</span>                 :             :  * @author Lorenz Meier &lt;lorenz@px4.io&gt;</span>
+<span id="L40"><span class="lineNum">      40</span>                 :             :  */</span>
+<span id="L41"><span class="lineNum">      41</span>                 :             : </span>
+<span id="L42"><span class="lineNum">      42</span>                 :             : #pragma once</span>
+<span id="L43"><span class="lineNum">      43</span>                 :             : </span>
+<span id="L44"><span class="lineNum">      44</span>                 :             : #include &quot;geofence.h&quot;</span>
+<span id="L45"><span class="lineNum">      45</span>                 :             : #include &quot;land.h&quot;</span>
+<span id="L46"><span class="lineNum">      46</span>                 :             : #include &quot;precland.h&quot;</span>
+<span id="L47"><span class="lineNum">      47</span>                 :             : #include &quot;loiter.h&quot;</span>
+<span id="L48"><span class="lineNum">      48</span>                 :             : #include &quot;mission.h&quot;</span>
+<span id="L49"><span class="lineNum">      49</span>                 :             : #include &quot;navigator_mode.h&quot;</span>
+<span id="L50"><span class="lineNum">      50</span>                 :             : #include &quot;rtl.h&quot;</span>
+<span id="L51"><span class="lineNum">      51</span>                 :             : #include &quot;takeoff.h&quot;</span>
+<span id="L52"><span class="lineNum">      52</span>                 :             : #if CONFIG_MODE_NAVIGATOR_VTOL_TAKEOFF</span>
+<span id="L53"><span class="lineNum">      53</span>                 :             : #include &quot;vtol_takeoff.h&quot;</span>
+<span id="L54"><span class="lineNum">      54</span>                 :             : #endif //CONFIG_MODE_NAVIGATOR_VTOL_TAKEOFF</span>
+<span id="L55"><span class="lineNum">      55</span>                 :             : </span>
+<span id="L56"><span class="lineNum">      56</span>                 :             : #include &quot;navigation.h&quot;</span>
+<span id="L57"><span class="lineNum">      57</span>                 :             : </span>
+<span id="L58"><span class="lineNum">      58</span>                 :             : #include &quot;GeofenceBreachAvoidance/geofence_breach_avoidance.h&quot;</span>
+<span id="L59"><span class="lineNum">      59</span>                 :             : </span>
+<span id="L60"><span class="lineNum">      60</span>                 :             : #if CONFIG_NAVIGATOR_ADSB</span>
+<span id="L61"><span class="lineNum">      61</span>                 :             : #include &lt;lib/adsb/AdsbConflict.h&gt;</span>
+<span id="L62"><span class="lineNum">      62</span>                 :             : #endif // CONFIG_NAVIGATOR_ADSB</span>
+<span id="L63"><span class="lineNum">      63</span>                 :             : #include &lt;lib/perf/perf_counter.h&gt;</span>
+<span id="L64"><span class="lineNum">      64</span>                 :             : #include &lt;px4_platform_common/events.h&gt;</span>
+<span id="L65"><span class="lineNum">      65</span>                 :             : #include &lt;px4_platform_common/module.h&gt;</span>
+<span id="L66"><span class="lineNum">      66</span>                 :             : #include &lt;px4_platform_common/module_params.h&gt;</span>
+<span id="L67"><span class="lineNum">      67</span>                 :             : #include &lt;uORB/Publication.hpp&gt;</span>
+<span id="L68"><span class="lineNum">      68</span>                 :             : #include &lt;uORB/Subscription.hpp&gt;</span>
+<span id="L69"><span class="lineNum">      69</span>                 :             : #include &lt;uORB/SubscriptionInterval.hpp&gt;</span>
+<span id="L70"><span class="lineNum">      70</span>                 :             : #include &lt;uORB/topics/distance_sensor_mode_change_request.h&gt;</span>
+<span id="L71"><span class="lineNum">      71</span>                 :             : #include &lt;uORB/topics/geofence_result.h&gt;</span>
+<span id="L72"><span class="lineNum">      72</span>                 :             : #include &lt;uORB/topics/gimbal_manager_set_attitude.h&gt;</span>
+<span id="L73"><span class="lineNum">      73</span>                 :             : #include &lt;uORB/topics/home_position.h&gt;</span>
+<span id="L74"><span class="lineNum">      74</span>                 :             : #include &lt;uORB/topics/mission.h&gt;</span>
+<span id="L75"><span class="lineNum">      75</span>                 :             : #include &lt;uORB/topics/mission_result.h&gt;</span>
+<span id="L76"><span class="lineNum">      76</span>                 :             : #include &lt;uORB/topics/navigator_status.h&gt;</span>
+<span id="L77"><span class="lineNum">      77</span>                 :             : #include &lt;uORB/topics/parameter_update.h&gt;</span>
+<span id="L78"><span class="lineNum">      78</span>                 :             : #include &lt;uORB/topics/position_controller_landing_status.h&gt;</span>
+<span id="L79"><span class="lineNum">      79</span>                 :             : #include &lt;uORB/topics/position_controller_status.h&gt;</span>
+<span id="L80"><span class="lineNum">      80</span>                 :             : #include &lt;uORB/topics/position_setpoint_triplet.h&gt;</span>
+<span id="L81"><span class="lineNum">      81</span>                 :             : #include &lt;uORB/topics/transponder_report.h&gt;</span>
+<span id="L82"><span class="lineNum">      82</span>                 :             : #include &lt;uORB/topics/vehicle_command.h&gt;</span>
+<span id="L83"><span class="lineNum">      83</span>                 :             : #include &lt;uORB/topics/vehicle_command_ack.h&gt;</span>
+<span id="L84"><span class="lineNum">      84</span>                 :             : #include &lt;uORB/topics/vehicle_global_position.h&gt;</span>
+<span id="L85"><span class="lineNum">      85</span>                 :             : #include &lt;uORB/topics/sensor_gps.h&gt;</span>
+<span id="L86"><span class="lineNum">      86</span>                 :             : #include &lt;uORB/topics/vehicle_land_detected.h&gt;</span>
+<span id="L87"><span class="lineNum">      87</span>                 :             : #include &lt;uORB/topics/vehicle_local_position.h&gt;</span>
+<span id="L88"><span class="lineNum">      88</span>                 :             : #include &lt;uORB/topics/vehicle_roi.h&gt;</span>
+<span id="L89"><span class="lineNum">      89</span>                 :             : #include &lt;uORB/topics/vehicle_status.h&gt;</span>
+<span id="L90"><span class="lineNum">      90</span>                 :             : #include &lt;uORB/topics/mode_completed.h&gt;</span>
+<span id="L91"><span class="lineNum">      91</span>                 :             : #include &lt;uORB/uORB.h&gt;</span>
+<span id="L92"><span class="lineNum">      92</span>                 :             : </span>
+<span id="L93"><span class="lineNum">      93</span>                 :             : using namespace time_literals;</span>
+<span id="L94"><span class="lineNum">      94</span>                 :             : </span>
+<span id="L95"><span class="lineNum">      95</span>                 :             : /**</span>
+<span id="L96"><span class="lineNum">      96</span>                 :             :  * Number of navigation modes that need on_active/on_inactive calls</span>
+<span id="L97"><span class="lineNum">      97</span>                 :             :  */</span>
+<span id="L98"><span class="lineNum">      98</span>                 :             : #define NAVIGATOR_MODE_ARRAY_SIZE 8</span>
+<span id="L99"><span class="lineNum">      99</span>                 :             : </span>
+<span id="L100"><span class="lineNum">     100</span>                 :             : class Navigator : public ModuleBase&lt;Navigator&gt;, public ModuleParams</span>
+<span id="L101"><span class="lineNum">     101</span>                 :             : {</span>
+<span id="L102"><span class="lineNum">     102</span>                 :             : public:</span>
+<span id="L103"><span class="lineNum">     103</span>                 :             :         Navigator();</span>
+<span id="L104"><span class="lineNum">     104</span>                 :             :         ~Navigator() override;</span>
+<span id="L105"><span class="lineNum">     105</span>                 :             : </span>
+<span id="L106"><span class="lineNum">     106</span>                 :             :         Navigator(const Navigator &amp;) = delete;</span>
+<span id="L107"><span class="lineNum">     107</span>                 :             :         Navigator operator=(const Navigator &amp;) = delete;</span>
+<span id="L108"><span class="lineNum">     108</span>                 :             : </span>
+<span id="L109"><span class="lineNum">     109</span>                 :             :         /** @see ModuleBase */</span>
+<span id="L110"><span class="lineNum">     110</span>                 :             :         static int task_spawn(int argc, char *argv[]);</span>
+<span id="L111"><span class="lineNum">     111</span>                 :             : </span>
+<span id="L112"><span class="lineNum">     112</span>                 :             :         /** @see ModuleBase */</span>
+<span id="L113"><span class="lineNum">     113</span>                 :             :         static Navigator *instantiate(int argc, char *argv[]);</span>
+<span id="L114"><span class="lineNum">     114</span>                 :             : </span>
+<span id="L115"><span class="lineNum">     115</span>                 :             :         /** @see ModuleBase */</span>
+<span id="L116"><span class="lineNum">     116</span>                 :             :         static int custom_command(int argc, char *argv[]);</span>
+<span id="L117"><span class="lineNum">     117</span>                 :             : </span>
+<span id="L118"><span class="lineNum">     118</span>                 :             :         /** @see ModuleBase */</span>
+<span id="L119"><span class="lineNum">     119</span>                 :             :         static int print_usage(const char *reason = nullptr);</span>
+<span id="L120"><span class="lineNum">     120</span>                 :             : </span>
+<span id="L121"><span class="lineNum">     121</span>                 :             :         /** @see ModuleBase::run() */</span>
+<span id="L122"><span class="lineNum">     122</span>                 :             :         void run() override;</span>
+<span id="L123"><span class="lineNum">     123</span>                 :             : </span>
+<span id="L124"><span class="lineNum">     124</span>                 :             :         /** @see ModuleBase::print_status() */</span>
+<span id="L125"><span class="lineNum">     125</span>                 :             :         int print_status() override;</span>
+<span id="L126"><span class="lineNum">     126</span>                 :             : </span>
+<span id="L127"><span class="lineNum">     127</span>                 :             :         /**</span>
+<span id="L128"><span class="lineNum">     128</span>                 :             :          * Load fence from file</span>
+<span id="L129"><span class="lineNum">     129</span>                 :             :          */</span>
+<span id="L130"><span class="lineNum">     130</span>                 :             :         void load_fence_from_file(const char *filename);</span>
+<span id="L131"><span class="lineNum">     131</span>                 :             : </span>
+<span id="L132"><span class="lineNum">     132</span>                 :             :         /**</span>
+<span id="L133"><span class="lineNum">     133</span>                 :             :          * @brief Publish a given specified vehicle command</span>
+<span id="L134"><span class="lineNum">     134</span>                 :             :          *</span>
+<span id="L135"><span class="lineNum">     135</span>                 :             :          * Fill in timestamp, source and target IDs.</span>
+<span id="L136"><span class="lineNum">     136</span>                 :             :          * target_component special handling (e.g. For Camera control, set camera ID)</span>
+<span id="L137"><span class="lineNum">     137</span>                 :             :          *</span>
+<span id="L138"><span class="lineNum">     138</span>                 :             :          * @param vehicle_command Vehicle command to publish</span>
+<span id="L139"><span class="lineNum">     139</span>                 :             :          */</span>
+<span id="L140"><span class="lineNum">     140</span>                 :             :         void publish_vehicle_command(vehicle_command_s &amp;vehicle_command);</span>
+<span id="L141"><span class="lineNum">     141</span>                 :             : </span>
+<span id="L142"><span class="lineNum">     142</span>                 :             : #if CONFIG_NAVIGATOR_ADSB</span>
+<span id="L143"><span class="lineNum">     143</span>                 :             :         /**</span>
+<span id="L144"><span class="lineNum">     144</span>                 :             :          * Check nearby traffic for potential collisions</span>
+<span id="L145"><span class="lineNum">     145</span>                 :             :          */</span>
+<span id="L146"><span class="lineNum">     146</span>                 :             :         void check_traffic();</span>
+<span id="L147"><span class="lineNum">     147</span>                 :             :         void take_traffic_conflict_action();</span>
+<span id="L148"><span class="lineNum">     148</span>                 :             :         void run_fake_traffic();</span>
+<span id="L149"><span class="lineNum">     149</span>                 :             : #endif // CONFIG_NAVIGATOR_ADSB</span>
+<span id="L150"><span class="lineNum">     150</span>                 :             : </span>
+<span id="L151"><span class="lineNum">     151</span>                 :             :         /**</span>
+<span id="L152"><span class="lineNum">     152</span>                 :             :          * Setters</span>
+<span id="L153"><span class="lineNum">     153</span>                 :             :          */</span>
+<span id="L154"><span class="lineNum">     154</span>                 :<span class="tlaUNC tlaBgUNC">           0 :         void set_position_setpoint_triplet_updated() { _pos_sp_triplet_updated = true; }</span></span>
+<span id="L155"><span class="lineNum">     155</span>                 :<span class="tlaUNC">           0 :         void set_mission_result_updated() { _mission_result_updated = true; }</span></span>
+<span id="L156"><span class="lineNum">     156</span>                 :             : </span>
+<span id="L157"><span class="lineNum">     157</span>                 :             :         /**</span>
+<span id="L158"><span class="lineNum">     158</span>                 :             :          * Getters</span>
+<span id="L159"><span class="lineNum">     159</span>                 :             :          */</span>
+<span id="L160"><span class="lineNum">     160</span>                 :<span class="tlaUNC">           0 :         home_position_s             *get_home_position() { return &amp;_home_pos; }</span></span>
+<span id="L161"><span class="lineNum">     161</span>                 :<span class="tlaUNC">           0 :         mission_result_s            *get_mission_result() { return &amp;_mission_result; }</span></span>
+<span id="L162"><span class="lineNum">     162</span>                 :<span class="tlaUNC">           0 :         position_setpoint_triplet_s *get_position_setpoint_triplet() { return &amp;_pos_sp_triplet; }</span></span>
+<span id="L163"><span class="lineNum">     163</span>                 :<span class="tlaUNC">           0 :         position_setpoint_triplet_s *get_reposition_triplet() { return &amp;_reposition_triplet; }</span></span>
+<span id="L164"><span class="lineNum">     164</span>                 :<span class="tlaUNC">           0 :         position_setpoint_triplet_s *get_takeoff_triplet() { return &amp;_takeoff_triplet; }</span></span>
+<span id="L165"><span class="lineNum">     165</span>                 :<span class="tlaUNC">           0 :         vehicle_global_position_s   *get_global_position() { return &amp;_global_pos; }</span></span>
+<span id="L166"><span class="lineNum">     166</span>                 :<span class="tlaUNC">           0 :         vehicle_land_detected_s     *get_land_detected() { return &amp;_land_detected; }</span></span>
+<span id="L167"><span class="lineNum">     167</span>                 :<span class="tlaUNC">           0 :         vehicle_local_position_s    *get_local_position() { return &amp;_local_pos; }</span></span>
+<span id="L168"><span class="lineNum">     168</span>                 :<span class="tlaUNC">           0 :         vehicle_status_s            *get_vstatus() { return &amp;_vstatus; }</span></span>
+<span id="L169"><span class="lineNum">     169</span>                 :             : </span>
+<span id="L170"><span class="lineNum">     170</span>                 :<span class="tlaUNC">           0 :         PrecLand *get_precland() { return &amp;_precland; } /**&lt; allow others, e.g. Mission, to use the precision land block */</span></span>
+<span id="L171"><span class="lineNum">     171</span>                 :             : </span>
+<span id="L172"><span class="lineNum">     172</span>                 :<span class="tlaUNC">           0 :         const vehicle_roi_s &amp;get_vroi() { return _vroi; }</span></span>
+<span id="L173"><span class="lineNum">     173</span>                 :             : </span>
+<span id="L174"><span class="lineNum">     174</span>                 :<span class="tlaUNC">           0 :         void reset_vroi() { _vroi = {}; }</span></span>
+<span id="L175"><span class="lineNum">     175</span>                 :             : </span>
+<span id="L176"><span class="lineNum">     176</span>                 :<span class="tlaUNC">           0 :         bool home_alt_valid() { return (_home_pos.valid_alt); }</span></span>
+<span id="L177"><span class="lineNum">     177</span>                 :             : </span>
+<span id="L178"><span class="lineNum">     178</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :         bool home_global_position_valid() { return (_home_pos.valid_alt &amp;&amp; _home_pos.valid_hpos); }</span></span>
+<span id="L179"><span class="lineNum">     179</span>                 :             : </span>
+<span id="L180"><span class="lineNum">     180</span>                 :<span class="tlaUNC">           0 :         Geofence &amp;get_geofence() { return _geofence; }</span></span>
+<span id="L181"><span class="lineNum">     181</span>                 :             : </span>
+<span id="L182"><span class="lineNum">     182</span>                 :<span class="tlaUNC">           0 :         float get_default_loiter_rad() { return fabsf(_param_nav_loiter_rad.get()); }</span></span>
+<span id="L183"><span class="lineNum">     183</span>                 :<span class="tlaUNC">           0 :         bool get_default_loiter_CCW() { return _param_nav_loiter_rad.get() &lt; -FLT_EPSILON; }</span></span>
+<span id="L184"><span class="lineNum">     184</span>                 :             : </span>
+<span id="L185"><span class="lineNum">     185</span>                 :             :         /**</span>
+<span id="L186"><span class="lineNum">     186</span>                 :             :          * Returns the default acceptance radius defined by the parameter</span>
+<span id="L187"><span class="lineNum">     187</span>                 :             :          */</span>
+<span id="L188"><span class="lineNum">     188</span>                 :             :         float get_default_acceptance_radius();</span>
+<span id="L189"><span class="lineNum">     189</span>                 :             : </span>
+<span id="L190"><span class="lineNum">     190</span>                 :             :         /**</span>
+<span id="L191"><span class="lineNum">     191</span>                 :             :          * Get the acceptance radius</span>
+<span id="L192"><span class="lineNum">     192</span>                 :             :          *</span>
+<span id="L193"><span class="lineNum">     193</span>                 :             :          * @return the distance at which the next waypoint should be used</span>
+<span id="L194"><span class="lineNum">     194</span>                 :             :          */</span>
+<span id="L195"><span class="lineNum">     195</span>                 :             :         float get_acceptance_radius();</span>
+<span id="L196"><span class="lineNum">     196</span>                 :             : </span>
+<span id="L197"><span class="lineNum">     197</span>                 :             :         /**</span>
+<span id="L198"><span class="lineNum">     198</span>                 :             :          * Get the altitude acceptance radius</span>
+<span id="L199"><span class="lineNum">     199</span>                 :             :          *</span>
+<span id="L200"><span class="lineNum">     200</span>                 :             :          * @return the distance from the target altitude before considering the waypoint reached</span>
+<span id="L201"><span class="lineNum">     201</span>                 :             :          */</span>
+<span id="L202"><span class="lineNum">     202</span>                 :             :         float get_altitude_acceptance_radius();</span>
+<span id="L203"><span class="lineNum">     203</span>                 :             : </span>
+<span id="L204"><span class="lineNum">     204</span>                 :             :         /**</span>
+<span id="L205"><span class="lineNum">     205</span>                 :             :          * Get the cruising speed</span>
+<span id="L206"><span class="lineNum">     206</span>                 :             :          *</span>
+<span id="L207"><span class="lineNum">     207</span>                 :             :          * @return the desired cruising speed for this mission</span>
+<span id="L208"><span class="lineNum">     208</span>                 :             :          */</span>
+<span id="L209"><span class="lineNum">     209</span>                 :<span class="tlaUNC">           0 :         float get_cruising_speed() { return _cruising_speed_current_mode; }</span></span>
+<span id="L210"><span class="lineNum">     210</span>                 :             : </span>
+<span id="L211"><span class="lineNum">     211</span>                 :             :         /**</span>
+<span id="L212"><span class="lineNum">     212</span>                 :             :          * Set the cruising speed</span>
+<span id="L213"><span class="lineNum">     213</span>                 :             :          *</span>
+<span id="L214"><span class="lineNum">     214</span>                 :             :          * Passing a negative value will reset the cruising speed</span>
+<span id="L215"><span class="lineNum">     215</span>                 :             :          * to its default value. Will automatically be reset to default</span>
+<span id="L216"><span class="lineNum">     216</span>                 :             :          * on mode switch.</span>
+<span id="L217"><span class="lineNum">     217</span>                 :             :          */</span>
+<span id="L218"><span class="lineNum">     218</span>                 :<span class="tlaUNC">           0 :         void set_cruising_speed(float desired_speed) { _cruising_speed_current_mode = desired_speed; }</span></span>
+<span id="L219"><span class="lineNum">     219</span>                 :             : </span>
+<span id="L220"><span class="lineNum">     220</span>                 :             :         /**</span>
+<span id="L221"><span class="lineNum">     221</span>                 :             :          * Reset cruising speed to default values</span>
+<span id="L222"><span class="lineNum">     222</span>                 :             :          */</span>
+<span id="L223"><span class="lineNum">     223</span>                 :<span class="tlaUNC">           0 :         void reset_cruising_speed() { _cruising_speed_current_mode = -1.f; }</span></span>
+<span id="L224"><span class="lineNum">     224</span>                 :             : </span>
+<span id="L225"><span class="lineNum">     225</span>                 :             :         /**</span>
+<span id="L226"><span class="lineNum">     226</span>                 :             :          *  Set triplets to invalid</span>
+<span id="L227"><span class="lineNum">     227</span>                 :             :          */</span>
+<span id="L228"><span class="lineNum">     228</span>                 :             :         void reset_triplets();</span>
+<span id="L229"><span class="lineNum">     229</span>                 :             : </span>
+<span id="L230"><span class="lineNum">     230</span>                 :             :         /**</span>
+<span id="L231"><span class="lineNum">     231</span>                 :             :          *  Set position setpoint to safe defaults</span>
+<span id="L232"><span class="lineNum">     232</span>                 :             :          */</span>
+<span id="L233"><span class="lineNum">     233</span>                 :             :         void reset_position_setpoint(position_setpoint_s &amp;sp);</span>
+<span id="L234"><span class="lineNum">     234</span>                 :             : </span>
+<span id="L235"><span class="lineNum">     235</span>                 :             :         /**</span>
+<span id="L236"><span class="lineNum">     236</span>                 :             :          * Get the target throttle</span>
+<span id="L237"><span class="lineNum">     237</span>                 :             :          *</span>
+<span id="L238"><span class="lineNum">     238</span>                 :             :          * @return the desired throttle for this mission</span>
+<span id="L239"><span class="lineNum">     239</span>                 :             :          */</span>
+<span id="L240"><span class="lineNum">     240</span>                 :             :         float get_cruising_throttle();</span>
+<span id="L241"><span class="lineNum">     241</span>                 :             : </span>
+<span id="L242"><span class="lineNum">     242</span>                 :             :         /**</span>
+<span id="L243"><span class="lineNum">     243</span>                 :             :          * Set the target throttle</span>
+<span id="L244"><span class="lineNum">     244</span>                 :             :          */</span>
+<span id="L245"><span class="lineNum">     245</span>                 :<span class="tlaUNC">           0 :         void set_cruising_throttle(float throttle = NAN) { _mission_throttle = throttle; }</span></span>
+<span id="L246"><span class="lineNum">     246</span>                 :             : </span>
+<span id="L247"><span class="lineNum">     247</span>                 :             :         /**</span>
+<span id="L248"><span class="lineNum">     248</span>                 :             :          * Get if the yaw acceptance is required at the current mission item</span>
+<span id="L249"><span class="lineNum">     249</span>                 :             :          *</span>
+<span id="L250"><span class="lineNum">     250</span>                 :             :          * @param mission_item_yaw the yaw to use in case the controller-derived radius is finite</span>
+<span id="L251"><span class="lineNum">     251</span>                 :             :          *</span>
+<span id="L252"><span class="lineNum">     252</span>                 :             :          * @return true if the yaw acceptance is required, false if not required</span>
+<span id="L253"><span class="lineNum">     253</span>                 :             :          */</span>
+<span id="L254"><span class="lineNum">     254</span>                 :             :         bool get_yaw_to_be_accepted(float mission_item_yaw);</span>
+<span id="L255"><span class="lineNum">     255</span>                 :             : </span>
+<span id="L256"><span class="lineNum">     256</span>                 :<span class="tlaUNC">           0 :         orb_advert_t *get_mavlink_log_pub() { return &amp;_mavlink_log_pub; }</span></span>
+<span id="L257"><span class="lineNum">     257</span>                 :             : </span>
+<span id="L258"><span class="lineNum">     258</span>                 :             :         void set_mission_failure_heading_timeout();</span>
+<span id="L259"><span class="lineNum">     259</span>                 :             : </span>
+<span id="L260"><span class="lineNum">     260</span>                 :             :         bool get_mission_start_land_available() { return _mission.get_land_start_available(); }</span>
+<span id="L261"><span class="lineNum">     261</span>                 :             : </span>
+<span id="L262"><span class="lineNum">     262</span>                 :             :         // RTL</span>
+<span id="L263"><span class="lineNum">     263</span>                 :             :         bool in_rtl_state() const { return _vstatus.nav_state == vehicle_status_s::NAVIGATION_STATE_AUTO_RTL; }</span>
+<span id="L264"><span class="lineNum">     264</span>                 :             : </span>
+<span id="L265"><span class="lineNum">     265</span>                 :             :         bool abort_landing();</span>
+<span id="L266"><span class="lineNum">     266</span>                 :             : </span>
+<span id="L267"><span class="lineNum">     267</span>                 :             :         void geofence_breach_check();</span>
+<span id="L268"><span class="lineNum">     268</span>                 :             : </span>
+<span id="L269"><span class="lineNum">     269</span>                 :             :         // Param access</span>
+<span id="L270"><span class="lineNum">     270</span>                 :<span class="tlaUNC">           0 :         int get_loiter_min_alt() const { return _param_min_ltr_alt.get(); }</span></span>
+<span id="L271"><span class="lineNum">     271</span>                 :<span class="tlaUNC">           0 :         int get_landing_abort_min_alt() const { return _param_mis_lnd_abrt_alt.get(); }</span></span>
+<span id="L272"><span class="lineNum">     272</span>                 :<span class="tlaUNC">           0 :         float get_param_mis_takeoff_alt() const { return _param_mis_takeoff_alt.get(); }</span></span>
+<span id="L273"><span class="lineNum">     273</span>                 :<span class="tlaUNC">           0 :         float get_yaw_timeout() const { return _param_mis_yaw_tmt.get(); }</span></span>
+<span id="L274"><span class="lineNum">     274</span>                 :<span class="tlaUNC">           0 :         float get_yaw_threshold() const { return math::radians(_param_mis_yaw_err.get()); }</span></span>
+<span id="L275"><span class="lineNum">     275</span>                 :<span class="tlaUNC">           0 :         float get_nav_min_gnd_dist_param() const { return _param_nav_min_gnd_dist.get(); }</span></span>
+<span id="L276"><span class="lineNum">     276</span>                 :             : </span>
+<span id="L277"><span class="lineNum">     277</span>                 :<span class="tlaUNC">           0 :         float get_vtol_back_trans_deceleration() const { return _param_back_trans_dec_mss; }</span></span>
+<span id="L278"><span class="lineNum">     278</span>                 :             : </span>
+<span id="L279"><span class="lineNum">     279</span>                 :             :         bool force_vtol();</span>
+<span id="L280"><span class="lineNum">     280</span>                 :             : </span>
+<span id="L281"><span class="lineNum">     281</span>                 :             :         void acquire_gimbal_control();</span>
+<span id="L282"><span class="lineNum">     282</span>                 :             :         void release_gimbal_control();</span>
+<span id="L283"><span class="lineNum">     283</span>                 :             :         void set_gimbal_neutral();</span>
+<span id="L284"><span class="lineNum">     284</span>                 :             : </span>
+<span id="L285"><span class="lineNum">     285</span>                 :             :         /* Set gimbal to neutral position (level with horizon) to reduce risk of damage on landing.</span>
+<span id="L286"><span class="lineNum">     286</span>                 :             :         The commands are executed after time delay. */</span>
+<span id="L287"><span class="lineNum">     287</span>                 :             :         void neutralize_gimbal_if_control_activated();</span>
+<span id="L288"><span class="lineNum">     288</span>                 :             :         /* Accepts a new timestamp only if the current timestamp is UINT64_MAX, preventing the</span>
+<span id="L289"><span class="lineNum">     289</span>                 :             :         timer from resetting during an ongoing neutral command. */</span>
+<span id="L290"><span class="lineNum">     290</span>                 :             :         void activate_set_gimbal_neutral_timer(const hrt_abstime timestamp);</span>
+<span id="L291"><span class="lineNum">     291</span>                 :             : </span>
+<span id="L292"><span class="lineNum">     292</span>                 :             :         void preproject_stop_point(double &amp;lat, double &amp;lon);</span>
+<span id="L293"><span class="lineNum">     293</span>                 :             : </span>
+<span id="L294"><span class="lineNum">     294</span>                 :             :         void stop_capturing_images();</span>
+<span id="L295"><span class="lineNum">     295</span>                 :             :         void disable_camera_trigger();</span>
+<span id="L296"><span class="lineNum">     296</span>                 :             : </span>
+<span id="L297"><span class="lineNum">     297</span>                 :             :         void mode_completed(uint8_t nav_state, uint8_t result = mode_completed_s::RESULT_SUCCESS);</span>
+<span id="L298"><span class="lineNum">     298</span>                 :             : </span>
+<span id="L299"><span class="lineNum">     299</span>                 :             :         void set_failsafe_status(uint8_t nav_state, bool failsafe);</span>
+<span id="L300"><span class="lineNum">     300</span>                 :             : </span>
+<span id="L301"><span class="lineNum">     301</span>                 :             :         void sendWarningDescentStoppedDueToTerrain();</span>
+<span id="L302"><span class="lineNum">     302</span>                 :             : </span>
+<span id="L303"><span class="lineNum">     303</span>                 :             :         void trigger_hagl_failsafe(uint8_t nav_state);</span>
+<span id="L304"><span class="lineNum">     304</span>                 :             : </span>
+<span id="L305"><span class="lineNum">     305</span>                 :             : private:</span>
+<span id="L306"><span class="lineNum">     306</span>                 :             : </span>
+<span id="L307"><span class="lineNum">     307</span>                 :             :         int _local_pos_sub{-1};</span>
+<span id="L308"><span class="lineNum">     308</span>                 :             :         int _mission_sub{-1};</span>
+<span id="L309"><span class="lineNum">     309</span>                 :             :         int _vehicle_status_sub{-1};</span>
+<span id="L310"><span class="lineNum">     310</span>                 :             : </span>
+<span id="L311"><span class="lineNum">     311</span>                 :             :         uORB::SubscriptionData&lt;position_controller_status_s&gt;      _position_controller_status_sub{ORB_ID(position_controller_status)};</span>
+<span id="L312"><span class="lineNum">     312</span>                 :             : </span>
+<span id="L313"><span class="lineNum">     313</span>                 :             :         uORB::SubscriptionInterval _parameter_update_sub{ORB_ID(parameter_update), 1_s};</span>
+<span id="L314"><span class="lineNum">     314</span>                 :             : </span>
+<span id="L315"><span class="lineNum">     315</span>                 :             :         uORB::Subscription _global_pos_sub{ORB_ID(vehicle_global_position)};    /**&lt; global position subscription */</span>
+<span id="L316"><span class="lineNum">     316</span>                 :             :         uORB::Subscription _gps_pos_sub{ORB_ID(vehicle_gps_position)};          /**&lt; gps position subscription */</span>
+<span id="L317"><span class="lineNum">     317</span>                 :             :         uORB::Subscription _home_pos_sub{ORB_ID(home_position)};                /**&lt; home position subscription */</span>
+<span id="L318"><span class="lineNum">     318</span>                 :             :         uORB::Subscription _land_detected_sub{ORB_ID(vehicle_land_detected)};   /**&lt; vehicle land detected subscription */</span>
+<span id="L319"><span class="lineNum">     319</span>                 :             :         uORB::Subscription _pos_ctrl_landing_status_sub{ORB_ID(position_controller_landing_status)};    /**&lt; position controller landing status subscription */</span>
+<span id="L320"><span class="lineNum">     320</span>                 :             :         uORB::Subscription _traffic_sub{ORB_ID(transponder_report)};            /**&lt; traffic subscription */</span>
+<span id="L321"><span class="lineNum">     321</span>                 :             :         uORB::Subscription _vehicle_command_sub{ORB_ID(vehicle_command)};       /**&lt; vehicle commands (onboard and offboard) */</span>
+<span id="L322"><span class="lineNum">     322</span>                 :             : </span>
+<span id="L323"><span class="lineNum">     323</span>                 :             :         uORB::Publication&lt;geofence_result_s&gt;              _geofence_result_pub{ORB_ID(geofence_result)};</span>
+<span id="L324"><span class="lineNum">     324</span>                 :             :         uORB::Publication&lt;mission_result_s&gt;               _mission_result_pub{ORB_ID(mission_result)};</span>
+<span id="L325"><span class="lineNum">     325</span>                 :             :         uORB::Publication&lt;navigator_status_s&gt;             _navigator_status_pub{ORB_ID(navigator_status)};</span>
+<span id="L326"><span class="lineNum">     326</span>                 :             :         uORB::Publication&lt;position_setpoint_triplet_s&gt;    _pos_sp_triplet_pub{ORB_ID(position_setpoint_triplet)};</span>
+<span id="L327"><span class="lineNum">     327</span>                 :             :         uORB::Publication&lt;vehicle_command_ack_s&gt;  _vehicle_cmd_ack_pub{ORB_ID(vehicle_command_ack)};</span>
+<span id="L328"><span class="lineNum">     328</span>                 :             :         uORB::Publication&lt;vehicle_command_s&gt;              _vehicle_cmd_pub{ORB_ID(vehicle_command)};</span>
+<span id="L329"><span class="lineNum">     329</span>                 :             :         uORB::Publication&lt;vehicle_roi_s&gt;          _vehicle_roi_pub{ORB_ID(vehicle_roi)};</span>
+<span id="L330"><span class="lineNum">     330</span>                 :             :         uORB::Publication&lt;mode_completed_s&gt; _mode_completed_pub{ORB_ID(mode_completed)};</span>
+<span id="L331"><span class="lineNum">     331</span>                 :             :         uORB::PublicationData&lt;distance_sensor_mode_change_request_s&gt; _distance_sensor_mode_change_request_pub{ORB_ID(distance_sensor_mode_change_request)};</span>
+<span id="L332"><span class="lineNum">     332</span>                 :             : </span>
+<span id="L333"><span class="lineNum">     333</span>                 :             :         orb_advert_t    _mavlink_log_pub{nullptr};      /**&lt; the uORB advert to send messages over mavlink */</span>
+<span id="L334"><span class="lineNum">     334</span>                 :             : </span>
+<span id="L335"><span class="lineNum">     335</span>                 :             :         // Subscriptions</span>
+<span id="L336"><span class="lineNum">     336</span>                 :             :         home_position_s                                 _home_pos{};            /**&lt; home position for RTL */</span>
+<span id="L337"><span class="lineNum">     337</span>                 :             :         mission_result_s                                _mission_result{};</span>
+<span id="L338"><span class="lineNum">     338</span>                 :             :         vehicle_global_position_s                       _global_pos{};          /**&lt; global vehicle position */</span>
+<span id="L339"><span class="lineNum">     339</span>                 :             :         sensor_gps_s                            _gps_pos{};             /**&lt; gps position */</span>
+<span id="L340"><span class="lineNum">     340</span>                 :             :         vehicle_land_detected_s                         _land_detected{};       /**&lt; vehicle land_detected */</span>
+<span id="L341"><span class="lineNum">     341</span>                 :             :         vehicle_local_position_s                        _local_pos{};           /**&lt; local vehicle position */</span>
+<span id="L342"><span class="lineNum">     342</span>                 :             :         vehicle_status_s                                _vstatus{};             /**&lt; vehicle status */</span>
+<span id="L343"><span class="lineNum">     343</span>                 :             : </span>
+<span id="L344"><span class="lineNum">     344</span>                 :             :         // Publications</span>
+<span id="L345"><span class="lineNum">     345</span>                 :             :         geofence_result_s                               _geofence_result{};</span>
+<span id="L346"><span class="lineNum">     346</span>                 :             :         navigator_status_s                              _navigator_status{};</span>
+<span id="L347"><span class="lineNum">     347</span>                 :             :         position_setpoint_triplet_s                     _pos_sp_triplet{};      /**&lt; triplet of position setpoints */</span>
+<span id="L348"><span class="lineNum">     348</span>                 :             :         position_setpoint_triplet_s                     _reposition_triplet{};  /**&lt; triplet for non-mission direct position command */</span>
+<span id="L349"><span class="lineNum">     349</span>                 :             :         position_setpoint_triplet_s                     _takeoff_triplet{};     /**&lt; triplet for non-mission direct takeoff command */</span>
+<span id="L350"><span class="lineNum">     350</span>                 :             :         vehicle_roi_s                                   _vroi{};                /**&lt; vehicle ROI */</span>
+<span id="L351"><span class="lineNum">     351</span>                 :             : </span>
+<span id="L352"><span class="lineNum">     352</span>                 :             : </span>
+<span id="L353"><span class="lineNum">     353</span>                 :             :         perf_counter_t  _loop_perf;                     /**&lt; loop performance counter */</span>
+<span id="L354"><span class="lineNum">     354</span>                 :             : </span>
+<span id="L355"><span class="lineNum">     355</span>                 :             :         Geofence        _geofence;                      /**&lt; class that handles the geofence */</span>
+<span id="L356"><span class="lineNum">     356</span>                 :             :         GeofenceBreachAvoidance _gf_breach_avoidance;</span>
+<span id="L357"><span class="lineNum">     357</span>                 :             :         hrt_abstime _last_geofence_check{0};</span>
+<span id="L358"><span class="lineNum">     358</span>                 :             : </span>
+<span id="L359"><span class="lineNum">     359</span>                 :             :         bool _navigator_status_updated{false};</span>
+<span id="L360"><span class="lineNum">     360</span>                 :             :         hrt_abstime _last_navigator_status_publication{0};</span>
+<span id="L361"><span class="lineNum">     361</span>                 :             : </span>
+<span id="L362"><span class="lineNum">     362</span>                 :             :         hrt_abstime _wait_for_vehicle_status_timestamp{0}; /**&lt; If non-zero, wait for vehicle_status update before processing next cmd */</span>
+<span id="L363"><span class="lineNum">     363</span>                 :             : </span>
+<span id="L364"><span class="lineNum">     364</span>                 :             :         bool            _geofence_reposition_sent{false};               /**&lt; flag if reposition command has been sent for current geofence breach*/</span>
+<span id="L365"><span class="lineNum">     365</span>                 :             :         hrt_abstime     _time_loitering_after_gf_breach{0};             /**&lt; timestamp of when loitering after a geofence breach was started */</span>
+<span id="L366"><span class="lineNum">     366</span>                 :             :         bool            _pos_sp_triplet_updated{false};                 /**&lt; flags if position SP triplet needs to be published */</span>
+<span id="L367"><span class="lineNum">     367</span>                 :             :         bool            _pos_sp_triplet_published_invalid_once{false};  /**&lt; flags if position SP triplet has been published once to UORB */</span>
+<span id="L368"><span class="lineNum">     368</span>                 :             :         bool            _mission_result_updated{false};                 /**&lt; flags if mission result has seen an update */</span>
+<span id="L369"><span class="lineNum">     369</span>                 :             : </span>
+<span id="L370"><span class="lineNum">     370</span>                 :             :         Mission         _mission;                       /**&lt; class that handles the missions */</span>
+<span id="L371"><span class="lineNum">     371</span>                 :             :         Loiter          _loiter;                        /**&lt; class that handles loiter */</span>
+<span id="L372"><span class="lineNum">     372</span>                 :             :         Takeoff         _takeoff;                       /**&lt; class for handling takeoff commands */</span>
+<span id="L373"><span class="lineNum">     373</span>                 :             : #if CONFIG_MODE_NAVIGATOR_VTOL_TAKEOFF</span>
+<span id="L374"><span class="lineNum">     374</span>                 :             :         VtolTakeoff     _vtol_takeoff;                  /**&lt; class for handling VEHICLE_CMD_NAV_VTOL_TAKEOFF command */</span>
+<span id="L375"><span class="lineNum">     375</span>                 :             : #endif //CONFIG_MODE_NAVIGATOR_VTOL_TAKEOFF</span>
+<span id="L376"><span class="lineNum">     376</span>                 :             :         Land            _land;                  /**&lt; class for handling land commands */</span>
+<span id="L377"><span class="lineNum">     377</span>                 :             :         PrecLand        _precland;                      /**&lt; class for handling precision land commands */</span>
+<span id="L378"><span class="lineNum">     378</span>                 :             :         RTL             _rtl;                           /**&lt; class that handles RTL */</span>
+<span id="L379"><span class="lineNum">     379</span>                 :             : #if CONFIG_NAVIGATOR_ADSB</span>
+<span id="L380"><span class="lineNum">     380</span>                 :             :         AdsbConflict    _adsb_conflict;                 /**&lt; class that handles ADSB conflict avoidance */</span>
+<span id="L381"><span class="lineNum">     381</span>                 :             :         traffic_buffer_s _traffic_buffer{};</span>
+<span id="L382"><span class="lineNum">     382</span>                 :             : #endif // CONFIG_NAVIGATOR_ADSB</span>
+<span id="L383"><span class="lineNum">     383</span>                 :             : </span>
+<span id="L384"><span class="lineNum">     384</span>                 :             :         NavigatorMode *_navigation_mode{nullptr};       /**&lt; abstract pointer to current navigation mode class */</span>
+<span id="L385"><span class="lineNum">     385</span>                 :             :         NavigatorMode *_navigation_mode_array[NAVIGATOR_MODE_ARRAY_SIZE] {};    /**&lt; array of navigation modes */</span>
+<span id="L386"><span class="lineNum">     386</span>                 :             : </span>
+<span id="L387"><span class="lineNum">     387</span>                 :             :         param_t _handle_back_trans_dec_mss{PARAM_INVALID};</span>
+<span id="L388"><span class="lineNum">     388</span>                 :             :         param_t _handle_mpc_jerk_auto{PARAM_INVALID};</span>
+<span id="L389"><span class="lineNum">     389</span>                 :             :         param_t _handle_mpc_acc_hor{PARAM_INVALID};</span>
+<span id="L390"><span class="lineNum">     390</span>                 :             : </span>
+<span id="L391"><span class="lineNum">     391</span>                 :             :         float _param_back_trans_dec_mss{0.f};</span>
+<span id="L392"><span class="lineNum">     392</span>                 :             :         float _param_mpc_jerk_auto{4.f};        /**&lt; initialized with the default jerk auto value to prevent division by 0 if the parameter is accidentally set to 0 */</span>
+<span id="L393"><span class="lineNum">     393</span>                 :             :         float _param_mpc_acc_hor{3.f};          /**&lt; initialized with the default horizontal acc value to prevent division by 0 if the parameter is accidentally set to 0 */</span>
+<span id="L394"><span class="lineNum">     394</span>                 :             : </span>
+<span id="L395"><span class="lineNum">     395</span>                 :             :         float _cruising_speed_current_mode{-1.0f};</span>
+<span id="L396"><span class="lineNum">     396</span>                 :             :         float _mission_throttle{NAN};</span>
+<span id="L397"><span class="lineNum">     397</span>                 :             : </span>
+<span id="L398"><span class="lineNum">     398</span>                 :             :         bool _is_capturing_images{false}; // keep track if we need to stop capturing images</span>
+<span id="L399"><span class="lineNum">     399</span>                 :             : </span>
+<span id="L400"><span class="lineNum">     400</span>                 :             : </span>
+<span id="L401"><span class="lineNum">     401</span>                 :             :         // timer to trigger a delayed set gimbal neutral command</span>
+<span id="L402"><span class="lineNum">     402</span>                 :             :         hrt_abstime _gimbal_neutral_activation_time{UINT64_MAX};</span>
+<span id="L403"><span class="lineNum">     403</span>                 :             : </span>
+<span id="L404"><span class="lineNum">     404</span>                 :             :         // update subscriptions</span>
+<span id="L405"><span class="lineNum">     405</span>                 :             :         void params_update();</span>
+<span id="L406"><span class="lineNum">     406</span>                 :             : </span>
+<span id="L407"><span class="lineNum">     407</span>                 :             :         /**</span>
+<span id="L408"><span class="lineNum">     408</span>                 :             :          * Publish a new position setpoint triplet for position controllers</span>
+<span id="L409"><span class="lineNum">     409</span>                 :             :          */</span>
+<span id="L410"><span class="lineNum">     410</span>                 :             :         void publish_position_setpoint_triplet();</span>
+<span id="L411"><span class="lineNum">     411</span>                 :             : </span>
+<span id="L412"><span class="lineNum">     412</span>                 :             :         /**</span>
+<span id="L413"><span class="lineNum">     413</span>                 :             :          * Publish the mission result so commander and mavlink know what is going on</span>
+<span id="L414"><span class="lineNum">     414</span>                 :             :          */</span>
+<span id="L415"><span class="lineNum">     415</span>                 :             :         void publish_mission_result();</span>
+<span id="L416"><span class="lineNum">     416</span>                 :             : </span>
+<span id="L417"><span class="lineNum">     417</span>                 :             :         void publish_navigator_status();</span>
+<span id="L418"><span class="lineNum">     418</span>                 :             : </span>
+<span id="L419"><span class="lineNum">     419</span>                 :             :         void publish_vehicle_command_ack(const vehicle_command_s &amp;cmd, uint8_t result);</span>
+<span id="L420"><span class="lineNum">     420</span>                 :             : </span>
+<span id="L421"><span class="lineNum">     421</span>                 :             :         void publish_distance_sensor_mode_request();</span>
+<span id="L422"><span class="lineNum">     422</span>                 :             : </span>
+<span id="L423"><span class="lineNum">     423</span>                 :             :         bool geofence_allows_position(const vehicle_global_position_s &amp;pos);</span>
+<span id="L424"><span class="lineNum">     424</span>                 :             : </span>
+<span id="L425"><span class="lineNum">     425</span>                 :<span class="tlaUNC">           0 :         DEFINE_PARAMETERS(</span></span>
+<span id="L426"><span class="lineNum">     426</span>                 :             :                 (ParamFloat&lt;px4::params::NAV_LOITER_RAD&gt;)   _param_nav_loiter_rad,        /**&lt; loiter radius for fixedwing */</span>
+<span id="L427"><span class="lineNum">     427</span>                 :             :                 (ParamFloat&lt;px4::params::NAV_ACC_RAD&gt;)      _param_nav_acc_rad,           /**&lt; acceptance for takeoff */</span>
+<span id="L428"><span class="lineNum">     428</span>                 :             :                 (ParamFloat&lt;px4::params::NAV_FW_ALT_RAD&gt;)   _param_nav_fw_alt_rad,        /**&lt; acceptance rad for fixedwing alt */</span>
+<span id="L429"><span class="lineNum">     429</span>                 :             :                 (ParamFloat&lt;px4::params::NAV_FW_ALTL_RAD&gt;)</span>
+<span id="L430"><span class="lineNum">     430</span>                 :             :                 _param_nav_fw_altl_rad, /**&lt; acceptance rad for fixedwing alt before landing*/</span>
+<span id="L431"><span class="lineNum">     431</span>                 :             :                 (ParamFloat&lt;px4::params::NAV_MC_ALT_RAD&gt;)   _param_nav_mc_alt_rad,        /**&lt; acceptance rad for multicopter alt */</span>
+<span id="L432"><span class="lineNum">     432</span>                 :             :                 (ParamInt&lt;px4::params::NAV_FORCE_VT&gt;)       _param_nav_force_vt,  /**&lt; acceptance radius for multicopter alt */</span>
+<span id="L433"><span class="lineNum">     433</span>                 :             :                 (ParamInt&lt;px4::params::NAV_TRAFF_AVOID&gt;)    _param_nav_traff_avoid,       /**&lt; avoiding other aircraft is enabled */</span>
+<span id="L434"><span class="lineNum">     434</span>                 :             :                 (ParamFloat&lt;px4::params::NAV_TRAFF_A_HOR&gt;)  _param_nav_traff_a_hor_ct,    /**&lt; avoidance Distance Crosstrack*/</span>
+<span id="L435"><span class="lineNum">     435</span>                 :             :                 (ParamFloat&lt;px4::params::NAV_TRAFF_A_VER&gt;)  _param_nav_traff_a_ver,       /**&lt; avoidance Distance Vertical*/</span>
+<span id="L436"><span class="lineNum">     436</span>                 :             :                 (ParamInt&lt;px4::params::NAV_TRAFF_COLL_T&gt;)   _param_nav_traff_collision_time,</span>
+<span id="L437"><span class="lineNum">     437</span>                 :             :                 (ParamFloat&lt;px4::params::NAV_MIN_LTR_ALT&gt;)   _param_min_ltr_alt,  /**&lt; minimum altitude in Loiter mode*/</span>
+<span id="L438"><span class="lineNum">     438</span>                 :             :                 (ParamFloat&lt;px4::params::NAV_MIN_GND_DIST&gt;)</span>
+<span id="L439"><span class="lineNum">     439</span>                 :             :                 _param_nav_min_gnd_dist,        /**&lt; minimum distance to ground (Mission and RTL)*/</span>
+<span id="L440"><span class="lineNum">     440</span>                 :             : </span>
+<span id="L441"><span class="lineNum">     441</span>                 :             :                 // non-navigator parameters: Mission (MIS_*)</span>
+<span id="L442"><span class="lineNum">     442</span>                 :             :                 (ParamFloat&lt;px4::params::MIS_TAKEOFF_ALT&gt;)    _param_mis_takeoff_alt,</span>
+<span id="L443"><span class="lineNum">     443</span>                 :             :                 (ParamFloat&lt;px4::params::MIS_YAW_TMT&gt;)        _param_mis_yaw_tmt,</span>
+<span id="L444"><span class="lineNum">     444</span>                 :             :                 (ParamFloat&lt;px4::params::MIS_YAW_ERR&gt;)        _param_mis_yaw_err,</span>
+<span id="L445"><span class="lineNum">     445</span>                 :             :                 (ParamInt&lt;px4::params::MIS_LND_ABRT_ALT&gt;)     _param_mis_lnd_abrt_alt,</span>
+<span id="L446"><span class="lineNum">     446</span>                 :             :                 (ParamFloat&lt;px4::params::MIS_COMMAND_TOUT&gt;) _param_mis_command_tout</span>
+<span id="L447"><span class="lineNum">     447</span>                 :             :         )</span>
+<span id="L448"><span class="lineNum">     448</span>                 :             : };</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

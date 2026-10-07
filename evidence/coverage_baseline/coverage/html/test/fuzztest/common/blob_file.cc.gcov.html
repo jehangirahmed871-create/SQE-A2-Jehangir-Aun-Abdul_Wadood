@@ -1,0 +1,617 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov_filtered.info - test/fuzztest/common/blob_file.cc</title>
+  <link rel="stylesheet" type="text/css" href="../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../index.html">top level</a> - <a href="index.html">test/fuzztest/common</a> - blob_file.cc<span style="font-size: 80%;"> (source / <a href="blob_file.cc.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov_filtered.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntry">119</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-10-02 17:31:18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntry">19</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntry">282</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+                  <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : // Copyright 2022 The Centipede Authors.</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             : //</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             : // Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             : // you may not use this file except in compliance with the License.</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             : // You may obtain a copy of the License at</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             : //</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             : //      https://www.apache.org/licenses/LICENSE-2.0</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             : //</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             : // Unless required by applicable law or agreed to in writing, software</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             : // distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             : // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             : // See the License for the specific language governing permissions and</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             : // limitations under the License.</span>
+<span id="L14"><span class="lineNum">      14</span>                 :             : </span>
+<span id="L15"><span class="lineNum">      15</span>                 :             : #include &quot;./common/blob_file.h&quot;</span>
+<span id="L16"><span class="lineNum">      16</span>                 :             : </span>
+<span id="L17"><span class="lineNum">      17</span>                 :             : #include &lt;algorithm&gt;</span>
+<span id="L18"><span class="lineNum">      18</span>                 :             : #include &lt;cstddef&gt;</span>
+<span id="L19"><span class="lineNum">      19</span>                 :             : #include &lt;cstdint&gt;</span>
+<span id="L20"><span class="lineNum">      20</span>                 :             : #include &lt;cstring&gt;</span>
+<span id="L21"><span class="lineNum">      21</span>                 :             : #include &lt;iterator&gt;</span>
+<span id="L22"><span class="lineNum">      22</span>                 :             : #include &lt;memory&gt;</span>
+<span id="L23"><span class="lineNum">      23</span>                 :             : #include &lt;string&gt;</span>
+<span id="L24"><span class="lineNum">      24</span>                 :             : #include &lt;string_view&gt;</span>
+<span id="L25"><span class="lineNum">      25</span>                 :             : #include &lt;utility&gt;</span>
+<span id="L26"><span class="lineNum">      26</span>                 :             : #include &lt;vector&gt;</span>
+<span id="L27"><span class="lineNum">      27</span>                 :             : </span>
+<span id="L28"><span class="lineNum">      28</span>                 :             : #include &quot;absl/base/nullability.h&quot;</span>
+<span id="L29"><span class="lineNum">      29</span>                 :             : #include &quot;absl/base/optimization.h&quot;</span>
+<span id="L30"><span class="lineNum">      30</span>                 :             : #include &quot;absl/log/check.h&quot;</span>
+<span id="L31"><span class="lineNum">      31</span>                 :             : #include &quot;absl/log/log.h&quot;</span>
+<span id="L32"><span class="lineNum">      32</span>                 :             : #include &quot;absl/status/status.h&quot;</span>
+<span id="L33"><span class="lineNum">      33</span>                 :             : #include &quot;absl/strings/str_format.h&quot;</span>
+<span id="L34"><span class="lineNum">      34</span>                 :             : #include &quot;absl/strings/string_view.h&quot;</span>
+<span id="L35"><span class="lineNum">      35</span>                 :             : #include &quot;absl/time/clock.h&quot;</span>
+<span id="L36"><span class="lineNum">      36</span>                 :             : #include &quot;absl/time/time.h&quot;</span>
+<span id="L37"><span class="lineNum">      37</span>                 :             : #include &quot;./common/defs.h&quot;</span>
+<span id="L38"><span class="lineNum">      38</span>                 :             : #include &quot;./common/hash.h&quot;</span>
+<span id="L39"><span class="lineNum">      39</span>                 :             : #include &quot;./common/logging.h&quot;</span>
+<span id="L40"><span class="lineNum">      40</span>                 :             : #include &quot;./common/remote_file.h&quot;</span>
+<span id="L41"><span class="lineNum">      41</span>                 :             : #include &quot;./common/status_macros.h&quot;</span>
+<span id="L42"><span class="lineNum">      42</span>                 :             : #ifndef CENTIPEDE_DISABLE_RIEGELI</span>
+<span id="L43"><span class="lineNum">      43</span>                 :             : #include &quot;riegeli/base/object.h&quot;</span>
+<span id="L44"><span class="lineNum">      44</span>                 :             : #include &quot;riegeli/base/types.h&quot;</span>
+<span id="L45"><span class="lineNum">      45</span>                 :             : #include &quot;riegeli/bytes/reader.h&quot;</span>
+<span id="L46"><span class="lineNum">      46</span>                 :             : #include &quot;riegeli/bytes/writer.h&quot;</span>
+<span id="L47"><span class="lineNum">      47</span>                 :             : #include &quot;riegeli/records/record_reader.h&quot;</span>
+<span id="L48"><span class="lineNum">      48</span>                 :             : #include &quot;riegeli/records/record_writer.h&quot;</span>
+<span id="L49"><span class="lineNum">      49</span>                 :             : #endif  // CENTIPEDE_DISABLE_RIEGELI</span>
+<span id="L50"><span class="lineNum">      50</span>                 :             : </span>
+<span id="L51"><span class="lineNum">      51</span>                 :             : namespace fuzztest::internal {</span>
+<span id="L52"><span class="lineNum">      52</span>                 :             : namespace {</span>
+<span id="L53"><span class="lineNum">      53</span>                 :             : </span>
+<span id="L54"><span class="lineNum">      54</span>                 :             : constexpr size_t kMagicLen = 11;</span>
+<span id="L55"><span class="lineNum">      55</span>                 :             : constexpr uint8_t kPackBegMagic[] = &quot;-Centipede-&quot;;</span>
+<span id="L56"><span class="lineNum">      56</span>                 :             : constexpr uint8_t kPackEndMagic[] = &quot;-edepitneC-&quot;;</span>
+<span id="L57"><span class="lineNum">      57</span>                 :             : static_assert(sizeof(kPackBegMagic) == kMagicLen + 1);</span>
+<span id="L58"><span class="lineNum">      58</span>                 :             : static_assert(sizeof(kPackEndMagic) == kMagicLen + 1);</span>
+<span id="L59"><span class="lineNum">      59</span>                 :             : </span>
+<span id="L60"><span class="lineNum">      60</span>                 :             : // TODO(ussuri): Return more informative statuses, at least with the file path</span>
+<span id="L61"><span class="lineNum">      61</span>                 :             : //  included. That will require adjustments in the test: use</span>
+<span id="L62"><span class="lineNum">      62</span>                 :             : //  `testing::status::StatusIs` instead of direct `absl::Status` comparisons).</span>
+<span id="L63"><span class="lineNum">      63</span>                 :             : </span>
+<span id="L64"><span class="lineNum">      64</span>                 :             : // Simple implementations of `BlobFileReader` / `BlobFileWriter` based on</span>
+<span id="L65"><span class="lineNum">      65</span>                 :             : // `PackBytesForAppendFile()` / `UnpackBytesFromAppendFile()`.</span>
+<span id="L66"><span class="lineNum">      66</span>                 :             : // We expect to eventually replace this code with something more robust,</span>
+<span id="L67"><span class="lineNum">      67</span>                 :             : // and efficient, e.g. possibly https://github.com/google/riegeli.</span>
+<span id="L68"><span class="lineNum">      68</span>                 :             : // But the current implementation is fully functional.</span>
+<span id="L69"><span class="lineNum">      69</span>                 :             : class SimpleBlobFileReader : public BlobFileReader {</span>
+<span id="L70"><span class="lineNum">      70</span>                 :             :  public:</span>
+<span id="L71"><span class="lineNum">      71</span>                 :<span class="tlaUNC tlaBgUNC">           0 :   ~SimpleBlobFileReader() override {</span></span>
+<span id="L72"><span class="lineNum">      72</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (file_ &amp;&amp; !closed_) {</span></span>
+<span id="L73"><span class="lineNum">      73</span>                 :             :       // Virtual resolution is off in dtors, so use a specific Close().</span>
+<span id="L74"><span class="lineNum">      74</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :       CHECK_OK(SimpleBlobFileReader::Close());</span></span>
+<span id="L75"><span class="lineNum">      75</span>                 :             :     }</span>
+<span id="L76"><span class="lineNum">      76</span>                 :<span class="tlaUNC">           0 :   }</span></span>
+<span id="L77"><span class="lineNum">      77</span>                 :             : </span>
+<span id="L78"><span class="lineNum">      78</span>                 :<span class="tlaUNC">           0 :   absl::Status Open(std::string_view path) override {</span></span>
+<span id="L79"><span class="lineNum">      79</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (closed_) return absl::FailedPreconditionError(&quot;already closed&quot;);</span></span>
+<span id="L80"><span class="lineNum">      80</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (file_) return absl::FailedPreconditionError(&quot;already open&quot;);</span></span>
+<span id="L81"><span class="lineNum">      81</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :     ASSIGN_OR_RETURN_IF_NOT_OK(file_, RemoteFileOpen(path, &quot;r&quot;));</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span><span class="tlaUNC" title="Branch 6 was not executed"> # </span><span class="tlaUNC" title="Branch 7 was not executed"> # </span><span class="tlaUNC" title="Branch 8 was not executed"> # </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not executed"> # </span>]
+<span id="L82"><span class="lineNum">      82</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (file_ == nullptr) return absl::UnknownError(&quot;can't open file&quot;);</span></span>
+<span id="L83"><span class="lineNum">      83</span>                 :             :     // Read the entire file at once.</span>
+<span id="L84"><span class="lineNum">      84</span>                 :             :     // It may be useful to read the file in chunks, but if we are going</span>
+<span id="L85"><span class="lineNum">      85</span>                 :             :     // to migrate to something else, it's not important here.</span>
+<span id="L86"><span class="lineNum">      86</span>                 :<span class="tlaUNC">           0 :     ByteArray raw_bytes;</span></span>
+<span id="L87"><span class="lineNum">      87</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :     RETURN_IF_NOT_OK(RemoteFileRead(file_, raw_bytes));</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span><span class="tlaUNC" title="Branch 6 was not executed"> # </span><span class="tlaUNC" title="Branch 7 was not executed"> # </span><span class="tlaUNC" title="Branch 8 was not executed"> # </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not executed"> # </span>]
+<span id="L88"><span class="lineNum">      88</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :     RETURN_IF_NOT_OK(</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span><span class="tlaUNC" title="Branch 6 was not executed"> # </span><span class="tlaUNC" title="Branch 7 was not executed"> # </span><span class="tlaUNC" title="Branch 8 was not executed"> # </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not executed"> # </span>]
+<span id="L89"><span class="lineNum">      89</span>                 :             :         RemoteFileClose(file_));  // close the file here, we won't need it.</span>
+<span id="L90"><span class="lineNum">      90</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     UnpackBytesFromAppendFile(raw_bytes, &amp;unpacked_blobs_);</span></span>
+<span id="L91"><span class="lineNum">      91</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     return absl::OkStatus();</span></span>
+<span id="L92"><span class="lineNum">      92</span>                 :<span class="tlaUNC">           0 :   }</span></span>
+<span id="L93"><span class="lineNum">      93</span>                 :             : </span>
+<span id="L94"><span class="lineNum">      94</span>                 :<span class="tlaUNC">           0 :   absl::Status Read(ByteSpan &amp;blob) override {</span></span>
+<span id="L95"><span class="lineNum">      95</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (closed_) return absl::FailedPreconditionError(&quot;already closed&quot;);</span></span>
+<span id="L96"><span class="lineNum">      96</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (!file_) return absl::FailedPreconditionError(&quot;was not open&quot;);</span></span>
+<span id="L97"><span class="lineNum">      97</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (next_to_read_blob_index_ == unpacked_blobs_.size())</span></span>
+<span id="L98"><span class="lineNum">      98</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       return absl::OutOfRangeError(&quot;no more blobs&quot;);</span></span>
+<span id="L99"><span class="lineNum">      99</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (next_to_read_blob_index_ != 0)  // Clear the previous blob to save RAM.</span></span>
+<span id="L100"><span class="lineNum">     100</span>                 :<span class="tlaUNC">           0 :       unpacked_blobs_[next_to_read_blob_index_ - 1].clear();</span></span>
+<span id="L101"><span class="lineNum">     101</span>                 :<span class="tlaUNC">           0 :     blob = ByteSpan(unpacked_blobs_[next_to_read_blob_index_]);</span></span>
+<span id="L102"><span class="lineNum">     102</span>                 :<span class="tlaUNC">           0 :     ++next_to_read_blob_index_;</span></span>
+<span id="L103"><span class="lineNum">     103</span>                 :<span class="tlaUNC">           0 :     return absl::OkStatus();</span></span>
+<span id="L104"><span class="lineNum">     104</span>                 :             :   }</span>
+<span id="L105"><span class="lineNum">     105</span>                 :             : </span>
+<span id="L106"><span class="lineNum">     106</span>                 :             :   // Closes the file (it must be open).</span>
+<span id="L107"><span class="lineNum">     107</span>                 :<span class="tlaUNC">           0 :   absl::Status Close() override {</span></span>
+<span id="L108"><span class="lineNum">     108</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (closed_) return absl::FailedPreconditionError(&quot;already closed&quot;);</span></span>
+<span id="L109"><span class="lineNum">     109</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (!file_) return absl::FailedPreconditionError(&quot;was not open&quot;);</span></span>
+<span id="L110"><span class="lineNum">     110</span>                 :<span class="tlaUNC">           0 :     closed_ = true;</span></span>
+<span id="L111"><span class="lineNum">     111</span>                 :             :     // Nothing to do here, we've already closed the underlying file (in Open()).</span>
+<span id="L112"><span class="lineNum">     112</span>                 :<span class="tlaUNC">           0 :     return absl::OkStatus();</span></span>
+<span id="L113"><span class="lineNum">     113</span>                 :             :   }</span>
+<span id="L114"><span class="lineNum">     114</span>                 :             : </span>
+<span id="L115"><span class="lineNum">     115</span>                 :             :  private:</span>
+<span id="L116"><span class="lineNum">     116</span>                 :             :   RemoteFile *file_ = nullptr;</span>
+<span id="L117"><span class="lineNum">     117</span>                 :             :   bool closed_ = false;</span>
+<span id="L118"><span class="lineNum">     118</span>                 :             :   std::vector&lt;ByteArray&gt; unpacked_blobs_;</span>
+<span id="L119"><span class="lineNum">     119</span>                 :             :   size_t next_to_read_blob_index_ = 0;</span>
+<span id="L120"><span class="lineNum">     120</span>                 :             : };</span>
+<span id="L121"><span class="lineNum">     121</span>                 :             : </span>
+<span id="L122"><span class="lineNum">     122</span>                 :             : // See SimpleBlobFileReader.</span>
+<span id="L123"><span class="lineNum">     123</span>                 :             : class SimpleBlobFileWriter : public BlobFileWriter {</span>
+<span id="L124"><span class="lineNum">     124</span>                 :             :  public:</span>
+<span id="L125"><span class="lineNum">     125</span>                 :<span class="tlaUNC">           0 :   ~SimpleBlobFileWriter() override {</span></span>
+<span id="L126"><span class="lineNum">     126</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (file_ &amp;&amp; !closed_) {</span></span>
+<span id="L127"><span class="lineNum">     127</span>                 :             :       // Virtual resolution is off in dtors, so use a specific Close().</span>
+<span id="L128"><span class="lineNum">     128</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :       CHECK_OK(SimpleBlobFileWriter::Close());</span></span>
+<span id="L129"><span class="lineNum">     129</span>                 :             :     }</span>
+<span id="L130"><span class="lineNum">     130</span>                 :<span class="tlaUNC">           0 :   }</span></span>
+<span id="L131"><span class="lineNum">     131</span>                 :             : </span>
+<span id="L132"><span class="lineNum">     132</span>                 :<span class="tlaUNC">           0 :   absl::Status Open(std::string_view path, std::string_view mode) override {</span></span>
+<span id="L133"><span class="lineNum">     133</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :     CHECK(mode == &quot;w&quot; || mode == &quot;a&quot;) &lt;&lt; VV(mode);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span><span class="tlaUNC" title="Branch 6 was not executed"> # </span><span class="tlaUNC" title="Branch 7 was not executed"> # </span><span class="tlaUNC" title="Branch 8 was not executed"> # </span> 
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 9 was not executed"> # </span><span class="tlaUNC" title="Branch 10 was not executed"> # </span><span class="tlaUNC" title="Branch 11 was not executed"> # </span><span class="tlaUNC" title="Branch 12 was not executed"> # </span><span class="tlaUNC" title="Branch 13 was not executed"> # </span> 
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 14 was not executed"> # </span><span class="tlaUNC" title="Branch 15 was not executed"> # </span><span class="tlaUNC" title="Branch 16 was not executed"> # </span><span class="tlaUNC" title="Branch 17 was not executed"> # </span><span class="tlaUNC" title="Branch 18 was not executed"> # </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 19 was not executed"> # </span>]
+<span id="L134"><span class="lineNum">     134</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (closed_) return absl::FailedPreconditionError(&quot;already closed&quot;);</span></span>
+<span id="L135"><span class="lineNum">     135</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (file_) return absl::FailedPreconditionError(&quot;already open&quot;);</span></span>
+<span id="L136"><span class="lineNum">     136</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :     ASSIGN_OR_RETURN_IF_NOT_OK(file_, RemoteFileOpen(path, mode.data()));</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span><span class="tlaUNC" title="Branch 6 was not executed"> # </span><span class="tlaUNC" title="Branch 7 was not executed"> # </span><span class="tlaUNC" title="Branch 8 was not executed"> # </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not executed"> # </span>]
+<span id="L137"><span class="lineNum">     137</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (file_ == nullptr) return absl::UnknownError(&quot;can't open file&quot;);</span></span>
+<span id="L138"><span class="lineNum">     138</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :     RETURN_IF_NOT_OK(RemoteFileSetWriteBufferSize(file_, kMaxBufferedBytes));</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span><span class="tlaUNC" title="Branch 6 was not executed"> # </span><span class="tlaUNC" title="Branch 7 was not executed"> # </span><span class="tlaUNC" title="Branch 8 was not executed"> # </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not executed"> # </span>]
+<span id="L139"><span class="lineNum">     139</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     return absl::OkStatus();</span></span>
+<span id="L140"><span class="lineNum">     140</span>                 :<span class="tlaUNC">           0 :   }</span></span>
+<span id="L141"><span class="lineNum">     141</span>                 :             : </span>
+<span id="L142"><span class="lineNum">     142</span>                 :<span class="tlaUNC">           0 :   absl::Status Write(ByteSpan blob) override {</span></span>
+<span id="L143"><span class="lineNum">     143</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (closed_) return absl::FailedPreconditionError(&quot;already closed&quot;);</span></span>
+<span id="L144"><span class="lineNum">     144</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (!file_) return absl::FailedPreconditionError(&quot;was not open&quot;);</span></span>
+<span id="L145"><span class="lineNum">     145</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     ByteArray packed = PackBytesForAppendFile(blob);</span></span>
+<span id="L146"><span class="lineNum">     146</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :     RETURN_IF_NOT_OK(RemoteFileAppend(file_, packed));</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span><span class="tlaUNC" title="Branch 6 was not executed"> # </span><span class="tlaUNC" title="Branch 7 was not executed"> # </span><span class="tlaUNC" title="Branch 8 was not executed"> # </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not executed"> # </span>]
+<span id="L147"><span class="lineNum">     147</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :     RETURN_IF_NOT_OK(RemoteFileFlush(file_));</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span><span class="tlaUNC" title="Branch 6 was not executed"> # </span><span class="tlaUNC" title="Branch 7 was not executed"> # </span><span class="tlaUNC" title="Branch 8 was not executed"> # </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not executed"> # </span>]
+<span id="L148"><span class="lineNum">     148</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     return absl::OkStatus();</span></span>
+<span id="L149"><span class="lineNum">     149</span>                 :<span class="tlaUNC">           0 :   }</span></span>
+<span id="L150"><span class="lineNum">     150</span>                 :             : </span>
+<span id="L151"><span class="lineNum">     151</span>                 :<span class="tlaUNC">           0 :   absl::Status Close() override {</span></span>
+<span id="L152"><span class="lineNum">     152</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (closed_) return absl::FailedPreconditionError(&quot;already closed&quot;);</span></span>
+<span id="L153"><span class="lineNum">     153</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (!file_) return absl::FailedPreconditionError(&quot;was not open&quot;);</span></span>
+<span id="L154"><span class="lineNum">     154</span>                 :<span class="tlaUNC">           0 :     closed_ = true;</span></span>
+<span id="L155"><span class="lineNum">     155</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :     RETURN_IF_NOT_OK(RemoteFileClose(file_));</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span><span class="tlaUNC" title="Branch 6 was not executed"> # </span><span class="tlaUNC" title="Branch 7 was not executed"> # </span><span class="tlaUNC" title="Branch 8 was not executed"> # </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not executed"> # </span>]
+<span id="L156"><span class="lineNum">     156</span>                 :<span class="tlaUNC">           0 :     return absl::OkStatus();</span></span>
+<span id="L157"><span class="lineNum">     157</span>                 :             :   }</span>
+<span id="L158"><span class="lineNum">     158</span>                 :             : </span>
+<span id="L159"><span class="lineNum">     159</span>                 :             :  private:</span>
+<span id="L160"><span class="lineNum">     160</span>                 :             :   static constexpr uint64_t kMB = 1024UL * 1024UL;</span>
+<span id="L161"><span class="lineNum">     161</span>                 :             :   static constexpr uint64_t kMaxBufferedBytes = 100 * kMB;</span>
+<span id="L162"><span class="lineNum">     162</span>                 :             : </span>
+<span id="L163"><span class="lineNum">     163</span>                 :             :   RemoteFile *file_ = nullptr;</span>
+<span id="L164"><span class="lineNum">     164</span>                 :             :   bool closed_ = false;</span>
+<span id="L165"><span class="lineNum">     165</span>                 :             : };</span>
+<span id="L166"><span class="lineNum">     166</span>                 :             : </span>
+<span id="L167"><span class="lineNum">     167</span>                 :             : // Implementation of `BlobFileReader` that can read files written in legacy or</span>
+<span id="L168"><span class="lineNum">     168</span>                 :             : // Riegeli (https://github.com/google/riegeli) format.</span>
+<span id="L169"><span class="lineNum">     169</span>                 :             : class DefaultBlobFileReader : public BlobFileReader {</span>
+<span id="L170"><span class="lineNum">     170</span>                 :             :  public:</span>
+<span id="L171"><span class="lineNum">     171</span>                 :<span class="tlaUNC">           0 :   ~DefaultBlobFileReader() override {</span></span>
+<span id="L172"><span class="lineNum">     172</span>                 :             :     // Virtual resolution is off in dtors, so use a specific Close().</span>
+<span id="L173"><span class="lineNum">     173</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :     CHECK_OK(DefaultBlobFileReader::Close());</span></span>
+<span id="L174"><span class="lineNum">     174</span>                 :<span class="tlaUNC">           0 :   }</span></span>
+<span id="L175"><span class="lineNum">     175</span>                 :             : </span>
+<span id="L176"><span class="lineNum">     176</span>                 :<span class="tlaUNC">           0 :   absl::Status Open(std::string_view path) override {</span></span>
+<span id="L177"><span class="lineNum">     177</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :     if (absl::Status s = Close(); !s.ok()) return s;</span></span>
+<span class="lineNum">        </span>    <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span><span class="tlaUNC" title="Branch 6 was not executed"> # </span><span class="tlaUNC" title="Branch 7 was not executed"> # </span>]
+<span id="L178"><span class="lineNum">     178</span>                 :             : </span>
+<span id="L179"><span class="lineNum">     179</span>                 :             : #ifndef CENTIPEDE_DISABLE_RIEGELI</span>
+<span id="L180"><span class="lineNum">     180</span>                 :             :     ASSIGN_OR_RETURN_IF_NOT_OK(std::unique_ptr&lt;riegeli::Reader&gt; new_reader,</span>
+<span id="L181"><span class="lineNum">     181</span>                 :             :                                CreateRiegeliFileReader(path));</span>
+<span id="L182"><span class="lineNum">     182</span>                 :             :     riegeli_reader_.Reset(std::move(new_reader));</span>
+<span id="L183"><span class="lineNum">     183</span>                 :             :     if (ABSL_PREDICT_TRUE(riegeli_reader_.CheckFileFormat())) {</span>
+<span id="L184"><span class="lineNum">     184</span>                 :             :       // File could be opened and is in the Riegeli format.</span>
+<span id="L185"><span class="lineNum">     185</span>                 :             :       return absl::OkStatus();</span>
+<span id="L186"><span class="lineNum">     186</span>                 :             :     }</span>
+<span id="L187"><span class="lineNum">     187</span>                 :             :     if (ABSL_PREDICT_FALSE(!riegeli_reader_.src()-&gt;ok())) {</span>
+<span id="L188"><span class="lineNum">     188</span>                 :             :       // File could not be opened.</span>
+<span id="L189"><span class="lineNum">     189</span>                 :             :       return riegeli_reader_.src()-&gt;status();</span>
+<span id="L190"><span class="lineNum">     190</span>                 :             :     }</span>
+<span id="L191"><span class="lineNum">     191</span>                 :             :     // File could be opened but is not in the Riegeli format.</span>
+<span id="L192"><span class="lineNum">     192</span>                 :             :     riegeli_reader_.Reset(riegeli::kClosed);</span>
+<span id="L193"><span class="lineNum">     193</span>                 :             : #endif  // CENTIPEDE_DISABLE_RIEGELI</span>
+<span id="L194"><span class="lineNum">     194</span>                 :             : </span>
+<span id="L195"><span class="lineNum">     195</span>                 :             :     // Because we fall back to a legacy reader, we can't distinguish between</span>
+<span id="L196"><span class="lineNum">     196</span>                 :             :     // an empty blob file and a file that is not a blob file. Once this behavior</span>
+<span id="L197"><span class="lineNum">     197</span>                 :             :     // changes (e.g., we get rid of the legacy reader), consider b/349115475 and</span>
+<span id="L198"><span class="lineNum">     198</span>                 :             :     // track down places that would benefit from this distinction.</span>
+<span id="L199"><span class="lineNum">     199</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     legacy_reader_ = std::make_unique&lt;SimpleBlobFileReader&gt;();</span></span>
+<span id="L200"><span class="lineNum">     200</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :     if (absl::Status s = legacy_reader_-&gt;Open(path); !s.ok()) {</span></span>
+<span class="lineNum">        </span>          <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span>]
+<span id="L201"><span class="lineNum">     201</span>                 :<span class="tlaUNC">           0 :       legacy_reader_ = nullptr;</span></span>
+<span id="L202"><span class="lineNum">     202</span>                 :<span class="tlaUNC">           0 :       return s;</span></span>
+<span id="L203"><span class="lineNum">     203</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     }</span></span>
+<span id="L204"><span class="lineNum">     204</span>                 :<span class="tlaUNC">           0 :     return absl::OkStatus();</span></span>
+<span id="L205"><span class="lineNum">     205</span>                 :             :   }</span>
+<span id="L206"><span class="lineNum">     206</span>                 :             : </span>
+<span id="L207"><span class="lineNum">     207</span>                 :<span class="tlaUNC">           0 :   absl::Status Read(ByteSpan &amp;blob) override {</span></span>
+<span id="L208"><span class="lineNum">     208</span>                 :             : #ifdef CENTIPEDE_DISABLE_RIEGELI</span>
+<span id="L209"><span class="lineNum">     209</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (legacy_reader_)</span></span>
+<span id="L210"><span class="lineNum">     210</span>                 :<span class="tlaUNC">           0 :       return legacy_reader_-&gt;Read(blob);</span></span>
+<span id="L211"><span class="lineNum">     211</span>                 :             :     else</span>
+<span id="L212"><span class="lineNum">     212</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       return absl::FailedPreconditionError(&quot;no reader open&quot;);</span></span>
+<span id="L213"><span class="lineNum">     213</span>                 :             : #else</span>
+<span id="L214"><span class="lineNum">     214</span>                 :             :     if (ABSL_PREDICT_FALSE(legacy_reader_)) return legacy_reader_-&gt;Read(blob);</span>
+<span id="L215"><span class="lineNum">     215</span>                 :             : </span>
+<span id="L216"><span class="lineNum">     216</span>                 :             :     absl::string_view record;</span>
+<span id="L217"><span class="lineNum">     217</span>                 :             :     if (!riegeli_reader_.ReadRecord(record)) {</span>
+<span id="L218"><span class="lineNum">     218</span>                 :             :       if (riegeli_reader_.ok())</span>
+<span id="L219"><span class="lineNum">     219</span>                 :             :         return absl::OutOfRangeError(&quot;no more blobs&quot;);</span>
+<span id="L220"><span class="lineNum">     220</span>                 :             :       else</span>
+<span id="L221"><span class="lineNum">     221</span>                 :             :         return riegeli_reader_.status();</span>
+<span id="L222"><span class="lineNum">     222</span>                 :             :     }</span>
+<span id="L223"><span class="lineNum">     223</span>                 :             :     blob = AsByteSpan(record);</span>
+<span id="L224"><span class="lineNum">     224</span>                 :             :     return absl::OkStatus();</span>
+<span id="L225"><span class="lineNum">     225</span>                 :             : #endif  // CENTIPEDE_DISABLE_RIEGELI</span>
+<span id="L226"><span class="lineNum">     226</span>                 :             :   }</span>
+<span id="L227"><span class="lineNum">     227</span>                 :             : </span>
+<span id="L228"><span class="lineNum">     228</span>                 :<span class="tlaUNC">           0 :   absl::Status Close() override {</span></span>
+<span id="L229"><span class="lineNum">     229</span>                 :             : #ifdef CENTIPEDE_DISABLE_RIEGELI</span>
+<span id="L230"><span class="lineNum">     230</span>                 :<span class="tlaUNC">           0 :     legacy_reader_ = nullptr;</span></span>
+<span id="L231"><span class="lineNum">     231</span>                 :<span class="tlaUNC">           0 :     return absl::OkStatus();</span></span>
+<span id="L232"><span class="lineNum">     232</span>                 :             : #else</span>
+<span id="L233"><span class="lineNum">     233</span>                 :             :     if (ABSL_PREDICT_FALSE(legacy_reader_)) {</span>
+<span id="L234"><span class="lineNum">     234</span>                 :             :       legacy_reader_ = nullptr;</span>
+<span id="L235"><span class="lineNum">     235</span>                 :             :       return absl::OkStatus();</span>
+<span id="L236"><span class="lineNum">     236</span>                 :             :     }</span>
+<span id="L237"><span class="lineNum">     237</span>                 :             : </span>
+<span id="L238"><span class="lineNum">     238</span>                 :             :     // `riegeli_reader_` not being ok will result in `Close()` failing, but its</span>
+<span id="L239"><span class="lineNum">     239</span>                 :             :     // non-ok status stems from a previously failed operation in an `Open()` or</span>
+<span id="L240"><span class="lineNum">     240</span>                 :             :     // `Read()` call whose errors were already propagated there - these are</span>
+<span id="L241"><span class="lineNum">     241</span>                 :             :     // therefore filtered out here.</span>
+<span id="L242"><span class="lineNum">     242</span>                 :             :     // `Close()` failing on an ok reader is due to the file being in an invalid</span>
+<span id="L243"><span class="lineNum">     243</span>                 :             :     // state that primarily arises from an incomplete concurrent write (which</span>
+<span id="L244"><span class="lineNum">     244</span>                 :             :     // can happen even with every write being flushed - see comment in</span>
+<span id="L245"><span class="lineNum">     245</span>                 :             :     // `RiegeliWriter::Write()`) - these are therefore logged but not propagated</span>
+<span id="L246"><span class="lineNum">     246</span>                 :             :     // as failures.</span>
+<span id="L247"><span class="lineNum">     247</span>                 :             :     // TODO(b/313706444): Reconsider error handling after experiments.</span>
+<span id="L248"><span class="lineNum">     248</span>                 :             :     // TODO(b/310701588): Try adding a test for this.</span>
+<span id="L249"><span class="lineNum">     249</span>                 :             :     if (riegeli_reader_.ok() &amp;&amp; !riegeli_reader_.Close()) {</span>
+<span id="L250"><span class="lineNum">     250</span>                 :             :       LOG(WARNING) &lt;&lt; &quot;Ignoring errors while closing Riegeli file: &quot;</span>
+<span id="L251"><span class="lineNum">     251</span>                 :             :                    &lt;&lt; riegeli_reader_.status();</span>
+<span id="L252"><span class="lineNum">     252</span>                 :             :     }</span>
+<span id="L253"><span class="lineNum">     253</span>                 :             :     // Any non-ok status of `riegeli_reader_` persists for subsequent</span>
+<span id="L254"><span class="lineNum">     254</span>                 :             :     // operations; therefore, re-initialize it to a closed ok state.</span>
+<span id="L255"><span class="lineNum">     255</span>                 :             :     riegeli_reader_.Reset(riegeli::kClosed);</span>
+<span id="L256"><span class="lineNum">     256</span>                 :             :     return absl::OkStatus();</span>
+<span id="L257"><span class="lineNum">     257</span>                 :             : #endif  // CENTIPEDE_DISABLE_RIEGELI</span>
+<span id="L258"><span class="lineNum">     258</span>                 :             :   }</span>
+<span id="L259"><span class="lineNum">     259</span>                 :             : </span>
+<span id="L260"><span class="lineNum">     260</span>                 :             :  private:</span>
+<span id="L261"><span class="lineNum">     261</span>                 :             :   std::unique_ptr&lt;SimpleBlobFileReader&gt; legacy_reader_ = nullptr;</span>
+<span id="L262"><span class="lineNum">     262</span>                 :             : #ifndef CENTIPEDE_DISABLE_RIEGELI</span>
+<span id="L263"><span class="lineNum">     263</span>                 :             :   riegeli::RecordReader&lt;std::unique_ptr&lt;riegeli::Reader&gt;&gt; riegeli_reader_{</span>
+<span id="L264"><span class="lineNum">     264</span>                 :             :       riegeli::kClosed};</span>
+<span id="L265"><span class="lineNum">     265</span>                 :             : #endif  // CENTIPEDE_DISABLE_RIEGELI</span>
+<span id="L266"><span class="lineNum">     266</span>                 :             : };</span>
+<span id="L267"><span class="lineNum">     267</span>                 :             : </span>
+<span id="L268"><span class="lineNum">     268</span>                 :             : #ifndef CENTIPEDE_DISABLE_RIEGELI</span>
+<span id="L269"><span class="lineNum">     269</span>                 :             : // Implementation of `BlobFileWriter` using Riegeli</span>
+<span id="L270"><span class="lineNum">     270</span>                 :             : // (https://github.com/google/riegeli).</span>
+<span id="L271"><span class="lineNum">     271</span>                 :             : class RiegeliWriter : public BlobFileWriter {</span>
+<span id="L272"><span class="lineNum">     272</span>                 :             :  public:</span>
+<span id="L273"><span class="lineNum">     273</span>                 :             :   ~RiegeliWriter() override {</span>
+<span id="L274"><span class="lineNum">     274</span>                 :             :     // Virtual resolution is off in dtors, so use a specific Close().</span>
+<span id="L275"><span class="lineNum">     275</span>                 :             :     CHECK_OK(RiegeliWriter::Close());</span>
+<span id="L276"><span class="lineNum">     276</span>                 :             :   }</span>
+<span id="L277"><span class="lineNum">     277</span>                 :             : </span>
+<span id="L278"><span class="lineNum">     278</span>                 :             :   absl::Status Open(std::string_view path, std::string_view mode) override {</span>
+<span id="L279"><span class="lineNum">     279</span>                 :             :     CHECK(mode == &quot;w&quot; || mode == &quot;a&quot;) &lt;&lt; VV(mode);</span>
+<span id="L280"><span class="lineNum">     280</span>                 :             :     if (absl::Status s = Close(); !s.ok()) return s;</span>
+<span id="L281"><span class="lineNum">     281</span>                 :             :     const auto kWriterOpts =</span>
+<span id="L282"><span class="lineNum">     282</span>                 :             :         riegeli::RecordWriterBase::Options{}.set_chunk_size(kMaxBufferedBytes);</span>
+<span id="L283"><span class="lineNum">     283</span>                 :             :     ASSIGN_OR_RETURN_IF_NOT_OK(std::unique_ptr&lt;riegeli::Writer&gt; new_writer,</span>
+<span id="L284"><span class="lineNum">     284</span>                 :             :                                CreateRiegeliFileWriter(path, mode == &quot;a&quot;));</span>
+<span id="L285"><span class="lineNum">     285</span>                 :             :     writer_.Reset(std::move(new_writer), kWriterOpts);</span>
+<span id="L286"><span class="lineNum">     286</span>                 :             :     RETURN_IF_NOT_OK(writer_.status());</span>
+<span id="L287"><span class="lineNum">     287</span>                 :             :     path_ = path;</span>
+<span id="L288"><span class="lineNum">     288</span>                 :             :     opened_at_ = absl::Now();</span>
+<span id="L289"><span class="lineNum">     289</span>                 :             :     flushed_at_ = absl::Now();</span>
+<span id="L290"><span class="lineNum">     290</span>                 :             :     written_blobs_ = 0;</span>
+<span id="L291"><span class="lineNum">     291</span>                 :             :     written_bytes_ = 0;</span>
+<span id="L292"><span class="lineNum">     292</span>                 :             :     buffered_blobs_ = 0;</span>
+<span id="L293"><span class="lineNum">     293</span>                 :             :     buffered_bytes_ = 0;</span>
+<span id="L294"><span class="lineNum">     294</span>                 :             :     return absl::OkStatus();</span>
+<span id="L295"><span class="lineNum">     295</span>                 :             :   }</span>
+<span id="L296"><span class="lineNum">     296</span>                 :             : </span>
+<span id="L297"><span class="lineNum">     297</span>                 :             :   absl::Status Write(ByteSpan blob) override {</span>
+<span id="L298"><span class="lineNum">     298</span>                 :             :     std::string_view blob_view = AsStringView(blob);</span>
+<span id="L299"><span class="lineNum">     299</span>                 :             :     const auto now = absl::Now();</span>
+<span id="L300"><span class="lineNum">     300</span>                 :             :     if (!PreWriteFlush(blob.size())) return writer_.status();</span>
+<span id="L301"><span class="lineNum">     301</span>                 :             :     if (!writer_.WriteRecord(</span>
+<span id="L302"><span class="lineNum">     302</span>                 :             :             absl::string_view{blob_view.data(), blob_view.size()})) {</span>
+<span id="L303"><span class="lineNum">     303</span>                 :             :       return writer_.status();</span>
+<span id="L304"><span class="lineNum">     304</span>                 :             :     }</span>
+<span id="L305"><span class="lineNum">     305</span>                 :             :     if (!PostWriteFlush(blob.size())) return writer_.status();</span>
+<span id="L306"><span class="lineNum">     306</span>                 :             :     write_duration_ += absl::Now() - now;</span>
+<span id="L307"><span class="lineNum">     307</span>                 :             :     if (written_blobs_ + buffered_blobs_ % 10000 == 0)</span>
+<span id="L308"><span class="lineNum">     308</span>                 :             :       VLOG(10) &lt;&lt; &quot;Current stats: &quot; &lt;&lt; StatsString();</span>
+<span id="L309"><span class="lineNum">     309</span>                 :             :     return absl::OkStatus();</span>
+<span id="L310"><span class="lineNum">     310</span>                 :             :   }</span>
+<span id="L311"><span class="lineNum">     311</span>                 :             : </span>
+<span id="L312"><span class="lineNum">     312</span>                 :             :   absl::Status Close() override {</span>
+<span id="L313"><span class="lineNum">     313</span>                 :             :     // Writer already being in a bad state will result in close failure but</span>
+<span id="L314"><span class="lineNum">     314</span>                 :             :     // those errors have already been reported.</span>
+<span id="L315"><span class="lineNum">     315</span>                 :             :     if (!writer_.ok()) {</span>
+<span id="L316"><span class="lineNum">     316</span>                 :             :       writer_.Reset(riegeli::kClosed);</span>
+<span id="L317"><span class="lineNum">     317</span>                 :             :       return absl::OkStatus();</span>
+<span id="L318"><span class="lineNum">     318</span>                 :             :     }</span>
+<span id="L319"><span class="lineNum">     319</span>                 :             :     if (!writer_.Close()) return writer_.status();</span>
+<span id="L320"><span class="lineNum">     320</span>                 :             :     flushed_at_ = absl::Now();</span>
+<span id="L321"><span class="lineNum">     321</span>                 :             :     written_blobs_ += buffered_blobs_;</span>
+<span id="L322"><span class="lineNum">     322</span>                 :             :     written_bytes_ += buffered_bytes_;</span>
+<span id="L323"><span class="lineNum">     323</span>                 :             :     buffered_blobs_ = 0;</span>
+<span id="L324"><span class="lineNum">     324</span>                 :             :     buffered_bytes_ = 0;</span>
+<span id="L325"><span class="lineNum">     325</span>                 :             :     VLOG(1) &lt;&lt; &quot;Final stats: &quot; &lt;&lt; StatsString();</span>
+<span id="L326"><span class="lineNum">     326</span>                 :             :     return absl::OkStatus();</span>
+<span id="L327"><span class="lineNum">     327</span>                 :             :   }</span>
+<span id="L328"><span class="lineNum">     328</span>                 :             : </span>
+<span id="L329"><span class="lineNum">     329</span>                 :             :  private:</span>
+<span id="L330"><span class="lineNum">     330</span>                 :             :   static constexpr uint64_t kMB = 1024UL * 1024UL;</span>
+<span id="L331"><span class="lineNum">     331</span>                 :             :   // Buffering/flushing control settings. The defaults were chosen based on</span>
+<span id="L332"><span class="lineNum">     332</span>                 :             :   // experimental runs and intuition with the idea to balance good buffering</span>
+<span id="L333"><span class="lineNum">     333</span>                 :             :   // performance and a steady stream of blobs being committed to the file, so</span>
+<span id="L334"><span class="lineNum">     334</span>                 :             :   // external readers see updates frequently enough.</span>
+<span id="L335"><span class="lineNum">     335</span>                 :             :   // TODO(ussuri): Once Riegeli is the sole blob writer, maybe expose these</span>
+<span id="L336"><span class="lineNum">     336</span>                 :             :   // as Centipede flags and plumb them through `DefaultBlobFileWriterFactory()`.</span>
+<span id="L337"><span class="lineNum">     337</span>                 :             :   static constexpr uint64_t kMaxBufferedBlobs = 10000;</span>
+<span id="L338"><span class="lineNum">     338</span>                 :             :   // Riegeli's default is 1 MB.</span>
+<span id="L339"><span class="lineNum">     339</span>                 :             :   static constexpr uint64_t kMaxBufferedBytes = 100 * kMB;</span>
+<span id="L340"><span class="lineNum">     340</span>                 :             :   static constexpr absl::Duration kMaxFlushInterval = absl::Minutes(1);</span>
+<span id="L341"><span class="lineNum">     341</span>                 :             :   // For each record, Riegeli also writes its offset in the stream to the file.</span>
+<span id="L342"><span class="lineNum">     342</span>                 :             :   static constexpr size_t kRiegeliPerRecordMetadataSize = sizeof(uint64_t);</span>
+<span id="L343"><span class="lineNum">     343</span>                 :             : </span>
+<span id="L344"><span class="lineNum">     344</span>                 :             :   // Riegeli's automatic flushing occurs when it accumulates over</span>
+<span id="L345"><span class="lineNum">     345</span>                 :             :   // `Options::chunk_size()` of data, not on record boundaries. Our outputs</span>
+<span id="L346"><span class="lineNum">     346</span>                 :             :   // are continuously consumed by external readers, so we can't tolerate</span>
+<span id="L347"><span class="lineNum">     347</span>                 :             :   // partially written records at the end of a file. Therefore, we explicitly</span>
+<span id="L348"><span class="lineNum">     348</span>                 :             :   // flush when we're just about to cross the chunk size boundary, or if the</span>
+<span id="L349"><span class="lineNum">     349</span>                 :             :   // client writes infrequently, or if the size of records is small relative</span>
+<span id="L350"><span class="lineNum">     350</span>                 :             :   // to the chunk size. The latter two cases are to make the data visible to</span>
+<span id="L351"><span class="lineNum">     351</span>                 :             :   // readers earlier; however, note that the compression performance may</span>
+<span id="L352"><span class="lineNum">     352</span>                 :             :   // suffer.</span>
+<span id="L353"><span class="lineNum">     353</span>                 :             :   bool PreWriteFlush(size_t blob_size) {</span>
+<span id="L354"><span class="lineNum">     354</span>                 :             :     const auto record_size = blob_size + kRiegeliPerRecordMetadataSize;</span>
+<span id="L355"><span class="lineNum">     355</span>                 :             :     const std::string_view flush_reason =</span>
+<span id="L356"><span class="lineNum">     356</span>                 :             :         (buffered_blobs_ &gt; kMaxBufferedBlobs)                 ? &quot;blobs&quot;</span>
+<span id="L357"><span class="lineNum">     357</span>                 :             :         : (buffered_bytes_ + record_size &gt; kMaxBufferedBytes) ? &quot;bytes&quot;</span>
+<span id="L358"><span class="lineNum">     358</span>                 :             :         : (absl::Now() - flushed_at_ &gt; kMaxFlushInterval)     ? &quot;time&quot;</span>
+<span id="L359"><span class="lineNum">     359</span>                 :             :                                                               : &quot;&quot;;</span>
+<span id="L360"><span class="lineNum">     360</span>                 :             :     if (!flush_reason.empty()) {</span>
+<span id="L361"><span class="lineNum">     361</span>                 :             :       VLOG(20) &lt;&lt; &quot;Flushing b/c &quot; &lt;&lt; flush_reason &lt;&lt; &quot;: &quot; &lt;&lt; StatsString();</span>
+<span id="L362"><span class="lineNum">     362</span>                 :             :       if (!writer_.Flush(riegeli::FlushType::kFromMachine)) return false;</span>
+<span id="L363"><span class="lineNum">     363</span>                 :             :       flushed_at_ = absl::Now();</span>
+<span id="L364"><span class="lineNum">     364</span>                 :             :       written_blobs_ += buffered_blobs_;</span>
+<span id="L365"><span class="lineNum">     365</span>                 :             :       written_bytes_ += buffered_bytes_;</span>
+<span id="L366"><span class="lineNum">     366</span>                 :             :       buffered_blobs_ = 0;</span>
+<span id="L367"><span class="lineNum">     367</span>                 :             :       buffered_bytes_ = 0;</span>
+<span id="L368"><span class="lineNum">     368</span>                 :             :     }</span>
+<span id="L369"><span class="lineNum">     369</span>                 :             :     return true;</span>
+<span id="L370"><span class="lineNum">     370</span>                 :             :   }</span>
+<span id="L371"><span class="lineNum">     371</span>                 :             : </span>
+<span id="L372"><span class="lineNum">     372</span>                 :             :   // In the rare case where the current blob itself exceeds the chunk size,</span>
+<span id="L373"><span class="lineNum">     373</span>                 :             :   // `Write()` will auto-flush a portion of it to the file, but the remainder</span>
+<span id="L374"><span class="lineNum">     374</span>                 :             :   // will remain in the buffer, so we need to force-flush it to maintain file</span>
+<span id="L375"><span class="lineNum">     375</span>                 :             :   // completeness.</span>
+<span id="L376"><span class="lineNum">     376</span>                 :             :   bool PostWriteFlush(size_t blob_size) {</span>
+<span id="L377"><span class="lineNum">     377</span>                 :             :     const auto record_size = blob_size + kRiegeliPerRecordMetadataSize;</span>
+<span id="L378"><span class="lineNum">     378</span>                 :             :     if (record_size &gt;= kMaxBufferedBytes) {</span>
+<span id="L379"><span class="lineNum">     379</span>                 :             :       VLOG(20) &lt;&lt; &quot;Post-write flushing b/c blob size: &quot; &lt;&lt; StatsString();</span>
+<span id="L380"><span class="lineNum">     380</span>                 :             :       if (!writer_.Flush(riegeli::FlushType::kFromMachine)) return false;</span>
+<span id="L381"><span class="lineNum">     381</span>                 :             :       flushed_at_ = absl::Now();</span>
+<span id="L382"><span class="lineNum">     382</span>                 :             :       written_blobs_ += 1;</span>
+<span id="L383"><span class="lineNum">     383</span>                 :             :       written_bytes_ += record_size;</span>
+<span id="L384"><span class="lineNum">     384</span>                 :             :       buffered_blobs_ = 0;</span>
+<span id="L385"><span class="lineNum">     385</span>                 :             :       buffered_bytes_ = 0;</span>
+<span id="L386"><span class="lineNum">     386</span>                 :             :     } else {</span>
+<span id="L387"><span class="lineNum">     387</span>                 :             :       buffered_blobs_ += 1;</span>
+<span id="L388"><span class="lineNum">     388</span>                 :             :       buffered_bytes_ += record_size;</span>
+<span id="L389"><span class="lineNum">     389</span>                 :             :     }</span>
+<span id="L390"><span class="lineNum">     390</span>                 :             :     return true;</span>
+<span id="L391"><span class="lineNum">     391</span>                 :             :   }</span>
+<span id="L392"><span class="lineNum">     392</span>                 :             : </span>
+<span id="L393"><span class="lineNum">     393</span>                 :             :   // Returns a debug string with the effective writing rate for the current file</span>
+<span id="L394"><span class="lineNum">     394</span>                 :             :   // path. The effective rate is measured as a ratio of the total bytes passed</span>
+<span id="L395"><span class="lineNum">     395</span>                 :             :   // to `Write()` and the elapsed time from the file opening till now.</span>
+<span id="L396"><span class="lineNum">     396</span>                 :             :   std::string StatsString() const {</span>
+<span id="L397"><span class="lineNum">     397</span>                 :             :     const auto opened_secs = absl::ToDoubleSeconds(absl::Now() - opened_at_);</span>
+<span id="L398"><span class="lineNum">     398</span>                 :             :     const auto write_secs = absl::ToDoubleSeconds(write_duration_);</span>
+<span id="L399"><span class="lineNum">     399</span>                 :             :     const auto total_bytes = written_bytes_ + buffered_bytes_;</span>
+<span id="L400"><span class="lineNum">     400</span>                 :             :     const auto throughput =</span>
+<span id="L401"><span class="lineNum">     401</span>                 :             :         write_secs &gt; 0.0 ? (1.0 * total_bytes / write_secs) : 0;</span>
+<span id="L402"><span class="lineNum">     402</span>                 :             :     const auto file_size = writer_.EstimatedSize();</span>
+<span id="L403"><span class="lineNum">     403</span>                 :             :     const auto compression =</span>
+<span id="L404"><span class="lineNum">     404</span>                 :             :         file_size &gt; 0 ? (1.0 * written_bytes_ / file_size) : 0;</span>
+<span id="L405"><span class="lineNum">     405</span>                 :             :     std::string stats = absl::StrFormat(</span>
+<span id="L406"><span class="lineNum">     406</span>                 :             :         &quot;written/buffered blobs: %llu/%llu, written/buffered bytes: %llu/%llu, &quot;</span>
+<span id="L407"><span class="lineNum">     407</span>                 :             :         &quot;opened: %f sec, writing: %f sec, throughput: %.0f B/sec, &quot;</span>
+<span id="L408"><span class="lineNum">     408</span>                 :             :         &quot;file size: %llu, compression: %.1f, path: %s&quot;,</span>
+<span id="L409"><span class="lineNum">     409</span>                 :             :         written_blobs_, buffered_blobs_, written_bytes_, buffered_bytes_,</span>
+<span id="L410"><span class="lineNum">     410</span>                 :             :         opened_secs, write_secs, throughput, file_size, compression, path_);</span>
+<span id="L411"><span class="lineNum">     411</span>                 :             :     return stats;</span>
+<span id="L412"><span class="lineNum">     412</span>                 :             :   }</span>
+<span id="L413"><span class="lineNum">     413</span>                 :             : </span>
+<span id="L414"><span class="lineNum">     414</span>                 :             :   // The underlying Riegeli writer.</span>
+<span id="L415"><span class="lineNum">     415</span>                 :             :   riegeli::RecordWriter&lt;std::unique_ptr&lt;riegeli::Writer&gt;&gt; writer_{</span>
+<span id="L416"><span class="lineNum">     416</span>                 :             :       riegeli::kClosed};</span>
+<span id="L417"><span class="lineNum">     417</span>                 :             : </span>
+<span id="L418"><span class="lineNum">     418</span>                 :             :   // Buffering/flushing control.</span>
+<span id="L419"><span class="lineNum">     419</span>                 :             :   absl::Time flushed_at_ = absl::InfiniteFuture();</span>
+<span id="L420"><span class="lineNum">     420</span>                 :             :   uint64_t buffered_blobs_ = 0;</span>
+<span id="L421"><span class="lineNum">     421</span>                 :             :   uint64_t buffered_bytes_ = 0;</span>
+<span id="L422"><span class="lineNum">     422</span>                 :             : </span>
+<span id="L423"><span class="lineNum">     423</span>                 :             :   // Telemetry.</span>
+<span id="L424"><span class="lineNum">     424</span>                 :             :   std::string path_;</span>
+<span id="L425"><span class="lineNum">     425</span>                 :             :   absl::Time opened_at_ = absl::InfiniteFuture();</span>
+<span id="L426"><span class="lineNum">     426</span>                 :             :   absl::Duration write_duration_ = absl::ZeroDuration();</span>
+<span id="L427"><span class="lineNum">     427</span>                 :             :   uint64_t written_blobs_ = 0;</span>
+<span id="L428"><span class="lineNum">     428</span>                 :             :   uint64_t written_bytes_ = 0;</span>
+<span id="L429"><span class="lineNum">     429</span>                 :             : };</span>
+<span id="L430"><span class="lineNum">     430</span>                 :             : #endif  // CENTIPEDE_DISABLE_RIEGELI</span>
+<span id="L431"><span class="lineNum">     431</span>                 :             : </span>
+<span id="L432"><span class="lineNum">     432</span>                 :             : }  // namespace</span>
+<span id="L433"><span class="lineNum">     433</span>                 :             : </span>
+<span id="L434"><span class="lineNum">     434</span>                 :             : // Pack 'data' such that it can be appended to a file and later extracted:</span>
+<span id="L435"><span class="lineNum">     435</span>                 :             : //   * kPackBegMagic</span>
+<span id="L436"><span class="lineNum">     436</span>                 :             : //   * hash(data)</span>
+<span id="L437"><span class="lineNum">     437</span>                 :             : //   * data.size() (8 bytes)</span>
+<span id="L438"><span class="lineNum">     438</span>                 :             : //   * data itself</span>
+<span id="L439"><span class="lineNum">     439</span>                 :             : //   * kPackEndMagic</span>
+<span id="L440"><span class="lineNum">     440</span>                 :             : // Storing the magics and the hash is a precaution against partial writes.</span>
+<span id="L441"><span class="lineNum">     441</span>                 :             : // UnpackBytesFromAppendFile looks for the kPackBegMagic and so</span>
+<span id="L442"><span class="lineNum">     442</span>                 :             : // it will ignore any partially-written data.</span>
+<span id="L443"><span class="lineNum">     443</span>                 :             : //</span>
+<span id="L444"><span class="lineNum">     444</span>                 :             : // This is simple and efficient, but I wonder if there is a ready-to-use</span>
+<span id="L445"><span class="lineNum">     445</span>                 :             : // standard open-source alternative. Or should we just use tar?</span>
+<span id="L446"><span class="lineNum">     446</span>                 :<span class="tlaUNC">           0 : ByteArray PackBytesForAppendFile(ByteSpan blob) {</span></span>
+<span id="L447"><span class="lineNum">     447</span>                 :<span class="tlaUNC">           0 :   ByteArray res;</span></span>
+<span id="L448"><span class="lineNum">     448</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   auto hash = Hash(blob);</span></span>
+<span id="L449"><span class="lineNum">     449</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :   CHECK_EQ(hash.size(), kHashLen);</span></span>
+<span class="lineNum">        </span>    <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span><span class="tlaUNC" title="Branch 6 was not executed"> # </span><span class="tlaUNC" title="Branch 7 was not executed"> # </span>]
+<span id="L450"><span class="lineNum">     450</span>                 :<span class="tlaUNC">           0 :   size_t size = blob.size();</span></span>
+<span id="L451"><span class="lineNum">     451</span>                 :             :   uint8_t size_bytes[sizeof(size)];</span>
+<span id="L452"><span class="lineNum">     452</span>                 :<span class="tlaUNC">           0 :   std::memcpy(size_bytes, &amp;size, sizeof(size));</span></span>
+<span id="L453"><span class="lineNum">     453</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   res.insert(res.end(), std::begin(kPackBegMagic),</span></span>
+<span id="L454"><span class="lineNum">     454</span>                 :<span class="tlaUNC">           0 :              std::begin(kPackBegMagic) + kMagicLen);</span></span>
+<span id="L455"><span class="lineNum">     455</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   res.insert(res.end(), hash.begin(), hash.end());</span></span>
+<span id="L456"><span class="lineNum">     456</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   res.insert(res.end(), std::begin(size_bytes), std::end(size_bytes));</span></span>
+<span id="L457"><span class="lineNum">     457</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   res.insert(res.end(), blob.begin(), blob.end());</span></span>
+<span id="L458"><span class="lineNum">     458</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   res.insert(res.end(), std::begin(kPackEndMagic),</span></span>
+<span id="L459"><span class="lineNum">     459</span>                 :<span class="tlaUNC">           0 :              std::begin(kPackEndMagic) + kMagicLen);</span></span>
+<span id="L460"><span class="lineNum">     460</span>                 :<span class="tlaUNC">           0 :   return res;</span></span>
+<span id="L461"><span class="lineNum">     461</span>                 :<span class="tlaUNC">           0 : }</span></span>
+<span id="L462"><span class="lineNum">     462</span>                 :             : </span>
+<span id="L463"><span class="lineNum">     463</span>                 :             : // Reverse to a sequence of PackBytesForAppendFile() appended to each other.</span>
+<span id="L464"><span class="lineNum">     464</span>                 :<span class="tlaUNC">           0 : void UnpackBytesFromAppendFile(const ByteArray &amp;packed_data,</span></span>
+<span id="L465"><span class="lineNum">     465</span>                 :             :                                std::vector&lt;ByteArray&gt; *absl_nullable unpacked,</span>
+<span id="L466"><span class="lineNum">     466</span>                 :             :                                std::vector&lt;std::string&gt; *absl_nullable hashes) {</span>
+<span id="L467"><span class="lineNum">     467</span>                 :<span class="tlaUNC">           0 :   auto pos = packed_data.cbegin();</span></span>
+<span id="L468"><span class="lineNum">     468</span>                 :             :   while (true) {</span>
+<span id="L469"><span class="lineNum">     469</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     pos = std::search(pos, packed_data.end(), &amp;kPackBegMagic[0],</span></span>
+<span id="L470"><span class="lineNum">     470</span>                 :<span class="tlaUNC">           0 :                       &amp;kPackBegMagic[kMagicLen]);</span></span>
+<span id="L471"><span class="lineNum">     471</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (pos == packed_data.end()) return;</span></span>
+<span id="L472"><span class="lineNum">     472</span>                 :<span class="tlaUNC">           0 :     pos += kMagicLen;</span></span>
+<span id="L473"><span class="lineNum">     473</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (packed_data.end() - pos &lt; kHashLen) return;</span></span>
+<span id="L474"><span class="lineNum">     474</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     std::string hash(pos, pos + kHashLen);</span></span>
+<span id="L475"><span class="lineNum">     475</span>                 :<span class="tlaUNC">           0 :     pos += kHashLen;</span></span>
+<span id="L476"><span class="lineNum">     476</span>                 :<span class="tlaUNC">           0 :     size_t size = 0;</span></span>
+<span id="L477"><span class="lineNum">     477</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (packed_data.end() - pos &lt; sizeof(size)) return;</span></span>
+<span id="L478"><span class="lineNum">     478</span>                 :<span class="tlaUNC">           0 :     std::memcpy(&amp;size, &amp;*pos, sizeof(size));</span></span>
+<span id="L479"><span class="lineNum">     479</span>                 :<span class="tlaUNC">           0 :     pos += sizeof(size);</span></span>
+<span id="L480"><span class="lineNum">     480</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (packed_data.end() - pos &lt; size) return;</span></span>
+<span id="L481"><span class="lineNum">     481</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     ByteArray ba(pos, pos + size);</span></span>
+<span id="L482"><span class="lineNum">     482</span>                 :<span class="tlaUNC">           0 :     pos += size;</span></span>
+<span id="L483"><span class="lineNum">     483</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (packed_data.end() - pos &lt; kMagicLen) return;</span></span>
+<span id="L484"><span class="lineNum">     484</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (std::memcmp(&amp;*pos, kPackEndMagic, kMagicLen) != 0) continue;</span></span>
+<span id="L485"><span class="lineNum">     485</span>                 :<span class="tlaUNC">           0 :     pos += kMagicLen;</span></span>
+<span id="L486"><span class="lineNum">     486</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (hash != Hash(ba)) continue;</span></span>
+<span id="L487"><span class="lineNum">     487</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (unpacked) unpacked-&gt;push_back(std::move(ba));</span></span>
+<span id="L488"><span class="lineNum">     488</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (hashes) hashes-&gt;push_back(std::move(hash));</span></span>
+<span id="L489"><span class="lineNum">     489</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :   }</span></span>
+<span class="lineNum">        </span>          <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span>]
+<span id="L490"><span class="lineNum">     490</span>                 :             : }</span>
+<span id="L491"><span class="lineNum">     491</span>                 :             : </span>
+<span id="L492"><span class="lineNum">     492</span>                 :<span class="tlaUNC">           0 : std::unique_ptr&lt;BlobFileReader&gt; DefaultBlobFileReaderFactory() {</span></span>
+<span id="L493"><span class="lineNum">     493</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   return std::make_unique&lt;DefaultBlobFileReader&gt;();</span></span>
+<span id="L494"><span class="lineNum">     494</span>                 :             : }</span>
+<span id="L495"><span class="lineNum">     495</span>                 :             : </span>
+<span id="L496"><span class="lineNum">     496</span>                 :<span class="tlaUNC">           0 : std::unique_ptr&lt;BlobFileWriter&gt; DefaultBlobFileWriterFactory(bool riegeli) {</span></span>
+<span id="L497"><span class="lineNum">     497</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   if (riegeli)</span></span>
+<span id="L498"><span class="lineNum">     498</span>                 :             : #ifdef CENTIPEDE_DISABLE_RIEGELI</span>
+<span id="L499"><span class="lineNum">     499</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :     LOG(FATAL) &lt;&lt; &quot;Riegeli unavailable: built with --use_riegeli set to false.&quot;;</span></span>
+<span class="lineNum">        </span>          <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span>]
+<span id="L500"><span class="lineNum">     500</span>                 :             : #else</span>
+<span id="L501"><span class="lineNum">     501</span>                 :             :     return std::make_unique&lt;RiegeliWriter&gt;();</span>
+<span id="L502"><span class="lineNum">     502</span>                 :             : #endif  // CENTIPEDE_DISABLE_RIEGELI</span>
+<span id="L503"><span class="lineNum">     503</span>                 :             :   else</span>
+<span id="L504"><span class="lineNum">     504</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     return std::make_unique&lt;SimpleBlobFileWriter&gt;();</span></span>
+<span id="L505"><span class="lineNum">     505</span>                 :             : }</span>
+<span id="L506"><span class="lineNum">     506</span>                 :             : </span>
+<span id="L507"><span class="lineNum">     507</span>                 :             : }  // namespace fuzztest::internal</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

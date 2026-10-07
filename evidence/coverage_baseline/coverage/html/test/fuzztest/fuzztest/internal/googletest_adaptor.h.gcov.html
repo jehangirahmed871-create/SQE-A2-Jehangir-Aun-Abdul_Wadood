@@ -1,0 +1,250 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov_filtered.info - test/fuzztest/fuzztest/internal/googletest_adaptor.h</title>
+  <link rel="stylesheet" type="text/css" href="../../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../../index.html">top level</a> - <a href="index.html">test/fuzztest/fuzztest/internal</a> - googletest_adaptor.h<span style="font-size: 80%;"> (source / <a href="googletest_adaptor.h.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov_filtered.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryLo">59.1&nbsp;%</td>
+            <td class="headerCovTableEntry">44</td>
+            <td class="headerCovTableEntry">26</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-10-02 17:31:18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryLo">66.7&nbsp;%</td>
+            <td class="headerCovTableEntry">6</td>
+            <td class="headerCovTableEntry">4</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryLo">12.4&nbsp;%</td>
+            <td class="headerCovTableEntry">137</td>
+            <td class="headerCovTableEntry">17</td>
+          </tr>
+                  <tr><td><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : // Copyright 2022 Google LLC</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             : //</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             : // Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             : // you may not use this file except in compliance with the License.</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             : // You may obtain a copy of the License at</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             : //</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             : //      http://www.apache.org/licenses/LICENSE-2.0</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             : //</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             : // Unless required by applicable law or agreed to in writing, software</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             : // distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             : // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             : // See the License for the specific language governing permissions and</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             : // limitations under the License.</span>
+<span id="L14"><span class="lineNum">      14</span>                 :             : </span>
+<span id="L15"><span class="lineNum">      15</span>                 :             : #ifndef FUZZTEST_FUZZTEST_GOOGLETEST_ADAPTOR_H_</span>
+<span id="L16"><span class="lineNum">      16</span>                 :             : #define FUZZTEST_FUZZTEST_GOOGLETEST_ADAPTOR_H_</span>
+<span id="L17"><span class="lineNum">      17</span>                 :             : </span>
+<span id="L18"><span class="lineNum">      18</span>                 :             : #include &lt;cstdlib&gt;</span>
+<span id="L19"><span class="lineNum">      19</span>                 :             : #include &lt;string&gt;</span>
+<span id="L20"><span class="lineNum">      20</span>                 :             : #include &lt;utility&gt;</span>
+<span id="L21"><span class="lineNum">      21</span>                 :             : #include &lt;vector&gt;</span>
+<span id="L22"><span class="lineNum">      22</span>                 :             : </span>
+<span id="L23"><span class="lineNum">      23</span>                 :             : #include &quot;gtest/gtest.h&quot;</span>
+<span id="L24"><span class="lineNum">      24</span>                 :             : #include &quot;absl/strings/string_view.h&quot;</span>
+<span id="L25"><span class="lineNum">      25</span>                 :             : #include &quot;./fuzztest/internal/configuration.h&quot;</span>
+<span id="L26"><span class="lineNum">      26</span>                 :             : #include &quot;./fuzztest/internal/registry.h&quot;</span>
+<span id="L27"><span class="lineNum">      27</span>                 :             : #include &quot;./fuzztest/internal/runtime.h&quot;</span>
+<span id="L28"><span class="lineNum">      28</span>                 :             : </span>
+<span id="L29"><span class="lineNum">      29</span>                 :             : namespace fuzztest::internal {</span>
+<span id="L30"><span class="lineNum">      30</span>                 :             : </span>
+<span id="L31"><span class="lineNum">      31</span>                 :             : class GTest_TestAdaptor : public ::testing::Test {</span>
+<span id="L32"><span class="lineNum">      32</span>                 :             :  public:</span>
+<span id="L33"><span class="lineNum">      33</span>                 :<span class="tlaGNC tlaBgGNC">           2 :   explicit GTest_TestAdaptor(FuzzTest&amp; test, int* argc, char*** argv,</span></span>
+<span id="L34"><span class="lineNum">      34</span>                 :             :                              Configuration configuration)</span>
+<span id="L35"><span class="lineNum">      35</span>                 :<span class="tlaGNC">           4 :       : test_(test),</span></span>
+<span id="L36"><span class="lineNum">      36</span>                 :<span class="tlaGNC">           2 :         argc_(argc),</span></span>
+<span id="L37"><span class="lineNum">      37</span>                 :<span class="tlaGNC">           2 :         argv_(argv),</span></span>
+<span id="L38"><span class="lineNum">      38</span>                 :<span class="tlaGNC">           2 :         configuration_(std::move(configuration)) {}</span></span>
+<span id="L39"><span class="lineNum">      39</span>                 :             : </span>
+<span id="L40"><span class="lineNum">      40</span>                 :<span class="tlaGNC">           2 :   void TestBody() override {</span></span>
+<span id="L41"><span class="lineNum">      41</span>         [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           2 :     auto test = test_.make();</span></span>
+<span id="L42"><span class="lineNum">      42</span>         [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           2 :     configuration_.fuzz_tests_in_current_shard = GetFuzzTestsInCurrentShard();</span></span>
+<span id="L43"><span class="lineNum">      43</span>                 :<span class="tlaGNC">           2 :     configuration_.replay_in_single_process =</span></span>
+<span id="L44"><span class="lineNum">      44</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 2 times"> + </span>]:<span class="tlaGNC">           2 :         configuration_.crashing_input_to_reproduce.has_value() &amp;&amp;</span></span>
+<span id="L45"><span class="lineNum">      45</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC tlaBgUNC">           0 :         testing::UnitTest::GetInstance()-&gt;test_to_run_count() == 1;</span></span>
+<span class="lineNum">        </span>          <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span>]
+<span id="L46"><span class="lineNum">      46</span>   [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 2 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC tlaBgGNC">           2 :     if (Runtime::instance().run_mode() == RunMode::kUnitTest) {</span></span>
+<span id="L47"><span class="lineNum">      47</span>                 :             :       // In &quot;bug reproduction&quot; mode, sometimes we need to reproduce multiple</span>
+<span id="L48"><span class="lineNum">      48</span>                 :             :       // bugs, i.e., run multiple tests that lead to a crash.</span>
+<span id="L49"><span class="lineNum">      49</span>                 :<span class="tlaGNC">           2 :       bool needs_subprocess = false;</span></span>
+<span id="L50"><span class="lineNum">      50</span>                 :             : #if defined(GTEST_HAS_DEATH_TEST) &amp;&amp; !defined(FUZZTEST_USE_CENTIPEDE)</span>
+<span id="L51"><span class="lineNum">      51</span>                 :<span class="tlaGNC">           2 :       needs_subprocess =</span></span>
+<span id="L52"><span class="lineNum">      52</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 2 times"> + </span>]:<span class="tlaGNC">           2 :           configuration_.crashing_input_to_reproduce.has_value() &amp;&amp;</span></span>
+<span id="L53"><span class="lineNum">      53</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC tlaBgUNC">           0 :           (!configuration_.replay_in_single_process ||</span></span>
+<span id="L54"><span class="lineNum">      54</span>                 :             :            // EXPECT_EXIT is required in the death-test subprocess, but in</span>
+<span id="L55"><span class="lineNum">      55</span>                 :             :            // the subprocess there's only one test to run.</span>
+<span id="L56"><span class="lineNum">      56</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :            testing::internal::InDeathTestChild());</span></span>
+<span id="L57"><span class="lineNum">      57</span>                 :             : #endif</span>
+<span id="L58"><span class="lineNum">      58</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 2 times"> + </span>]:<span class="tlaGNC tlaBgGNC">           2 :       if (needs_subprocess) {</span></span>
+<span id="L59"><span class="lineNum">      59</span>                 :<span class="tlaUNC tlaBgUNC">           0 :         configuration_.preprocess_crash_reproducing = [] {</span></span>
+<span id="L60"><span class="lineNum">      60</span>                 :             :           // EXPECT_EXIT disables event forwarding in gtest and as a result,</span>
+<span id="L61"><span class="lineNum">      61</span>                 :             :           // EXPECT/ASSERT-s are disabled. Here, we overwrite this option.</span>
+<span id="L62"><span class="lineNum">      62</span>                 :<span class="tlaUNC">           0 :           testing::UnitTest::GetInstance()-&gt;listeners().SuppressEventForwarding(</span></span>
+<span id="L63"><span class="lineNum">      63</span>                 :             :               false);</span>
+<span id="L64"><span class="lineNum">      64</span>                 :<span class="tlaUNC">           0 :         };</span></span>
+<span id="L65"><span class="lineNum">      65</span>                 :             :         // `RunInUnitTestMode` is supposed to fail and we wish to show the</span>
+<span id="L66"><span class="lineNum">      66</span>                 :             :         // failure to the user. Directly running the test would terminate the</span>
+<span id="L67"><span class="lineNum">      67</span>                 :             :         // process and using `EXPECT_DEATH` causes the test to pass. We use</span>
+<span id="L68"><span class="lineNum">      68</span>                 :             :         // `EXPECT_EXIT` so that the test exit unsuccessfully, meaning that the</span>
+<span id="L69"><span class="lineNum">      69</span>                 :             :         // test below fails without terminating the process.</span>
+<span id="L70"><span class="lineNum">      70</span>                 :             : #ifdef GTEST_HAS_DEATH_TEST</span>
+<span id="L71"><span class="lineNum">      71</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :         EXPECT_EXIT(</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span><span class="tlaUNC" title="Branch 6 was not executed"> # </span><span class="tlaUNC" title="Branch 7 was not executed"> # </span><span class="tlaUNC" title="Branch 8 was not executed"> # </span> 
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 9 was not executed"> # </span><span class="tlaUNC" title="Branch 10 was not executed"> # </span><span class="tlaUNC" title="Branch 11 was not executed"> # </span><span class="tlaUNC" title="Branch 12 was not executed"> # </span><span class="tlaUNC" title="Branch 13 was not executed"> # </span> 
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 14 was not executed"> # </span><span class="tlaUNC" title="Branch 15 was not executed"> # </span><span class="tlaUNC" title="Branch 16 was not executed"> # </span><span class="tlaUNC" title="Branch 17 was not executed"> # </span><span class="tlaUNC" title="Branch 18 was not executed"> # </span> 
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 19 was not executed"> # </span><span class="tlaUNC" title="Branch 20 was not executed"> # </span><span class="tlaUNC" title="Branch 21 was not executed"> # </span><span class="tlaUNC" title="Branch 22 was not executed"> # </span><span class="tlaUNC" title="Branch 23 was not executed"> # </span> 
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 24 was not executed"> # </span><span class="tlaUNC" title="Branch 25 was not executed"> # </span><span class="tlaUNC" title="Branch 26 was not executed"> # </span><span class="tlaUNC" title="Branch 27 was not executed"> # </span><span class="tlaUNC" title="Branch 28 was not executed"> # </span> 
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 29 was not executed"> # </span><span class="tlaUNC" title="Branch 30 was not executed"> # </span><span class="tlaUNC" title="Branch 31 was not executed"> # </span><span class="tlaUNC" title="Branch 32 was not executed"> # </span><span class="tlaUNC" title="Branch 33 was not executed"> # </span> 
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 34 was not executed"> # </span><span class="tlaUNC" title="Branch 35 was not executed"> # </span><span class="tlaUNC" title="Branch 36 was not executed"> # </span><span class="tlaUNC" title="Branch 37 was not executed"> # </span><span class="tlaUNC" title="Branch 38 was not executed"> # </span> 
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 39 was not executed"> # </span><span class="tlaUNC" title="Branch 40 was not executed"> # </span><span class="tlaUNC" title="Branch 41 was not executed"> # </span><span class="tlaUNC" title="Branch 42 was not executed"> # </span><span class="tlaUNC" title="Branch 43 was not executed"> # </span> 
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 44 was not executed"> # </span><span class="tlaUNC" title="Branch 45 was not executed"> # </span><span class="tlaUNC" title="Branch 46 was not executed"> # </span><span class="tlaUNC" title="Branch 47 was not executed"> # </span><span class="tlaUNC" title="Branch 48 was not executed"> # </span> 
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 49 was not executed"> # </span><span class="tlaUNC" title="Branch 50 was not executed"> # </span><span class="tlaUNC" title="Branch 51 was not executed"> # </span><span class="tlaUNC" title="Branch 52 was not executed"> # </span><span class="tlaUNC" title="Branch 53 was not executed"> # </span> 
+<span class="lineNum">        </span>    <span class="tlaUNC" title="Branch 54 was not executed"> # </span><span class="tlaUNC" title="Branch 55 was not executed"> # </span><span class="tlaUNC" title="Branch 56 was not executed"> # </span><span class="tlaUNC" title="Branch 57 was not executed"> # </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 58 was not executed"> # </span>]
+<span id="L72"><span class="lineNum">      72</span>                 :             :             (test-&gt;RunInUnitTestMode(configuration_),</span>
+<span id="L73"><span class="lineNum">      73</span>                 :             :              void(</span>
+<span id="L74"><span class="lineNum">      74</span>                 :             :                  R&quot;( FuzzTest failure! Please see 'actual message' below for the crash report. )&quot;),</span>
+<span id="L75"><span class="lineNum">      75</span>                 :             :              std::exit(0)),</span>
+<span id="L76"><span class="lineNum">      76</span>                 :             :             ::testing::ExitedWithCode(0), &quot;&quot;);</span>
+<span id="L77"><span class="lineNum">      77</span>                 :             : #else</span>
+<span id="L78"><span class="lineNum">      78</span>                 :             :         EXPECT_TRUE(false) &lt;&lt; &quot;Death test is not supported.&quot;;</span>
+<span id="L79"><span class="lineNum">      79</span>                 :             : #endif</span>
+<span id="L80"><span class="lineNum">      80</span>                 :             :       } else {</span>
+<span id="L81"><span class="lineNum">      81</span>   [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 2 times"> + </span> :<span class="tlaGNC tlaBgGNC">           2 :         EXPECT_TRUE(test-&gt;RunInUnitTestMode(configuration_))</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaUNC" title="Branch 6 was not taken"> - </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaUNC" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L82"><span class="lineNum">      82</span>   [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">           2 :             &lt;&lt; &quot;Failure(s) found in the unit-test mode.&quot;;</span></span>
+<span id="L83"><span class="lineNum">      83</span>                 :             :       }</span>
+<span id="L84"><span class="lineNum">      84</span>                 :             :     } else {</span>
+<span id="L85"><span class="lineNum">      85</span>                 :             :       // TODO(b/245753736): Consider using `tolerate_failure` when FuzzTest can</span>
+<span id="L86"><span class="lineNum">      86</span>                 :             :       // tolerate crashes in fuzzing mode.</span>
+<span id="L87"><span class="lineNum">      87</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC tlaBgUNC">           0 :       EXPECT_TRUE(test-&gt;RunInFuzzingMode(argc_, argv_, configuration_))</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span><span class="tlaUNC" title="Branch 6 was not executed"> # </span><span class="tlaUNC" title="Branch 7 was not executed"> # </span><span class="tlaUNC" title="Branch 8 was not executed"> # </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not executed"> # </span>]
+<span id="L88"><span class="lineNum">      88</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :           &lt;&lt; &quot;Failure(s) found in the fuzzing mode.&quot;;</span></span>
+<span id="L89"><span class="lineNum">      89</span>                 :             :     }</span>
+<span id="L90"><span class="lineNum">      90</span>                 :<span class="tlaGNC tlaBgGNC">           2 :   }</span></span>
+<span id="L91"><span class="lineNum">      91</span>                 :             : </span>
+<span id="L92"><span class="lineNum">      92</span>                 :<span class="tlaGNC">           2 :   static void SetUpTestSuite() {</span></span>
+<span id="L93"><span class="lineNum">      93</span>   [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 2 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">           2 :     SetUpTearDownTestSuiteFunction set_up_test_suite = GetSetUpTestSuite(</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 2 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L94"><span class="lineNum">      94</span>                 :             :         testing::UnitTest::GetInstance()-&gt;current_test_suite()-&gt;name());</span>
+<span id="L95"><span class="lineNum">      95</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 2 times"> + </span>]:<span class="tlaGNC">           2 :     if (set_up_test_suite != nullptr) set_up_test_suite();</span></span>
+<span id="L96"><span class="lineNum">      96</span>                 :<span class="tlaGNC">           2 :   }</span></span>
+<span id="L97"><span class="lineNum">      97</span>                 :             : </span>
+<span id="L98"><span class="lineNum">      98</span>                 :<span class="tlaGNC">           2 :   static void TearDownTestSuite() {</span></span>
+<span id="L99"><span class="lineNum">      99</span>   [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 2 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">           2 :     SetUpTearDownTestSuiteFunction tear_down_test_suite = GetTearDownTestSuite(</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 2 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L100"><span class="lineNum">     100</span>                 :             :         testing::UnitTest::GetInstance()-&gt;current_test_suite()-&gt;name());</span>
+<span id="L101"><span class="lineNum">     101</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 2 times"> + </span>]:<span class="tlaGNC">           2 :     if (tear_down_test_suite != nullptr) tear_down_test_suite();</span></span>
+<span id="L102"><span class="lineNum">     102</span>                 :<span class="tlaGNC">           2 :   }</span></span>
+<span id="L103"><span class="lineNum">     103</span>                 :             : </span>
+<span id="L104"><span class="lineNum">     104</span>                 :             :  private:</span>
+<span id="L105"><span class="lineNum">     105</span>                 :             :   std::vector&lt;std::string&gt; GetFuzzTestsInCurrentShard() const;</span>
+<span id="L106"><span class="lineNum">     106</span>                 :             : </span>
+<span id="L107"><span class="lineNum">     107</span>                 :             :   FuzzTest&amp; test_;</span>
+<span id="L108"><span class="lineNum">     108</span>                 :             :   int* argc_;</span>
+<span id="L109"><span class="lineNum">     109</span>                 :             :   char*** argv_;</span>
+<span id="L110"><span class="lineNum">     110</span>                 :             :   Configuration configuration_;</span>
+<span id="L111"><span class="lineNum">     111</span>                 :             : };</span>
+<span id="L112"><span class="lineNum">     112</span>                 :             : </span>
+<span id="L113"><span class="lineNum">     113</span>                 :             : template &lt;typename Base, typename TestPartResult&gt;</span>
+<span id="L114"><span class="lineNum">     114</span>                 :             : class GTest_EventListener : public Base {</span>
+<span id="L115"><span class="lineNum">     115</span>                 :             :  public:</span>
+<span id="L116"><span class="lineNum">     116</span>                 :<span class="tlaUNC tlaBgUNC">           0 :   void OnTestPartResult(const TestPartResult&amp; test_part_result) override {</span></span>
+<span id="L117"><span class="lineNum">     117</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (!test_part_result.failed()) return;</span></span>
+<span id="L118"><span class="lineNum">     118</span>                 :<span class="tlaUNC">           0 :     Runtime&amp; runtime = Runtime::instance();</span></span>
+<span id="L119"><span class="lineNum">     119</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     runtime.SetCrashTypeIfUnset(&quot;GoogleTest assertion failure&quot;);</span></span>
+<span id="L120"><span class="lineNum">     120</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (runtime.run_mode() == RunMode::kFuzz) {</span></span>
+<span id="L121"><span class="lineNum">     121</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       if (runtime.should_terminate_on_non_fatal_failure()) {</span></span>
+<span id="L122"><span class="lineNum">     122</span>                 :             :         // The SIGABRT will trigger a report.</span>
+<span id="L123"><span class="lineNum">     123</span>                 :<span class="tlaUNC">           0 :         std::abort();</span></span>
+<span id="L124"><span class="lineNum">     124</span>                 :             :       }</span>
+<span id="L125"><span class="lineNum">     125</span>                 :             :     } else {</span>
+<span id="L126"><span class="lineNum">     126</span>                 :             :       // Otherwise, we report it manually.</span>
+<span id="L127"><span class="lineNum">     127</span>                 :<span class="tlaUNC">           0 :       runtime.PrintReportOnDefaultSink();</span></span>
+<span id="L128"><span class="lineNum">     128</span>                 :             :     }</span>
+<span id="L129"><span class="lineNum">     129</span>                 :<span class="tlaUNC">           0 :     runtime.SetExternalFailureDetected(true);</span></span>
+<span id="L130"><span class="lineNum">     130</span>                 :             :   }</span>
+<span id="L131"><span class="lineNum">     131</span>                 :             : };</span>
+<span id="L132"><span class="lineNum">     132</span>                 :             : </span>
+<span id="L133"><span class="lineNum">     133</span>                 :             : // Registers FUZZ_TEST as GoogleTest TEST-s.</span>
+<span id="L134"><span class="lineNum">     134</span>                 :             : void RegisterFuzzTestsAsGoogleTests(int* argc, char*** argv,</span>
+<span id="L135"><span class="lineNum">     135</span>                 :             :                                     const Configuration&amp; configuration);</span>
+<span id="L136"><span class="lineNum">     136</span>                 :             : </span>
+<span id="L137"><span class="lineNum">     137</span>                 :             : // Set listing mode validator for GoogleTest to check that fuzz test listing was</span>
+<span id="L138"><span class="lineNum">     138</span>                 :             : // properly handled.</span>
+<span id="L139"><span class="lineNum">     139</span>                 :             : void SetFuzzTestListingModeValidatorForGoogleTest(bool listing_mode);</span>
+<span id="L140"><span class="lineNum">     140</span>                 :             : </span>
+<span id="L141"><span class="lineNum">     141</span>                 :             : // Returns the list of registered tests.</span>
+<span id="L142"><span class="lineNum">     142</span>                 :             : std::vector&lt;const testing::TestInfo*&gt; GetRegisteredTests();</span>
+<span id="L143"><span class="lineNum">     143</span>                 :             : </span>
+<span id="L144"><span class="lineNum">     144</span>                 :             : }  // namespace fuzztest::internal</span>
+<span id="L145"><span class="lineNum">     145</span>                 :             : </span>
+<span id="L146"><span class="lineNum">     146</span>                 :             : #endif  // FUZZTEST_FUZZTEST_GOOGLETEST_ADAPTOR_H_</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

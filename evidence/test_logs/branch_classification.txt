@@ -1,0 +1,18 @@
+branches total=400  of which exception edges=76
+missed: exception edges=76  other=31
+
+lines with missed NON-exception branches:
+  42 | missed=6 | ScheduledWorkItem(MODULE_NAME, px4::wq_configurations::hp_default)
+  45 | missed=2 | }
+  47 | missed=1 | ManualControl::~ManualControl()
+  61 | missed=2 | if (should_exit()) {
+  83 | missed=1 | if (_vehicle_status_sub.copy(&vehicle_status)) {
+ 132 | missed=1 | && (_previous_manual_control_input_instance < MAX_MANUAL_INPUT_COUNT)) {
+ 136 | missed=2 | if ((0 <= instance) && (instance < MAX_MANUAL_INPUT_COUNT)) {
+ 293 | missed=1 | } else if (!_armed) {
+ 325 | missed=1 | if (param_rc_map_arm_sw != PARAM_INVALID) {
+ 347 | missed=1 | if (param_mc_airmode != PARAM_INVALID) {
+ 520 | missed=7 | ManualControl *instance = new ManualControl();
+ 522 | missed=2 | if (instance) {
+ 526 | missed=2 | if (instance->init()) {
+ 534 | missed=2 | delete instance;

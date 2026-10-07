@@ -1,0 +1,368 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov_filtered.info - src/modules/mc_pos_control/PositionControl/ControlMath.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../../index.html">top level</a> - <a href="index.html">src/modules/mc_pos_control/PositionControl</a> - ControlMath.cpp<span style="font-size: 80%;"> (source / <a href="ControlMath.cpp.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov_filtered.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryHi">95.0&nbsp;%</td>
+            <td class="headerCovTableEntry">80</td>
+            <td class="headerCovTableEntry">76</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-10-02 17:31:18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">8</td>
+            <td class="headerCovTableEntry">8</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryLo">54.3&nbsp;%</td>
+            <td class="headerCovTableEntry">254</td>
+            <td class="headerCovTableEntry">138</td>
+          </tr>
+                  <tr><td><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : /****************************************************************************</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             :  *</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             :  *   Copyright (C) 2018 - 2019 PX4 Development Team. All rights reserved.</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             :  *</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             :  * Redistribution and use in source and binary forms, with or without</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             :  * modification, are permitted provided that the following conditions</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             :  * are met:</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             :  *</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             :  * 1. Redistributions of source code must retain the above copyright</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             :  *    notice, this list of conditions and the following disclaimer.</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             :  * 2. Redistributions in binary form must reproduce the above copyright</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             :  *    notice, this list of conditions and the following disclaimer in</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             :  *    the documentation and/or other materials provided with the</span>
+<span id="L14"><span class="lineNum">      14</span>                 :             :  *    distribution.</span>
+<span id="L15"><span class="lineNum">      15</span>                 :             :  * 3. Neither the name PX4 nor the names of its contributors may be</span>
+<span id="L16"><span class="lineNum">      16</span>                 :             :  *    used to endorse or promote products derived from this software</span>
+<span id="L17"><span class="lineNum">      17</span>                 :             :  *    without specific prior written permission.</span>
+<span id="L18"><span class="lineNum">      18</span>                 :             :  *</span>
+<span id="L19"><span class="lineNum">      19</span>                 :             :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span id="L20"><span class="lineNum">      20</span>                 :             :  * &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span id="L21"><span class="lineNum">      21</span>                 :             :  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS</span>
+<span id="L22"><span class="lineNum">      22</span>                 :             :  * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE</span>
+<span id="L23"><span class="lineNum">      23</span>                 :             :  * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,</span>
+<span id="L24"><span class="lineNum">      24</span>                 :             :  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,</span>
+<span id="L25"><span class="lineNum">      25</span>                 :             :  * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS</span>
+<span id="L26"><span class="lineNum">      26</span>                 :             :  * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED</span>
+<span id="L27"><span class="lineNum">      27</span>                 :             :  * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT</span>
+<span id="L28"><span class="lineNum">      28</span>                 :             :  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN</span>
+<span id="L29"><span class="lineNum">      29</span>                 :             :  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</span>
+<span id="L30"><span class="lineNum">      30</span>                 :             :  * POSSIBILITY OF SUCH DAMAGE.</span>
+<span id="L31"><span class="lineNum">      31</span>                 :             :  *</span>
+<span id="L32"><span class="lineNum">      32</span>                 :             :  ****************************************************************************/</span>
+<span id="L33"><span class="lineNum">      33</span>                 :             : </span>
+<span id="L34"><span class="lineNum">      34</span>                 :             : /**</span>
+<span id="L35"><span class="lineNum">      35</span>                 :             :  * @file ControlMath.cpp</span>
+<span id="L36"><span class="lineNum">      36</span>                 :             :  */</span>
+<span id="L37"><span class="lineNum">      37</span>                 :             : </span>
+<span id="L38"><span class="lineNum">      38</span>                 :             : #include &quot;ControlMath.hpp&quot;</span>
+<span id="L39"><span class="lineNum">      39</span>                 :             : #include &lt;px4_platform_common/defines.h&gt;</span>
+<span id="L40"><span class="lineNum">      40</span>                 :             : #include &lt;float.h&gt;</span>
+<span id="L41"><span class="lineNum">      41</span>                 :             : #include &lt;mathlib/mathlib.h&gt;</span>
+<span id="L42"><span class="lineNum">      42</span>                 :             : </span>
+<span id="L43"><span class="lineNum">      43</span>                 :             : using namespace matrix;</span>
+<span id="L44"><span class="lineNum">      44</span>                 :             : </span>
+<span id="L45"><span class="lineNum">      45</span>                 :             : namespace ControlMath</span>
+<span id="L46"><span class="lineNum">      46</span>                 :             : {</span>
+<span id="L47"><span class="lineNum">      47</span>                 :<span class="tlaGNC tlaBgGNC">         545 : void thrustToAttitude(const Vector3f &amp;thr_sp, const float yaw_sp, vehicle_attitude_setpoint_s &amp;att_sp)</span></span>
+<span id="L48"><span class="lineNum">      48</span>                 :             : {</span>
+<span id="L49"><span class="lineNum">      49</span>   [<span class="tlaGBC" title="Branch 0 was taken 545 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 545 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">         545 :         bodyzToAttitude(-thr_sp, yaw_sp, att_sp);</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 545 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L50"><span class="lineNum">      50</span>                 :<span class="tlaGNC">         545 :         att_sp.thrust_body[2] = -thr_sp.length();</span></span>
+<span id="L51"><span class="lineNum">      51</span>                 :<span class="tlaGNC">         545 : }</span></span>
+<span id="L52"><span class="lineNum">      52</span>                 :             : </span>
+<span id="L53"><span class="lineNum">      53</span>                 :<span class="tlaGNC">          77 : void limitTilt(Vector3f &amp;body_unit, const Vector3f &amp;world_unit, const float max_angle)</span></span>
+<span id="L54"><span class="lineNum">      54</span>                 :             : {</span>
+<span id="L55"><span class="lineNum">      55</span>                 :             :         // determine tilt</span>
+<span id="L56"><span class="lineNum">      56</span>         [<span class="tlaGBC" title="Branch 0 was taken 77 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          77 :         const float dot_product_unit = body_unit.dot(world_unit);</span></span>
+<span id="L57"><span class="lineNum">      57</span>                 :<span class="tlaGNC">          77 :         float angle = acosf(dot_product_unit);</span></span>
+<span id="L58"><span class="lineNum">      58</span>                 :             :         // limit tilt</span>
+<span id="L59"><span class="lineNum">      59</span>                 :<span class="tlaGNC">          77 :         angle = math::min(angle, max_angle);</span></span>
+<span id="L60"><span class="lineNum">      60</span>   [<span class="tlaGBC" title="Branch 0 was taken 77 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 77 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">          77 :         Vector3f rejection = body_unit - (dot_product_unit * world_unit);</span></span>
+<span class="lineNum">        </span> <span class="tlaGBC" title="Branch 4 was taken 77 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 77 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaGBC" title="Branch 8 was taken 77 times"> + </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L61"><span class="lineNum">      61</span>                 :             : </span>
+<span id="L62"><span class="lineNum">      62</span>                 :             :         // corner case exactly parallel vectors</span>
+<span id="L63"><span class="lineNum">      63</span>   [<span class="tlaGBC" title="Branch 0 was taken 77 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 7 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 70 times"> + </span>]:<span class="tlaGNC">          77 :         if (rejection.norm_squared() &lt; FLT_EPSILON) {</span></span>
+<span id="L64"><span class="lineNum">      64</span>         [<span class="tlaGBC" title="Branch 0 was taken 7 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           7 :                 rejection(0) = 1.f;</span></span>
+<span id="L65"><span class="lineNum">      65</span>                 :             :         }</span>
+<span id="L66"><span class="lineNum">      66</span>                 :             : </span>
+<span id="L67"><span class="lineNum">      67</span>   [<span class="tlaGBC" title="Branch 0 was taken 77 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 77 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">          77 :         body_unit = cosf(angle) * world_unit + sinf(angle) * rejection.unit();</span></span>
+<span class="lineNum">        </span> <span class="tlaGBC" title="Branch 4 was taken 77 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 77 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaGBC" title="Branch 8 was taken 77 times"> + </span> 
+<span class="lineNum">        </span>       <span class="tlaUNC" title="Branch 9 was not taken"> - </span><span class="tlaGBC" title="Branch 10 was taken 77 times"> + </span><span class="tlaUNC" title="Branch 11 was not taken"> - </span>]
+<span id="L68"><span class="lineNum">      68</span>                 :<span class="tlaGNC">          77 : }</span></span>
+<span id="L69"><span class="lineNum">      69</span>                 :             : </span>
+<span id="L70"><span class="lineNum">      70</span>                 :<span class="tlaGNC">         545 : void bodyzToAttitude(Vector3f body_z, const float yaw_sp, vehicle_attitude_setpoint_s &amp;att_sp)</span></span>
+<span id="L71"><span class="lineNum">      71</span>                 :             : {</span>
+<span id="L72"><span class="lineNum">      72</span>                 :             :         // zero vector, no direction, set safe level value</span>
+<span id="L73"><span class="lineNum">      73</span>   [<span class="tlaGBC" title="Branch 0 was taken 545 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 78 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 467 times"> + </span>]:<span class="tlaGNC">         545 :         if (body_z.norm_squared() &lt; FLT_EPSILON) {</span></span>
+<span id="L74"><span class="lineNum">      74</span>         [<span class="tlaGBC" title="Branch 0 was taken 78 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          78 :                 body_z(2) = 1.f;</span></span>
+<span id="L75"><span class="lineNum">      75</span>                 :             :         }</span>
+<span id="L76"><span class="lineNum">      76</span>                 :             : </span>
+<span id="L77"><span class="lineNum">      77</span>         [<span class="tlaGBC" title="Branch 0 was taken 545 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         545 :         body_z.normalize();</span></span>
+<span id="L78"><span class="lineNum">      78</span>                 :             : </span>
+<span id="L79"><span class="lineNum">      79</span>                 :             :         // vector of desired yaw direction in XY plane, rotated by PI/2</span>
+<span id="L80"><span class="lineNum">      80</span>         [<span class="tlaGBC" title="Branch 0 was taken 545 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         545 :         const Vector3f y_C{-sinf(yaw_sp), cosf(yaw_sp), 0.f};</span></span>
+<span id="L81"><span class="lineNum">      81</span>                 :             : </span>
+<span id="L82"><span class="lineNum">      82</span>                 :             :         // desired body_x axis, orthogonal to body_z</span>
+<span id="L83"><span class="lineNum">      83</span>   [<span class="tlaGBC" title="Branch 0 was taken 545 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 545 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">         545 :         Vector3f body_x = y_C % body_z;</span></span>
+<span id="L84"><span class="lineNum">      84</span>                 :             : </span>
+<span id="L85"><span class="lineNum">      85</span>                 :             :         // keep nose to front while inverted upside down</span>
+<span id="L86"><span class="lineNum">      86</span>   [<span class="tlaGBC" title="Branch 0 was taken 545 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 3 was taken 544 times"> + </span>]:<span class="tlaGNC">         545 :         if (body_z(2) &lt; 0.f) {</span></span>
+<span id="L87"><span class="lineNum">      87</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">           1 :                 body_x = -body_x;</span></span>
+<span id="L88"><span class="lineNum">      88</span>                 :             :         }</span>
+<span id="L89"><span class="lineNum">      89</span>                 :             : </span>
+<span id="L90"><span class="lineNum">      90</span>   [<span class="tlaGBC" title="Branch 0 was taken 545 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 545 times"> + </span>]:<span class="tlaGNC">         545 :         if (fabsf(body_z(2)) &lt; 0.000001f) {</span></span>
+<span id="L91"><span class="lineNum">      91</span>                 :             :                 // desired thrust is in XY plane, set X downside to construct correct matrix,</span>
+<span id="L92"><span class="lineNum">      92</span>                 :             :                 // but yaw component will not be used actually</span>
+<span id="L93"><span class="lineNum">      93</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC tlaBgUNC">           0 :                 body_x.zero();</span></span>
+<span id="L94"><span class="lineNum">      94</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 body_x(2) = 1.f;</span></span>
+<span id="L95"><span class="lineNum">      95</span>                 :             :         }</span>
+<span id="L96"><span class="lineNum">      96</span>                 :             : </span>
+<span id="L97"><span class="lineNum">      97</span>         [<span class="tlaGBC" title="Branch 0 was taken 545 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC tlaBgGNC">         545 :         body_x.normalize();</span></span>
+<span id="L98"><span class="lineNum">      98</span>                 :             : </span>
+<span id="L99"><span class="lineNum">      99</span>                 :             :         // desired body_y axis</span>
+<span id="L100"><span class="lineNum">     100</span>   [<span class="tlaGBC" title="Branch 0 was taken 545 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 545 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">         545 :         const Vector3f body_y = body_z % body_x;</span></span>
+<span id="L101"><span class="lineNum">     101</span>                 :             : </span>
+<span id="L102"><span class="lineNum">     102</span>         [<span class="tlaGBC" title="Branch 0 was taken 545 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         545 :         Dcmf R_sp;</span></span>
+<span id="L103"><span class="lineNum">     103</span>                 :             : </span>
+<span id="L104"><span class="lineNum">     104</span>                 :             :         // fill rotation matrix</span>
+<span id="L105"><span class="lineNum">     105</span>         [<span class="tlaGBC" title="Branch 0 was taken 1635 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 545 times"> + </span>]:<span class="tlaGNC">        2180 :         for (int i = 0; i &lt; 3; i++) {</span></span>
+<span id="L106"><span class="lineNum">     106</span>         [<span class="tlaGBC" title="Branch 0 was taken 1635 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">        1635 :                 R_sp(i, 0) = body_x(i);</span></span>
+<span id="L107"><span class="lineNum">     107</span>         [<span class="tlaGBC" title="Branch 0 was taken 1635 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">        1635 :                 R_sp(i, 1) = body_y(i);</span></span>
+<span id="L108"><span class="lineNum">     108</span>         [<span class="tlaGBC" title="Branch 0 was taken 1635 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">        1635 :                 R_sp(i, 2) = body_z(i);</span></span>
+<span id="L109"><span class="lineNum">     109</span>                 :             :         }</span>
+<span id="L110"><span class="lineNum">     110</span>                 :             : </span>
+<span id="L111"><span class="lineNum">     111</span>                 :             :         // copy quaternion setpoint to attitude setpoint topic</span>
+<span id="L112"><span class="lineNum">     112</span>         [<span class="tlaGBC" title="Branch 0 was taken 545 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         545 :         const Quatf q_sp{R_sp};</span></span>
+<span id="L113"><span class="lineNum">     113</span>         [<span class="tlaGBC" title="Branch 0 was taken 545 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         545 :         q_sp.copyTo(att_sp.q_d);</span></span>
+<span id="L114"><span class="lineNum">     114</span>                 :<span class="tlaGNC">         545 : }</span></span>
+<span id="L115"><span class="lineNum">     115</span>                 :             : </span>
+<span id="L116"><span class="lineNum">     116</span>                 :<span class="tlaGNC">          73 : Vector2f constrainXY(const Vector2f &amp;v0, const Vector2f &amp;v1, const float &amp;max)</span></span>
+<span id="L117"><span class="lineNum">     117</span>                 :             : {</span>
+<span id="L118"><span class="lineNum">     118</span>   [<span class="tlaGBC" title="Branch 0 was taken 73 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 73 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">          73 :         if (Vector2f(v0 + v1).norm() &lt;= max) {</span></span>
+<span class="lineNum">        </span> <span class="tlaGBC" title="Branch 4 was taken 73 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 73 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaGBC" title="Branch 8 was taken 15 times"> + </span> 
+<span class="lineNum">        </span>             <span class="tlaGBC" title="Branch 9 was taken 58 times"> + </span>]
+<span id="L119"><span class="lineNum">     119</span>                 :             :                 // vector does not exceed maximum magnitude</span>
+<span id="L120"><span class="lineNum">     120</span>   [<span class="tlaGBC" title="Branch 0 was taken 15 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 15 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">          15 :                 return v0 + v1;</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 15 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L121"><span class="lineNum">     121</span>                 :             : </span>
+<span id="L122"><span class="lineNum">     122</span>         [<span class="tlaGBC" title="Branch 0 was taken 34 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 24 times"> + </span>]:<span class="tlaGNC">          58 :         } else if (v0.length() &gt;= max) {</span></span>
+<span id="L123"><span class="lineNum">     123</span>                 :             :                 // the magnitude along v0, which has priority, already exceeds maximum.</span>
+<span id="L124"><span class="lineNum">     124</span>   [<span class="tlaGBC" title="Branch 0 was taken 34 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 34 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">          34 :                 return v0.normalized() * max;</span></span>
+<span class="lineNum">        </span>    <span class="tlaGBC" title="Branch 4 was taken 34 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 34 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span>]
+<span id="L125"><span class="lineNum">     125</span>                 :             : </span>
+<span id="L126"><span class="lineNum">     126</span>   [<span class="tlaGBC" title="Branch 0 was taken 24 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 24 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">          24 :         } else if (fabsf(Vector2f(v1 - v0).norm()) &lt; 0.001f) {</span></span>
+<span class="lineNum">        </span> <span class="tlaGBC" title="Branch 4 was taken 24 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 24 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaUNC" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">        </span>             <span class="tlaGBC" title="Branch 9 was taken 24 times"> + </span>]
+<span id="L127"><span class="lineNum">     127</span>                 :             :                 // the two vectors are equal</span>
+<span id="L128"><span class="lineNum">     128</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC tlaBgUNC">           0 :                 return v0.normalized() * max;</span></span>
+<span class="lineNum">        </span>    <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span><span class="tlaUNC" title="Branch 6 was not executed"> # </span><span class="tlaUNC" title="Branch 7 was not executed"> # </span>]
+<span id="L129"><span class="lineNum">     129</span>                 :             : </span>
+<span id="L130"><span class="lineNum">     130</span>         [<span class="tlaGBC" title="Branch 0 was taken 23 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span>]:<span class="tlaGNC tlaBgGNC">          24 :         } else if (v0.length() &lt; 0.001f) {</span></span>
+<span id="L131"><span class="lineNum">     131</span>                 :             :                 // the first vector is 0.</span>
+<span id="L132"><span class="lineNum">     132</span>   [<span class="tlaGBC" title="Branch 0 was taken 23 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 23 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">          23 :                 return v1.normalized() * max;</span></span>
+<span class="lineNum">        </span>    <span class="tlaGBC" title="Branch 4 was taken 23 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 23 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span>]
+<span id="L133"><span class="lineNum">     133</span>                 :             : </span>
+<span id="L134"><span class="lineNum">     134</span>                 :             :         } else {</span>
+<span id="L135"><span class="lineNum">     135</span>                 :             :                 // vf = final vector with ||vf|| &lt;= max</span>
+<span id="L136"><span class="lineNum">     136</span>                 :             :                 // s = scaling factor</span>
+<span id="L137"><span class="lineNum">     137</span>                 :             :                 // u1 = unit of v1</span>
+<span id="L138"><span class="lineNum">     138</span>                 :             :                 // vf = v0 + v1 = v0 + s * u1</span>
+<span id="L139"><span class="lineNum">     139</span>                 :             :                 // constraint: ||vf|| &lt;= max</span>
+<span id="L140"><span class="lineNum">     140</span>                 :             :                 //</span>
+<span id="L141"><span class="lineNum">     141</span>                 :             :                 // solve for s: ||vf|| = ||v0 + s * u1|| &lt;= max</span>
+<span id="L142"><span class="lineNum">     142</span>                 :             :                 //</span>
+<span id="L143"><span class="lineNum">     143</span>                 :             :                 // Derivation:</span>
+<span id="L144"><span class="lineNum">     144</span>                 :             :                 // For simplicity, replace v0 -&gt; v, u1 -&gt; u</span>
+<span id="L145"><span class="lineNum">     145</span>                 :             :                 //                                                 v0(0/1/2) -&gt; v0/1/2</span>
+<span id="L146"><span class="lineNum">     146</span>                 :             :                 //                                                 u1(0/1/2) -&gt; u0/1/2</span>
+<span id="L147"><span class="lineNum">     147</span>                 :             :                 //</span>
+<span id="L148"><span class="lineNum">     148</span>                 :             :                 // ||v + s * u||^2 = (v0+s*u0)^2+(v1+s*u1)^2+(v2+s*u2)^2 = max^2</span>
+<span id="L149"><span class="lineNum">     149</span>                 :             :                 // v0^2+2*s*u0*v0+s^2*u0^2 + v1^2+2*s*u1*v1+s^2*u1^2 + v2^2+2*s*u2*v2+s^2*u2^2 = max^2</span>
+<span id="L150"><span class="lineNum">     150</span>                 :             :                 // s^2*(u0^2+u1^2+u2^2) + s*2*(u0*v0+u1*v1+u2*v2) + (v0^2+v1^2+v2^2-max^2) = 0</span>
+<span id="L151"><span class="lineNum">     151</span>                 :             :                 //</span>
+<span id="L152"><span class="lineNum">     152</span>                 :             :                 // quadratic equation:</span>
+<span id="L153"><span class="lineNum">     153</span>                 :             :                 // -&gt; s^2*a + s*b + c = 0 with solution: s1/2 = (-b +- sqrt(b^2 - 4*a*c))/(2*a)</span>
+<span id="L154"><span class="lineNum">     154</span>                 :             :                 //</span>
+<span id="L155"><span class="lineNum">     155</span>                 :             :                 // b = 2 * u.dot(v)</span>
+<span id="L156"><span class="lineNum">     156</span>                 :             :                 // a = 1 (because u is normalized)</span>
+<span id="L157"><span class="lineNum">     157</span>                 :             :                 // c = (v0^2+v1^2+v2^2-max^2) = -max^2 + ||v||^2</span>
+<span id="L158"><span class="lineNum">     158</span>                 :             :                 //</span>
+<span id="L159"><span class="lineNum">     159</span>                 :             :                 // sqrt(b^2 - 4*a*c) =</span>
+<span id="L160"><span class="lineNum">     160</span>                 :             :                 //              sqrt(4*u.dot(v)^2 - 4*(||v||^2 - max^2)) = 2*sqrt(u.dot(v)^2 +- (||v||^2 -max^2))</span>
+<span id="L161"><span class="lineNum">     161</span>                 :             :                 //</span>
+<span id="L162"><span class="lineNum">     162</span>                 :             :                 // s1/2 = ( -2*u.dot(v) +- 2*sqrt(u.dot(v)^2 - (||v||^2 -max^2)) / 2</span>
+<span id="L163"><span class="lineNum">     163</span>                 :             :                 //      =  -u.dot(v) +- sqrt(u.dot(v)^2 - (||v||^2 -max^2))</span>
+<span id="L164"><span class="lineNum">     164</span>                 :             :                 // m = u.dot(v)</span>
+<span id="L165"><span class="lineNum">     165</span>                 :             :                 // s = -m + sqrt(m^2 - c)</span>
+<span id="L166"><span class="lineNum">     166</span>                 :             :                 //</span>
+<span id="L167"><span class="lineNum">     167</span>                 :             :                 //</span>
+<span id="L168"><span class="lineNum">     168</span>                 :             :                 //</span>
+<span id="L169"><span class="lineNum">     169</span>                 :             :                 // notes:</span>
+<span id="L170"><span class="lineNum">     170</span>                 :             :                 //      - s (=scaling factor) needs to be positive</span>
+<span id="L171"><span class="lineNum">     171</span>                 :             :                 //      - (max - ||v||) always larger than zero, otherwise it never entered this if-statement</span>
+<span id="L172"><span class="lineNum">     172</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">           1 :                 Vector2f u1 = v1.normalized();</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L173"><span class="lineNum">     173</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :                 float m = u1.dot(v0);</span></span>
+<span id="L174"><span class="lineNum">     174</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :                 float c = v0.dot(v0) - max * max;</span></span>
+<span id="L175"><span class="lineNum">     175</span>                 :<span class="tlaGNC">           1 :                 float s = -m + sqrtf(m * m - c);</span></span>
+<span id="L176"><span class="lineNum">     176</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">           1 :                 return v0 + u1 * s;</span></span>
+<span class="lineNum">        </span>    <span class="tlaGBC" title="Branch 4 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span>]
+<span id="L177"><span class="lineNum">     177</span>                 :             :         }</span>
+<span id="L178"><span class="lineNum">     178</span>                 :             : }</span>
+<span id="L179"><span class="lineNum">     179</span>                 :             : </span>
+<span id="L180"><span class="lineNum">     180</span>                 :<span class="tlaGNC">           9 : bool cross_sphere_line(const Vector3f &amp;sphere_c, const float sphere_r,</span></span>
+<span id="L181"><span class="lineNum">     181</span>                 :             :                        const Vector3f &amp;line_a, const Vector3f &amp;line_b, Vector3f &amp;res)</span>
+<span id="L182"><span class="lineNum">     182</span>                 :             : {</span>
+<span id="L183"><span class="lineNum">     183</span>                 :             :         // project center of sphere on line  normalized AB</span>
+<span id="L184"><span class="lineNum">     184</span>   [<span class="tlaGBC" title="Branch 0 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">           9 :         Vector3f ab_norm = line_b - line_a;</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L185"><span class="lineNum">     185</span>                 :             : </span>
+<span id="L186"><span class="lineNum">     186</span>   [<span class="tlaGBC" title="Branch 0 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 9 times"> + </span>]:<span class="tlaGNC">           9 :         if (ab_norm.length() &lt; 0.01f) {</span></span>
+<span id="L187"><span class="lineNum">     187</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                 return true;</span></span>
+<span id="L188"><span class="lineNum">     188</span>                 :             :         }</span>
+<span id="L189"><span class="lineNum">     189</span>                 :             : </span>
+<span id="L190"><span class="lineNum">     190</span>         [<span class="tlaGBC" title="Branch 0 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC tlaBgGNC">           9 :         ab_norm.normalize();</span></span>
+<span id="L191"><span class="lineNum">     191</span>   [<span class="tlaGBC" title="Branch 0 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">           9 :         Vector3f d = line_a + ab_norm * ((sphere_c - line_a) * ab_norm);</span></span>
+<span class="lineNum">        </span> <span class="tlaGBC" title="Branch 4 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaGBC" title="Branch 8 was taken 9 times"> + </span> 
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 9 was not taken"> - </span><span class="tlaGBC" title="Branch 10 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 11 was not taken"> - </span><span class="tlaGBC" title="Branch 12 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 13 was not taken"> - </span> 
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 14 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 15 was not taken"> - </span>]
+<span id="L192"><span class="lineNum">     192</span>   [<span class="tlaGBC" title="Branch 0 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">           9 :         float cd_len = (sphere_c - d).length();</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L193"><span class="lineNum">     193</span>                 :             : </span>
+<span id="L194"><span class="lineNum">     194</span>         [<span class="tlaGBC" title="Branch 0 was taken 6 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 3 times"> + </span>]:<span class="tlaGNC">           9 :         if (sphere_r &gt; cd_len) {</span></span>
+<span id="L195"><span class="lineNum">     195</span>                 :             :                 // we have triangle CDX with known CD and CX = R, find DX</span>
+<span id="L196"><span class="lineNum">     196</span>                 :<span class="tlaGNC">           6 :                 float dx_len = sqrtf(sphere_r * sphere_r - cd_len * cd_len);</span></span>
+<span id="L197"><span class="lineNum">     197</span>                 :             : </span>
+<span id="L198"><span class="lineNum">     198</span>   [<span class="tlaGBC" title="Branch 0 was taken 6 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 6 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">           6 :                 if ((sphere_c - line_b) * ab_norm &gt; 0.f) {</span></span>
+<span class="lineNum">        </span> <span class="tlaGBC" title="Branch 4 was taken 6 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 6 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaGBC" title="Branch 8 was taken 2 times"> + </span> 
+<span class="lineNum">        </span>             <span class="tlaGBC" title="Branch 9 was taken 4 times"> + </span>]
+<span id="L199"><span class="lineNum">     199</span>                 :             :                         // target waypoint is already behind us</span>
+<span id="L200"><span class="lineNum">     200</span>         [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           2 :                         res = line_b;</span></span>
+<span id="L201"><span class="lineNum">     201</span>                 :             : </span>
+<span id="L202"><span class="lineNum">     202</span>                 :             :                 } else {</span>
+<span id="L203"><span class="lineNum">     203</span>                 :             :                         // target is in front of us</span>
+<span id="L204"><span class="lineNum">     204</span>   [<span class="tlaGBC" title="Branch 0 was taken 4 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 4 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">           4 :                         res = d + ab_norm * dx_len; // vector A-&gt;B on line</span></span>
+<span class="lineNum">        </span>    <span class="tlaGBC" title="Branch 4 was taken 4 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 4 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span>]
+<span id="L205"><span class="lineNum">     205</span>                 :             :                 }</span>
+<span id="L206"><span class="lineNum">     206</span>                 :             : </span>
+<span id="L207"><span class="lineNum">     207</span>                 :<span class="tlaGNC">           6 :                 return true;</span></span>
+<span id="L208"><span class="lineNum">     208</span>                 :             : </span>
+<span id="L209"><span class="lineNum">     209</span>                 :             :         } else {</span>
+<span id="L210"><span class="lineNum">     210</span>                 :             : </span>
+<span id="L211"><span class="lineNum">     211</span>                 :             :                 // have no roots, return D</span>
+<span id="L212"><span class="lineNum">     212</span>         [<span class="tlaGBC" title="Branch 0 was taken 3 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           3 :                 res = d; // go directly to line</span></span>
+<span id="L213"><span class="lineNum">     213</span>                 :             : </span>
+<span id="L214"><span class="lineNum">     214</span>                 :             :                 // previous waypoint is still in front of us</span>
+<span id="L215"><span class="lineNum">     215</span>   [<span class="tlaGBC" title="Branch 0 was taken 3 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 3 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">           3 :                 if ((sphere_c - line_a) * ab_norm &lt; 0.f) {</span></span>
+<span class="lineNum">        </span> <span class="tlaGBC" title="Branch 4 was taken 3 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 3 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaGBC" title="Branch 8 was taken 1 time"> + </span> 
+<span class="lineNum">        </span>             <span class="tlaGBC" title="Branch 9 was taken 2 times"> + </span>]
+<span id="L216"><span class="lineNum">     216</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :                         res = line_a;</span></span>
+<span id="L217"><span class="lineNum">     217</span>                 :             :                 }</span>
+<span id="L218"><span class="lineNum">     218</span>                 :             : </span>
+<span id="L219"><span class="lineNum">     219</span>                 :             :                 // target waypoint is already behind us</span>
+<span id="L220"><span class="lineNum">     220</span>   [<span class="tlaGBC" title="Branch 0 was taken 3 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 3 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">           3 :                 if ((sphere_c - line_b) * ab_norm &gt; 0.f) {</span></span>
+<span class="lineNum">        </span> <span class="tlaGBC" title="Branch 4 was taken 3 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 3 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaGBC" title="Branch 8 was taken 1 time"> + </span> 
+<span class="lineNum">        </span>             <span class="tlaGBC" title="Branch 9 was taken 2 times"> + </span>]
+<span id="L221"><span class="lineNum">     221</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :                         res = line_b;</span></span>
+<span id="L222"><span class="lineNum">     222</span>                 :             :                 }</span>
+<span id="L223"><span class="lineNum">     223</span>                 :             : </span>
+<span id="L224"><span class="lineNum">     224</span>                 :<span class="tlaGNC">           3 :                 return false;</span></span>
+<span id="L225"><span class="lineNum">     225</span>                 :             :         }</span>
+<span id="L226"><span class="lineNum">     226</span>                 :             : }</span>
+<span id="L227"><span class="lineNum">     227</span>                 :             : </span>
+<span id="L228"><span class="lineNum">     228</span>                 :<span class="tlaGNC">         832 : void addIfNotNan(float &amp;setpoint, const float addition)</span></span>
+<span id="L229"><span class="lineNum">     229</span>                 :             : {</span>
+<span id="L230"><span class="lineNum">     230</span>   [<span class="tlaGBC" title="Branch 0 was taken 493 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 339 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 402 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 91 times"> + </span> :<span class="tlaGNC">         832 :         if (PX4_ISFINITE(setpoint) &amp;&amp; PX4_ISFINITE(addition)) {</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 402 times"> + </span><span class="tlaGBC" title="Branch 5 was taken 430 times"> + </span>]
+<span id="L231"><span class="lineNum">     231</span>                 :             :                 // No NAN, add to the setpoint</span>
+<span id="L232"><span class="lineNum">     232</span>                 :<span class="tlaGNC">         402 :                 setpoint += addition;</span></span>
+<span id="L233"><span class="lineNum">     233</span>                 :             : </span>
+<span id="L234"><span class="lineNum">     234</span>         [<span class="tlaGBC" title="Branch 0 was taken 339 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 91 times"> + </span>]:<span class="tlaGNC">         430 :         } else if (!PX4_ISFINITE(setpoint)) {</span></span>
+<span id="L235"><span class="lineNum">     235</span>                 :             :                 // Setpoint NAN, take addition</span>
+<span id="L236"><span class="lineNum">     236</span>                 :<span class="tlaGNC">         339 :                 setpoint = addition;</span></span>
+<span id="L237"><span class="lineNum">     237</span>                 :             :         }</span>
+<span id="L238"><span class="lineNum">     238</span>                 :             : </span>
+<span id="L239"><span class="lineNum">     239</span>                 :             :         // Addition is NAN or both are NAN, nothing to do</span>
+<span id="L240"><span class="lineNum">     240</span>                 :<span class="tlaGNC">         832 : }</span></span>
+<span id="L241"><span class="lineNum">     241</span>                 :             : </span>
+<span id="L242"><span class="lineNum">     242</span>                 :<span class="tlaGNC">         276 : void addIfNotNanVector3f(Vector3f &amp;setpoint, const Vector3f &amp;addition)</span></span>
+<span id="L243"><span class="lineNum">     243</span>                 :             : {</span>
+<span id="L244"><span class="lineNum">     244</span>         [<span class="tlaGBC" title="Branch 0 was taken 828 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 276 times"> + </span>]:<span class="tlaGNC">        1104 :         for (int i = 0; i &lt; 3; i++) {</span></span>
+<span id="L245"><span class="lineNum">     245</span>                 :<span class="tlaGNC">         828 :                 addIfNotNan(setpoint(i), addition(i));</span></span>
+<span id="L246"><span class="lineNum">     246</span>                 :             :         }</span>
+<span id="L247"><span class="lineNum">     247</span>                 :<span class="tlaGNC">         276 : }</span></span>
+<span id="L248"><span class="lineNum">     248</span>                 :             : </span>
+<span id="L249"><span class="lineNum">     249</span>                 :<span class="tlaGNC">         138 : void setZeroIfNanVector3f(Vector3f &amp;vector)</span></span>
+<span id="L250"><span class="lineNum">     250</span>                 :             : {</span>
+<span id="L251"><span class="lineNum">     251</span>                 :             :         // Adding zero vector overwrites elements that are NaN with zero</span>
+<span id="L252"><span class="lineNum">     252</span>   [<span class="tlaGBC" title="Branch 0 was taken 276 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 138 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 138 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">         414 :         addIfNotNanVector3f(vector, Vector3f());</span></span>
+<span id="L253"><span class="lineNum">     253</span>                 :<span class="tlaGNC">         138 : }</span></span>
+<span id="L254"><span class="lineNum">     254</span>                 :             : </span>
+<span id="L255"><span class="lineNum">     255</span>                 :             : } // ControlMath</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

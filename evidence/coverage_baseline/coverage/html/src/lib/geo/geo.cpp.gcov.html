@@ -1,0 +1,487 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov_filtered.info - src/lib/geo/geo.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../index.html">top level</a> - <a href="index.html">src/lib/geo</a> - geo.cpp<span style="font-size: 80%;"> (source / <a href="geo.cpp.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov_filtered.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryLo">61.5&nbsp;%</td>
+            <td class="headerCovTableEntry">187</td>
+            <td class="headerCovTableEntry">115</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-10-02 17:31:18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryMed">78.6&nbsp;%</td>
+            <td class="headerCovTableEntry">14</td>
+            <td class="headerCovTableEntry">11</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryLo">27.5&nbsp;%</td>
+            <td class="headerCovTableEntry">40</td>
+            <td class="headerCovTableEntry">11</td>
+          </tr>
+                  <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : /****************************************************************************</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             :  *</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             :  *   Copyright (c) 2012-2021 PX4 Development Team. All rights reserved.</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             :  *</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             :  * Redistribution and use in source and binary forms, with or without</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             :  * modification, are permitted provided that the following conditions</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             :  * are met:</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             :  *</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             :  * 1. Redistributions of source code must retain the above copyright</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             :  *    notice, this list of conditions and the following disclaimer.</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             :  * 2. Redistributions in binary form must reproduce the above copyright</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             :  *    notice, this list of conditions and the following disclaimer in</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             :  *    the documentation and/or other materials provided with the</span>
+<span id="L14"><span class="lineNum">      14</span>                 :             :  *    distribution.</span>
+<span id="L15"><span class="lineNum">      15</span>                 :             :  * 3. Neither the name PX4 nor the names of its contributors may be</span>
+<span id="L16"><span class="lineNum">      16</span>                 :             :  *    used to endorse or promote products derived from this software</span>
+<span id="L17"><span class="lineNum">      17</span>                 :             :  *    without specific prior written permission.</span>
+<span id="L18"><span class="lineNum">      18</span>                 :             :  *</span>
+<span id="L19"><span class="lineNum">      19</span>                 :             :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span id="L20"><span class="lineNum">      20</span>                 :             :  * &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span id="L21"><span class="lineNum">      21</span>                 :             :  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS</span>
+<span id="L22"><span class="lineNum">      22</span>                 :             :  * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE</span>
+<span id="L23"><span class="lineNum">      23</span>                 :             :  * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,</span>
+<span id="L24"><span class="lineNum">      24</span>                 :             :  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,</span>
+<span id="L25"><span class="lineNum">      25</span>                 :             :  * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS</span>
+<span id="L26"><span class="lineNum">      26</span>                 :             :  * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED</span>
+<span id="L27"><span class="lineNum">      27</span>                 :             :  * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT</span>
+<span id="L28"><span class="lineNum">      28</span>                 :             :  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN</span>
+<span id="L29"><span class="lineNum">      29</span>                 :             :  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</span>
+<span id="L30"><span class="lineNum">      30</span>                 :             :  * POSSIBILITY OF SUCH DAMAGE.</span>
+<span id="L31"><span class="lineNum">      31</span>                 :             :  *</span>
+<span id="L32"><span class="lineNum">      32</span>                 :             :  ****************************************************************************/</span>
+<span id="L33"><span class="lineNum">      33</span>                 :             : </span>
+<span id="L34"><span class="lineNum">      34</span>                 :             : /**</span>
+<span id="L35"><span class="lineNum">      35</span>                 :             :  * @file geo.cpp</span>
+<span id="L36"><span class="lineNum">      36</span>                 :             :  *</span>
+<span id="L37"><span class="lineNum">      37</span>                 :             :  * Geo / math functions to perform geodesic calculations</span>
+<span id="L38"><span class="lineNum">      38</span>                 :             :  *</span>
+<span id="L39"><span class="lineNum">      39</span>                 :             :  * @author Thomas Gubler &lt;thomasgubler@student.ethz.ch&gt;</span>
+<span id="L40"><span class="lineNum">      40</span>                 :             :  * @author Julian Oes &lt;joes@student.ethz.ch&gt;</span>
+<span id="L41"><span class="lineNum">      41</span>                 :             :  * @author Lorenz Meier &lt;lm@inf.ethz.ch&gt;</span>
+<span id="L42"><span class="lineNum">      42</span>                 :             :  * @author Anton Babushkin &lt;anton.babushkin@me.com&gt;</span>
+<span id="L43"><span class="lineNum">      43</span>                 :             :  */</span>
+<span id="L44"><span class="lineNum">      44</span>                 :             : </span>
+<span id="L45"><span class="lineNum">      45</span>                 :             : #include &quot;geo.h&quot;</span>
+<span id="L46"><span class="lineNum">      46</span>                 :             : </span>
+<span id="L47"><span class="lineNum">      47</span>                 :             : #include &lt;float.h&gt;</span>
+<span id="L48"><span class="lineNum">      48</span>                 :             : </span>
+<span id="L49"><span class="lineNum">      49</span>                 :             : using matrix::wrap_pi;</span>
+<span id="L50"><span class="lineNum">      50</span>                 :             : using matrix::wrap_2pi;</span>
+<span id="L51"><span class="lineNum">      51</span>                 :             : </span>
+<span id="L52"><span class="lineNum">      52</span>                 :             : /*</span>
+<span id="L53"><span class="lineNum">      53</span>                 :             :  * Azimuthal Equidistant Projection</span>
+<span id="L54"><span class="lineNum">      54</span>                 :             :  * formulas according to: http://mathworld.wolfram.com/AzimuthalEquidistantProjection.html</span>
+<span id="L55"><span class="lineNum">      55</span>                 :             :  */</span>
+<span id="L56"><span class="lineNum">      56</span>                 :             : </span>
+<span id="L57"><span class="lineNum">      57</span>                 :<span class="tlaGNC tlaBgGNC">       15920 : void MapProjection::initReference(double lat_0, double lon_0, uint64_t timestamp)</span></span>
+<span id="L58"><span class="lineNum">      58</span>                 :             : {</span>
+<span id="L59"><span class="lineNum">      59</span>                 :<span class="tlaGNC">       15920 :         _ref_timestamp = timestamp;</span></span>
+<span id="L60"><span class="lineNum">      60</span>                 :<span class="tlaGNC">       15920 :         _ref_lat = math::radians(lat_0);</span></span>
+<span id="L61"><span class="lineNum">      61</span>                 :<span class="tlaGNC">       15920 :         _ref_lon = math::radians(lon_0);</span></span>
+<span id="L62"><span class="lineNum">      62</span>                 :<span class="tlaGNC">       15920 :         _ref_sin_lat = sin(_ref_lat);</span></span>
+<span id="L63"><span class="lineNum">      63</span>                 :<span class="tlaGNC">       15920 :         _ref_cos_lat = cos(_ref_lat);</span></span>
+<span id="L64"><span class="lineNum">      64</span>                 :<span class="tlaGNC">       15920 :         _ref_init_done = true;</span></span>
+<span id="L65"><span class="lineNum">      65</span>                 :<span class="tlaGNC">       15920 : }</span></span>
+<span id="L66"><span class="lineNum">      66</span>                 :             : </span>
+<span id="L67"><span class="lineNum">      67</span>                 :<span class="tlaGNC">       21210 : void MapProjection::project(double lat, double lon, float &amp;x, float &amp;y) const</span></span>
+<span id="L68"><span class="lineNum">      68</span>                 :             : {</span>
+<span id="L69"><span class="lineNum">      69</span>                 :<span class="tlaGNC">       21210 :         const double lat_rad = math::radians(lat);</span></span>
+<span id="L70"><span class="lineNum">      70</span>                 :<span class="tlaGNC">       21210 :         const double lon_rad = math::radians(lon);</span></span>
+<span id="L71"><span class="lineNum">      71</span>                 :             : </span>
+<span id="L72"><span class="lineNum">      72</span>                 :<span class="tlaGNC">       21210 :         const double sin_lat = sin(lat_rad);</span></span>
+<span id="L73"><span class="lineNum">      73</span>                 :<span class="tlaGNC">       21210 :         const double cos_lat = cos(lat_rad);</span></span>
+<span id="L74"><span class="lineNum">      74</span>                 :             : </span>
+<span id="L75"><span class="lineNum">      75</span>                 :<span class="tlaGNC">       21210 :         const double cos_d_lon = cos(lon_rad - _ref_lon);</span></span>
+<span id="L76"><span class="lineNum">      76</span>                 :             : </span>
+<span id="L77"><span class="lineNum">      77</span>                 :<span class="tlaGNC">       21210 :         const double arg = math::constrain(_ref_sin_lat * sin_lat + _ref_cos_lat * cos_lat * cos_d_lon, -1.0,  1.0);</span></span>
+<span id="L78"><span class="lineNum">      78</span>                 :<span class="tlaGNC">       21210 :         const double c = acos(arg);</span></span>
+<span id="L79"><span class="lineNum">      79</span>                 :             : </span>
+<span id="L80"><span class="lineNum">      80</span>                 :<span class="tlaGNC">       21210 :         double k = 1.0;</span></span>
+<span id="L81"><span class="lineNum">      81</span>                 :             : </span>
+<span id="L82"><span class="lineNum">      82</span>         [<span class="tlaGBC" title="Branch 0 was taken 6390 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 14820 times"> + </span>]:<span class="tlaGNC">       21210 :         if (fabs(c) &gt; 0) {</span></span>
+<span id="L83"><span class="lineNum">      83</span>                 :<span class="tlaGNC">        6390 :                 k = (c / sin(c));</span></span>
+<span id="L84"><span class="lineNum">      84</span>                 :             :         }</span>
+<span id="L85"><span class="lineNum">      85</span>                 :             : </span>
+<span id="L86"><span class="lineNum">      86</span>                 :<span class="tlaGNC">       21210 :         x = static_cast&lt;float&gt;(k * (_ref_cos_lat * sin_lat - _ref_sin_lat * cos_lat * cos_d_lon) * CONSTANTS_RADIUS_OF_EARTH);</span></span>
+<span id="L87"><span class="lineNum">      87</span>                 :<span class="tlaGNC">       21210 :         y = static_cast&lt;float&gt;(k * cos_lat * sin(lon_rad - _ref_lon) * CONSTANTS_RADIUS_OF_EARTH);</span></span>
+<span id="L88"><span class="lineNum">      88</span>                 :<span class="tlaGNC">       21210 : }</span></span>
+<span id="L89"><span class="lineNum">      89</span>                 :             : </span>
+<span id="L90"><span class="lineNum">      90</span>                 :<span class="tlaGNC">         298 : void MapProjection::reproject(float x, float y, double &amp;lat, double &amp;lon) const</span></span>
+<span id="L91"><span class="lineNum">      91</span>                 :             : {</span>
+<span id="L92"><span class="lineNum">      92</span>                 :<span class="tlaGNC">         298 :         const double x_rad = (double)x / CONSTANTS_RADIUS_OF_EARTH;</span></span>
+<span id="L93"><span class="lineNum">      93</span>                 :<span class="tlaGNC">         298 :         const double y_rad = (double)y / CONSTANTS_RADIUS_OF_EARTH;</span></span>
+<span id="L94"><span class="lineNum">      94</span>                 :<span class="tlaGNC">         298 :         const double c = sqrt(x_rad * x_rad + y_rad * y_rad);</span></span>
+<span id="L95"><span class="lineNum">      95</span>                 :             : </span>
+<span id="L96"><span class="lineNum">      96</span>         [<span class="tlaGBC" title="Branch 0 was taken 290 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 8 times"> + </span>]:<span class="tlaGNC">         298 :         if (fabs(c) &gt; 0) {</span></span>
+<span id="L97"><span class="lineNum">      97</span>                 :<span class="tlaGNC">         290 :                 const double sin_c = sin(c);</span></span>
+<span id="L98"><span class="lineNum">      98</span>                 :<span class="tlaGNC">         290 :                 const double cos_c = cos(c);</span></span>
+<span id="L99"><span class="lineNum">      99</span>                 :             : </span>
+<span id="L100"><span class="lineNum">     100</span>                 :<span class="tlaGNC">         290 :                 const double lat_rad = asin(cos_c * _ref_sin_lat + (x_rad * sin_c * _ref_cos_lat) / c);</span></span>
+<span id="L101"><span class="lineNum">     101</span>                 :<span class="tlaGNC">         290 :                 const double lon_rad = (_ref_lon + atan2(y_rad * sin_c, c * _ref_cos_lat * cos_c - x_rad * _ref_sin_lat * sin_c));</span></span>
+<span id="L102"><span class="lineNum">     102</span>                 :             : </span>
+<span id="L103"><span class="lineNum">     103</span>                 :<span class="tlaGNC">         290 :                 lat = math::degrees(lat_rad);</span></span>
+<span id="L104"><span class="lineNum">     104</span>                 :<span class="tlaGNC">         290 :                 lon = math::degrees(lon_rad);</span></span>
+<span id="L105"><span class="lineNum">     105</span>                 :             : </span>
+<span id="L106"><span class="lineNum">     106</span>                 :             :         } else {</span>
+<span id="L107"><span class="lineNum">     107</span>                 :<span class="tlaGNC">           8 :                 lat = math::degrees(_ref_lat);</span></span>
+<span id="L108"><span class="lineNum">     108</span>                 :<span class="tlaGNC">           8 :                 lon = math::degrees(_ref_lon);</span></span>
+<span id="L109"><span class="lineNum">     109</span>                 :             :         }</span>
+<span id="L110"><span class="lineNum">     110</span>                 :<span class="tlaGNC">         298 : }</span></span>
+<span id="L111"><span class="lineNum">     111</span>                 :             : </span>
+<span id="L112"><span class="lineNum">     112</span>                 :<span class="tlaGNC">        1968 : float get_distance_to_next_waypoint(double lat_now, double lon_now, double lat_next, double lon_next)</span></span>
+<span id="L113"><span class="lineNum">     113</span>                 :             : {</span>
+<span id="L114"><span class="lineNum">     114</span>                 :<span class="tlaGNC">        1968 :         const double lat_now_rad = math::radians(lat_now);</span></span>
+<span id="L115"><span class="lineNum">     115</span>                 :<span class="tlaGNC">        1968 :         const double lat_next_rad = math::radians(lat_next);</span></span>
+<span id="L116"><span class="lineNum">     116</span>                 :             : </span>
+<span id="L117"><span class="lineNum">     117</span>                 :<span class="tlaGNC">        1968 :         const double d_lat = lat_next_rad - lat_now_rad;</span></span>
+<span id="L118"><span class="lineNum">     118</span>                 :<span class="tlaGNC">        1968 :         const double d_lon = math::radians(lon_next) - math::radians(lon_now);</span></span>
+<span id="L119"><span class="lineNum">     119</span>                 :             : </span>
+<span id="L120"><span class="lineNum">     120</span>                 :<span class="tlaGNC">        1968 :         const double a = sin(d_lat / 2.0) * sin(d_lat / 2.0) + sin(d_lon / 2.0) * sin(d_lon / 2.0) * cos(lat_now_rad) * cos(</span></span>
+<span id="L121"><span class="lineNum">     121</span>                 :             :                                  lat_next_rad);</span>
+<span id="L122"><span class="lineNum">     122</span>                 :             : </span>
+<span id="L123"><span class="lineNum">     123</span>                 :<span class="tlaGNC">        1968 :         const double c = atan2(sqrt(a), sqrt(1.0 - a));</span></span>
+<span id="L124"><span class="lineNum">     124</span>                 :             : </span>
+<span id="L125"><span class="lineNum">     125</span>                 :<span class="tlaGNC">        1968 :         return static_cast&lt;float&gt;(CONSTANTS_RADIUS_OF_EARTH * 2.0 * c);</span></span>
+<span id="L126"><span class="lineNum">     126</span>                 :             : }</span>
+<span id="L127"><span class="lineNum">     127</span>                 :             : </span>
+<span id="L128"><span class="lineNum">     128</span>                 :<span class="tlaGNC">           3 : void create_waypoint_from_line_and_dist(double lat_A, double lon_A, double lat_B, double lon_B, float dist,</span></span>
+<span id="L129"><span class="lineNum">     129</span>                 :             :                                         double *lat_target, double *lon_target)</span>
+<span id="L130"><span class="lineNum">     130</span>                 :             : {</span>
+<span id="L131"><span class="lineNum">     131</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 2 times"> + </span>]:<span class="tlaGNC">           3 :         if (fabsf(dist) &lt; FLT_EPSILON) {</span></span>
+<span id="L132"><span class="lineNum">     132</span>                 :<span class="tlaGNC">           1 :                 *lat_target = lat_A;</span></span>
+<span id="L133"><span class="lineNum">     133</span>                 :<span class="tlaGNC">           1 :                 *lon_target = lon_A;</span></span>
+<span id="L134"><span class="lineNum">     134</span>                 :             : </span>
+<span id="L135"><span class="lineNum">     135</span>                 :             :         } else {</span>
+<span id="L136"><span class="lineNum">     136</span>                 :<span class="tlaGNC">           2 :                 float heading = get_bearing_to_next_waypoint(lat_A, lon_A, lat_B, lon_B);</span></span>
+<span id="L137"><span class="lineNum">     137</span>                 :<span class="tlaGNC">           2 :                 waypoint_from_heading_and_distance(lat_A, lon_A, heading, dist, lat_target, lon_target);</span></span>
+<span id="L138"><span class="lineNum">     138</span>                 :             :         }</span>
+<span id="L139"><span class="lineNum">     139</span>                 :<span class="tlaGNC">           3 : }</span></span>
+<span id="L140"><span class="lineNum">     140</span>                 :             : </span>
+<span id="L141"><span class="lineNum">     141</span>                 :<span class="tlaGNC">        1993 : void waypoint_from_heading_and_distance(double lat_start, double lon_start, float bearing, float dist,</span></span>
+<span id="L142"><span class="lineNum">     142</span>                 :             :                                         double *lat_target, double *lon_target)</span>
+<span id="L143"><span class="lineNum">     143</span>                 :             : {</span>
+<span id="L144"><span class="lineNum">     144</span>                 :<span class="tlaGNC">        1993 :         bearing = wrap_2pi(bearing);</span></span>
+<span id="L145"><span class="lineNum">     145</span>                 :             : </span>
+<span id="L146"><span class="lineNum">     146</span>                 :<span class="tlaGNC">        1993 :         double radius_ratio = static_cast&lt;double&gt;(dist) / CONSTANTS_RADIUS_OF_EARTH;</span></span>
+<span id="L147"><span class="lineNum">     147</span>                 :             : </span>
+<span id="L148"><span class="lineNum">     148</span>                 :<span class="tlaGNC">        1993 :         double lat_start_rad = math::radians(lat_start);</span></span>
+<span id="L149"><span class="lineNum">     149</span>                 :<span class="tlaGNC">        1993 :         double lon_start_rad = math::radians(lon_start);</span></span>
+<span id="L150"><span class="lineNum">     150</span>                 :             : </span>
+<span id="L151"><span class="lineNum">     151</span>                 :<span class="tlaGNC">        1993 :         *lat_target = asin(sin(lat_start_rad) * cos(radius_ratio) + cos(lat_start_rad) * sin(radius_ratio) * cos((</span></span>
+<span id="L152"><span class="lineNum">     152</span>                 :             :                                    double)bearing));</span>
+<span id="L153"><span class="lineNum">     153</span>                 :<span class="tlaGNC">        1993 :         *lon_target = lon_start_rad + atan2(sin((double)bearing) * sin(radius_ratio) * cos(lat_start_rad),</span></span>
+<span id="L154"><span class="lineNum">     154</span>                 :<span class="tlaGNC">        1993 :                                             cos(radius_ratio) - sin(lat_start_rad) * sin(*lat_target));</span></span>
+<span id="L155"><span class="lineNum">     155</span>                 :             : </span>
+<span id="L156"><span class="lineNum">     156</span>                 :<span class="tlaGNC">        1993 :         *lat_target = math::degrees(*lat_target);</span></span>
+<span id="L157"><span class="lineNum">     157</span>                 :<span class="tlaGNC">        1993 :         *lon_target = math::degrees(*lon_target);</span></span>
+<span id="L158"><span class="lineNum">     158</span>                 :<span class="tlaGNC">        1993 : }</span></span>
+<span id="L159"><span class="lineNum">     159</span>                 :             : </span>
+<span id="L160"><span class="lineNum">     160</span>                 :<span class="tlaGNC">        3884 : float get_bearing_to_next_waypoint(double lat_now, double lon_now, double lat_next, double lon_next)</span></span>
+<span id="L161"><span class="lineNum">     161</span>                 :             : {</span>
+<span id="L162"><span class="lineNum">     162</span>                 :<span class="tlaGNC">        3884 :         const double lat_now_rad = math::radians(lat_now);</span></span>
+<span id="L163"><span class="lineNum">     163</span>                 :<span class="tlaGNC">        3884 :         const double lat_next_rad = math::radians(lat_next);</span></span>
+<span id="L164"><span class="lineNum">     164</span>                 :             : </span>
+<span id="L165"><span class="lineNum">     165</span>                 :<span class="tlaGNC">        3884 :         const double cos_lat_next = cos(lat_next_rad);</span></span>
+<span id="L166"><span class="lineNum">     166</span>                 :<span class="tlaGNC">        3884 :         const double d_lon = math::radians(lon_next - lon_now);</span></span>
+<span id="L167"><span class="lineNum">     167</span>                 :             : </span>
+<span id="L168"><span class="lineNum">     168</span>                 :             :         /* conscious mix of double and float trig function to maximize speed and efficiency */</span>
+<span id="L169"><span class="lineNum">     169</span>                 :             : </span>
+<span id="L170"><span class="lineNum">     170</span>                 :<span class="tlaGNC">        3884 :         const float y = static_cast&lt;float&gt;(sin(d_lon) * cos_lat_next);</span></span>
+<span id="L171"><span class="lineNum">     171</span>                 :<span class="tlaGNC">        3884 :         const float x = static_cast&lt;float&gt;(cos(lat_now_rad) * sin(lat_next_rad) - sin(lat_now_rad) * cos_lat_next * cos(d_lon));</span></span>
+<span id="L172"><span class="lineNum">     172</span>                 :             : </span>
+<span id="L173"><span class="lineNum">     173</span>                 :<span class="tlaGNC">        3884 :         return wrap_pi(atan2f(y, x));</span></span>
+<span id="L174"><span class="lineNum">     174</span>                 :             : }</span>
+<span id="L175"><span class="lineNum">     175</span>                 :             : </span>
+<span id="L176"><span class="lineNum">     176</span>                 :             : void</span>
+<span id="L177"><span class="lineNum">     177</span>                 :<span class="tlaGNC">          18 : get_vector_to_next_waypoint(double lat_now, double lon_now, double lat_next, double lon_next, float *v_n, float *v_e)</span></span>
+<span id="L178"><span class="lineNum">     178</span>                 :             : {</span>
+<span id="L179"><span class="lineNum">     179</span>                 :<span class="tlaGNC">          18 :         const double lat_now_rad = math::radians(lat_now);</span></span>
+<span id="L180"><span class="lineNum">     180</span>                 :<span class="tlaGNC">          18 :         const double lat_next_rad = math::radians(lat_next);</span></span>
+<span id="L181"><span class="lineNum">     181</span>                 :<span class="tlaGNC">          18 :         const double d_lon = math::radians(lon_next) - math::radians(lon_now);</span></span>
+<span id="L182"><span class="lineNum">     182</span>                 :             : </span>
+<span id="L183"><span class="lineNum">     183</span>                 :             :         /* conscious mix of double and float trig function to maximize speed and efficiency */</span>
+<span id="L184"><span class="lineNum">     184</span>                 :<span class="tlaGNC">          18 :         *v_n = static_cast&lt;float&gt;(CONSTANTS_RADIUS_OF_EARTH * (cos(lat_now_rad) * sin(lat_next_rad) - sin(lat_now_rad) * cos(</span></span>
+<span id="L185"><span class="lineNum">     185</span>                 :<span class="tlaGNC">          18 :                                           lat_next_rad) * cos(d_lon)));</span></span>
+<span id="L186"><span class="lineNum">     186</span>                 :<span class="tlaGNC">          18 :         *v_e = static_cast&lt;float&gt;(CONSTANTS_RADIUS_OF_EARTH * sin(d_lon) * cos(lat_next_rad));</span></span>
+<span id="L187"><span class="lineNum">     187</span>                 :<span class="tlaGNC">          18 : }</span></span>
+<span id="L188"><span class="lineNum">     188</span>                 :             : </span>
+<span id="L189"><span class="lineNum">     189</span>                 :             : void</span>
+<span id="L190"><span class="lineNum">     190</span>                 :<span class="tlaUNC tlaBgUNC">           0 : get_vector_to_next_waypoint_fast(double lat_now, double lon_now, double lat_next, double lon_next, float *v_n,</span></span>
+<span id="L191"><span class="lineNum">     191</span>                 :             :                                  float *v_e)</span>
+<span id="L192"><span class="lineNum">     192</span>                 :             : {</span>
+<span id="L193"><span class="lineNum">     193</span>                 :<span class="tlaUNC">           0 :         double lat_now_rad = math::radians(lat_now);</span></span>
+<span id="L194"><span class="lineNum">     194</span>                 :<span class="tlaUNC">           0 :         double lon_now_rad = math::radians(lon_now);</span></span>
+<span id="L195"><span class="lineNum">     195</span>                 :<span class="tlaUNC">           0 :         double lat_next_rad = math::radians(lat_next);</span></span>
+<span id="L196"><span class="lineNum">     196</span>                 :<span class="tlaUNC">           0 :         double lon_next_rad = math::radians(lon_next);</span></span>
+<span id="L197"><span class="lineNum">     197</span>                 :             : </span>
+<span id="L198"><span class="lineNum">     198</span>                 :<span class="tlaUNC">           0 :         double d_lat = lat_next_rad - lat_now_rad;</span></span>
+<span id="L199"><span class="lineNum">     199</span>                 :<span class="tlaUNC">           0 :         double d_lon = lon_next_rad - lon_now_rad;</span></span>
+<span id="L200"><span class="lineNum">     200</span>                 :             : </span>
+<span id="L201"><span class="lineNum">     201</span>                 :             :         /* conscious mix of double and float trig function to maximize speed and efficiency */</span>
+<span id="L202"><span class="lineNum">     202</span>                 :<span class="tlaUNC">           0 :         *v_n = static_cast&lt;float&gt;(CONSTANTS_RADIUS_OF_EARTH * d_lat);</span></span>
+<span id="L203"><span class="lineNum">     203</span>                 :<span class="tlaUNC">           0 :         *v_e = static_cast&lt;float&gt;(CONSTANTS_RADIUS_OF_EARTH * d_lon * cos(lat_now_rad));</span></span>
+<span id="L204"><span class="lineNum">     204</span>                 :<span class="tlaUNC">           0 : }</span></span>
+<span id="L205"><span class="lineNum">     205</span>                 :             : </span>
+<span id="L206"><span class="lineNum">     206</span>                 :<span class="tlaGNC tlaBgGNC">          12 : void add_vector_to_global_position(double lat_now, double lon_now, float v_n, float v_e, double *lat_res,</span></span>
+<span id="L207"><span class="lineNum">     207</span>                 :             :                                    double *lon_res)</span>
+<span id="L208"><span class="lineNum">     208</span>                 :             : {</span>
+<span id="L209"><span class="lineNum">     209</span>                 :<span class="tlaGNC">          12 :         double lat_now_rad = math::radians(lat_now);</span></span>
+<span id="L210"><span class="lineNum">     210</span>                 :<span class="tlaGNC">          12 :         double lon_now_rad = math::radians(lon_now);</span></span>
+<span id="L211"><span class="lineNum">     211</span>                 :             : </span>
+<span id="L212"><span class="lineNum">     212</span>                 :<span class="tlaGNC">          12 :         *lat_res = math::degrees(lat_now_rad + (double)v_n / CONSTANTS_RADIUS_OF_EARTH);</span></span>
+<span id="L213"><span class="lineNum">     213</span>                 :<span class="tlaGNC">          12 :         *lon_res = math::degrees(lon_now_rad + (double)v_e / (CONSTANTS_RADIUS_OF_EARTH * cos(lat_now_rad)));</span></span>
+<span id="L214"><span class="lineNum">     214</span>                 :<span class="tlaGNC">          12 : }</span></span>
+<span id="L215"><span class="lineNum">     215</span>                 :             : </span>
+<span id="L216"><span class="lineNum">     216</span>                 :             : // Additional functions - @author Doug Weibel &lt;douglas.weibel@colorado.edu&gt;</span>
+<span id="L217"><span class="lineNum">     217</span>                 :             : </span>
+<span id="L218"><span class="lineNum">     218</span>                 :<span class="tlaGNC">        1940 : int get_distance_to_line(struct crosstrack_error_s &amp;crosstrack_error, double lat_now, double lon_now,</span></span>
+<span id="L219"><span class="lineNum">     219</span>                 :             :                          double lat_start, double lon_start, double lat_end, double lon_end)</span>
+<span id="L220"><span class="lineNum">     220</span>                 :             : {</span>
+<span id="L221"><span class="lineNum">     221</span>                 :             :         // This function returns the distance to the nearest point on the track line.  Distance is positive if current</span>
+<span id="L222"><span class="lineNum">     222</span>                 :             :         // position is right of the track and negative if left of the track as seen from a point on the track line</span>
+<span id="L223"><span class="lineNum">     223</span>                 :             :         // headed towards the end point.</span>
+<span id="L224"><span class="lineNum">     224</span>                 :             : </span>
+<span id="L225"><span class="lineNum">     225</span>                 :<span class="tlaGNC">        1940 :         int return_value = -1;  // Set error flag, cleared when valid result calculated.</span></span>
+<span id="L226"><span class="lineNum">     226</span>                 :<span class="tlaGNC">        1940 :         crosstrack_error.past_end = false;</span></span>
+<span id="L227"><span class="lineNum">     227</span>                 :<span class="tlaGNC">        1940 :         crosstrack_error.distance = 0.0f;</span></span>
+<span id="L228"><span class="lineNum">     228</span>                 :<span class="tlaGNC">        1940 :         crosstrack_error.bearing = 0.0f;</span></span>
+<span id="L229"><span class="lineNum">     229</span>                 :             : </span>
+<span id="L230"><span class="lineNum">     230</span>                 :<span class="tlaGNC">        1940 :         float dist_to_end = get_distance_to_next_waypoint(lat_now, lon_now, lat_end, lon_end);</span></span>
+<span id="L231"><span class="lineNum">     231</span>                 :             : </span>
+<span id="L232"><span class="lineNum">     232</span>                 :             :         // Return error if arguments are bad</span>
+<span id="L233"><span class="lineNum">     233</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 1940 times"> + </span>]:<span class="tlaGNC">        1940 :         if (dist_to_end &lt; 0.1f) {</span></span>
+<span id="L234"><span class="lineNum">     234</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                 return -1;</span></span>
+<span id="L235"><span class="lineNum">     235</span>                 :             :         }</span>
+<span id="L236"><span class="lineNum">     236</span>                 :             : </span>
+<span id="L237"><span class="lineNum">     237</span>                 :<span class="tlaGNC tlaBgGNC">        1940 :         float bearing_end = get_bearing_to_next_waypoint(lat_now, lon_now, lat_end, lon_end);</span></span>
+<span id="L238"><span class="lineNum">     238</span>                 :<span class="tlaGNC">        1940 :         float bearing_track = get_bearing_to_next_waypoint(lat_start, lon_start, lat_end, lon_end);</span></span>
+<span id="L239"><span class="lineNum">     239</span>                 :<span class="tlaGNC">        1940 :         float bearing_diff = wrap_pi(bearing_track - bearing_end);</span></span>
+<span id="L240"><span class="lineNum">     240</span>                 :             : </span>
+<span id="L241"><span class="lineNum">     241</span>                 :             :         // Return past_end = true if past end point of line</span>
+<span id="L242"><span class="lineNum">     242</span>   [<span class="tlaGBC" title="Branch 0 was taken 1940 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 1940 times"> + </span>]:<span class="tlaGNC">        1940 :         if (bearing_diff &gt; M_PI_2_F || bearing_diff &lt; -M_PI_2_F) {</span></span>
+<span id="L243"><span class="lineNum">     243</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                 crosstrack_error.past_end = true;</span></span>
+<span id="L244"><span class="lineNum">     244</span>                 :<span class="tlaUNC">           0 :                 return_value = 0;</span></span>
+<span id="L245"><span class="lineNum">     245</span>                 :<span class="tlaUNC">           0 :                 return return_value;</span></span>
+<span id="L246"><span class="lineNum">     246</span>                 :             :         }</span>
+<span id="L247"><span class="lineNum">     247</span>                 :             : </span>
+<span id="L248"><span class="lineNum">     248</span>                 :<span class="tlaGNC tlaBgGNC">        1940 :         crosstrack_error.distance = (dist_to_end) * sinf(bearing_diff);</span></span>
+<span id="L249"><span class="lineNum">     249</span>                 :             : </span>
+<span id="L250"><span class="lineNum">     250</span>         [<span class="tlaGBC" title="Branch 0 was taken 1110 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 830 times"> + </span>]:<span class="tlaGNC">        1940 :         if (sinf(bearing_diff) &gt;= 0) {</span></span>
+<span id="L251"><span class="lineNum">     251</span>                 :<span class="tlaGNC">        1110 :                 crosstrack_error.bearing = wrap_pi(bearing_track - M_PI_2_F);</span></span>
+<span id="L252"><span class="lineNum">     252</span>                 :             : </span>
+<span id="L253"><span class="lineNum">     253</span>                 :             :         } else {</span>
+<span id="L254"><span class="lineNum">     254</span>                 :<span class="tlaGNC">         830 :                 crosstrack_error.bearing = wrap_pi(bearing_track + M_PI_2_F);</span></span>
+<span id="L255"><span class="lineNum">     255</span>                 :             :         }</span>
+<span id="L256"><span class="lineNum">     256</span>                 :             : </span>
+<span id="L257"><span class="lineNum">     257</span>                 :<span class="tlaGNC">        1940 :         return_value = 0;</span></span>
+<span id="L258"><span class="lineNum">     258</span>                 :             : </span>
+<span id="L259"><span class="lineNum">     259</span>                 :<span class="tlaGNC">        1940 :         return return_value;</span></span>
+<span id="L260"><span class="lineNum">     260</span>                 :             : }</span>
+<span id="L261"><span class="lineNum">     261</span>                 :             : </span>
+<span id="L262"><span class="lineNum">     262</span>                 :<span class="tlaUNC tlaBgUNC">           0 : int get_distance_to_arc(struct crosstrack_error_s *crosstrack_error, double lat_now, double lon_now,</span></span>
+<span id="L263"><span class="lineNum">     263</span>                 :             :                         double lat_center, double lon_center,</span>
+<span id="L264"><span class="lineNum">     264</span>                 :             :                         float radius, float arc_start_bearing, float arc_sweep)</span>
+<span id="L265"><span class="lineNum">     265</span>                 :             : {</span>
+<span id="L266"><span class="lineNum">     266</span>                 :             :         // This function returns the distance to the nearest point on the track arc.  Distance is positive if current</span>
+<span id="L267"><span class="lineNum">     267</span>                 :             :         // position is right of the arc and negative if left of the arc as seen from the closest point on the arc and</span>
+<span id="L268"><span class="lineNum">     268</span>                 :             :         // headed towards the end point.</span>
+<span id="L269"><span class="lineNum">     269</span>                 :             : </span>
+<span id="L270"><span class="lineNum">     270</span>                 :             :         // Determine if the current position is inside or outside the sector between the line from the center</span>
+<span id="L271"><span class="lineNum">     271</span>                 :             :         // to the arc start and the line from the center to the arc end</span>
+<span id="L272"><span class="lineNum">     272</span>                 :<span class="tlaUNC">           0 :         float bearing_sector_start = 0.0f;</span></span>
+<span id="L273"><span class="lineNum">     273</span>                 :<span class="tlaUNC">           0 :         float bearing_sector_end = 0.0f;</span></span>
+<span id="L274"><span class="lineNum">     274</span>                 :<span class="tlaUNC">           0 :         float bearing_now = get_bearing_to_next_waypoint(lat_now, lon_now, lat_center, lon_center);</span></span>
+<span id="L275"><span class="lineNum">     275</span>                 :             : </span>
+<span id="L276"><span class="lineNum">     276</span>                 :<span class="tlaUNC">           0 :         int return_value = -1;          // Set error flag, cleared when valid result calculated.</span></span>
+<span id="L277"><span class="lineNum">     277</span>                 :<span class="tlaUNC">           0 :         crosstrack_error-&gt;past_end = false;</span></span>
+<span id="L278"><span class="lineNum">     278</span>                 :<span class="tlaUNC">           0 :         crosstrack_error-&gt;distance = 0.0f;</span></span>
+<span id="L279"><span class="lineNum">     279</span>                 :<span class="tlaUNC">           0 :         crosstrack_error-&gt;bearing = 0.0f;</span></span>
+<span id="L280"><span class="lineNum">     280</span>                 :             : </span>
+<span id="L281"><span class="lineNum">     281</span>                 :             :         // Return error if arguments are bad</span>
+<span id="L282"><span class="lineNum">     282</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         if (radius &lt; 0.1f) {</span></span>
+<span id="L283"><span class="lineNum">     283</span>                 :<span class="tlaUNC">           0 :                 return return_value;</span></span>
+<span id="L284"><span class="lineNum">     284</span>                 :             :         }</span>
+<span id="L285"><span class="lineNum">     285</span>                 :             : </span>
+<span id="L286"><span class="lineNum">     286</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         if (arc_sweep &gt;= 0.0f) {</span></span>
+<span id="L287"><span class="lineNum">     287</span>                 :<span class="tlaUNC">           0 :                 bearing_sector_start = arc_start_bearing;</span></span>
+<span id="L288"><span class="lineNum">     288</span>                 :<span class="tlaUNC">           0 :                 bearing_sector_end = arc_start_bearing + arc_sweep;</span></span>
+<span id="L289"><span class="lineNum">     289</span>                 :             : </span>
+<span id="L290"><span class="lineNum">     290</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 if (bearing_sector_end &gt; 2.0f * M_PI_F) { bearing_sector_end -= (2 * M_PI_F); }</span></span>
+<span id="L291"><span class="lineNum">     291</span>                 :             : </span>
+<span id="L292"><span class="lineNum">     292</span>                 :             :         } else {</span>
+<span id="L293"><span class="lineNum">     293</span>                 :<span class="tlaUNC">           0 :                 bearing_sector_end = arc_start_bearing;</span></span>
+<span id="L294"><span class="lineNum">     294</span>                 :<span class="tlaUNC">           0 :                 bearing_sector_start = arc_start_bearing - arc_sweep;</span></span>
+<span id="L295"><span class="lineNum">     295</span>                 :             : </span>
+<span id="L296"><span class="lineNum">     296</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 if (bearing_sector_start &lt; 0.0f) { bearing_sector_start += (2 * M_PI_F); }</span></span>
+<span id="L297"><span class="lineNum">     297</span>                 :             :         }</span>
+<span id="L298"><span class="lineNum">     298</span>                 :             : </span>
+<span id="L299"><span class="lineNum">     299</span>                 :<span class="tlaUNC">           0 :         bool in_sector = false;</span></span>
+<span id="L300"><span class="lineNum">     300</span>                 :             : </span>
+<span id="L301"><span class="lineNum">     301</span>                 :             :         // Case where sector does not span zero</span>
+<span id="L302"><span class="lineNum">     302</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :         if (bearing_sector_end &gt;= bearing_sector_start &amp;&amp; bearing_now &gt;= bearing_sector_start</span></span>
+<span id="L303"><span class="lineNum">     303</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :             &amp;&amp; bearing_now &lt;= bearing_sector_end) {</span></span>
+<span id="L304"><span class="lineNum">     304</span>                 :             : </span>
+<span id="L305"><span class="lineNum">     305</span>                 :<span class="tlaUNC">           0 :                 in_sector = true;</span></span>
+<span id="L306"><span class="lineNum">     306</span>                 :             :         }</span>
+<span id="L307"><span class="lineNum">     307</span>                 :             : </span>
+<span id="L308"><span class="lineNum">     308</span>                 :             :         // Case where sector does span zero</span>
+<span id="L309"><span class="lineNum">     309</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :         if (bearing_sector_end &lt; bearing_sector_start &amp;&amp; (bearing_now &gt; bearing_sector_start</span></span>
+<span id="L310"><span class="lineNum">     310</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                         || bearing_now &lt; bearing_sector_end)) {</span></span>
+<span id="L311"><span class="lineNum">     311</span>                 :             : </span>
+<span id="L312"><span class="lineNum">     312</span>                 :<span class="tlaUNC">           0 :                 in_sector = true;</span></span>
+<span id="L313"><span class="lineNum">     313</span>                 :             :         }</span>
+<span id="L314"><span class="lineNum">     314</span>                 :             : </span>
+<span id="L315"><span class="lineNum">     315</span>                 :             :         // If in the sector then calculate distance and bearing to closest point</span>
+<span id="L316"><span class="lineNum">     316</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         if (in_sector) {</span></span>
+<span id="L317"><span class="lineNum">     317</span>                 :<span class="tlaUNC">           0 :                 crosstrack_error-&gt;past_end = false;</span></span>
+<span id="L318"><span class="lineNum">     318</span>                 :<span class="tlaUNC">           0 :                 float dist_to_center = get_distance_to_next_waypoint(lat_now, lon_now, lat_center, lon_center);</span></span>
+<span id="L319"><span class="lineNum">     319</span>                 :             : </span>
+<span id="L320"><span class="lineNum">     320</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 if (dist_to_center &lt;= radius) {</span></span>
+<span id="L321"><span class="lineNum">     321</span>                 :<span class="tlaUNC">           0 :                         crosstrack_error-&gt;distance = radius - dist_to_center;</span></span>
+<span id="L322"><span class="lineNum">     322</span>                 :<span class="tlaUNC">           0 :                         crosstrack_error-&gt;bearing = bearing_now + M_PI_F;</span></span>
+<span id="L323"><span class="lineNum">     323</span>                 :             : </span>
+<span id="L324"><span class="lineNum">     324</span>                 :             :                 } else {</span>
+<span id="L325"><span class="lineNum">     325</span>                 :<span class="tlaUNC">           0 :                         crosstrack_error-&gt;distance = dist_to_center - radius;</span></span>
+<span id="L326"><span class="lineNum">     326</span>                 :<span class="tlaUNC">           0 :                         crosstrack_error-&gt;bearing = bearing_now;</span></span>
+<span id="L327"><span class="lineNum">     327</span>                 :             :                 }</span>
+<span id="L328"><span class="lineNum">     328</span>                 :             : </span>
+<span id="L329"><span class="lineNum">     329</span>                 :             :                 // If out of the sector then calculate dist and bearing to start or end point</span>
+<span id="L330"><span class="lineNum">     330</span>                 :             : </span>
+<span id="L331"><span class="lineNum">     331</span>                 :             :         } else {</span>
+<span id="L332"><span class="lineNum">     332</span>                 :             : </span>
+<span id="L333"><span class="lineNum">     333</span>                 :             :                 // Use the approximation  that 111,111 meters in the y direction is 1 degree (of latitude)</span>
+<span id="L334"><span class="lineNum">     334</span>                 :             :                 // and 111,111 * cos(latitude) meters in the x direction is 1 degree (of longitude) to</span>
+<span id="L335"><span class="lineNum">     335</span>                 :             :                 // calculate the position of the start and end points.  We should not be doing this often</span>
+<span id="L336"><span class="lineNum">     336</span>                 :             :                 // as this function generally will not be called repeatedly when we are out of the sector.</span>
+<span id="L337"><span class="lineNum">     337</span>                 :             : </span>
+<span id="L338"><span class="lineNum">     338</span>                 :<span class="tlaUNC">           0 :                 double start_disp_x = (double)radius * sin((double)arc_start_bearing);</span></span>
+<span id="L339"><span class="lineNum">     339</span>                 :<span class="tlaUNC">           0 :                 double start_disp_y = (double)radius * cos((double)arc_start_bearing);</span></span>
+<span id="L340"><span class="lineNum">     340</span>                 :<span class="tlaUNC">           0 :                 double end_disp_x = (double)radius * sin((double)wrap_pi(arc_start_bearing + arc_sweep));</span></span>
+<span id="L341"><span class="lineNum">     341</span>                 :<span class="tlaUNC">           0 :                 double end_disp_y = (double)radius * cos((double)wrap_pi(arc_start_bearing + arc_sweep));</span></span>
+<span id="L342"><span class="lineNum">     342</span>                 :<span class="tlaUNC">           0 :                 double lon_start = lon_now + start_disp_x / 111111.0;</span></span>
+<span id="L343"><span class="lineNum">     343</span>                 :<span class="tlaUNC">           0 :                 double lat_start = lat_now + start_disp_y * cos(lat_now) / 111111.0;</span></span>
+<span id="L344"><span class="lineNum">     344</span>                 :<span class="tlaUNC">           0 :                 double lon_end = lon_now + end_disp_x / 111111.0;</span></span>
+<span id="L345"><span class="lineNum">     345</span>                 :<span class="tlaUNC">           0 :                 double lat_end = lat_now + end_disp_y * cos(lat_now) / 111111.0;</span></span>
+<span id="L346"><span class="lineNum">     346</span>                 :<span class="tlaUNC">           0 :                 float dist_to_start = get_distance_to_next_waypoint(lat_now, lon_now, lat_start, lon_start);</span></span>
+<span id="L347"><span class="lineNum">     347</span>                 :<span class="tlaUNC">           0 :                 float dist_to_end = get_distance_to_next_waypoint(lat_now, lon_now, lat_end, lon_end);</span></span>
+<span id="L348"><span class="lineNum">     348</span>                 :             : </span>
+<span id="L349"><span class="lineNum">     349</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 if (dist_to_start &lt; dist_to_end) {</span></span>
+<span id="L350"><span class="lineNum">     350</span>                 :<span class="tlaUNC">           0 :                         crosstrack_error-&gt;distance = dist_to_start;</span></span>
+<span id="L351"><span class="lineNum">     351</span>                 :<span class="tlaUNC">           0 :                         crosstrack_error-&gt;bearing = get_bearing_to_next_waypoint(lat_now, lon_now, lat_start, lon_start);</span></span>
+<span id="L352"><span class="lineNum">     352</span>                 :             : </span>
+<span id="L353"><span class="lineNum">     353</span>                 :             :                 } else {</span>
+<span id="L354"><span class="lineNum">     354</span>                 :<span class="tlaUNC">           0 :                         crosstrack_error-&gt;past_end = true;</span></span>
+<span id="L355"><span class="lineNum">     355</span>                 :<span class="tlaUNC">           0 :                         crosstrack_error-&gt;distance = dist_to_end;</span></span>
+<span id="L356"><span class="lineNum">     356</span>                 :<span class="tlaUNC">           0 :                         crosstrack_error-&gt;bearing = get_bearing_to_next_waypoint(lat_now, lon_now, lat_end, lon_end);</span></span>
+<span id="L357"><span class="lineNum">     357</span>                 :             :                 }</span>
+<span id="L358"><span class="lineNum">     358</span>                 :             :         }</span>
+<span id="L359"><span class="lineNum">     359</span>                 :             : </span>
+<span id="L360"><span class="lineNum">     360</span>                 :<span class="tlaUNC">           0 :         crosstrack_error-&gt;bearing = wrap_pi(crosstrack_error-&gt;bearing);</span></span>
+<span id="L361"><span class="lineNum">     361</span>                 :<span class="tlaUNC">           0 :         return_value = 0;</span></span>
+<span id="L362"><span class="lineNum">     362</span>                 :             : </span>
+<span id="L363"><span class="lineNum">     363</span>                 :<span class="tlaUNC">           0 :         return return_value;</span></span>
+<span id="L364"><span class="lineNum">     364</span>                 :             : }</span>
+<span id="L365"><span class="lineNum">     365</span>                 :             : </span>
+<span id="L366"><span class="lineNum">     366</span>                 :<span class="tlaGNC tlaBgGNC">        1940 : float get_distance_to_point_global_wgs84(double lat_now, double lon_now, float alt_now,</span></span>
+<span id="L367"><span class="lineNum">     367</span>                 :             :                 double lat_next, double lon_next, float alt_next,</span>
+<span id="L368"><span class="lineNum">     368</span>                 :             :                 float *dist_xy, float *dist_z)</span>
+<span id="L369"><span class="lineNum">     369</span>                 :             : {</span>
+<span id="L370"><span class="lineNum">     370</span>                 :<span class="tlaGNC">        1940 :         double current_x_rad = math::radians(lat_next);</span></span>
+<span id="L371"><span class="lineNum">     371</span>                 :<span class="tlaGNC">        1940 :         double current_y_rad = math::radians(lon_next);</span></span>
+<span id="L372"><span class="lineNum">     372</span>                 :<span class="tlaGNC">        1940 :         double x_rad = math::radians(lat_now);</span></span>
+<span id="L373"><span class="lineNum">     373</span>                 :<span class="tlaGNC">        1940 :         double y_rad = math::radians(lon_now);</span></span>
+<span id="L374"><span class="lineNum">     374</span>                 :             : </span>
+<span id="L375"><span class="lineNum">     375</span>                 :<span class="tlaGNC">        1940 :         double d_lat = x_rad - current_x_rad;</span></span>
+<span id="L376"><span class="lineNum">     376</span>                 :<span class="tlaGNC">        1940 :         double d_lon = y_rad - current_y_rad;</span></span>
+<span id="L377"><span class="lineNum">     377</span>                 :             : </span>
+<span id="L378"><span class="lineNum">     378</span>                 :<span class="tlaGNC">        1940 :         double a = sin(d_lat / 2.0) * sin(d_lat / 2.0) + sin(d_lon / 2.0) * sin(d_lon / 2.0) * cos(current_x_rad) * cos(x_rad);</span></span>
+<span id="L379"><span class="lineNum">     379</span>                 :<span class="tlaGNC">        1940 :         double c = 2 * atan2(sqrt(a), sqrt(1 - a));</span></span>
+<span id="L380"><span class="lineNum">     380</span>                 :             : </span>
+<span id="L381"><span class="lineNum">     381</span>                 :<span class="tlaGNC">        1940 :         const float dxy = static_cast&lt;float&gt;(CONSTANTS_RADIUS_OF_EARTH * c);</span></span>
+<span id="L382"><span class="lineNum">     382</span>                 :<span class="tlaGNC">        1940 :         const float dz = static_cast&lt;float&gt;(alt_now - alt_next);</span></span>
+<span id="L383"><span class="lineNum">     383</span>                 :             : </span>
+<span id="L384"><span class="lineNum">     384</span>                 :<span class="tlaGNC">        1940 :         *dist_xy = fabsf(dxy);</span></span>
+<span id="L385"><span class="lineNum">     385</span>                 :<span class="tlaGNC">        1940 :         *dist_z = fabsf(dz);</span></span>
+<span id="L386"><span class="lineNum">     386</span>                 :             : </span>
+<span id="L387"><span class="lineNum">     387</span>                 :<span class="tlaGNC">        1940 :         return sqrtf(dxy * dxy + dz * dz);</span></span>
+<span id="L388"><span class="lineNum">     388</span>                 :             : }</span>
+<span id="L389"><span class="lineNum">     389</span>                 :             : </span>
+<span id="L390"><span class="lineNum">     390</span>                 :<span class="tlaUNC tlaBgUNC">           0 : float mavlink_wpm_distance_to_point_local(float x_now, float y_now, float z_now,</span></span>
+<span id="L391"><span class="lineNum">     391</span>                 :             :                 float x_next, float y_next, float z_next,</span>
+<span id="L392"><span class="lineNum">     392</span>                 :             :                 float *dist_xy, float *dist_z)</span>
+<span id="L393"><span class="lineNum">     393</span>                 :             : {</span>
+<span id="L394"><span class="lineNum">     394</span>                 :<span class="tlaUNC">           0 :         float dx = x_now - x_next;</span></span>
+<span id="L395"><span class="lineNum">     395</span>                 :<span class="tlaUNC">           0 :         float dy = y_now - y_next;</span></span>
+<span id="L396"><span class="lineNum">     396</span>                 :<span class="tlaUNC">           0 :         float dz = z_now - z_next;</span></span>
+<span id="L397"><span class="lineNum">     397</span>                 :             : </span>
+<span id="L398"><span class="lineNum">     398</span>                 :<span class="tlaUNC">           0 :         *dist_xy = sqrtf(dx * dx + dy * dy);</span></span>
+<span id="L399"><span class="lineNum">     399</span>                 :<span class="tlaUNC">           0 :         *dist_z = fabsf(dz);</span></span>
+<span id="L400"><span class="lineNum">     400</span>                 :             : </span>
+<span id="L401"><span class="lineNum">     401</span>                 :<span class="tlaUNC">           0 :         return sqrtf(dx * dx + dy * dy + dz * dz);</span></span>
+<span id="L402"><span class="lineNum">     402</span>                 :             : }</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov_filtered.info - platforms/common/work_queue/queue.c</title>
+  <link rel="stylesheet" type="text/css" href="../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../index.html">top level</a> - <a href="index.html">platforms/common/work_queue</a> - queue.c<span style="font-size: 80%;"> (source / <a href="queue.c.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov_filtered.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">27</td>
+            <td class="headerCovTableEntry">27</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-10-02 17:31:18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryMed">86.4&nbsp;%</td>
+            <td class="headerCovTableEntry">22</td>
+            <td class="headerCovTableEntry">19</td>
+          </tr>
+                  <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : /************************************************************************</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             :  *</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             :  *   Copyright (C) 2007-2009 Gregory Nutt. All rights reserved.</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             :  *   Author: Gregory Nutt &lt;gnutt@nuttx.org&gt;</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             :  *</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             :  * Redistribution and use in source and binary forms, with or without</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             :  * modification, are permitted provided that the following conditions</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             :  * are met:</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             :  *</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             :  * 1. Redistributions of source code must retain the above copyright</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             :  *    notice, this list of conditions and the following disclaimer.</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             :  * 2. Redistributions in binary form must reproduce the above copyright</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             :  *    notice, this list of conditions and the following disclaimer in</span>
+<span id="L14"><span class="lineNum">      14</span>                 :             :  *    the documentation and/or other materials provided with the</span>
+<span id="L15"><span class="lineNum">      15</span>                 :             :  *    distribution.</span>
+<span id="L16"><span class="lineNum">      16</span>                 :             :  * 3. Neither the name NuttX nor the names of its contributors may be</span>
+<span id="L17"><span class="lineNum">      17</span>                 :             :  *    used to endorse or promote products derived from this software</span>
+<span id="L18"><span class="lineNum">      18</span>                 :             :  *    without specific prior written permission.</span>
+<span id="L19"><span class="lineNum">      19</span>                 :             :  *</span>
+<span id="L20"><span class="lineNum">      20</span>                 :             :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span id="L21"><span class="lineNum">      21</span>                 :             :  * &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span id="L22"><span class="lineNum">      22</span>                 :             :  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS</span>
+<span id="L23"><span class="lineNum">      23</span>                 :             :  * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE</span>
+<span id="L24"><span class="lineNum">      24</span>                 :             :  * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,</span>
+<span id="L25"><span class="lineNum">      25</span>                 :             :  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,</span>
+<span id="L26"><span class="lineNum">      26</span>                 :             :  * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS</span>
+<span id="L27"><span class="lineNum">      27</span>                 :             :  * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED</span>
+<span id="L28"><span class="lineNum">      28</span>                 :             :  * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT</span>
+<span id="L29"><span class="lineNum">      29</span>                 :             :  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN</span>
+<span id="L30"><span class="lineNum">      30</span>                 :             :  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</span>
+<span id="L31"><span class="lineNum">      31</span>                 :             :  * POSSIBILITY OF SUCH DAMAGE.</span>
+<span id="L32"><span class="lineNum">      32</span>                 :             :  *</span>
+<span id="L33"><span class="lineNum">      33</span>                 :             :  * Modified for use in Linux by Mark Charlebois</span>
+<span id="L34"><span class="lineNum">      34</span>                 :             :  *</span>
+<span id="L35"><span class="lineNum">      35</span>                 :             :  ************************************************************************/</span>
+<span id="L36"><span class="lineNum">      36</span>                 :             : </span>
+<span id="L37"><span class="lineNum">      37</span>                 :             : // FIXME - need px4_queue</span>
+<span id="L38"><span class="lineNum">      38</span>                 :             : #include &lt;queue.h&gt;</span>
+<span id="L39"><span class="lineNum">      39</span>                 :             : #include &lt;stddef.h&gt;</span>
+<span id="L40"><span class="lineNum">      40</span>                 :             : </span>
+<span id="L41"><span class="lineNum">      41</span>                 :<span class="tlaGNC tlaBgGNC">       36056 : void sq_rem(sq_entry_t *node, sq_queue_t *queue)</span></span>
+<span id="L42"><span class="lineNum">      42</span>                 :             : {</span>
+<span id="L43"><span class="lineNum">      43</span>   [<span class="tlaGBC" title="Branch 0 was taken 36033 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 23 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 36033 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">       36056 :         if (queue-&gt;head &amp;&amp; node) {</span></span>
+<span id="L44"><span class="lineNum">      44</span>         [<span class="tlaGBC" title="Branch 0 was taken 15342 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 20691 times"> + </span>]:<span class="tlaGNC">       36033 :                 if (node == queue-&gt;head) {</span></span>
+<span id="L45"><span class="lineNum">      45</span>                 :<span class="tlaGNC">       15342 :                         queue-&gt;head = node-&gt;flink;</span></span>
+<span id="L46"><span class="lineNum">      46</span>                 :             : </span>
+<span id="L47"><span class="lineNum">      47</span>         [<span class="tlaGBC" title="Branch 0 was taken 91 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 15251 times"> + </span>]:<span class="tlaGNC">       15342 :                         if (node == queue-&gt;tail) {</span></span>
+<span id="L48"><span class="lineNum">      48</span>                 :<span class="tlaGNC">          91 :                                 queue-&gt;tail = NULL;</span></span>
+<span id="L49"><span class="lineNum">      49</span>                 :             :                         }</span>
+<span id="L50"><span class="lineNum">      50</span>                 :             : </span>
+<span id="L51"><span class="lineNum">      51</span>                 :             :                 } else {</span>
+<span id="L52"><span class="lineNum">      52</span>                 :             :                         sq_entry_t *prev;</span>
+<span id="L53"><span class="lineNum">      53</span>                 :             : </span>
+<span id="L54"><span class="lineNum">      54</span>                 :<span class="tlaGNC">       20691 :                         for (prev = (sq_entry_t *)queue-&gt;head;</span></span>
+<span id="L55"><span class="lineNum">      55</span>   [<span class="tlaGBC" title="Branch 0 was taken 97682 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 4 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 76995 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 20687 times"> + </span>]:<span class="tlaGNC">       97686 :                              prev &amp;&amp; prev-&gt;flink != node;</span></span>
+<span id="L56"><span class="lineNum">      56</span>                 :<span class="tlaGNC">       76995 :                              prev = prev-&gt;flink) {}</span></span>
+<span id="L57"><span class="lineNum">      57</span>                 :             : </span>
+<span id="L58"><span class="lineNum">      58</span>         [<span class="tlaGBC" title="Branch 0 was taken 20687 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 4 times"> + </span>]:<span class="tlaGNC">       20691 :                         if (prev) {</span></span>
+<span id="L59"><span class="lineNum">      59</span>                 :<span class="tlaGNC">       20687 :                                 sq_remafter(prev, queue);</span></span>
+<span id="L60"><span class="lineNum">      60</span>                 :             :                         }</span>
+<span id="L61"><span class="lineNum">      61</span>                 :             :                 }</span>
+<span id="L62"><span class="lineNum">      62</span>                 :             :         }</span>
+<span id="L63"><span class="lineNum">      63</span>                 :<span class="tlaGNC">       36056 : }</span></span>
+<span id="L64"><span class="lineNum">      64</span>                 :             : </span>
+<span id="L65"><span class="lineNum">      65</span>                 :<span class="tlaGNC">       20687 : sq_entry_t *sq_remafter(sq_entry_t *node, sq_queue_t *queue)</span></span>
+<span id="L66"><span class="lineNum">      66</span>                 :             : {</span>
+<span id="L67"><span class="lineNum">      67</span>                 :<span class="tlaGNC">       20687 :         sq_entry_t *ret = node-&gt;flink;</span></span>
+<span id="L68"><span class="lineNum">      68</span>                 :             : </span>
+<span id="L69"><span class="lineNum">      69</span>   [<span class="tlaGBC" title="Branch 0 was taken 20687 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 20687 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">       20687 :         if (queue-&gt;head &amp;&amp; ret) {</span></span>
+<span id="L70"><span class="lineNum">      70</span>         [<span class="tlaGBC" title="Branch 0 was taken 3868 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 16819 times"> + </span>]:<span class="tlaGNC">       20687 :                 if (queue-&gt;tail == ret) {</span></span>
+<span id="L71"><span class="lineNum">      71</span>                 :<span class="tlaGNC">        3868 :                         queue-&gt;tail = node;</span></span>
+<span id="L72"><span class="lineNum">      72</span>                 :<span class="tlaGNC">        3868 :                         node-&gt;flink = NULL;</span></span>
+<span id="L73"><span class="lineNum">      73</span>                 :             : </span>
+<span id="L74"><span class="lineNum">      74</span>                 :             :                 } else {</span>
+<span id="L75"><span class="lineNum">      75</span>                 :<span class="tlaGNC">       16819 :                         node-&gt;flink = ret-&gt;flink;</span></span>
+<span id="L76"><span class="lineNum">      76</span>                 :             :                 }</span>
+<span id="L77"><span class="lineNum">      77</span>                 :             : </span>
+<span id="L78"><span class="lineNum">      78</span>                 :<span class="tlaGNC">       20687 :                 ret-&gt;flink = NULL;</span></span>
+<span id="L79"><span class="lineNum">      79</span>                 :             :         }</span>
+<span id="L80"><span class="lineNum">      80</span>                 :             : </span>
+<span id="L81"><span class="lineNum">      81</span>                 :<span class="tlaGNC">       20687 :         return ret;</span></span>
+<span id="L82"><span class="lineNum">      82</span>                 :             : }</span>
+<span id="L83"><span class="lineNum">      83</span>                 :             : </span>
+<span id="L84"><span class="lineNum">      84</span>                 :<span class="tlaGNC">        9964 : void sq_addfirst(sq_entry_t *node, sq_queue_t *queue)</span></span>
+<span id="L85"><span class="lineNum">      85</span>                 :             : {</span>
+<span id="L86"><span class="lineNum">      86</span>                 :<span class="tlaGNC">        9964 :         node-&gt;flink = queue-&gt;head;</span></span>
+<span id="L87"><span class="lineNum">      87</span>                 :             : </span>
+<span id="L88"><span class="lineNum">      88</span>         [<span class="tlaGBC" title="Branch 0 was taken 166 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 9798 times"> + </span>]:<span class="tlaGNC">        9964 :         if (!queue-&gt;head) {</span></span>
+<span id="L89"><span class="lineNum">      89</span>                 :<span class="tlaGNC">         166 :                 queue-&gt;tail = node;</span></span>
+<span id="L90"><span class="lineNum">      90</span>                 :             :         }</span>
+<span id="L91"><span class="lineNum">      91</span>                 :             : </span>
+<span id="L92"><span class="lineNum">      92</span>                 :<span class="tlaGNC">        9964 :         queue-&gt;head = node;</span></span>
+<span id="L93"><span class="lineNum">      93</span>                 :<span class="tlaGNC">        9964 : }</span></span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

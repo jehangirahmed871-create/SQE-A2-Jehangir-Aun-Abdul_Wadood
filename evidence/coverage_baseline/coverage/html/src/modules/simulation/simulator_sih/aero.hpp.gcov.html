@@ -1,0 +1,533 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov_filtered.info - src/modules/simulation/simulator_sih/aero.hpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../../index.html">top level</a> - <a href="index.html">src/modules/simulation/simulator_sih</a> - aero.hpp<span style="font-size: 80%;"> (source / <a href="aero.hpp.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov_filtered.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntry">128</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-10-02 17:31:18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntry">14</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntry">82</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+                  <tr><td><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : /****************************************************************************</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             : *</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             : *   Copyright (c) 2019-2022 PX4 Development Team. All rights reserved.</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             : *</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             : * Redistribution and use in source and binary forms, with or without</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             : * modification, are permitted provided that the following conditions</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             : * are met:</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             : *</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             : * 1. Redistributions of source code must retain the above copyright</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             : *    notice, this list of conditions and the following disclaimer.</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             : * 2. Redistributions in binary form must reproduce the above copyright</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             : *    notice, this list of conditions and the following disclaimer in</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             : *    the documentation and/or other materials provided with the</span>
+<span id="L14"><span class="lineNum">      14</span>                 :             : *    distribution.</span>
+<span id="L15"><span class="lineNum">      15</span>                 :             : * 3. Neither the name PX4 nor the names of its contributors may be</span>
+<span id="L16"><span class="lineNum">      16</span>                 :             : *    used to endorse or promote products derived from this software</span>
+<span id="L17"><span class="lineNum">      17</span>                 :             : *    without specific prior written permission.</span>
+<span id="L18"><span class="lineNum">      18</span>                 :             : *</span>
+<span id="L19"><span class="lineNum">      19</span>                 :             : * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span id="L20"><span class="lineNum">      20</span>                 :             : * &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span id="L21"><span class="lineNum">      21</span>                 :             : * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS</span>
+<span id="L22"><span class="lineNum">      22</span>                 :             : * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE</span>
+<span id="L23"><span class="lineNum">      23</span>                 :             : * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,</span>
+<span id="L24"><span class="lineNum">      24</span>                 :             : * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,</span>
+<span id="L25"><span class="lineNum">      25</span>                 :             : * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS</span>
+<span id="L26"><span class="lineNum">      26</span>                 :             : * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED</span>
+<span id="L27"><span class="lineNum">      27</span>                 :             : * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT</span>
+<span id="L28"><span class="lineNum">      28</span>                 :             : * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN</span>
+<span id="L29"><span class="lineNum">      29</span>                 :             : * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</span>
+<span id="L30"><span class="lineNum">      30</span>                 :             : * POSSIBILITY OF SUCH DAMAGE.</span>
+<span id="L31"><span class="lineNum">      31</span>                 :             : *</span>
+<span id="L32"><span class="lineNum">      32</span>                 :             : ****************************************************************************/</span>
+<span id="L33"><span class="lineNum">      33</span>                 :             : </span>
+<span id="L34"><span class="lineNum">      34</span>                 :             : /**</span>
+<span id="L35"><span class="lineNum">      35</span>                 :             :  * @file aero.hpp</span>
+<span id="L36"><span class="lineNum">      36</span>                 :             :  * Aerodynamic class for modeling wing, tailaplane, fin.</span>
+<span id="L37"><span class="lineNum">      37</span>                 :             :  * Captures the effect of partial stall, low aspect ratio, control surfaces deflection,</span>
+<span id="L38"><span class="lineNum">      38</span>                 :             :  * propeller slipstream.</span>
+<span id="L39"><span class="lineNum">      39</span>                 :             :  *</span>
+<span id="L40"><span class="lineNum">      40</span>                 :             :  * @author Romain Chiappinelli      &lt;romain.chiap@gmail.com&gt;</span>
+<span id="L41"><span class="lineNum">      41</span>                 :             :  *</span>
+<span id="L42"><span class="lineNum">      42</span>                 :             :  * Altitude R&amp;D inc, Montreal - July 2021</span>
+<span id="L43"><span class="lineNum">      43</span>                 :             :  *</span>
+<span id="L44"><span class="lineNum">      44</span>                 :             :  * The aerodynamic model is inspired from [2]</span>
+<span id="L45"><span class="lineNum">      45</span>                 :             :  * [2] Khan, Waqas, supervised by Meyer Nahon &quot;Dynamics modeling of agile fixed-wing unmanned aerial vehicles.&quot;</span>
+<span id="L46"><span class="lineNum">      46</span>                 :             :  *  McGill University, PhD thesis, 2016. Sections 3.1, 3.2, and 3.3</span>
+<span id="L47"><span class="lineNum">      47</span>                 :             :  *</span>
+<span id="L48"><span class="lineNum">      48</span>                 :             :  * Capabilities and limitations</span>
+<span id="L49"><span class="lineNum">      49</span>                 :             :  * This class can model</span>
+<span id="L50"><span class="lineNum">      50</span>                 :             :  * - full 360 deg angle of attack lift, drag, and pitching moment.</span>
+<span id="L51"><span class="lineNum">      51</span>                 :             :  * - wings with aspect ratio from 0.1666 up to 6, (gliders would perform poorly for instance).</span>
+<span id="L52"><span class="lineNum">      52</span>                 :             :  * - control surface (flap) deflection up to 70 degrees.</span>
+<span id="L53"><span class="lineNum">      53</span>                 :             :  * - unlimited flap chord, (the elevator could take the entire tailplane).</span>
+<span id="L54"><span class="lineNum">      54</span>                 :             :  * - stall angle function of the flap deflection.</span>
+<span id="L55"><span class="lineNum">      55</span>                 :             :  * - effect of the flap deflection on lift, drag, and pitching moment.</span>
+<span id="L56"><span class="lineNum">      56</span>                 :             :  * - any dihedral angle, the fin is modeled as a wing with dihedral angle of 90 deg.</span>
+<span id="L57"><span class="lineNum">      57</span>                 :             :  * - slipstream velocity (velocity from the propeller) using momentum theory.</span>
+<span id="L58"><span class="lineNum">      58</span>                 :             :  */</span>
+<span id="L59"><span class="lineNum">      59</span>                 :             : </span>
+<span id="L60"><span class="lineNum">      60</span>                 :             : </span>
+<span id="L61"><span class="lineNum">      61</span>                 :             : </span>
+<span id="L62"><span class="lineNum">      62</span>                 :             : #pragma once</span>
+<span id="L63"><span class="lineNum">      63</span>                 :             : </span>
+<span id="L64"><span class="lineNum">      64</span>                 :             : #include &lt;matrix/matrix/math.hpp&gt;         // matrix, vectors, dcm, quaterions</span>
+<span id="L65"><span class="lineNum">      65</span>                 :             : #include &lt;conversion/rotation.h&gt;          // math::radians,</span>
+<span id="L66"><span class="lineNum">      66</span>                 :             : // #include &lt;lib/mathlib/mathlib.h&gt;</span>
+<span id="L67"><span class="lineNum">      67</span>                 :             : #include &lt;math.h&gt;</span>
+<span id="L68"><span class="lineNum">      68</span>                 :             : </span>
+<span id="L69"><span class="lineNum">      69</span>                 :             : // class Aerodynamic Segment ------------------------------------------------------------------------</span>
+<span id="L70"><span class="lineNum">      70</span>                 :             : class AeroSeg</span>
+<span id="L71"><span class="lineNum">      71</span>                 :             : {</span>
+<span id="L72"><span class="lineNum">      72</span>                 :             : private:</span>
+<span id="L73"><span class="lineNum">      73</span>                 :             :         // Table 3.1 SEMI-EMPIRICAL COEFFICIENTS FOR RECTANGULAR FLAT PLATES</span>
+<span id="L74"><span class="lineNum">      74</span>                 :             :         static constexpr const int N_TAB = 12;</span>
+<span id="L75"><span class="lineNum">      75</span>                 :             :         // static constexpr const float AR_tab[N_TAB] = {0.1666f,0.333f,0.4f,0.5f,1.0f,1.25f, 2.0f, 3.0f, 4.0f, 6.0f};</span>
+<span id="L76"><span class="lineNum">      76</span>                 :             :         // static constexpr const float ale_tab[N_TAB] = {3.00f,3.64f,4.48f,7.18f,10.20f,13.38f,14.84f,14.49f,9.95f,12.93f,15.00f,15.00f};</span>
+<span id="L77"><span class="lineNum">      77</span>                 :             :         // static constexpr const float ate_tab[N_TAB] = {5.90f,15.51f,32.57f,39.44f,48.22f,59.29f,21.55f,7.74f,7.05f,5.26f,6.50f,6.50f};</span>
+<span id="L78"><span class="lineNum">      78</span>                 :             :         // static constexpr const float afle_tab[N_TAB] = {59.00f,58.60f,58.20f,50.00f,41.53f,26.70f,23.44f,21.00f,18.63f,14.28f,11.60f,10.00f};</span>
+<span id="L79"><span class="lineNum">      79</span>                 :             :         // static constexpr const float afte_tab[N_TAB] = {59.00f,58.60f,58.20f,51.85f,41.46f,28.09f,39.40f,35.86f,26.76f,19.76f,16.43f,14.00f};</span>
+<span id="L80"><span class="lineNum">      80</span>                 :             :         // static constexpr const float afs_tab[N_TAB] = {49.00f,54.00f,56.00f,48.00f,40.00f,29.00f,27.00f,25.00f,24.00f,22.00f,22.00f,20.00f};</span>
+<span id="L81"><span class="lineNum">      81</span>                 :             : </span>
+<span id="L82"><span class="lineNum">      82</span>                 :             :         // deflection effectiveness curve fitted as second order</span>
+<span id="L83"><span class="lineNum">      83</span>                 :             :         static constexpr const float ETA_POLY[] = {0.0535f, -0.2688f, 0.5817f};         // 1/rad</span>
+<span id="L84"><span class="lineNum">      84</span>                 :             : </span>
+<span id="L85"><span class="lineNum">      85</span>                 :             :         // aerodynamic and physical constants</span>
+<span id="L86"><span class="lineNum">      86</span>                 :             :         static constexpr const float P0 = 101325.0f;    // _pressure at sea level [N/m^2]=[Pa]</span>
+<span id="L87"><span class="lineNum">      87</span>                 :             :         static constexpr const float R = 287.04f;               // real gas constant for air [J/kg/K]</span>
+<span id="L88"><span class="lineNum">      88</span>                 :             :         static constexpr const float T0_K = 288.15f;    // _temperature at sea level [K]</span>
+<span id="L89"><span class="lineNum">      89</span>                 :             :         static constexpr const float TEMP_GRADIENT  = -6.5e-3f;    // _temperature gradient in degrees per metre</span>
+<span id="L90"><span class="lineNum">      90</span>                 :             : </span>
+<span id="L91"><span class="lineNum">      91</span>                 :             :         static constexpr const float KV = M_PI_F;       // total vortex lift parameter</span>
+<span id="L92"><span class="lineNum">      92</span>                 :             :         static constexpr float CD0 = 0.04f;             // no lift drag coefficient</span>
+<span id="L93"><span class="lineNum">      93</span>                 :             :         static constexpr float CD90 = 1.98f;            // 90 deg angle of attack drag coefficient</span>
+<span id="L94"><span class="lineNum">      94</span>                 :             :         static constexpr float AF_DOT_MAX = M_PI_F / 2.0f;</span>
+<span id="L95"><span class="lineNum">      95</span>                 :             :         static constexpr float ALPHA_BLEND = M_PI_F / 18.0f;    // 10 degrees</span>
+<span id="L96"><span class="lineNum">      96</span>                 :             : </span>
+<span id="L97"><span class="lineNum">      97</span>                 :             :         // here we make the distinction of the plate (i.e. wing, or tailplane, or fin) and the segment</span>
+<span id="L98"><span class="lineNum">      98</span>                 :             :         // the segment can be a portion of the wing, but the aspect ratio (AR) of the wing needs to be used</span>
+<span id="L99"><span class="lineNum">      99</span>                 :             :         float _alpha;           // angle of attack [rad]</span>
+<span id="L100"><span class="lineNum">     100</span>                 :             :         float _CL, _CD, _CM;    // aerodynamic coefficients</span>
+<span id="L101"><span class="lineNum">     101</span>                 :             :         float _CL_, _CD_, _CM_;         // low aoa coeffs</span>
+<span id="L102"><span class="lineNum">     102</span>                 :             :         float _f_blend;         // blending function</span>
+<span id="L103"><span class="lineNum">     103</span>                 :             :         matrix::Vector3f _p_B;  // position of the aerodynamic center of the segment from _CM in body frame [m]</span>
+<span id="L104"><span class="lineNum">     104</span>                 :             :         matrix::Dcmf _C_BS;     // dcm from segment frame to body frame</span>
+<span id="L105"><span class="lineNum">     105</span>                 :             :         float _ar;              // aspect ratio of the plate</span>
+<span id="L106"><span class="lineNum">     106</span>                 :             :         float _span;            // _span of the segment</span>
+<span id="L107"><span class="lineNum">     107</span>                 :             :         float _mac;             // mean aerodynamic chord of the segment</span>
+<span id="L108"><span class="lineNum">     108</span>                 :             :         float _alpha_0;         // zero lift angle of attack [rad]</span>
+<span id="L109"><span class="lineNum">     109</span>                 :             :         float _kp, _kn;</span>
+<span id="L110"><span class="lineNum">     110</span>                 :             :         float _ate, _ale, _afte, _afle; // semi empirical coefficients for flat plates function of AR</span>
+<span id="L111"><span class="lineNum">     111</span>                 :             :         float _tau_te, _tau_le, _fte, _fle;     // leading and trailing edge functions</span>
+<span id="L112"><span class="lineNum">     112</span>                 :             :         float _rho = 1.225f;    // air density at current altitude [kg/m^3]</span>
+<span id="L113"><span class="lineNum">     113</span>                 :             :         float _kD;              // for parabolic drag model</span>
+<span id="L114"><span class="lineNum">     114</span>                 :             :         const float K0 = 0.87f; // Oswald efficiency factor</span>
+<span id="L115"><span class="lineNum">     115</span>                 :             :         // variables for flap model</span>
+<span id="L116"><span class="lineNum">     116</span>                 :             :         float _eta_f;           // flap effectiveness</span>
+<span id="L117"><span class="lineNum">     117</span>                 :             :         float _def_a;           // absolute value of the deflection angle</span>
+<span id="L118"><span class="lineNum">     118</span>                 :             :         float _cf;              // flap chord (control surface chord length)</span>
+<span id="L119"><span class="lineNum">     119</span>                 :             :         float _theta_f, _tau_f; // check 3.2.3 in [2]</span>
+<span id="L120"><span class="lineNum">     120</span>                 :             :         float _deltaCL, _dCLmax;        // increase in lift coefficient</span>
+<span id="L121"><span class="lineNum">     121</span>                 :             :         float _CLmax, _CLmin;   // max and min lift value</span>
+<span id="L122"><span class="lineNum">     122</span>                 :             :         float _alpha_eff_min;   // min effective angle of attack</span>
+<span id="L123"><span class="lineNum">     123</span>                 :             :         float _alpha_eff_max;   // max effective angle of attack</span>
+<span id="L124"><span class="lineNum">     124</span>                 :             :         float _alpha_min;       // min angle of attack (stall angle)</span>
+<span id="L125"><span class="lineNum">     125</span>                 :             :         float _alpha_max;       // min angle of attack (stall angle)</span>
+<span id="L126"><span class="lineNum">     126</span>                 :             :         float _alf0eff;         // effective zero lift angle of attack</span>
+<span id="L127"><span class="lineNum">     127</span>                 :             :         // float _alfmeff;              // effective maximum lift angle of attack</span>
+<span id="L128"><span class="lineNum">     128</span>                 :             :         float _alpha_eff;       // effectie angle of attack</span>
+<span id="L129"><span class="lineNum">     129</span>                 :             :         // float _alpha_eff_dot;        // effectie angle of attack derivative</span>
+<span id="L130"><span class="lineNum">     130</span>                 :             :         float _alpha_eff_old;   // angle of attack [rad]</span>
+<span id="L131"><span class="lineNum">     131</span>                 :             : </span>
+<span id="L132"><span class="lineNum">     132</span>                 :             :         float _pressure;        // pressure in Pa at current altitude</span>
+<span id="L133"><span class="lineNum">     133</span>                 :             :         float _temperature;     // temperature in K at current altitude</span>
+<span id="L134"><span class="lineNum">     134</span>                 :             :         float _prop_radius;     // propeller radius [m], used to create the slipstream</span>
+<span id="L135"><span class="lineNum">     135</span>                 :             :         // float _v_slipstream; // slipstream velocity [m/s], computed from momentum theory</span>
+<span id="L136"><span class="lineNum">     136</span>                 :             : </span>
+<span id="L137"><span class="lineNum">     137</span>                 :             :         matrix::Vector3f _Fa;   // aerodynamic force</span>
+<span id="L138"><span class="lineNum">     138</span>                 :             :         matrix::Vector3f _Ma;   // aerodynamic moment computed at _CM directly</span>
+<span id="L139"><span class="lineNum">     139</span>                 :             :         matrix::Vector3f _v_S;  // velocity in segment frame</span>
+<span id="L140"><span class="lineNum">     140</span>                 :             : </span>
+<span id="L141"><span class="lineNum">     141</span>                 :             : public:</span>
+<span id="L142"><span class="lineNum">     142</span>                 :             :         /** public constructor</span>
+<span id="L143"><span class="lineNum">     143</span>                 :             :          * AeroSeg(float span, float mac, float alpha_0_deg, matrix::Vector3f p_B, float dihedral_deg = 0.0f,</span>
+<span id="L144"><span class="lineNum">     144</span>                 :             :          * float AR = -1.0f, float cf = 0.0f, float prop_radius=-1.0f, float cl_alpha=2.0f*M_PI_F, float alpha_max_deg=0.0f, float alpha_min_deg=0.0f)</span>
+<span id="L145"><span class="lineNum">     145</span>                 :             :          *</span>
+<span id="L146"><span class="lineNum">     146</span>                 :             :          * span_: span of the segment [m]</span>
+<span id="L147"><span class="lineNum">     147</span>                 :             :          * mac_: mean aerodynamic chord of the segment [m]</span>
+<span id="L148"><span class="lineNum">     148</span>                 :             :          * alpha_0_deg: zero lift angle of attack of the segment [deg], negative number represents a segment oriented up</span>
+<span id="L149"><span class="lineNum">     149</span>                 :             :          * p_B_: position of the segment (mean aerodynamic center) in the body frame from the center of mass [m,m,m]</span>
+<span id="L150"><span class="lineNum">     150</span>                 :             :          * dihedral_deg: dihedral angle of the segment [deg], set to 0 for tailplane, set to -90 for the fin. default is 0.</span>
+<span id="L151"><span class="lineNum">     151</span>                 :             :          * AR: Aspect Ratio of the wing, or tailplane, or fin (not the segment).</span>
+<span id="L152"><span class="lineNum">     152</span>                 :             :          *     If the aspect ratio is negative, the aspect ratio is computed from the _span and MAC</span>
+<span id="L153"><span class="lineNum">     153</span>                 :             :          * cf_: flap chord [m], this is the chord length of the control surface, default is zero (no flap).</span>
+<span id="L154"><span class="lineNum">     154</span>                 :             :          * prop_radius_: radius of the propeller for slipstream computation. Setting to -1 (default) will assume no slipstream.</span>
+<span id="L155"><span class="lineNum">     155</span>                 :             :          * cl_alpha: 2D lift curve slope (1/rad), default it 2*pi for a flat plate. This can be computed from http://airfoiltools.com for instance.</span>
+<span id="L156"><span class="lineNum">     156</span>                 :             :          * alpha_max_deg: maximum angle of attack before stall. Setting to 0 (default) will compute it from a table for flat plate.</span>
+<span id="L157"><span class="lineNum">     157</span>                 :             :          * alpha_min_deg: maximum negative angle of attack before stall. Setting to 0 (default) will compute it from a table for flat plate.</span>
+<span id="L158"><span class="lineNum">     158</span>                 :             :          */</span>
+<span id="L159"><span class="lineNum">     159</span>                 :<span class="tlaUNC tlaBgUNC">           0 :         AeroSeg(float span, float mac, float alpha_0_deg, const matrix::Vector3f &amp;p_B, float dihedral_deg = 0.0f,</span></span>
+<span id="L160"><span class="lineNum">     160</span>                 :             :                 float AR = -1.0f, float cf = 0.0f, float prop_radius = -1.0f, float cl_alpha = 2.0f * M_PI_F,</span>
+<span id="L161"><span class="lineNum">     161</span>                 :             :                 float alpha_max_deg = 0.0f, float alpha_min_deg = 0.0f)</span>
+<span id="L162"><span class="lineNum">     162</span>                 :<span class="tlaUNC">           0 :         {</span></span>
+<span id="L163"><span class="lineNum">     163</span>                 :             :                 static const float AR_tab[N_TAB] = {0.1666f, 0.333f, 0.4f, 0.5f, 1.0f, 1.25f, 2.0f, 3.0f, 4.0f, 6.0f};</span>
+<span id="L164"><span class="lineNum">     164</span>                 :             :                 static const float ale_tab[N_TAB] = {3.00f, 3.64f, 4.48f, 7.18f, 10.20f, 13.38f, 14.84f, 14.49f, 9.95f, 12.93f, 15.00f, 15.00f};</span>
+<span id="L165"><span class="lineNum">     165</span>                 :             :                 static const float ate_tab[N_TAB] = {5.90f, 15.51f, 32.57f, 39.44f, 48.22f, 59.29f, 21.55f, 7.74f, 7.05f, 5.26f, 6.50f, 6.50f};</span>
+<span id="L166"><span class="lineNum">     166</span>                 :             :                 static const float afle_tab[N_TAB] = {59.00f, 58.60f, 58.20f, 50.00f, 41.53f, 26.70f, 23.44f, 21.00f, 18.63f, 14.28f, 11.60f, 10.00f};</span>
+<span id="L167"><span class="lineNum">     167</span>                 :             :                 static const float afte_tab[N_TAB] = {59.00f, 58.60f, 58.20f, 51.85f, 41.46f, 28.09f, 39.40f, 35.86f, 26.76f, 19.76f, 16.43f, 14.00f};</span>
+<span id="L168"><span class="lineNum">     168</span>                 :             :                 static const float afs_tab[N_TAB] = {49.00f, 54.00f, 56.00f, 48.00f, 40.00f, 29.00f, 27.00f, 25.00f, 24.00f, 22.00f, 22.00f, 20.00f};</span>
+<span id="L169"><span class="lineNum">     169</span>                 :             : </span>
+<span id="L170"><span class="lineNum">     170</span>                 :<span class="tlaUNC">           0 :                 _span = span;</span></span>
+<span id="L171"><span class="lineNum">     171</span>                 :<span class="tlaUNC">           0 :                 _mac = mac;</span></span>
+<span id="L172"><span class="lineNum">     172</span>                 :<span class="tlaUNC">           0 :                 _alpha_0 = math::radians(alpha_0_deg);</span></span>
+<span id="L173"><span class="lineNum">     173</span>                 :<span class="tlaUNC">           0 :                 _p_B = p_B;</span></span>
+<span id="L174"><span class="lineNum">     174</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 _ar = (AR &lt;= 0.0f) ? _span / _mac : AR; // setting AR&lt;=0 will compute it from _span and _mac</span></span>
+<span id="L175"><span class="lineNum">     175</span>                 :<span class="tlaUNC">           0 :                 _alpha_eff = 0.0f;</span></span>
+<span id="L176"><span class="lineNum">     176</span>                 :<span class="tlaUNC">           0 :                 _alpha_eff_old = 0.0f;</span></span>
+<span id="L177"><span class="lineNum">     177</span>                 :<span class="tlaUNC">           0 :                 _kp = cl_alpha / (1.0f + 2.0f * (_ar + 4.0f) / (_ar * (_ar + 2.0f)));</span></span>
+<span id="L178"><span class="lineNum">     178</span>                 :<span class="tlaUNC">           0 :                 _kn = 0.41f * (1.0f - expf(-17.0f / _ar));</span></span>
+<span id="L179"><span class="lineNum">     179</span>                 :<span class="tlaUNC">           0 :                 _ale = lin_interp_lkt(AR_tab, ale_tab, _ar, N_TAB);</span></span>
+<span id="L180"><span class="lineNum">     180</span>                 :<span class="tlaUNC">           0 :                 _ate = lin_interp_lkt(AR_tab, ate_tab, _ar, N_TAB);</span></span>
+<span id="L181"><span class="lineNum">     181</span>                 :<span class="tlaUNC">           0 :                 _afle = lin_interp_lkt(AR_tab, afle_tab, _ar, N_TAB);</span></span>
+<span id="L182"><span class="lineNum">     182</span>                 :<span class="tlaUNC">           0 :                 _afte = lin_interp_lkt(AR_tab, afte_tab, _ar, N_TAB);</span></span>
+<span id="L183"><span class="lineNum">     183</span>                 :<span class="tlaUNC">           0 :                 float afs_rad = math::radians(lin_interp_lkt(AR_tab, afs_tab, _ar, N_TAB));</span></span>
+<span id="L184"><span class="lineNum">     184</span>                 :             : </span>
+<span id="L185"><span class="lineNum">     185</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 if (fabsf(alpha_max_deg) &lt; 1.0e-3f) {</span></span>
+<span id="L186"><span class="lineNum">     186</span>                 :<span class="tlaUNC">           0 :                         _alpha_max = afs_rad;</span></span>
+<span id="L187"><span class="lineNum">     187</span>                 :             : </span>
+<span id="L188"><span class="lineNum">     188</span>                 :             :                 } else {</span>
+<span id="L189"><span class="lineNum">     189</span>                 :<span class="tlaUNC">           0 :                         _alpha_max = math::radians(alpha_max_deg);</span></span>
+<span id="L190"><span class="lineNum">     190</span>                 :             :                 }</span>
+<span id="L191"><span class="lineNum">     191</span>                 :             : </span>
+<span id="L192"><span class="lineNum">     192</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 if (fabsf(alpha_min_deg) &lt; 1.0e-3f) {</span></span>
+<span id="L193"><span class="lineNum">     193</span>                 :<span class="tlaUNC">           0 :                         _alpha_min = -afs_rad;</span></span>
+<span id="L194"><span class="lineNum">     194</span>                 :             : </span>
+<span id="L195"><span class="lineNum">     195</span>                 :             :                 } else {</span>
+<span id="L196"><span class="lineNum">     196</span>                 :<span class="tlaUNC">           0 :                         _alpha_min = math::radians(alpha_min_deg);</span></span>
+<span id="L197"><span class="lineNum">     197</span>                 :             :                 }</span>
+<span id="L198"><span class="lineNum">     198</span>                 :             : </span>
+<span id="L199"><span class="lineNum">     199</span>                 :<span class="tlaUNC">           0 :                 _cf = math::constrain(cf, 0.0f, mac);</span></span>
+<span id="L200"><span class="lineNum">     200</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :                 _C_BS = matrix::Dcmf(matrix::Eulerf(math::radians(dihedral_deg), 0.0f, 0.0f));</span></span>
+<span class="lineNum">        </span>          <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span>]
+<span id="L201"><span class="lineNum">     201</span>                 :<span class="tlaUNC">           0 :                 _prop_radius = prop_radius;</span></span>
+<span id="L202"><span class="lineNum">     202</span>                 :<span class="tlaUNC">           0 :                 _kD = 1.0f / (M_PI_F * K0 * _ar);</span></span>
+<span id="L203"><span class="lineNum">     203</span>                 :<span class="tlaUNC">           0 :         }</span></span>
+<span id="L204"><span class="lineNum">     204</span>                 :             : </span>
+<span id="L205"><span class="lineNum">     205</span>                 :             : </span>
+<span id="L206"><span class="lineNum">     206</span>                 :             :         AeroSeg() : AeroSeg(1.0f, 0.2f, 0.0f, matrix::Vector3f())</span>
+<span id="L207"><span class="lineNum">     207</span>                 :             :         {}</span>
+<span id="L208"><span class="lineNum">     208</span>                 :             : </span>
+<span id="L209"><span class="lineNum">     209</span>                 :             :         /** aerodynamic force and moments of a generic flate plate segment</span>
+<span id="L210"><span class="lineNum">     210</span>                 :             :          * void update_aero(matrix::Vector3f v_B, matrix::Vector3f w_B, float alt = 0.0f,</span>
+<span id="L211"><span class="lineNum">     211</span>                 :             :          *                  float def = 0.0f, float thrust=0.0f, float dt = -1.0f)</span>
+<span id="L212"><span class="lineNum">     212</span>                 :             :          *</span>
+<span id="L213"><span class="lineNum">     213</span>                 :             :          * v_B: 3D velocity in body frame [m/s], (front, right, down FRD frame)</span>
+<span id="L214"><span class="lineNum">     214</span>                 :             :          * w_B: 3D body rates in body frame [rad/s], FRD frame.</span>
+<span id="L215"><span class="lineNum">     215</span>                 :             :          * alt: altitude above mean sea level for computing air density [m], default is 0.</span>
+<span id="L216"><span class="lineNum">     216</span>                 :             :          * def: flap deflection angle [rad], default is 0.</span>
+<span id="L217"><span class="lineNum">     217</span>                 :             :          * thrust: thrust force [N] from the propeller to compute the slipstream velocity, default is 0.</span>
+<span id="L218"><span class="lineNum">     218</span>                 :             :          */</span>
+<span id="L219"><span class="lineNum">     219</span>                 :<span class="tlaUNC">           0 :         void update_aero(const matrix::Vector3f &amp;v_B, const matrix::Vector3f &amp;w_B, float alt = 0.0f, float def = 0.0f,</span></span>
+<span id="L220"><span class="lineNum">     220</span>                 :             :                          float thrust = 0.0f)</span>
+<span id="L221"><span class="lineNum">     221</span>                 :             :         {</span>
+<span id="L222"><span class="lineNum">     222</span>                 :             :                 // ISA model taken from Mustafa Cavcar, Anadolu University, Turkey</span>
+<span id="L223"><span class="lineNum">     223</span>                 :<span class="tlaUNC">           0 :                 _pressure = P0 * powf(1.0f - 0.0065f * alt / T0_K, 5.2561f);</span></span>
+<span id="L224"><span class="lineNum">     224</span>                 :<span class="tlaUNC">           0 :                 _temperature = T0_K + TEMP_GRADIENT * alt;</span></span>
+<span id="L225"><span class="lineNum">     225</span>                 :<span class="tlaUNC">           0 :                 _rho = _pressure / R / _temperature;</span></span>
+<span id="L226"><span class="lineNum">     226</span>                 :             : </span>
+<span id="L227"><span class="lineNum">     227</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :                 _v_S = _C_BS.transpose() * (v_B + w_B % _p_B);  // velocity in segment frame</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span><span class="tlaUNC" title="Branch 6 was not executed"> # </span><span class="tlaUNC" title="Branch 7 was not executed"> # </span><span class="tlaUNC" title="Branch 8 was not executed"> # </span> 
+<span class="lineNum">        </span>    <span class="tlaUNC" title="Branch 9 was not executed"> # </span><span class="tlaUNC" title="Branch 10 was not executed"> # </span><span class="tlaUNC" title="Branch 11 was not executed"> # </span><span class="tlaUNC" title="Branch 12 was not executed"> # </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 13 was not executed"> # </span>]
+<span id="L228"><span class="lineNum">     228</span>                 :             : </span>
+<span id="L229"><span class="lineNum">     229</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 if (_prop_radius &gt; 1e-4f) {</span></span>
+<span id="L230"><span class="lineNum">     230</span>                 :             :                         // Add velocity generated from the propeller and thrust force.</span>
+<span id="L231"><span class="lineNum">     231</span>                 :             :                         // Computed from momentum theory.</span>
+<span id="L232"><span class="lineNum">     232</span>                 :             :                         // For info, the diameter of the slipstream is sqrt(2)*_prop_radius,</span>
+<span id="L233"><span class="lineNum">     233</span>                 :             :                         // this should be the width of the segment in the slipstream.</span>
+<span id="L234"><span class="lineNum">     234</span>                 :<span class="tlaUNC">           0 :                         _v_S(0) += sqrtf(2.0f * thrust / (_rho * M_PI_F * _prop_radius * _prop_radius));</span></span>
+<span id="L235"><span class="lineNum">     235</span>                 :             :                 }</span>
+<span id="L236"><span class="lineNum">     236</span>                 :             : </span>
+<span id="L237"><span class="lineNum">     237</span>                 :<span class="tlaUNC">           0 :                 float vxz2 = _v_S(0) * _v_S(0) + _v_S(2) * _v_S(2);</span></span>
+<span id="L238"><span class="lineNum">     238</span>                 :             : </span>
+<span id="L239"><span class="lineNum">     239</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 if (vxz2 &lt; 0.01f) {</span></span>
+<span id="L240"><span class="lineNum">     240</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :                         _Fa = matrix::Vector3f();</span></span>
+<span id="L241"><span class="lineNum">     241</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :                         _Ma = matrix::Vector3f();</span></span>
+<span id="L242"><span class="lineNum">     242</span>                 :<span class="tlaUNC">           0 :                         _alpha = 0.0f;</span></span>
+<span id="L243"><span class="lineNum">     243</span>                 :<span class="tlaUNC">           0 :                         return;</span></span>
+<span id="L244"><span class="lineNum">     244</span>                 :             :                 }</span>
+<span id="L245"><span class="lineNum">     245</span>                 :             : </span>
+<span id="L246"><span class="lineNum">     246</span>                 :<span class="tlaUNC">           0 :                 _alpha = matrix::wrap_pi(atan2f(_v_S(2), _v_S(0)) - _alpha_0);</span></span>
+<span id="L247"><span class="lineNum">     247</span>                 :             :                 // _alpha = atan2f(_v_S(2), _v_S(0));</span>
+<span id="L248"><span class="lineNum">     248</span>                 :<span class="tlaUNC">           0 :                 aoa_coeff(_alpha, sqrtf(vxz2), def);</span></span>
+<span id="L249"><span class="lineNum">     249</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 _Fa = _C_BS * (0.5f * _rho * vxz2 * _span * _mac) * matrix::Vector3f(_CL * sinf(_alpha) - _CD * cosf(_alpha),</span></span>
+<span id="L250"><span class="lineNum">     250</span>                 :             :                                 0.0f,</span>
+<span id="L251"><span class="lineNum">     251</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :                                 -_CL * cosf(_alpha) - _CD * sinf(_alpha));</span></span>
+<span class="lineNum">        </span>          <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span>]
+<span id="L252"><span class="lineNum">     252</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :                 _Ma = _C_BS * (0.5f * _rho * vxz2 * _span * _mac * _mac) * matrix::Vector3f(0.0f, _CM,</span></span>
+<span class="lineNum">        </span>          <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span>]
+<span id="L253"><span class="lineNum">     253</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :                                 0.0f) + _p_B % _Fa;     // computed at vehicle _CM</span></span>
+<span class="lineNum">        </span>    <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span><span class="tlaUNC" title="Branch 6 was not executed"> # </span><span class="tlaUNC" title="Branch 7 was not executed"> # </span>]
+<span id="L254"><span class="lineNum">     254</span>                 :             :         }</span>
+<span id="L255"><span class="lineNum">     255</span>                 :             : </span>
+<span id="L256"><span class="lineNum">     256</span>                 :             :         // return the air density at current altitude, must be called after update_aero()</span>
+<span id="L257"><span class="lineNum">     257</span>                 :<span class="tlaUNC">           0 :         float get_rho() const { return _rho; }</span></span>
+<span id="L258"><span class="lineNum">     258</span>                 :             : </span>
+<span id="L259"><span class="lineNum">     259</span>                 :             :         // return angle of attack in radians</span>
+<span id="L260"><span class="lineNum">     260</span>                 :<span class="tlaUNC">           0 :         float get_aoa() const {return _alpha;}</span></span>
+<span id="L261"><span class="lineNum">     261</span>                 :             : </span>
+<span id="L262"><span class="lineNum">     262</span>                 :             :         // return the aspect ratio</span>
+<span id="L263"><span class="lineNum">     263</span>                 :             :         float get_ar() const {return _ar;}</span>
+<span id="L264"><span class="lineNum">     264</span>                 :             : </span>
+<span id="L265"><span class="lineNum">     265</span>                 :             :         // return the sum of aerodynamic forces of the segment in the body frame, taken at the _CM,</span>
+<span id="L266"><span class="lineNum">     266</span>                 :             :         // must be called after update_aero()</span>
+<span id="L267"><span class="lineNum">     267</span>                 :<span class="tlaUNC">           0 :         matrix::Vector3f get_Fa() const { return _Fa; }</span></span>
+<span id="L268"><span class="lineNum">     268</span>                 :             : </span>
+<span id="L269"><span class="lineNum">     269</span>                 :             :         // return the sum of aerodynamic moments of the segment in the body frame, taken at the _CM,</span>
+<span id="L270"><span class="lineNum">     270</span>                 :             :         // must be called after update_aero()</span>
+<span id="L271"><span class="lineNum">     271</span>                 :<span class="tlaUNC">           0 :         matrix::Vector3f get_Ma() const { return _Ma; }</span></span>
+<span id="L272"><span class="lineNum">     272</span>                 :             : </span>
+<span id="L273"><span class="lineNum">     273</span>                 :             :         // return the velocity in segment frame</span>
+<span id="L274"><span class="lineNum">     274</span>                 :<span class="tlaUNC">           0 :         matrix::Vector3f get_vS() const { return _v_S; }</span></span>
+<span id="L275"><span class="lineNum">     275</span>                 :             : </span>
+<span id="L276"><span class="lineNum">     276</span>                 :             : private:</span>
+<span id="L277"><span class="lineNum">     277</span>                 :             : </span>
+<span id="L278"><span class="lineNum">     278</span>                 :             :         // low angle of attack and stalling region coefficient based on flat plate</span>
+<span id="L279"><span class="lineNum">     279</span>                 :<span class="tlaUNC">           0 :         void aoa_coeff(float a, float vxz, float def)</span></span>
+<span id="L280"><span class="lineNum">     280</span>                 :             :         {</span>
+<span id="L281"><span class="lineNum">     281</span>                 :<span class="tlaUNC">           0 :                 _alpha_eff_old = _alpha_eff;</span></span>
+<span id="L282"><span class="lineNum">     282</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 _tau_te = (vxz &gt; 0.01f) ? 4.5f * _mac / vxz : 0.0f;</span></span>
+<span id="L283"><span class="lineNum">     283</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 _tau_le = (vxz &gt; 0.01f) ? 0.5f * _mac / vxz : 0.0f;</span></span>
+<span id="L284"><span class="lineNum">     284</span>                 :             : </span>
+<span id="L285"><span class="lineNum">     285</span>                 :             :                 // model for the control surface deflection</span>
+<span id="L286"><span class="lineNum">     286</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 if (_cf / _mac &lt; 0.999f) {</span></span>
+<span id="L287"><span class="lineNum">     287</span>                 :<span class="tlaUNC">           0 :                         _def_a = fminf(fabsf(def), math::radians(70.0f));</span></span>
+<span id="L288"><span class="lineNum">     288</span>                 :<span class="tlaUNC">           0 :                         _eta_f = _def_a * _def_a * ETA_POLY[0] + _def_a * ETA_POLY[1] + ETA_POLY[2];    // second order fit</span></span>
+<span id="L289"><span class="lineNum">     289</span>                 :<span class="tlaUNC">           0 :                         _theta_f = acosf(2.0f * _cf / _mac - 1.0f);</span></span>
+<span id="L290"><span class="lineNum">     290</span>                 :<span class="tlaUNC">           0 :                         _tau_f = 1.0f - (_theta_f - sinf(_theta_f)) / M_PI_F;</span></span>
+<span id="L291"><span class="lineNum">     291</span>                 :<span class="tlaUNC">           0 :                         _deltaCL = _kp * _tau_f * _eta_f * def;</span></span>
+<span id="L292"><span class="lineNum">     292</span>                 :<span class="tlaUNC">           0 :                         _dCLmax = (1.0f - _cf / _mac) * _deltaCL;</span></span>
+<span id="L293"><span class="lineNum">     293</span>                 :<span class="tlaUNC">           0 :                         _alf0eff = solve_alpha_eff(_kp, KV, _deltaCL, _alpha_0);</span></span>
+<span id="L294"><span class="lineNum">     294</span>                 :<span class="tlaUNC">           0 :                         _alpha_eff = a - _alf0eff;</span></span>
+<span id="L295"><span class="lineNum">     295</span>                 :             : </span>
+<span id="L296"><span class="lineNum">     296</span>                 :             :                         // this doesn't seem to work, so let's comment it</span>
+<span id="L297"><span class="lineNum">     297</span>                 :             :                         // _alpha_eff_dot = math::constrain((_alpha_eff - _alpha_eff_old) / dt, -AF_DOT_MAX, AF_DOT_MAX);</span>
+<span id="L298"><span class="lineNum">     298</span>                 :             :                         // _fte = 0.5f * (1.0f - tanhf(_ate * ((_alpha_eff) - _tau_te * (_alpha_eff_dot)</span>
+<span id="L299"><span class="lineNum">     299</span>                 :             :                         //      - math::radians(_afte))));      // normalized trailing edge separation</span>
+<span id="L300"><span class="lineNum">     300</span>                 :             :                         // _fle = 0.5f * (1.0f - tanhf(_ale * ((_alpha_eff) - _tau_le * (_alpha_eff_dot)</span>
+<span id="L301"><span class="lineNum">     301</span>                 :             :                         //      - math::radians(_afle))));      // normalized leading edge separation</span>
+<span id="L302"><span class="lineNum">     302</span>                 :             : </span>
+<span id="L303"><span class="lineNum">     303</span>                 :<span class="tlaUNC">           0 :                         _fte = 1.0f;</span></span>
+<span id="L304"><span class="lineNum">     304</span>                 :<span class="tlaUNC">           0 :                         _fle = 1.0f;</span></span>
+<span id="L305"><span class="lineNum">     305</span>                 :<span class="tlaUNC">           0 :                         _CLmax = fCL(_alpha_max - _alpha_0) + _dCLmax;</span></span>
+<span id="L306"><span class="lineNum">     306</span>                 :<span class="tlaUNC">           0 :                         _alpha_eff_max = _alf0eff - solve_alpha_eff(_kp, KV * _fle * _fle,</span></span>
+<span id="L307"><span class="lineNum">     307</span>                 :<span class="tlaUNC">           0 :                                          _CLmax / (0.25f * (1.0f + sqrtf(_fte)) * (1.0f + sqrtf(_fte))), _alpha_max - _alpha_0);</span></span>
+<span id="L308"><span class="lineNum">     308</span>                 :<span class="tlaUNC">           0 :                         _CLmin = fCL(_alpha_min - _alpha_0) + _dCLmax;</span></span>
+<span id="L309"><span class="lineNum">     309</span>                 :<span class="tlaUNC">           0 :                         _alpha_eff_min = _alf0eff - solve_alpha_eff(_kp, KV * _fle * _fle,</span></span>
+<span id="L310"><span class="lineNum">     310</span>                 :<span class="tlaUNC">           0 :                                          _CLmin / (0.25f * (1.0f + sqrtf(_fte)) * (1.0f + sqrtf(_fte))), _alpha_min - _alpha_0);</span></span>
+<span id="L311"><span class="lineNum">     311</span>                 :             : </span>
+<span id="L312"><span class="lineNum">     312</span>                 :             :                 } else {        // this segment is a full flap</span>
+<span id="L313"><span class="lineNum">     313</span>                 :<span class="tlaUNC">           0 :                         _alpha_eff = a + def;</span></span>
+<span id="L314"><span class="lineNum">     314</span>                 :             : </span>
+<span id="L315"><span class="lineNum">     315</span>                 :             :                         // this doesn't seem to work, so let's comment it</span>
+<span id="L316"><span class="lineNum">     316</span>                 :             :                         // _alpha_eff_dot = math::constrain((_alpha_eff - _alpha_eff_old) / dt, -AF_DOT_MAX, AF_DOT_MAX);</span>
+<span id="L317"><span class="lineNum">     317</span>                 :             :                         // _fte = 0.5f * (1.0f - tanhf(_ate * ((_alpha_eff) - _tau_te * (_alpha_eff_dot)</span>
+<span id="L318"><span class="lineNum">     318</span>                 :             :                         //      - math::radians(_afte))));      // normalized trailing edge separation</span>
+<span id="L319"><span class="lineNum">     319</span>                 :             :                         // _fle = 0.5f * (1.0f - tanhf(_ale * ((_alpha_eff) - _tau_le * (_alpha_eff_dot)</span>
+<span id="L320"><span class="lineNum">     320</span>                 :             :                         //      - math::radians(_afle))));      // normalized leading edge separation</span>
+<span id="L321"><span class="lineNum">     321</span>                 :             : </span>
+<span id="L322"><span class="lineNum">     322</span>                 :<span class="tlaUNC">           0 :                         _fte = 1.0f;</span></span>
+<span id="L323"><span class="lineNum">     323</span>                 :<span class="tlaUNC">           0 :                         _fle = 1.0f;</span></span>
+<span id="L324"><span class="lineNum">     324</span>                 :<span class="tlaUNC">           0 :                         _alpha_eff_max = _alpha_max;</span></span>
+<span id="L325"><span class="lineNum">     325</span>                 :<span class="tlaUNC">           0 :                         _alpha_eff_min = _alpha_min;</span></span>
+<span id="L326"><span class="lineNum">     326</span>                 :             :                 }</span>
+<span id="L327"><span class="lineNum">     327</span>                 :             : </span>
+<span id="L328"><span class="lineNum">     328</span>                 :             :                 // compute the aerodynamic coefficients</span>
+<span id="L329"><span class="lineNum">     329</span>                 :<span class="tlaUNC">           0 :                 high_aoa_coeff(_alpha_eff, def);</span></span>
+<span id="L330"><span class="lineNum">     330</span>                 :<span class="tlaUNC">           0 :                 _CL_ = fCL(_alpha_eff);</span></span>
+<span id="L331"><span class="lineNum">     331</span>                 :<span class="tlaUNC">           0 :                 _CD_ = CD0 + fabsf(_CL * tanf(_alpha_eff));</span></span>
+<span id="L332"><span class="lineNum">     332</span>                 :             :                 // _CD_ = CD0 + _kD*_CL_*_CL_;  // alternative method</span>
+<span id="L333"><span class="lineNum">     333</span>                 :<span class="tlaUNC">           0 :                 _CM_ = -fCM(_alpha_eff);</span></span>
+<span id="L334"><span class="lineNum">     334</span>                 :             : </span>
+<span id="L335"><span class="lineNum">     335</span>                 :             :                 // blending function</span>
+<span id="L336"><span class="lineNum">     336</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 if (_alpha_eff &gt; 0.0f) {</span></span>
+<span id="L337"><span class="lineNum">     337</span>                 :<span class="tlaUNC">           0 :                         _f_blend = 0.5f * (1.0f - tanhf(4.0f * (_alpha_eff - _alpha_eff_max) / ALPHA_BLEND));</span></span>
+<span id="L338"><span class="lineNum">     338</span>                 :             : </span>
+<span id="L339"><span class="lineNum">     339</span>                 :             :                 } else {</span>
+<span id="L340"><span class="lineNum">     340</span>                 :<span class="tlaUNC">           0 :                         _f_blend = 0.5f * (1.0f - tanhf(-4.0f * (_alpha_eff - _alpha_eff_min) / ALPHA_BLEND));</span></span>
+<span id="L341"><span class="lineNum">     341</span>                 :             :                 }</span>
+<span id="L342"><span class="lineNum">     342</span>                 :             : </span>
+<span id="L343"><span class="lineNum">     343</span>                 :<span class="tlaUNC">           0 :                 _CL = _CL_ * _f_blend + _CL * (1.0f - _f_blend);</span></span>
+<span id="L344"><span class="lineNum">     344</span>                 :<span class="tlaUNC">           0 :                 _CD = _CD_ * _f_blend + _CD * (1.0f - _f_blend);</span></span>
+<span id="L345"><span class="lineNum">     345</span>                 :<span class="tlaUNC">           0 :                 _CM = _CM_ * _f_blend + _CM * (1.0f - _f_blend);</span></span>
+<span id="L346"><span class="lineNum">     346</span>                 :<span class="tlaUNC">           0 :         }</span></span>
+<span id="L347"><span class="lineNum">     347</span>                 :             : </span>
+<span id="L348"><span class="lineNum">     348</span>                 :             :         // high angle of attack coefficient based on flat plate</span>
+<span id="L349"><span class="lineNum">     349</span>                 :<span class="tlaUNC">           0 :         void high_aoa_coeff(float a, float def = 0.0f)</span></span>
+<span id="L350"><span class="lineNum">     350</span>                 :             :         {</span>
+<span id="L351"><span class="lineNum">     351</span>                 :<span class="tlaUNC">           0 :                 float mac_eff = sqrtf((_mac - _cf) * (_mac - _cf) + _cf * _cf + 2.0f * (_mac - _cf) * _cf * cosf(fabsf(def)));</span></span>
+<span id="L352"><span class="lineNum">     352</span>                 :<span class="tlaUNC">           0 :                 a += asinf(_cf / mac_eff * sinf(def));</span></span>
+<span id="L353"><span class="lineNum">     353</span>                 :<span class="tlaUNC">           0 :                 float cd90_eff = CD90 + 0.21f * def - 0.0426f * def *</span></span>
+<span id="L354"><span class="lineNum">     354</span>                 :             :                                  def; // this might not be accurate for lower flap chord to chord ratio</span>
+<span id="L355"><span class="lineNum">     355</span>                 :             :                 // normal coeff</span>
+<span id="L356"><span class="lineNum">     356</span>                 :<span class="tlaUNC">           0 :                 float CN = cd90_eff * sinf(a) * (1.0f / (0.56f + 0.44f * sinf(fabsf(a))) - _kn);</span></span>
+<span id="L357"><span class="lineNum">     357</span>                 :             :                 // tengential coeff</span>
+<span id="L358"><span class="lineNum">     358</span>                 :<span class="tlaUNC">           0 :                 float CT = 0.5f * CD0 * cosf(a);</span></span>
+<span id="L359"><span class="lineNum">     359</span>                 :<span class="tlaUNC">           0 :                 _CL = CN * cosf(a) - CT * sinf(a);</span></span>
+<span id="L360"><span class="lineNum">     360</span>                 :<span class="tlaUNC">           0 :                 _CD = CN * sinf(a) + CT * cosf(a);</span></span>
+<span id="L361"><span class="lineNum">     361</span>                 :<span class="tlaUNC">           0 :                 _CM = -CN * (0.25f - 7.0f / 40.0f * (1.0f - 2.0f / M_PI_F * fabsf(a)));</span></span>
+<span id="L362"><span class="lineNum">     362</span>                 :<span class="tlaUNC">           0 :         }</span></span>
+<span id="L363"><span class="lineNum">     363</span>                 :             : </span>
+<span id="L364"><span class="lineNum">     364</span>                 :             :         // linear interpolation between 2 points</span>
+<span id="L365"><span class="lineNum">     365</span>                 :<span class="tlaUNC">           0 :         static float lin_interp(const float x0, const float y0, const float x1, const float y1, const float x)</span></span>
+<span id="L366"><span class="lineNum">     366</span>                 :             :         {</span>
+<span id="L367"><span class="lineNum">     367</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 if (x &lt; x0) {</span></span>
+<span id="L368"><span class="lineNum">     368</span>                 :<span class="tlaUNC">           0 :                         return y0;</span></span>
+<span id="L369"><span class="lineNum">     369</span>                 :             :                 }</span>
+<span id="L370"><span class="lineNum">     370</span>                 :             : </span>
+<span id="L371"><span class="lineNum">     371</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 if (x &gt; x1) {</span></span>
+<span id="L372"><span class="lineNum">     372</span>                 :<span class="tlaUNC">           0 :                         return y1;</span></span>
+<span id="L373"><span class="lineNum">     373</span>                 :             :                 }</span>
+<span id="L374"><span class="lineNum">     374</span>                 :             : </span>
+<span id="L375"><span class="lineNum">     375</span>                 :<span class="tlaUNC">           0 :                 float slope = (y1 - y0) / (x1 - x0);</span></span>
+<span id="L376"><span class="lineNum">     376</span>                 :<span class="tlaUNC">           0 :                 return y0 + slope * (x - x0);</span></span>
+<span id="L377"><span class="lineNum">     377</span>                 :             :         }</span>
+<span id="L378"><span class="lineNum">     378</span>                 :             : </span>
+<span id="L379"><span class="lineNum">     379</span>                 :             :         // lookup table linear interpolation</span>
+<span id="L380"><span class="lineNum">     380</span>                 :<span class="tlaUNC">           0 :         static float lin_interp_lkt(const float x_tab [], const float y_tab [], const float x, const int length)</span></span>
+<span id="L381"><span class="lineNum">     381</span>                 :             :         {</span>
+<span id="L382"><span class="lineNum">     382</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 if (x &lt; x_tab[0]) {</span></span>
+<span id="L383"><span class="lineNum">     383</span>                 :<span class="tlaUNC">           0 :                         return y_tab[0];</span></span>
+<span id="L384"><span class="lineNum">     384</span>                 :             :                 }</span>
+<span id="L385"><span class="lineNum">     385</span>                 :             : </span>
+<span id="L386"><span class="lineNum">     386</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 if (x &gt; x_tab[length - 1]) {</span></span>
+<span id="L387"><span class="lineNum">     387</span>                 :<span class="tlaUNC">           0 :                         return y_tab [length - 1];</span></span>
+<span id="L388"><span class="lineNum">     388</span>                 :             :                 }</span>
+<span id="L389"><span class="lineNum">     389</span>                 :             : </span>
+<span id="L390"><span class="lineNum">     390</span>                 :<span class="tlaUNC">           0 :                 int i = length - 2;</span></span>
+<span id="L391"><span class="lineNum">     391</span>                 :             : </span>
+<span id="L392"><span class="lineNum">     392</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 while (x_tab[i] &gt; x) {</span></span>
+<span id="L393"><span class="lineNum">     393</span>                 :<span class="tlaUNC">           0 :                         i--;</span></span>
+<span id="L394"><span class="lineNum">     394</span>                 :             :                 }</span>
+<span id="L395"><span class="lineNum">     395</span>                 :             : </span>
+<span id="L396"><span class="lineNum">     396</span>                 :<span class="tlaUNC">           0 :                 return lin_interp(x_tab[i], y_tab[i], x_tab[i + 1], y_tab[i + 1], x);</span></span>
+<span id="L397"><span class="lineNum">     397</span>                 :             :         }</span>
+<span id="L398"><span class="lineNum">     398</span>                 :             : </span>
+<span id="L399"><span class="lineNum">     399</span>                 :<span class="tlaUNC">           0 :         float solve_alpha_eff(const float Kp, const float Kv, const float dCL, const float a0)</span></span>
+<span id="L400"><span class="lineNum">     400</span>                 :             :         {</span>
+<span id="L401"><span class="lineNum">     401</span>                 :             :                 // we use here the Newton method with explicit derivative to find the root of equation 3.15</span>
+<span id="L402"><span class="lineNum">     402</span>                 :<span class="tlaUNC">           0 :                 float a = a0;   // init the search</span></span>
+<span id="L403"><span class="lineNum">     403</span>                 :             : </span>
+<span id="L404"><span class="lineNum">     404</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 for (int i = 0; i &lt; 3; i++) {</span></span>
+<span id="L405"><span class="lineNum">     405</span>                 :<span class="tlaUNC">           0 :                         a = a - (-Kp * sinf(a) * cosf(a) * cosf(a) - Kv * fabsf(sinf(a)) * sinf(a) * cosf(a) - dCL) /</span></span>
+<span id="L406"><span class="lineNum">     406</span>                 :<span class="tlaUNC">           0 :                             (Kv * fabsf(sinf(a)) * sinf(a) * sinf(a) - Kv * fabsf(sinf(a)) * cosf(a) * cosf(a) - Kp * cosf(a) * cosf(a) * cosf(</span></span>
+<span id="L407"><span class="lineNum">     407</span>                 :<span class="tlaUNC">           0 :                                      a) + 2 * Kp * cosf(a) * sinf(a) * sinf(a) - Kv * matrix::sign(sinf(a)) * cosf(a) * cosf(a) * sinf(a));</span></span>
+<span id="L408"><span class="lineNum">     408</span>                 :             :                 }</span>
+<span id="L409"><span class="lineNum">     409</span>                 :             : </span>
+<span id="L410"><span class="lineNum">     410</span>                 :<span class="tlaUNC">           0 :                 return a;</span></span>
+<span id="L411"><span class="lineNum">     411</span>                 :             :         }</span>
+<span id="L412"><span class="lineNum">     412</span>                 :             : </span>
+<span id="L413"><span class="lineNum">     413</span>                 :<span class="tlaUNC">           0 :         float fCL(float a)</span></span>
+<span id="L414"><span class="lineNum">     414</span>                 :             :         {</span>
+<span id="L415"><span class="lineNum">     415</span>                 :<span class="tlaUNC">           0 :                 return 0.25f * (1.0f + sqrtf(_fte)) * (1.0f + sqrtf(_fte)) * (_kp * sinf(a) * cosf(a) * cosf(a)</span></span>
+<span id="L416"><span class="lineNum">     416</span>                 :<span class="tlaUNC">           0 :                                 + _fle * _fle * KV * fabsf(sinf(a)) * sinf(a) * cosf(a));</span></span>
+<span id="L417"><span class="lineNum">     417</span>                 :             :         }</span>
+<span id="L418"><span class="lineNum">     418</span>                 :             : </span>
+<span id="L419"><span class="lineNum">     419</span>                 :<span class="tlaUNC">           0 :         float fCM(float a)</span></span>
+<span id="L420"><span class="lineNum">     420</span>                 :             :         {</span>
+<span id="L421"><span class="lineNum">     421</span>                 :<span class="tlaUNC">           0 :                 return -0.25f * (1.0f + sqrtf(_fte)) * (1.0f + sqrtf(_fte)) * 0.0625f * (-1.0f + 6.0f * sqrtf(</span></span>
+<span id="L422"><span class="lineNum">     422</span>                 :<span class="tlaUNC">           0 :                                         _fte) - 5.0f * _fte) * _kp * sinf(a) * cosf(a)</span></span>
+<span id="L423"><span class="lineNum">     423</span>                 :<span class="tlaUNC">           0 :                        + 0.17f * _fle * _fle * KV * fabsf(sinf(a)) * sinf(a);</span></span>
+<span id="L424"><span class="lineNum">     424</span>                 :             :         }</span>
+<span id="L425"><span class="lineNum">     425</span>                 :             : </span>
+<span id="L426"><span class="lineNum">     426</span>                 :             :         // AeroSeg operator=(const AeroSeg&amp;) const {</span>
+<span id="L427"><span class="lineNum">     427</span>                 :             :         //      return this;</span>
+<span id="L428"><span class="lineNum">     428</span>                 :             :         // }</span>
+<span id="L429"><span class="lineNum">     429</span>                 :             : </span>
+<span id="L430"><span class="lineNum">     430</span>                 :             :         // AeroSeg operator+(const States other) const {</span>
+<span id="L431"><span class="lineNum">     431</span>                 :             :         //      return AeroSeg(p_I+other.p_I, v_I+other.v_I, q+other.q, w_B+other.w_B);</span>
+<span id="L432"><span class="lineNum">     432</span>                 :             :         // }</span>
+<span id="L433"><span class="lineNum">     433</span>                 :             : </span>
+<span id="L434"><span class="lineNum">     434</span>                 :             :         // void unwrap_states(matrix::Vector3f &amp;p, matrix::Vector3f &amp;v, matrix::Quatf &amp;q_, matrix::Vector3f &amp;w) {</span>
+<span id="L435"><span class="lineNum">     435</span>                 :             :         //      p=p_I;</span>
+<span id="L436"><span class="lineNum">     436</span>                 :             :         //      v=v_I;</span>
+<span id="L437"><span class="lineNum">     437</span>                 :             :         //      q_=q;</span>
+<span id="L438"><span class="lineNum">     438</span>                 :             :         //      w=w_B;</span>
+<span id="L439"><span class="lineNum">     439</span>                 :             :         // }</span>
+<span id="L440"><span class="lineNum">     440</span>                 :             : </span>
+<span id="L441"><span class="lineNum">     441</span>                 :             : }; // ---------------------------------------------------------------------------------------------------------</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

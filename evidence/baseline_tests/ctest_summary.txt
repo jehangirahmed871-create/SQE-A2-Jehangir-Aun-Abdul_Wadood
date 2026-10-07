@@ -1,0 +1,16 @@
+143/147 Test #143: sitl-imu_filtering ...................................   Passed   12.83 sec
+        Start 144: dyn
+144/147 Test #144: dyn ..................................................   Passed    0.29 sec
+        Start 145: posix_hrt_test
+145/147 Test #145: posix_hrt_test .......................................   Passed    3.90 sec
+        Start 146: posix_cdev_test
+146/147 Test #146: posix_cdev_test ......................................   Passed    3.37 sec
+        Start 147: posix_wqueue_test
+147/147 Test #147: posix_wqueue_test ....................................   Passed    3.34 sec
+
+100% tests passed, 0 tests failed out of 147
+
+Total Test time (real) = 560.07 sec
+Capturing coverage data from build/px4_sitl_test
+geninfo cmd: '/usr/bin/geninfo build/px4_sitl_test --output-filename coverage/lcov.info --gcov-tool gcov --base-directory build/px4_sitl_test --ignore-errors mismatch --memory 0'
+Found gcov version: 13.3.0

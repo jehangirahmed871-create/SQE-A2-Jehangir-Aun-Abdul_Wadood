@@ -1,0 +1,230 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov_filtered.info - src/modules/ekf2/EKF/bias_estimator/bias_estimator.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../../../index.html">top level</a> - <a href="index.html">src/modules/ekf2/EKF/bias_estimator</a> - bias_estimator.cpp<span style="font-size: 80%;"> (source / <a href="bias_estimator.cpp.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov_filtered.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryHi">96.5&nbsp;%</td>
+            <td class="headerCovTableEntry">57</td>
+            <td class="headerCovTableEntry">55</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-10-02 17:31:18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">10</td>
+            <td class="headerCovTableEntry">10</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryMed">77.8&nbsp;%</td>
+            <td class="headerCovTableEntry">18</td>
+            <td class="headerCovTableEntry">14</td>
+          </tr>
+                  <tr><td><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : /****************************************************************************</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             :  *</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             :  *   Copyright (c) 2020-2021 PX4 Development Team. All rights reserved.</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             :  *</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             :  * Redistribution and use in source and binary forms, with or without</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             :  * modification, are permitted provided that the following conditions</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             :  * are met:</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             :  *</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             :  * 1. Redistributions of source code must retain the above copyright</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             :  *    notice, this list of conditions and the following disclaimer.</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             :  * 2. Redistributions in binary form must reproduce the above copyright</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             :  *    notice, this list of conditions and the following disclaimer in</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             :  *    the documentation and/or other materials provided with the</span>
+<span id="L14"><span class="lineNum">      14</span>                 :             :  *    distribution.</span>
+<span id="L15"><span class="lineNum">      15</span>                 :             :  * 3. Neither the name PX4 nor the names of its contributors may be</span>
+<span id="L16"><span class="lineNum">      16</span>                 :             :  *    used to endorse or promote products derived from this software</span>
+<span id="L17"><span class="lineNum">      17</span>                 :             :  *    without specific prior written permission.</span>
+<span id="L18"><span class="lineNum">      18</span>                 :             :  *</span>
+<span id="L19"><span class="lineNum">      19</span>                 :             :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span id="L20"><span class="lineNum">      20</span>                 :             :  * &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span id="L21"><span class="lineNum">      21</span>                 :             :  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS</span>
+<span id="L22"><span class="lineNum">      22</span>                 :             :  * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE</span>
+<span id="L23"><span class="lineNum">      23</span>                 :             :  * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,</span>
+<span id="L24"><span class="lineNum">      24</span>                 :             :  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,</span>
+<span id="L25"><span class="lineNum">      25</span>                 :             :  * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS</span>
+<span id="L26"><span class="lineNum">      26</span>                 :             :  * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED</span>
+<span id="L27"><span class="lineNum">      27</span>                 :             :  * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT</span>
+<span id="L28"><span class="lineNum">      28</span>                 :             :  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN</span>
+<span id="L29"><span class="lineNum">      29</span>                 :             :  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</span>
+<span id="L30"><span class="lineNum">      30</span>                 :             :  * POSSIBILITY OF SUCH DAMAGE.</span>
+<span id="L31"><span class="lineNum">      31</span>                 :             :  *</span>
+<span id="L32"><span class="lineNum">      32</span>                 :             :  ****************************************************************************/</span>
+<span id="L33"><span class="lineNum">      33</span>                 :             : </span>
+<span id="L34"><span class="lineNum">      34</span>                 :             : /**</span>
+<span id="L35"><span class="lineNum">      35</span>                 :             :  * @file bias_estimator.cpp</span>
+<span id="L36"><span class="lineNum">      36</span>                 :             :  *</span>
+<span id="L37"><span class="lineNum">      37</span>                 :             :  * @author Mathieu Bresciani    &lt;mathieu@auterion.com&gt;</span>
+<span id="L38"><span class="lineNum">      38</span>                 :             :  */</span>
+<span id="L39"><span class="lineNum">      39</span>                 :             : </span>
+<span id="L40"><span class="lineNum">      40</span>                 :             : #include &quot;bias_estimator.hpp&quot;</span>
+<span id="L41"><span class="lineNum">      41</span>                 :             : </span>
+<span id="L42"><span class="lineNum">      42</span>                 :<span class="tlaGNC tlaBgGNC">      130560 : void BiasEstimator::predict(const float dt)</span></span>
+<span id="L43"><span class="lineNum">      43</span>                 :             : {</span>
+<span id="L44"><span class="lineNum">      44</span>                 :             :         // State is constant</span>
+<span id="L45"><span class="lineNum">      45</span>                 :             :         // Predict state covariance only</span>
+<span id="L46"><span class="lineNum">      46</span>                 :<span class="tlaGNC">      130560 :         float delta_state_var = _process_psd * dt;</span></span>
+<span id="L47"><span class="lineNum">      47</span>                 :             : </span>
+<span id="L48"><span class="lineNum">      48</span>         [<span class="tlaGBC" title="Branch 0 was taken 8844 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 121716 times"> + </span>]:<span class="tlaGNC">      130560 :         if (isOffsetDetected()) {</span></span>
+<span id="L49"><span class="lineNum">      49</span>                 :             :                 // A bias in the state has been detected by the innovation sequence check</span>
+<span id="L50"><span class="lineNum">      50</span>                 :             :                 // Boost the process noise until the offset is removed</span>
+<span id="L51"><span class="lineNum">      51</span>                 :<span class="tlaGNC">        8844 :                 delta_state_var *= _process_var_boost_gain;</span></span>
+<span id="L52"><span class="lineNum">      52</span>                 :             :         }</span>
+<span id="L53"><span class="lineNum">      53</span>                 :             : </span>
+<span id="L54"><span class="lineNum">      54</span>                 :<span class="tlaGNC">      130560 :         _state_var += delta_state_var;</span></span>
+<span id="L55"><span class="lineNum">      55</span>                 :<span class="tlaGNC">      130560 :         constrainStateVar();</span></span>
+<span id="L56"><span class="lineNum">      56</span>                 :             : </span>
+<span id="L57"><span class="lineNum">      57</span>   [<span class="tlaGBC" title="Branch 0 was taken 130560 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 130560 times"> + </span>]:<span class="tlaGNC">      130560 :         if (dt &gt; FLT_EPSILON &amp;&amp; fabsf(_dt - dt) &gt; 0.001f) {</span></span>
+<span id="L58"><span class="lineNum">      58</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                 _signed_innov_test_ratio_lpf.setParameters(dt, _innov_sequence_monitnoring_time_constant);</span></span>
+<span id="L59"><span class="lineNum">      59</span>                 :<span class="tlaUNC">           0 :                 _dt = dt;</span></span>
+<span id="L60"><span class="lineNum">      60</span>                 :             :         }</span>
+<span id="L61"><span class="lineNum">      61</span>                 :             : </span>
+<span id="L62"><span class="lineNum">      62</span>                 :<span class="tlaGNC tlaBgGNC">      130560 :         _status.bias_var = _state_var;</span></span>
+<span id="L63"><span class="lineNum">      63</span>                 :<span class="tlaGNC">      130560 : }</span></span>
+<span id="L64"><span class="lineNum">      64</span>                 :             : </span>
+<span id="L65"><span class="lineNum">      65</span>                 :<span class="tlaGNC">      179429 : void BiasEstimator::constrainStateVar()</span></span>
+<span id="L66"><span class="lineNum">      66</span>                 :             : {</span>
+<span id="L67"><span class="lineNum">      67</span>                 :<span class="tlaGNC">      179429 :         _state_var = math::constrain(_state_var, 1e-8f, _state_var_max);</span></span>
+<span id="L68"><span class="lineNum">      68</span>                 :<span class="tlaGNC">      179429 : }</span></span>
+<span id="L69"><span class="lineNum">      69</span>                 :             : </span>
+<span id="L70"><span class="lineNum">      70</span>                 :<span class="tlaGNC">       48913 : void BiasEstimator::fuseBias(const float measurement, const float measurement_var)</span></span>
+<span id="L71"><span class="lineNum">      71</span>                 :             : {</span>
+<span id="L72"><span class="lineNum">      72</span>                 :<span class="tlaGNC">       48913 :         const float innov_var = _state_var + math::max(sq(0.01f), measurement_var);</span></span>
+<span id="L73"><span class="lineNum">      73</span>                 :<span class="tlaGNC">       48913 :         const float innov = measurement - _state;</span></span>
+<span id="L74"><span class="lineNum">      74</span>                 :<span class="tlaGNC">       48913 :         const float K = _state_var / innov_var;</span></span>
+<span id="L75"><span class="lineNum">      75</span>                 :<span class="tlaGNC">       48913 :         const float innov_test_ratio = computeInnovTestRatio(innov, innov_var);</span></span>
+<span id="L76"><span class="lineNum">      76</span>                 :             : </span>
+<span id="L77"><span class="lineNum">      77</span>         [<span class="tlaGBC" title="Branch 0 was taken 48869 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 44 times"> + </span>]:<span class="tlaGNC">       48913 :         if (isTestRatioPassing(innov_test_ratio)) {</span></span>
+<span id="L78"><span class="lineNum">      78</span>                 :<span class="tlaGNC">       48869 :                 updateState(K, innov);</span></span>
+<span id="L79"><span class="lineNum">      79</span>                 :<span class="tlaGNC">       48869 :                 updateStateCovariance(K);</span></span>
+<span id="L80"><span class="lineNum">      80</span>                 :             : </span>
+<span id="L81"><span class="lineNum">      81</span>                 :             :         }</span>
+<span id="L82"><span class="lineNum">      82</span>                 :             : </span>
+<span id="L83"><span class="lineNum">      83</span>                 :<span class="tlaGNC">       48913 :         updateOffsetDetection(innov, innov_test_ratio);</span></span>
+<span id="L84"><span class="lineNum">      84</span>                 :             : </span>
+<span id="L85"><span class="lineNum">      85</span>                 :<span class="tlaGNC">       48913 :         _status = packStatus(innov, innov_var, innov_test_ratio);</span></span>
+<span id="L86"><span class="lineNum">      86</span>                 :<span class="tlaGNC">       48913 : }</span></span>
+<span id="L87"><span class="lineNum">      87</span>                 :             : </span>
+<span id="L88"><span class="lineNum">      88</span>                 :<span class="tlaGNC">       48913 : inline float BiasEstimator::computeInnovTestRatio(const float innov, const float innov_var) const</span></span>
+<span id="L89"><span class="lineNum">      89</span>                 :             : {</span>
+<span id="L90"><span class="lineNum">      90</span>                 :<span class="tlaGNC">       48913 :         return innov * innov / (_gate_size * _gate_size * innov_var);</span></span>
+<span id="L91"><span class="lineNum">      91</span>                 :             : }</span>
+<span id="L92"><span class="lineNum">      92</span>                 :             : </span>
+<span id="L93"><span class="lineNum">      93</span>                 :<span class="tlaGNC">       48913 : inline bool BiasEstimator::isTestRatioPassing(const float innov_test_ratio) const</span></span>
+<span id="L94"><span class="lineNum">      94</span>                 :             : {</span>
+<span id="L95"><span class="lineNum">      95</span>                 :<span class="tlaGNC">       48913 :         return innov_test_ratio &lt; 1.f;</span></span>
+<span id="L96"><span class="lineNum">      96</span>                 :             : }</span>
+<span id="L97"><span class="lineNum">      97</span>                 :             : </span>
+<span id="L98"><span class="lineNum">      98</span>                 :<span class="tlaGNC">       48869 : inline void BiasEstimator::updateState(const float K, const float innov)</span></span>
+<span id="L99"><span class="lineNum">      99</span>                 :             : {</span>
+<span id="L100"><span class="lineNum">     100</span>                 :<span class="tlaGNC">       48869 :         _state = _state + K * innov;</span></span>
+<span id="L101"><span class="lineNum">     101</span>                 :<span class="tlaGNC">       48869 : }</span></span>
+<span id="L102"><span class="lineNum">     102</span>                 :             : </span>
+<span id="L103"><span class="lineNum">     103</span>                 :<span class="tlaGNC">       48869 : inline void BiasEstimator::updateStateCovariance(const float K)</span></span>
+<span id="L104"><span class="lineNum">     104</span>                 :             : {</span>
+<span id="L105"><span class="lineNum">     105</span>                 :<span class="tlaGNC">       48869 :         _state_var -= K * _state_var;</span></span>
+<span id="L106"><span class="lineNum">     106</span>                 :<span class="tlaGNC">       48869 :         constrainStateVar();</span></span>
+<span id="L107"><span class="lineNum">     107</span>                 :<span class="tlaGNC">       48869 : }</span></span>
+<span id="L108"><span class="lineNum">     108</span>                 :             : </span>
+<span id="L109"><span class="lineNum">     109</span>                 :<span class="tlaGNC">       48913 : inline void BiasEstimator::updateOffsetDetection(const float innov, const float innov_test_ratio)</span></span>
+<span id="L110"><span class="lineNum">     110</span>                 :             : {</span>
+<span id="L111"><span class="lineNum">     111</span>                 :<span class="tlaGNC">       48913 :         const float signed_innov_test_ratio = matrix::sign(innov) * innov_test_ratio;</span></span>
+<span id="L112"><span class="lineNum">     112</span>         [<span class="tlaGBC" title="Branch 0 was taken 48913 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">       48913 :         _signed_innov_test_ratio_lpf.update(math::constrain(signed_innov_test_ratio, -1.f, 1.f));</span></span>
+<span id="L113"><span class="lineNum">     113</span>                 :             : </span>
+<span id="L114"><span class="lineNum">     114</span>         [<span class="tlaGBC" title="Branch 0 was taken 22690 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 26223 times"> + </span>]:<span class="tlaGNC">       48913 :         if (innov &gt; 0.f) {</span></span>
+<span id="L115"><span class="lineNum">     115</span>                 :<span class="tlaGNC">       22690 :                 _time_since_last_positive_innov = 0.f;</span></span>
+<span id="L116"><span class="lineNum">     116</span>                 :<span class="tlaGNC">       22690 :                 _time_since_last_negative_innov += _dt;</span></span>
+<span id="L117"><span class="lineNum">     117</span>                 :             : </span>
+<span id="L118"><span class="lineNum">     118</span>                 :             :         } else {</span>
+<span id="L119"><span class="lineNum">     119</span>                 :<span class="tlaGNC">       26223 :                 _time_since_last_negative_innov = 0.f;</span></span>
+<span id="L120"><span class="lineNum">     120</span>                 :<span class="tlaGNC">       26223 :                 _time_since_last_positive_innov += _dt;</span></span>
+<span id="L121"><span class="lineNum">     121</span>                 :             :         }</span>
+<span id="L122"><span class="lineNum">     122</span>                 :<span class="tlaGNC">       48913 : }</span></span>
+<span id="L123"><span class="lineNum">     123</span>                 :             : </span>
+<span id="L124"><span class="lineNum">     124</span>                 :<span class="tlaGNC">      130560 : inline bool BiasEstimator::isOffsetDetected() const</span></span>
+<span id="L125"><span class="lineNum">     125</span>                 :             : {</span>
+<span id="L126"><span class="lineNum">     126</span>                 :             :         // There is an offset in the estimate if the average of innovation is statistically too large</span>
+<span id="L127"><span class="lineNum">     127</span>                 :             :         // or if the sign of the innovation is constantly the same</span>
+<span id="L128"><span class="lineNum">     128</span>                 :<span class="tlaGNC">      130560 :         return fabsf(_signed_innov_test_ratio_lpf.getState()) &gt; 0.2f</span></span>
+<span id="L129"><span class="lineNum">     129</span>         [<span class="tlaGBC" title="Branch 0 was taken 127739 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 2821 times"> + </span>]:<span class="tlaGNC">      130560 :                || (_time_since_last_positive_innov &gt; _innov_sequence_monitnoring_time_constant)</span></span>
+<span id="L130"><span class="lineNum">     130</span>   [<span class="tlaGBC" title="Branch 0 was taken 130560 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 6023 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 121716 times"> + </span>]:<span class="tlaGNC">      261120 :                || (_time_since_last_negative_innov &gt; _innov_sequence_monitnoring_time_constant);</span></span>
+<span id="L131"><span class="lineNum">     131</span>                 :             : }</span>
+<span id="L132"><span class="lineNum">     132</span>                 :             : </span>
+<span id="L133"><span class="lineNum">     133</span>                 :<span class="tlaGNC">       48913 : inline BiasEstimator::status BiasEstimator::packStatus(const float innov, const float innov_var,</span></span>
+<span id="L134"><span class="lineNum">     134</span>                 :             :                 const float innov_test_ratio) const</span>
+<span id="L135"><span class="lineNum">     135</span>                 :             : {</span>
+<span id="L136"><span class="lineNum">     136</span>                 :             :         // Send back status for logging</span>
+<span id="L137"><span class="lineNum">     137</span>                 :<span class="tlaGNC">       48913 :         status ret{};</span></span>
+<span id="L138"><span class="lineNum">     138</span>                 :<span class="tlaGNC">       48913 :         ret.bias = _state;</span></span>
+<span id="L139"><span class="lineNum">     139</span>                 :<span class="tlaGNC">       48913 :         ret.bias_var = _state_var;</span></span>
+<span id="L140"><span class="lineNum">     140</span>                 :<span class="tlaGNC">       48913 :         ret.innov = innov;</span></span>
+<span id="L141"><span class="lineNum">     141</span>                 :<span class="tlaGNC">       48913 :         ret.innov_var = innov_var;</span></span>
+<span id="L142"><span class="lineNum">     142</span>                 :<span class="tlaGNC">       48913 :         ret.innov_test_ratio = innov_test_ratio;</span></span>
+<span id="L143"><span class="lineNum">     143</span>                 :             : </span>
+<span id="L144"><span class="lineNum">     144</span>                 :<span class="tlaGNC">       48913 :         return ret;</span></span>
+<span id="L145"><span class="lineNum">     145</span>                 :             : }</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

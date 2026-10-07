@@ -1,0 +1,823 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov_filtered.info - src/modules/logger/log_writer_file.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../index.html">top level</a> - <a href="index.html">src/modules/logger</a> - log_writer_file.cpp<span style="font-size: 80%;"> (source / <a href="log_writer_file.cpp.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov_filtered.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryLo">65.0&nbsp;%</td>
+            <td class="headerCovTableEntry">243</td>
+            <td class="headerCovTableEntry">158</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-10-02 17:31:18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryMed">81.8&nbsp;%</td>
+            <td class="headerCovTableEntry">22</td>
+            <td class="headerCovTableEntry">18</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryLo">43.3&nbsp;%</td>
+            <td class="headerCovTableEntry">150</td>
+            <td class="headerCovTableEntry">65</td>
+          </tr>
+                  <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : /****************************************************************************</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             :  *</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             :  *   Copyright (c) 2016 PX4 Development Team. All rights reserved.</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             :  *</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             :  * Redistribution and use in source and binary forms, with or without</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             :  * modification, are permitted provided that the following conditions</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             :  * are met:</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             :  *</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             :  * 1. Redistributions of source code must retain the above copyright</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             :  *    notice, this list of conditions and the following disclaimer.</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             :  * 2. Redistributions in binary form must reproduce the above copyright</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             :  *    notice, this list of conditions and the following disclaimer in</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             :  *    the documentation and/or other materials provided with the</span>
+<span id="L14"><span class="lineNum">      14</span>                 :             :  *    distribution.</span>
+<span id="L15"><span class="lineNum">      15</span>                 :             :  * 3. Neither the name PX4 nor the names of its contributors may be</span>
+<span id="L16"><span class="lineNum">      16</span>                 :             :  *    used to endorse or promote products derived from this software</span>
+<span id="L17"><span class="lineNum">      17</span>                 :             :  *    without specific prior written permission.</span>
+<span id="L18"><span class="lineNum">      18</span>                 :             :  *</span>
+<span id="L19"><span class="lineNum">      19</span>                 :             :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span id="L20"><span class="lineNum">      20</span>                 :             :  * &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span id="L21"><span class="lineNum">      21</span>                 :             :  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS</span>
+<span id="L22"><span class="lineNum">      22</span>                 :             :  * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE</span>
+<span id="L23"><span class="lineNum">      23</span>                 :             :  * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,</span>
+<span id="L24"><span class="lineNum">      24</span>                 :             :  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,</span>
+<span id="L25"><span class="lineNum">      25</span>                 :             :  * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS</span>
+<span id="L26"><span class="lineNum">      26</span>                 :             :  * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED</span>
+<span id="L27"><span class="lineNum">      27</span>                 :             :  * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT</span>
+<span id="L28"><span class="lineNum">      28</span>                 :             :  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN</span>
+<span id="L29"><span class="lineNum">      29</span>                 :             :  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</span>
+<span id="L30"><span class="lineNum">      30</span>                 :             :  * POSSIBILITY OF SUCH DAMAGE.</span>
+<span id="L31"><span class="lineNum">      31</span>                 :             :  *</span>
+<span id="L32"><span class="lineNum">      32</span>                 :             :  ****************************************************************************/</span>
+<span id="L33"><span class="lineNum">      33</span>                 :             : </span>
+<span id="L34"><span class="lineNum">      34</span>                 :             : #include &quot;log_writer_file.h&quot;</span>
+<span id="L35"><span class="lineNum">      35</span>                 :             : #include &quot;messages.h&quot;</span>
+<span id="L36"><span class="lineNum">      36</span>                 :             : </span>
+<span id="L37"><span class="lineNum">      37</span>                 :             : #include &lt;fcntl.h&gt;</span>
+<span id="L38"><span class="lineNum">      38</span>                 :             : #include &lt;string.h&gt;</span>
+<span id="L39"><span class="lineNum">      39</span>                 :             : #include &lt;errno.h&gt;</span>
+<span id="L40"><span class="lineNum">      40</span>                 :             : </span>
+<span id="L41"><span class="lineNum">      41</span>                 :             : #include &lt;mathlib/mathlib.h&gt;</span>
+<span id="L42"><span class="lineNum">      42</span>                 :             : #include &lt;px4_platform_common/posix.h&gt;</span>
+<span id="L43"><span class="lineNum">      43</span>                 :             : #include &lt;px4_platform_common/log.h&gt;</span>
+<span id="L44"><span class="lineNum">      44</span>                 :             : </span>
+<span id="L45"><span class="lineNum">      45</span>                 :             : #if defined(PX4_CRYPTO)</span>
+<span id="L46"><span class="lineNum">      46</span>                 :             : # include &lt;px4_platform_common/crypto.h&gt;</span>
+<span id="L47"><span class="lineNum">      47</span>                 :             : #endif // PX4_CRYPTO</span>
+<span id="L48"><span class="lineNum">      48</span>                 :             : </span>
+<span id="L49"><span class="lineNum">      49</span>                 :             : #if defined(__PX4_NUTTX)</span>
+<span id="L50"><span class="lineNum">      50</span>                 :             : # include &lt;malloc.h&gt;</span>
+<span id="L51"><span class="lineNum">      51</span>                 :             : # include &lt;systemlib/hardfault_log.h&gt;</span>
+<span id="L52"><span class="lineNum">      52</span>                 :             : #endif // __PX4_NUTTX</span>
+<span id="L53"><span class="lineNum">      53</span>                 :             : </span>
+<span id="L54"><span class="lineNum">      54</span>                 :             : using namespace time_literals;</span>
+<span id="L55"><span class="lineNum">      55</span>                 :             : </span>
+<span id="L56"><span class="lineNum">      56</span>                 :             : </span>
+<span id="L57"><span class="lineNum">      57</span>                 :             : namespace px4</span>
+<span id="L58"><span class="lineNum">      58</span>                 :             : {</span>
+<span id="L59"><span class="lineNum">      59</span>                 :             : namespace logger</span>
+<span id="L60"><span class="lineNum">      60</span>                 :             : {</span>
+<span id="L61"><span class="lineNum">      61</span>                 :             : constexpr size_t LogWriterFile::_min_write_chunk;</span>
+<span id="L62"><span class="lineNum">      62</span>                 :             : </span>
+<span id="L63"><span class="lineNum">      63</span>                 :<span class="tlaGNC tlaBgGNC">           1 : LogWriterFile::LogWriterFile(size_t buffer_size)</span></span>
+<span id="L64"><span class="lineNum">      64</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">           1 :         : _buffers{</span></span>
+<span class="lineNum">        </span> <span class="tlaGBC" title="Branch 4 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaGBC" title="Branch 8 was taken 1 time"> + </span> 
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 9 was not taken"> - </span><span class="tlaGBC" title="Branch 10 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 11 was not taken"> - </span><span class="tlaUNC" title="Branch 12 was not taken"> - </span><span class="tlaUNC" title="Branch 13 was not taken"> - </span> 
+<span class="lineNum">        </span>          <span class="tlaUNC" title="Branch 14 was not taken"> - </span><span class="tlaUNC" title="Branch 15 was not taken"> - </span>]
+<span id="L65"><span class="lineNum">      65</span>                 :             :         //We always write larger chunks (orb messages) to the buffer, so the buffer</span>
+<span id="L66"><span class="lineNum">      66</span>                 :             :         //needs to be larger than the minimum write chunk (300 is somewhat arbitrary)</span>
+<span id="L67"><span class="lineNum">      67</span>                 :             :         {</span>
+<span id="L68"><span class="lineNum">      68</span>                 :             :                 buffer_size,</span>
+<span id="L69"><span class="lineNum">      69</span>                 :             :                 _min_write_chunk + 300,</span>
+<span id="L70"><span class="lineNum">      70</span>                 :             :                 perf_alloc(PC_ELAPSED, &quot;logger_sd_write&quot;), perf_alloc(PC_ELAPSED, &quot;logger_sd_fsync&quot;)},</span>
+<span id="L71"><span class="lineNum">      71</span>                 :             : </span>
+<span id="L72"><span class="lineNum">      72</span>                 :             :         {</span>
+<span id="L73"><span class="lineNum">      73</span>                 :             :                 300, // buffer size for the mission log (can be kept fairly small)</span>
+<span id="L74"><span class="lineNum">      74</span>                 :             :                 1,</span>
+<span id="L75"><span class="lineNum">      75</span>                 :             :                 perf_alloc(PC_ELAPSED, &quot;logger_sd_write_mission&quot;), perf_alloc(PC_ELAPSED, &quot;logger_sd_fsync_mission&quot;)}</span>
+<span id="L76"><span class="lineNum">      76</span>                 :<span class="tlaGNC">           1 : }</span></span>
+<span id="L77"><span class="lineNum">      77</span>                 :             : {</span>
+<span id="L78"><span class="lineNum">      78</span>                 :<span class="tlaGNC">           1 :         pthread_mutex_init(&amp;_mtx, nullptr);</span></span>
+<span id="L79"><span class="lineNum">      79</span>                 :<span class="tlaGNC">           1 :         pthread_cond_init(&amp;_cv, nullptr);</span></span>
+<span id="L80"><span class="lineNum">      80</span>                 :<span class="tlaGNC">           1 : }</span></span>
+<span id="L81"><span class="lineNum">      81</span>                 :             : </span>
+<span id="L82"><span class="lineNum">      82</span>                 :<span class="tlaGNC">           1 : bool LogWriterFile::init()</span></span>
+<span id="L83"><span class="lineNum">      83</span>                 :             : {</span>
+<span id="L84"><span class="lineNum">      84</span>                 :<span class="tlaGNC">           1 :         return true;</span></span>
+<span id="L85"><span class="lineNum">      85</span>                 :             : }</span>
+<span id="L86"><span class="lineNum">      86</span>                 :             : </span>
+<span id="L87"><span class="lineNum">      87</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC tlaBgUNC">           0 : LogWriterFile::~LogWriterFile()</span></span>
+<span id="L88"><span class="lineNum">      88</span>                 :             : {</span>
+<span id="L89"><span class="lineNum">      89</span>                 :<span class="tlaUNC">           0 :         pthread_mutex_destroy(&amp;_mtx);</span></span>
+<span id="L90"><span class="lineNum">      90</span>                 :<span class="tlaUNC">           0 :         pthread_cond_destroy(&amp;_cv);</span></span>
+<span id="L91"><span class="lineNum">      91</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 : }</span></span>
+<span id="L92"><span class="lineNum">      92</span>                 :             : </span>
+<span id="L93"><span class="lineNum">      93</span>                 :             : #if defined(PX4_CRYPTO)</span>
+<span id="L94"><span class="lineNum">      94</span>                 :             : bool LogWriterFile::init_logfile_encryption(const LogType type)</span>
+<span id="L95"><span class="lineNum">      95</span>                 :             : {</span>
+<span id="L96"><span class="lineNum">      96</span>                 :             :         if (_algorithm == CRYPTO_NONE) {</span>
+<span id="L97"><span class="lineNum">      97</span>                 :             :                 _min_blocksize = 1;</span>
+<span id="L98"><span class="lineNum">      98</span>                 :             :                 return true;</span>
+<span id="L99"><span class="lineNum">      99</span>                 :             :         }</span>
+<span id="L100"><span class="lineNum">     100</span>                 :             : </span>
+<span id="L101"><span class="lineNum">     101</span>                 :             :         // open a crypto session</span>
+<span id="L102"><span class="lineNum">     102</span>                 :             :         if (!_crypto.open(_algorithm)) {</span>
+<span id="L103"><span class="lineNum">     103</span>                 :             :                 return false;</span>
+<span id="L104"><span class="lineNum">     104</span>                 :             :         }</span>
+<span id="L105"><span class="lineNum">     105</span>                 :             : </span>
+<span id="L106"><span class="lineNum">     106</span>                 :             :         // Get the minimum block size for which the encryption can be performed</span>
+<span id="L107"><span class="lineNum">     107</span>                 :             :         _min_blocksize = _crypto.get_min_blocksize(_key_idx);</span>
+<span id="L108"><span class="lineNum">     108</span>                 :             : </span>
+<span id="L109"><span class="lineNum">     109</span>                 :             :         // Generate a crypto key and store it to the keystore.</span>
+<span id="L110"><span class="lineNum">     110</span>                 :             : </span>
+<span id="L111"><span class="lineNum">     111</span>                 :             :         if (!_crypto.generate_key(_key_idx, false)) {</span>
+<span id="L112"><span class="lineNum">     112</span>                 :             :                 PX4_ERR(&quot;Can't generate crypto key&quot;);</span>
+<span id="L113"><span class="lineNum">     113</span>                 :             :                 return false;</span>
+<span id="L114"><span class="lineNum">     114</span>                 :             :         }</span>
+<span id="L115"><span class="lineNum">     115</span>                 :             : </span>
+<span id="L116"><span class="lineNum">     116</span>                 :             :         // Get the generated key, encrypted with RSA_OAEP. Open another temporary session for this.</span>
+<span id="L117"><span class="lineNum">     117</span>                 :             :         PX4Crypto rsa_crypto;</span>
+<span id="L118"><span class="lineNum">     118</span>                 :             : </span>
+<span id="L119"><span class="lineNum">     119</span>                 :             :         if (!rsa_crypto.open(CRYPTO_RSA_OAEP)) {</span>
+<span id="L120"><span class="lineNum">     120</span>                 :             :                 return false;</span>
+<span id="L121"><span class="lineNum">     121</span>                 :             :         }</span>
+<span id="L122"><span class="lineNum">     122</span>                 :             : </span>
+<span id="L123"><span class="lineNum">     123</span>                 :             :         /* Get the size of an encrypted key and nonce */</span>
+<span id="L124"><span class="lineNum">     124</span>                 :             : </span>
+<span id="L125"><span class="lineNum">     125</span>                 :             :         size_t key_size;</span>
+<span id="L126"><span class="lineNum">     126</span>                 :             :         size_t nonce_size;</span>
+<span id="L127"><span class="lineNum">     127</span>                 :             : </span>
+<span id="L128"><span class="lineNum">     128</span>                 :             :         if (!rsa_crypto.get_encrypted_key(_key_idx,</span>
+<span id="L129"><span class="lineNum">     129</span>                 :             :                                           NULL,</span>
+<span id="L130"><span class="lineNum">     130</span>                 :             :                                           &amp;key_size,</span>
+<span id="L131"><span class="lineNum">     131</span>                 :             :                                           _exchange_key_idx) ||</span>
+<span id="L132"><span class="lineNum">     132</span>                 :             :             !_crypto.get_nonce(NULL, &amp;nonce_size) ||</span>
+<span id="L133"><span class="lineNum">     133</span>                 :             :             key_size == 0) {</span>
+<span id="L134"><span class="lineNum">     134</span>                 :             :                 rsa_crypto.close();</span>
+<span id="L135"><span class="lineNum">     135</span>                 :             :                 return false;</span>
+<span id="L136"><span class="lineNum">     136</span>                 :             :         }</span>
+<span id="L137"><span class="lineNum">     137</span>                 :             : </span>
+<span id="L138"><span class="lineNum">     138</span>                 :             :         /* Allocate space and get key + nonce */</span>
+<span id="L139"><span class="lineNum">     139</span>                 :             :         uint8_t *key = (uint8_t *)malloc(key_size + nonce_size);</span>
+<span id="L140"><span class="lineNum">     140</span>                 :             : </span>
+<span id="L141"><span class="lineNum">     141</span>                 :             :         if (!key ||</span>
+<span id="L142"><span class="lineNum">     142</span>                 :             :             !rsa_crypto.get_encrypted_key(</span>
+<span id="L143"><span class="lineNum">     143</span>                 :             :                     _key_idx,</span>
+<span id="L144"><span class="lineNum">     144</span>                 :             :                     key,</span>
+<span id="L145"><span class="lineNum">     145</span>                 :             :                     &amp;key_size,</span>
+<span id="L146"><span class="lineNum">     146</span>                 :             :                     _exchange_key_idx) ||</span>
+<span id="L147"><span class="lineNum">     147</span>                 :             :             !_crypto.get_nonce(</span>
+<span id="L148"><span class="lineNum">     148</span>                 :             :                     key + key_size, &amp;nonce_size)) {</span>
+<span id="L149"><span class="lineNum">     149</span>                 :             :                 PX4_ERR(&quot;Can't get &amp; encrypt the key&quot;);</span>
+<span id="L150"><span class="lineNum">     150</span>                 :             :                 free(key);</span>
+<span id="L151"><span class="lineNum">     151</span>                 :             :                 rsa_crypto.close();</span>
+<span id="L152"><span class="lineNum">     152</span>                 :             :                 return false;</span>
+<span id="L153"><span class="lineNum">     153</span>                 :             :         }</span>
+<span id="L154"><span class="lineNum">     154</span>                 :             : </span>
+<span id="L155"><span class="lineNum">     155</span>                 :             :         rsa_crypto.close();</span>
+<span id="L156"><span class="lineNum">     156</span>                 :             : </span>
+<span id="L157"><span class="lineNum">     157</span>                 :             :         // Write the encrypted key to the beginning of the opened log file</span>
+<span id="L158"><span class="lineNum">     158</span>                 :             :         int key_fd = _buffers[(int)type].fd();</span>
+<span id="L159"><span class="lineNum">     159</span>                 :             : </span>
+<span id="L160"><span class="lineNum">     160</span>                 :             :         if (key_fd &lt; 0) {</span>
+<span id="L161"><span class="lineNum">     161</span>                 :             :                 PX4_ERR(&quot;Log file not open for storing the key, errno: %d&quot;, errno);</span>
+<span id="L162"><span class="lineNum">     162</span>                 :             :                 free(key);</span>
+<span id="L163"><span class="lineNum">     163</span>                 :             :                 return false;</span>
+<span id="L164"><span class="lineNum">     164</span>                 :             :         }</span>
+<span id="L165"><span class="lineNum">     165</span>                 :             : </span>
+<span id="L166"><span class="lineNum">     166</span>                 :             :         // write header and key to the beginning of the log file</span>
+<span id="L167"><span class="lineNum">     167</span>                 :             :         struct ulog_key_header_s keyfile_header = {</span>
+<span id="L168"><span class="lineNum">     168</span>                 :             :                 .magic = {'U', 'L', 'o', 'g', 'E', 'n', 'c'},</span>
+<span id="L169"><span class="lineNum">     169</span>                 :             :                 .hdr_ver = 1,</span>
+<span id="L170"><span class="lineNum">     170</span>                 :             :                 .timestamp = hrt_absolute_time(),</span>
+<span id="L171"><span class="lineNum">     171</span>                 :             :                 .exchange_algorithm = CRYPTO_RSA_OAEP,</span>
+<span id="L172"><span class="lineNum">     172</span>                 :             :                 .exchange_key = _exchange_key_idx,</span>
+<span id="L173"><span class="lineNum">     173</span>                 :             :                 .key_size = (uint16_t)key_size,</span>
+<span id="L174"><span class="lineNum">     174</span>                 :             :                 .initdata_size = (uint16_t)nonce_size</span>
+<span id="L175"><span class="lineNum">     175</span>                 :             :         };</span>
+<span id="L176"><span class="lineNum">     176</span>                 :             : </span>
+<span id="L177"><span class="lineNum">     177</span>                 :             :         size_t written = ::write(key_fd, (uint8_t *)&amp;keyfile_header, sizeof(keyfile_header));</span>
+<span id="L178"><span class="lineNum">     178</span>                 :             :         written += ::write(key_fd, key, key_size + nonce_size);</span>
+<span id="L179"><span class="lineNum">     179</span>                 :             : </span>
+<span id="L180"><span class="lineNum">     180</span>                 :             :         // Free temporary memory allocations</span>
+<span id="L181"><span class="lineNum">     181</span>                 :             :         free(key);</span>
+<span id="L182"><span class="lineNum">     182</span>                 :             : </span>
+<span id="L183"><span class="lineNum">     183</span>                 :             :         // Check that writing to the disk succeeded</span>
+<span id="L184"><span class="lineNum">     184</span>                 :             :         if (written != sizeof(keyfile_header) + key_size + nonce_size) {</span>
+<span id="L185"><span class="lineNum">     185</span>                 :             :                 PX4_ERR(&quot;Writing the encryption key to disk fail&quot;);</span>
+<span id="L186"><span class="lineNum">     186</span>                 :             :                 return false;</span>
+<span id="L187"><span class="lineNum">     187</span>                 :             :         }</span>
+<span id="L188"><span class="lineNum">     188</span>                 :             : </span>
+<span id="L189"><span class="lineNum">     189</span>                 :             :         return true;</span>
+<span id="L190"><span class="lineNum">     190</span>                 :             : }</span>
+<span id="L191"><span class="lineNum">     191</span>                 :             : #endif // PX4_CRYPTO</span>
+<span id="L192"><span class="lineNum">     192</span>                 :             : </span>
+<span id="L193"><span class="lineNum">     193</span>                 :             : </span>
+<span id="L194"><span class="lineNum">     194</span>                 :<span class="tlaGNC tlaBgGNC">           1 : bool LogWriterFile::start_log(LogType type, const char *filename)</span></span>
+<span id="L195"><span class="lineNum">     195</span>                 :             : {</span>
+<span id="L196"><span class="lineNum">     196</span>                 :             :         // At this point we don't expect the file to be open, but it can happen for very fast consecutive stop &amp; start</span>
+<span id="L197"><span class="lineNum">     197</span>                 :             :         // calls. In that case we wait for the thread to close the file first.</span>
+<span id="L198"><span class="lineNum">     198</span>                 :<span class="tlaGNC">           1 :         lock();</span></span>
+<span id="L199"><span class="lineNum">     199</span>                 :             : </span>
+<span id="L200"><span class="lineNum">     200</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span>]:<span class="tlaGNC">           1 :         while (_buffers[(int)type].fd() &gt;= 0) {</span></span>
+<span id="L201"><span class="lineNum">     201</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                 unlock();</span></span>
+<span id="L202"><span class="lineNum">     202</span>                 :<span class="tlaUNC">           0 :                 system_usleep(5000);</span></span>
+<span id="L203"><span class="lineNum">     203</span>                 :<span class="tlaUNC">           0 :                 lock();</span></span>
+<span id="L204"><span class="lineNum">     204</span>                 :             :         }</span>
+<span id="L205"><span class="lineNum">     205</span>                 :             : </span>
+<span id="L206"><span class="lineNum">     206</span>                 :<span class="tlaGNC tlaBgGNC">           1 :         unlock();</span></span>
+<span id="L207"><span class="lineNum">     207</span>                 :             : </span>
+<span id="L208"><span class="lineNum">     208</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :         if (type == LogType::Full) {</span></span>
+<span id="L209"><span class="lineNum">     209</span>                 :             :                 // register the current file with the hardfault handler: if the system crashes,</span>
+<span id="L210"><span class="lineNum">     210</span>                 :             :                 // the hardfault handler will append the crash log to that file on the next reboot.</span>
+<span id="L211"><span class="lineNum">     211</span>                 :             :                 // Note that we don't deregister it when closing the log, so that crashes after disarming</span>
+<span id="L212"><span class="lineNum">     212</span>                 :             :                 // are appended as well (the same holds for crashes before arming, which can be a bit misleading)</span>
+<span id="L213"><span class="lineNum">     213</span>                 :<span class="tlaGNC">           1 :                 int ret = hardfault_store_filename(filename);</span></span>
+<span id="L214"><span class="lineNum">     214</span>                 :             : </span>
+<span id="L215"><span class="lineNum">     215</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span>]:<span class="tlaGNC">           1 :                 if (ret) {</span></span>
+<span id="L216"><span class="lineNum">     216</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                         PX4_ERR(&quot;Failed to register ULog file to the hardfault handler (%i)&quot;, ret);</span></span>
+<span id="L217"><span class="lineNum">     217</span>                 :             :                 }</span>
+<span id="L218"><span class="lineNum">     218</span>                 :             :         }</span>
+<span id="L219"><span class="lineNum">     219</span>                 :             : </span>
+<span id="L220"><span class="lineNum">     220</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC tlaBgGNC">           1 :         if (_buffers[(int)type].start_log(filename)) {</span></span>
+<span id="L221"><span class="lineNum">     221</span>                 :             : </span>
+<span id="L222"><span class="lineNum">     222</span>                 :             : #if PX4_CRYPTO</span>
+<span id="L223"><span class="lineNum">     223</span>                 :             :                 bool enc_init = init_logfile_encryption(type);</span>
+<span id="L224"><span class="lineNum">     224</span>                 :             : </span>
+<span id="L225"><span class="lineNum">     225</span>                 :             :                 if (!enc_init) {</span>
+<span id="L226"><span class="lineNum">     226</span>                 :             :                         PX4_ERR(&quot;Failed to start encrypted logging&quot;);</span>
+<span id="L227"><span class="lineNum">     227</span>                 :             :                         _crypto.close();</span>
+<span id="L228"><span class="lineNum">     228</span>                 :             :                         _buffers[(int)type]._should_run = false;</span>
+<span id="L229"><span class="lineNum">     229</span>                 :             :                         _buffers[(int)type].close_file();</span>
+<span id="L230"><span class="lineNum">     230</span>                 :             :                         _buffers[(int)type].reset();</span>
+<span id="L231"><span class="lineNum">     231</span>                 :             :                         return false;</span>
+<span id="L232"><span class="lineNum">     232</span>                 :             :                 }</span>
+<span id="L233"><span class="lineNum">     233</span>                 :             : </span>
+<span id="L234"><span class="lineNum">     234</span>                 :             : #endif</span>
+<span id="L235"><span class="lineNum">     235</span>                 :             : </span>
+<span id="L236"><span class="lineNum">     236</span>                 :<span class="tlaGNC">           1 :                 PX4_INFO(&quot;Opened %s log file: %s&quot;, log_type_str(type), filename);</span></span>
+<span id="L237"><span class="lineNum">     237</span>                 :<span class="tlaGNC">           1 :                 notify();</span></span>
+<span id="L238"><span class="lineNum">     238</span>                 :<span class="tlaGNC">           1 :                 return true;</span></span>
+<span id="L239"><span class="lineNum">     239</span>                 :             :         }</span>
+<span id="L240"><span class="lineNum">     240</span>                 :             : </span>
+<span id="L241"><span class="lineNum">     241</span>                 :<span class="tlaUNC tlaBgUNC">           0 :         return false;</span></span>
+<span id="L242"><span class="lineNum">     242</span>                 :             : }</span>
+<span id="L243"><span class="lineNum">     243</span>                 :             : </span>
+<span id="L244"><span class="lineNum">     244</span>                 :<span class="tlaGNC tlaBgGNC">           1 : int LogWriterFile::hardfault_store_filename(const char *log_file)</span></span>
+<span id="L245"><span class="lineNum">     245</span>                 :             : {</span>
+<span id="L246"><span class="lineNum">     246</span>                 :             : #if defined(__PX4_NUTTX) &amp;&amp; defined(px4_savepanic)</span>
+<span id="L247"><span class="lineNum">     247</span>                 :             :         int fd = open(HARDFAULT_ULOG_PATH, O_TRUNC | O_WRONLY | O_CREAT);</span>
+<span id="L248"><span class="lineNum">     248</span>                 :             : </span>
+<span id="L249"><span class="lineNum">     249</span>                 :             :         if (fd &lt; 0) {</span>
+<span id="L250"><span class="lineNum">     250</span>                 :             :                 return -errno;</span>
+<span id="L251"><span class="lineNum">     251</span>                 :             :         }</span>
+<span id="L252"><span class="lineNum">     252</span>                 :             : </span>
+<span id="L253"><span class="lineNum">     253</span>                 :             :         int n = strlen(log_file);</span>
+<span id="L254"><span class="lineNum">     254</span>                 :             : </span>
+<span id="L255"><span class="lineNum">     255</span>                 :             :         if (n &gt;= HARDFAULT_MAX_ULOG_FILE_LEN) {</span>
+<span id="L256"><span class="lineNum">     256</span>                 :             :                 PX4_ERR(&quot;ULog file name too long (%s, %i&gt;=%i)\n&quot;, log_file, n, HARDFAULT_MAX_ULOG_FILE_LEN);</span>
+<span id="L257"><span class="lineNum">     257</span>                 :             :                 return -EINVAL;</span>
+<span id="L258"><span class="lineNum">     258</span>                 :             :         }</span>
+<span id="L259"><span class="lineNum">     259</span>                 :             : </span>
+<span id="L260"><span class="lineNum">     260</span>                 :             :         if (n + 1 != ::write(fd, log_file, n + 1)) {</span>
+<span id="L261"><span class="lineNum">     261</span>                 :             :                 close(fd);</span>
+<span id="L262"><span class="lineNum">     262</span>                 :             :                 return -errno;</span>
+<span id="L263"><span class="lineNum">     263</span>                 :             :         }</span>
+<span id="L264"><span class="lineNum">     264</span>                 :             : </span>
+<span id="L265"><span class="lineNum">     265</span>                 :             :         int ret = close(fd);</span>
+<span id="L266"><span class="lineNum">     266</span>                 :             : </span>
+<span id="L267"><span class="lineNum">     267</span>                 :             :         if (ret != 0) {</span>
+<span id="L268"><span class="lineNum">     268</span>                 :             :                 return -errno;</span>
+<span id="L269"><span class="lineNum">     269</span>                 :             :         }</span>
+<span id="L270"><span class="lineNum">     270</span>                 :             : </span>
+<span id="L271"><span class="lineNum">     271</span>                 :             : #endif /* __PX4_NUTTX */</span>
+<span id="L272"><span class="lineNum">     272</span>                 :             : </span>
+<span id="L273"><span class="lineNum">     273</span>                 :<span class="tlaGNC">           1 :         return 0;</span></span>
+<span id="L274"><span class="lineNum">     274</span>                 :             : }</span>
+<span id="L275"><span class="lineNum">     275</span>                 :             : </span>
+<span id="L276"><span class="lineNum">     276</span>                 :<span class="tlaUNC tlaBgUNC">           0 : void LogWriterFile::stop_log(LogType type)</span></span>
+<span id="L277"><span class="lineNum">     277</span>                 :             : {</span>
+<span id="L278"><span class="lineNum">     278</span>                 :<span class="tlaUNC">           0 :         lock();</span></span>
+<span id="L279"><span class="lineNum">     279</span>                 :<span class="tlaUNC">           0 :         _buffers[(int)type]._should_run = false;</span></span>
+<span id="L280"><span class="lineNum">     280</span>                 :<span class="tlaUNC">           0 :         unlock();</span></span>
+<span id="L281"><span class="lineNum">     281</span>                 :<span class="tlaUNC">           0 :         notify();</span></span>
+<span id="L282"><span class="lineNum">     282</span>                 :<span class="tlaUNC">           0 : }</span></span>
+<span id="L283"><span class="lineNum">     283</span>                 :             : </span>
+<span id="L284"><span class="lineNum">     284</span>                 :<span class="tlaGNC tlaBgGNC">           1 : int LogWriterFile::thread_start()</span></span>
+<span id="L285"><span class="lineNum">     285</span>                 :             : {</span>
+<span id="L286"><span class="lineNum">     286</span>                 :             :         pthread_attr_t thr_attr;</span>
+<span id="L287"><span class="lineNum">     287</span>                 :<span class="tlaGNC">           1 :         pthread_attr_init(&amp;thr_attr);</span></span>
+<span id="L288"><span class="lineNum">     288</span>                 :             : </span>
+<span id="L289"><span class="lineNum">     289</span>                 :             :         sched_param param;</span>
+<span id="L290"><span class="lineNum">     290</span>                 :             :         /* low priority, as this is expensive disk I/O */</span>
+<span id="L291"><span class="lineNum">     291</span>                 :<span class="tlaGNC">           1 :         param.sched_priority = SCHED_PRIORITY_DEFAULT - 40;</span></span>
+<span id="L292"><span class="lineNum">     292</span>                 :<span class="tlaGNC">           1 :         (void)pthread_attr_setschedparam(&amp;thr_attr, &amp;param);</span></span>
+<span id="L293"><span class="lineNum">     293</span>                 :             : </span>
+<span id="L294"><span class="lineNum">     294</span>                 :<span class="tlaGNC">           1 :         pthread_attr_setstacksize(&amp;thr_attr, PX4_STACK_ADJUSTED(1170));</span></span>
+<span id="L295"><span class="lineNum">     295</span>                 :             : </span>
+<span id="L296"><span class="lineNum">     296</span>                 :<span class="tlaGNC">           1 :         int ret = pthread_create(&amp;_thread, &amp;thr_attr, &amp;LogWriterFile::run_helper, this);</span></span>
+<span id="L297"><span class="lineNum">     297</span>                 :<span class="tlaGNC">           1 :         pthread_attr_destroy(&amp;thr_attr);</span></span>
+<span id="L298"><span class="lineNum">     298</span>                 :             : </span>
+<span id="L299"><span class="lineNum">     299</span>                 :<span class="tlaGNC">           1 :         return ret;</span></span>
+<span id="L300"><span class="lineNum">     300</span>                 :             : }</span>
+<span id="L301"><span class="lineNum">     301</span>                 :             : </span>
+<span id="L302"><span class="lineNum">     302</span>                 :<span class="tlaUNC tlaBgUNC">           0 : void LogWriterFile::thread_stop()</span></span>
+<span id="L303"><span class="lineNum">     303</span>                 :             : {</span>
+<span id="L304"><span class="lineNum">     304</span>                 :             :         // this will terminate the main loop of the writer thread</span>
+<span id="L305"><span class="lineNum">     305</span>                 :<span class="tlaUNC">           0 :         lock();</span></span>
+<span id="L306"><span class="lineNum">     306</span>                 :<span class="tlaUNC">           0 :         _exit_thread.store(true);</span></span>
+<span id="L307"><span class="lineNum">     307</span>                 :<span class="tlaUNC">           0 :         _buffers[0]._should_run = _buffers[1]._should_run = false;</span></span>
+<span id="L308"><span class="lineNum">     308</span>                 :<span class="tlaUNC">           0 :         unlock();</span></span>
+<span id="L309"><span class="lineNum">     309</span>                 :             : </span>
+<span id="L310"><span class="lineNum">     310</span>                 :<span class="tlaUNC">           0 :         notify();</span></span>
+<span id="L311"><span class="lineNum">     311</span>                 :             : </span>
+<span id="L312"><span class="lineNum">     312</span>                 :             :         // wait for thread to complete</span>
+<span id="L313"><span class="lineNum">     313</span>                 :<span class="tlaUNC">           0 :         int ret = pthread_join(_thread, nullptr);</span></span>
+<span id="L314"><span class="lineNum">     314</span>                 :             : </span>
+<span id="L315"><span class="lineNum">     315</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         if (ret) {</span></span>
+<span id="L316"><span class="lineNum">     316</span>                 :<span class="tlaUNC">           0 :                 PX4_WARN(&quot;join failed: %d&quot;, ret);</span></span>
+<span id="L317"><span class="lineNum">     317</span>                 :             :         }</span>
+<span id="L318"><span class="lineNum">     318</span>                 :<span class="tlaUNC">           0 : }</span></span>
+<span id="L319"><span class="lineNum">     319</span>                 :             : </span>
+<span id="L320"><span class="lineNum">     320</span>                 :<span class="tlaGNC tlaBgGNC">           1 : void *LogWriterFile::run_helper(void *context)</span></span>
+<span id="L321"><span class="lineNum">     321</span>                 :             : {</span>
+<span id="L322"><span class="lineNum">     322</span>                 :<span class="tlaGNC">           1 :         px4_prctl(PR_SET_NAME, &quot;log_writer_file&quot;, px4_getpid());</span></span>
+<span id="L323"><span class="lineNum">     323</span>                 :             : </span>
+<span id="L324"><span class="lineNum">     324</span>                 :<span class="tlaGNC">           1 :         static_cast&lt;LogWriterFile *&gt;(context)-&gt;run();</span></span>
+<span id="L325"><span class="lineNum">     325</span>                 :<span class="tlaUNC tlaBgUNC">           0 :         return nullptr;</span></span>
+<span id="L326"><span class="lineNum">     326</span>                 :             : }</span>
+<span id="L327"><span class="lineNum">     327</span>                 :             : </span>
+<span id="L328"><span class="lineNum">     328</span>                 :<span class="tlaGNC tlaBgGNC">           1 : void LogWriterFile::run()</span></span>
+<span id="L329"><span class="lineNum">     329</span>                 :             : {</span>
+<span id="L330"><span class="lineNum">     330</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :         while (!_exit_thread.load()) {</span></span>
+<span id="L331"><span class="lineNum">     331</span>                 :             :                 // Outer endless loop</span>
+<span id="L332"><span class="lineNum">     332</span>                 :             :                 // Wait for _should_run flag</span>
+<span id="L333"><span class="lineNum">     333</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :                 while (!_exit_thread.load()) {</span></span>
+<span id="L334"><span class="lineNum">     334</span>                 :<span class="tlaGNC">           1 :                         bool start = false;</span></span>
+<span id="L335"><span class="lineNum">     335</span>                 :<span class="tlaGNC">           1 :                         pthread_mutex_lock(&amp;_mtx);</span></span>
+<span id="L336"><span class="lineNum">     336</span>                 :<span class="tlaGNC">           1 :                         pthread_cond_wait(&amp;_cv, &amp;_mtx);</span></span>
+<span id="L337"><span class="lineNum">     337</span>   [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">           1 :                         start = _buffers[0]._should_run || _buffers[1]._should_run;</span></span>
+<span id="L338"><span class="lineNum">     338</span>                 :<span class="tlaGNC">           1 :                         pthread_mutex_unlock(&amp;_mtx);</span></span>
+<span id="L339"><span class="lineNum">     339</span>                 :             : </span>
+<span id="L340"><span class="lineNum">     340</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :                         if (start) {</span></span>
+<span id="L341"><span class="lineNum">     341</span>                 :<span class="tlaGNC">           1 :                                 break;</span></span>
+<span id="L342"><span class="lineNum">     342</span>                 :             :                         }</span>
+<span id="L343"><span class="lineNum">     343</span>                 :             :                 }</span>
+<span id="L344"><span class="lineNum">     344</span>                 :             : </span>
+<span id="L345"><span class="lineNum">     345</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span>]:<span class="tlaGNC">           1 :                 if (_exit_thread.load()) {</span></span>
+<span id="L346"><span class="lineNum">     346</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                         break;</span></span>
+<span id="L347"><span class="lineNum">     347</span>                 :             :                 }</span>
+<span id="L348"><span class="lineNum">     348</span>                 :             : </span>
+<span id="L349"><span class="lineNum">     349</span>                 :<span class="tlaGNC tlaBgGNC">           1 :                 int poll_count = 0;</span></span>
+<span id="L350"><span class="lineNum">     350</span>                 :<span class="tlaGNC">           1 :                 hrt_abstime last_fsync = hrt_absolute_time();</span></span>
+<span id="L351"><span class="lineNum">     351</span>                 :             : </span>
+<span id="L352"><span class="lineNum">     352</span>                 :<span class="tlaGNC">           1 :                 pthread_mutex_lock(&amp;_mtx);</span></span>
+<span id="L353"><span class="lineNum">     353</span>                 :             : </span>
+<span id="L354"><span class="lineNum">     354</span>                 :             :                 while (true) {</span>
+<span id="L355"><span class="lineNum">     355</span>                 :             : </span>
+<span id="L356"><span class="lineNum">     356</span>                 :<span class="tlaGNC">       10451 :                         const hrt_abstime now = hrt_absolute_time();</span></span>
+<span id="L357"><span class="lineNum">     357</span>                 :             : </span>
+<span id="L358"><span class="lineNum">     358</span>                 :             :                         /* call fsync periodically to minimize potential loss of data */</span>
+<span id="L359"><span class="lineNum">     359</span>   [<span class="tlaGBC" title="Branch 0 was taken 10348 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 103 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 10348 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">       10451 :                         const bool call_fsync = ++poll_count &gt;= 100 || now - last_fsync &gt; 1_s || _want_fsync.load();</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 2 times"> + </span><span class="tlaGBC" title="Branch 5 was taken 10346 times"> + </span>]
+<span id="L360"><span class="lineNum">     360</span>                 :<span class="tlaGNC">       10451 :                         _want_fsync.store(false);</span></span>
+<span id="L361"><span class="lineNum">     361</span>                 :             : </span>
+<span id="L362"><span class="lineNum">     362</span>         [<span class="tlaGBC" title="Branch 0 was taken 105 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 10346 times"> + </span>]:<span class="tlaGNC">       10451 :                         if (call_fsync) {</span></span>
+<span id="L363"><span class="lineNum">     363</span>                 :<span class="tlaGNC">         105 :                                 last_fsync = now;</span></span>
+<span id="L364"><span class="lineNum">     364</span>                 :<span class="tlaGNC">         105 :                                 poll_count = 0;</span></span>
+<span id="L365"><span class="lineNum">     365</span>                 :             :                         }</span>
+<span id="L366"><span class="lineNum">     366</span>                 :             : </span>
+<span id="L367"><span class="lineNum">     367</span>                 :             :                         constexpr size_t min_available[(int)LogType::Count] = {</span>
+<span id="L368"><span class="lineNum">     368</span>                 :             :                                 _min_write_chunk,</span>
+<span id="L369"><span class="lineNum">     369</span>                 :             :                                 1 // For the mission log, write as soon as there is data available</span>
+<span id="L370"><span class="lineNum">     370</span>                 :             :                         };</span>
+<span id="L371"><span class="lineNum">     371</span>                 :             : </span>
+<span id="L372"><span class="lineNum">     372</span>                 :             :                         /* Check all buffers for available data. Mission log is first to avoid drops */</span>
+<span id="L373"><span class="lineNum">     373</span>                 :<span class="tlaGNC">       10451 :                         int i = (int)LogType::Count - 1;</span></span>
+<span id="L374"><span class="lineNum">     374</span>                 :             : </span>
+<span id="L375"><span class="lineNum">     375</span>         [<span class="tlaGBC" title="Branch 0 was taken 20902 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 10451 times"> + </span>]:<span class="tlaGNC">       31353 :                         while (i &gt;= 0) {</span></span>
+<span id="L376"><span class="lineNum">     376</span>                 :             :                                 void *read_ptr;</span>
+<span id="L377"><span class="lineNum">     377</span>                 :             :                                 bool is_part;</span>
+<span id="L378"><span class="lineNum">     378</span>                 :<span class="tlaGNC">       20902 :                                 LogFileBuffer &amp;buffer = _buffers[i];</span></span>
+<span id="L379"><span class="lineNum">     379</span>                 :<span class="tlaGNC">       20902 :                                 size_t available = buffer.get_read_ptr(&amp;read_ptr, &amp;is_part);</span></span>
+<span id="L380"><span class="lineNum">     380</span>                 :             : </span>
+<span id="L381"><span class="lineNum">     381</span>                 :             : #if defined(PX4_CRYPTO)</span>
+<span id="L382"><span class="lineNum">     382</span>                 :             :                                 // Split into min blocksize chunks, so it is good for encrypting in pieces</span>
+<span id="L383"><span class="lineNum">     383</span>                 :             :                                 available = (available / _min_blocksize) * _min_blocksize;</span>
+<span id="L384"><span class="lineNum">     384</span>                 :             : #endif // PX4_CRYPTO</span>
+<span id="L385"><span class="lineNum">     385</span>                 :             : </span>
+<span id="L386"><span class="lineNum">     386</span>                 :             :                                 /* if sufficient data available or partial read or terminating, write data */</span>
+<span id="L387"><span class="lineNum">     387</span>   [<span class="tlaGBC" title="Branch 0 was taken 20175 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 727 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 20175 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">       20902 :                                 if (available &gt;= min_available[i] || is_part || (!buffer._should_run &amp;&amp; available &gt; 0)) {</span></span>
+<span class="lineNum">        </span>    <span class="tlaGBC" title="Branch 4 was taken 10451 times"> + </span><span class="tlaGBC" title="Branch 5 was taken 9724 times"> + </span><span class="tlaUNC" title="Branch 6 was not taken"> - </span><span class="tlaGBC" title="Branch 7 was taken 10451 times"> + </span>]
+<span id="L388"><span class="lineNum">     388</span>                 :<span class="tlaGNC">         727 :                                         pthread_mutex_unlock(&amp;_mtx);</span></span>
+<span id="L389"><span class="lineNum">     389</span>                 :             : </span>
+<span id="L390"><span class="lineNum">     390</span>                 :             : #if defined(PX4_CRYPTO)</span>
+<span id="L391"><span class="lineNum">     391</span>                 :             :                                         /* This makes the following assumptions:</span>
+<span id="L392"><span class="lineNum">     392</span>                 :             :                                          * - the chipher size is always the</span>
+<span id="L393"><span class="lineNum">     393</span>                 :             :                                              same as the input size</span>
+<span id="L394"><span class="lineNum">     394</span>                 :             :                                          * - the encryption can be done in</span>
+<span id="L395"><span class="lineNum">     395</span>                 :             :                                              place. This is always taken care</span>
+<span id="L396"><span class="lineNum">     396</span>                 :             :                                              by the px4 crypto interfaces</span>
+<span id="L397"><span class="lineNum">     397</span>                 :             :                                          */</span>
+<span id="L398"><span class="lineNum">     398</span>                 :             : </span>
+<span id="L399"><span class="lineNum">     399</span>                 :             :                                         size_t out = available;</span>
+<span id="L400"><span class="lineNum">     400</span>                 :             : </span>
+<span id="L401"><span class="lineNum">     401</span>                 :             :                                         if (_algorithm != CRYPTO_NONE) {</span>
+<span id="L402"><span class="lineNum">     402</span>                 :             :                                                 _crypto.encrypt_data(</span>
+<span id="L403"><span class="lineNum">     403</span>                 :             :                                                         _key_idx,</span>
+<span id="L404"><span class="lineNum">     404</span>                 :             :                                                         (uint8_t *)read_ptr,</span>
+<span id="L405"><span class="lineNum">     405</span>                 :             :                                                         available,</span>
+<span id="L406"><span class="lineNum">     406</span>                 :             :                                                         (uint8_t *)read_ptr,</span>
+<span id="L407"><span class="lineNum">     407</span>                 :             :                                                         &amp;out);</span>
+<span id="L408"><span class="lineNum">     408</span>                 :             : </span>
+<span id="L409"><span class="lineNum">     409</span>                 :             :                                                 if (out != available) {</span>
+<span id="L410"><span class="lineNum">     410</span>                 :             :                                                         PX4_ERR(&quot;Encryption output size mismatch, logfile corrupted&quot;);</span>
+<span id="L411"><span class="lineNum">     411</span>                 :             :                                                 }</span>
+<span id="L412"><span class="lineNum">     412</span>                 :             :                                         }</span>
+<span id="L413"><span class="lineNum">     413</span>                 :             : </span>
+<span id="L414"><span class="lineNum">     414</span>                 :             : #endif // PX4_CRYPTO</span>
+<span id="L415"><span class="lineNum">     415</span>                 :             : </span>
+<span id="L416"><span class="lineNum">     416</span>         [<span class="tlaGBC" title="Branch 0 was taken 727 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         727 :                                         int written = buffer.write_to_file(read_ptr, available, call_fsync);</span></span>
+<span id="L417"><span class="lineNum">     417</span>                 :             : </span>
+<span id="L418"><span class="lineNum">     418</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 727 times"> + </span>]:<span class="tlaGNC">         727 :                                         if (written &lt; 0) {</span></span>
+<span id="L419"><span class="lineNum">     419</span>                 :             :                                                 // retry once</span>
+<span id="L420"><span class="lineNum">     420</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC tlaBgUNC">           0 :                                                 PX4_ERR(&quot;write failed errno:%i (%s), retrying&quot;, errno, strerror(errno));</span></span>
+<span id="L421"><span class="lineNum">     421</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                                                 px4_usleep(10000); // 10 milliseconds</span></span>
+<span id="L422"><span class="lineNum">     422</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                                                 written = buffer.write_to_file(read_ptr, available, call_fsync);</span></span>
+<span id="L423"><span class="lineNum">     423</span>                 :             :                                         }</span>
+<span id="L424"><span class="lineNum">     424</span>                 :             : </span>
+<span id="L425"><span class="lineNum">     425</span>                 :             :                                         /* buffer.mark_read() requires _mtx to be locked */</span>
+<span id="L426"><span class="lineNum">     426</span>                 :<span class="tlaGNC tlaBgGNC">         727 :                                         pthread_mutex_lock(&amp;_mtx);</span></span>
+<span id="L427"><span class="lineNum">     427</span>                 :             : </span>
+<span id="L428"><span class="lineNum">     428</span>         [<span class="tlaGBC" title="Branch 0 was taken 727 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         727 :                                         if (written &gt;= 0) {</span></span>
+<span id="L429"><span class="lineNum">     429</span>                 :             :                                                 /* subtract bytes written from number in buffer (count -= written) */</span>
+<span id="L430"><span class="lineNum">     430</span>                 :<span class="tlaGNC">         727 :                                                 buffer.mark_read(written);</span></span>
+<span id="L431"><span class="lineNum">     431</span>                 :             : </span>
+<span id="L432"><span class="lineNum">     432</span>   [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 727 times"> + </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">         727 :                                                 if (!buffer._should_run &amp;&amp; written == static_cast&lt;int&gt;(available) &amp;&amp; !is_part) {</span></span>
+<span class="lineNum">        </span>          <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L433"><span class="lineNum">     433</span>                 :             :                                                         /* Stop only when all data written */</span>
+<span id="L434"><span class="lineNum">     434</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                                                         pthread_mutex_unlock(&amp;_mtx);</span></span>
+<span id="L435"><span class="lineNum">     435</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                                                         buffer.close_file();</span></span>
+<span id="L436"><span class="lineNum">     436</span>                 :<span class="tlaUNC">           0 :                                                         pthread_mutex_lock(&amp;_mtx);</span></span>
+<span id="L437"><span class="lineNum">     437</span>                 :<span class="tlaUNC">           0 :                                                         buffer.reset();</span></span>
+<span id="L438"><span class="lineNum">     438</span>                 :             :                                                 }</span>
+<span id="L439"><span class="lineNum">     439</span>                 :             : </span>
+<span id="L440"><span class="lineNum">     440</span>                 :             :                                         } else {</span>
+<span id="L441"><span class="lineNum">     441</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                                                 PX4_ERR(&quot;write failed (%i)&quot;, errno);</span></span>
+<span id="L442"><span class="lineNum">     442</span>                 :<span class="tlaUNC">           0 :                                                 buffer._had_write_error.store(true);</span></span>
+<span id="L443"><span class="lineNum">     443</span>                 :<span class="tlaUNC">           0 :                                                 buffer._should_run = false;</span></span>
+<span id="L444"><span class="lineNum">     444</span>                 :<span class="tlaUNC">           0 :                                                 pthread_mutex_unlock(&amp;_mtx);</span></span>
+<span id="L445"><span class="lineNum">     445</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                                                 buffer.close_file();</span></span>
+<span id="L446"><span class="lineNum">     446</span>                 :<span class="tlaUNC">           0 :                                                 pthread_mutex_lock(&amp;_mtx);</span></span>
+<span id="L447"><span class="lineNum">     447</span>                 :<span class="tlaUNC">           0 :                                                 buffer.reset();</span></span>
+<span id="L448"><span class="lineNum">     448</span>                 :             :                                         }</span>
+<span id="L449"><span class="lineNum">     449</span>                 :             : </span>
+<span id="L450"><span class="lineNum">     450</span>   [<span class="tlaGBC" title="Branch 0 was taken 203 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 19972 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 98 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 105 times"> + </span>]:<span class="tlaGNC tlaBgGNC">       20902 :                                 } else if (call_fsync &amp;&amp; buffer._should_run) {</span></span>
+<span id="L451"><span class="lineNum">     451</span>                 :<span class="tlaGNC">          98 :                                         pthread_mutex_unlock(&amp;_mtx);</span></span>
+<span id="L452"><span class="lineNum">     452</span>         [<span class="tlaGBC" title="Branch 0 was taken 98 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          98 :                                         buffer.fsync();</span></span>
+<span id="L453"><span class="lineNum">     453</span>                 :<span class="tlaGNC">          98 :                                         pthread_mutex_lock(&amp;_mtx);</span></span>
+<span id="L454"><span class="lineNum">     454</span>                 :             : </span>
+<span id="L455"><span class="lineNum">     455</span>   [<span class="tlaGBC" title="Branch 0 was taken 10451 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 9626 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 10451 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">       20077 :                                 } else if (available == 0 &amp;&amp; !buffer._should_run) {</span></span>
+<span id="L456"><span class="lineNum">     456</span>                 :<span class="tlaGNC">       10451 :                                         pthread_mutex_unlock(&amp;_mtx);</span></span>
+<span id="L457"><span class="lineNum">     457</span>         [<span class="tlaGBC" title="Branch 0 was taken 10451 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">       10451 :                                         buffer.close_file();</span></span>
+<span id="L458"><span class="lineNum">     458</span>                 :<span class="tlaGNC">       10451 :                                         pthread_mutex_lock(&amp;_mtx);</span></span>
+<span id="L459"><span class="lineNum">     459</span>                 :<span class="tlaGNC">       10451 :                                         buffer.reset();</span></span>
+<span id="L460"><span class="lineNum">     460</span>                 :             :                                 }</span>
+<span id="L461"><span class="lineNum">     461</span>                 :             : </span>
+<span id="L462"><span class="lineNum">     462</span>                 :             :                                 /* if split into 2 parts, write the second part immediately as well */</span>
+<span id="L463"><span class="lineNum">     463</span>         [<span class="tlaGBC" title="Branch 0 was taken 20902 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">       20902 :                                 if (!is_part) {</span></span>
+<span id="L464"><span class="lineNum">     464</span>                 :<span class="tlaGNC">       20902 :                                         --i;</span></span>
+<span id="L465"><span class="lineNum">     465</span>                 :             :                                 }</span>
+<span id="L466"><span class="lineNum">     466</span>                 :             :                         }</span>
+<span id="L467"><span class="lineNum">     467</span>                 :             : </span>
+<span id="L468"><span class="lineNum">     468</span>                 :             : </span>
+<span id="L469"><span class="lineNum">     469</span>   [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 10451 times"> + </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">       10451 :                         if (_buffers[0].fd() &lt; 0 &amp;&amp; _buffers[1].fd() &lt; 0) {</span></span>
+<span class="lineNum">        </span>          <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaGBC" title="Branch 5 was taken 10451 times"> + </span>]
+<span id="L470"><span class="lineNum">     470</span>                 :             :                                 // stop when both files are closed</span>
+<span id="L471"><span class="lineNum">     471</span>                 :             : #if defined(PX4_CRYPTO)</span>
+<span id="L472"><span class="lineNum">     472</span>                 :             :                                 /* close the crypto session */</span>
+<span id="L473"><span class="lineNum">     473</span>                 :             : </span>
+<span id="L474"><span class="lineNum">     474</span>                 :             :                                 _crypto.close();</span>
+<span id="L475"><span class="lineNum">     475</span>                 :             : #endif // PX4_CRYPTO</span>
+<span id="L476"><span class="lineNum">     476</span>                 :             : </span>
+<span id="L477"><span class="lineNum">     477</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                                 break;</span></span>
+<span id="L478"><span class="lineNum">     478</span>                 :             :                         }</span>
+<span id="L479"><span class="lineNum">     479</span>                 :             : </span>
+<span id="L480"><span class="lineNum">     480</span>                 :             :                         /* Wait for a call to notify(), which indicates new data is available.</span>
+<span id="L481"><span class="lineNum">     481</span>                 :             :                          * Note that at this point there could already be new data available (because of a longer write),</span>
+<span id="L482"><span class="lineNum">     482</span>                 :             :                          * and calling pthread_cond_wait() will still wait for the next notify(). But this is generally</span>
+<span id="L483"><span class="lineNum">     483</span>                 :             :                          * not an issue because notify() is called regularly.</span>
+<span id="L484"><span class="lineNum">     484</span>                 :             :                          * If the logger was switched off in the meantime, do not wait for data, instead run this loop</span>
+<span id="L485"><span class="lineNum">     485</span>                 :             :                          * once more to write remaining data and close the file. */</span>
+<span id="L486"><span class="lineNum">     486</span>   [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 10451 times"> + </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC tlaBgGNC">       10451 :                         if (_buffers[0]._should_run || _buffers[1]._should_run) {</span></span>
+<span id="L487"><span class="lineNum">     487</span>                 :<span class="tlaGNC">       10451 :                                 pthread_cond_wait(&amp;_cv, &amp;_mtx);</span></span>
+<span id="L488"><span class="lineNum">     488</span>                 :             :                         }</span>
+<span id="L489"><span class="lineNum">     489</span>                 :<span class="tlaGNC">       10450 :                 }</span></span>
+<span id="L490"><span class="lineNum">     490</span>                 :             : </span>
+<span id="L491"><span class="lineNum">     491</span>                 :             :                 // go back to idle</span>
+<span id="L492"><span class="lineNum">     492</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                 pthread_mutex_unlock(&amp;_mtx);</span></span>
+<span id="L493"><span class="lineNum">     493</span>                 :             :         }</span>
+<span id="L494"><span class="lineNum">     494</span>                 :<span class="tlaUNC">           0 : }</span></span>
+<span id="L495"><span class="lineNum">     495</span>                 :             : </span>
+<span id="L496"><span class="lineNum">     496</span>                 :<span class="tlaGNC tlaBgGNC">       25092 : int LogWriterFile::write_message(LogType type, void *ptr, size_t size, uint64_t dropout_start)</span></span>
+<span id="L497"><span class="lineNum">     497</span>                 :             : {</span>
+<span id="L498"><span class="lineNum">     498</span>         [<span class="tlaGBC" title="Branch 0 was taken 289 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 24803 times"> + </span>]:<span class="tlaGNC">       25092 :         if (_need_reliable_transfer) {</span></span>
+<span id="L499"><span class="lineNum">     499</span>                 :             :                 int ret;</span>
+<span id="L500"><span class="lineNum">     500</span>                 :             : </span>
+<span id="L501"><span class="lineNum">     501</span>                 :             :                 // if there's a dropout, write it first (because we might split the message)</span>
+<span id="L502"><span class="lineNum">     502</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 289 times"> + </span>]:<span class="tlaGNC">         289 :                 if (dropout_start) {</span></span>
+<span id="L503"><span class="lineNum">     503</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC tlaBgUNC">           0 :                         while ((ret = write(type, ptr, 0, dropout_start)) == -1) {</span></span>
+<span id="L504"><span class="lineNum">     504</span>                 :<span class="tlaUNC">           0 :                                 unlock();</span></span>
+<span id="L505"><span class="lineNum">     505</span>                 :<span class="tlaUNC">           0 :                                 notify();</span></span>
+<span id="L506"><span class="lineNum">     506</span>                 :<span class="tlaUNC">           0 :                                 px4_usleep(3000);</span></span>
+<span id="L507"><span class="lineNum">     507</span>                 :<span class="tlaUNC">           0 :                                 lock();</span></span>
+<span id="L508"><span class="lineNum">     508</span>                 :             :                         }</span>
+<span id="L509"><span class="lineNum">     509</span>                 :             :                 }</span>
+<span id="L510"><span class="lineNum">     510</span>                 :             : </span>
+<span id="L511"><span class="lineNum">     511</span>                 :<span class="tlaGNC tlaBgGNC">         289 :                 uint8_t *uptr = (uint8_t *)ptr;</span></span>
+<span id="L512"><span class="lineNum">     512</span>                 :             : </span>
+<span id="L513"><span class="lineNum">     513</span>                 :             :                 do {</span>
+<span id="L514"><span class="lineNum">     514</span>                 :             :                         // Split into several blocks if the data is longer than the write buffer</span>
+<span id="L515"><span class="lineNum">     515</span>                 :<span class="tlaGNC">         289 :                         size_t write_size = math::min(size, _buffers[(int)type].buffer_size());</span></span>
+<span id="L516"><span class="lineNum">     516</span>                 :             : </span>
+<span id="L517"><span class="lineNum">     517</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 289 times"> + </span>]:<span class="tlaGNC">         289 :                         while ((ret = write(type, uptr, write_size, 0)) == -1) {</span></span>
+<span id="L518"><span class="lineNum">     518</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                                 unlock();</span></span>
+<span id="L519"><span class="lineNum">     519</span>                 :<span class="tlaUNC">           0 :                                 notify();</span></span>
+<span id="L520"><span class="lineNum">     520</span>                 :<span class="tlaUNC">           0 :                                 px4_usleep(3000);</span></span>
+<span id="L521"><span class="lineNum">     521</span>                 :<span class="tlaUNC">           0 :                                 lock();</span></span>
+<span id="L522"><span class="lineNum">     522</span>                 :             :                         }</span>
+<span id="L523"><span class="lineNum">     523</span>                 :             : </span>
+<span id="L524"><span class="lineNum">     524</span>                 :<span class="tlaGNC tlaBgGNC">         289 :                         uptr += write_size;</span></span>
+<span id="L525"><span class="lineNum">     525</span>                 :<span class="tlaGNC">         289 :                         size -= write_size;</span></span>
+<span id="L526"><span class="lineNum">     526</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 289 times"> + </span>]:<span class="tlaGNC">         289 :                 } while (size &gt; 0);</span></span>
+<span id="L527"><span class="lineNum">     527</span>                 :             : </span>
+<span id="L528"><span class="lineNum">     528</span>                 :<span class="tlaGNC">         289 :                 return ret;</span></span>
+<span id="L529"><span class="lineNum">     529</span>                 :             :         }</span>
+<span id="L530"><span class="lineNum">     530</span>                 :             : </span>
+<span id="L531"><span class="lineNum">     531</span>                 :<span class="tlaGNC">       24803 :         return write(type, ptr, size, dropout_start);</span></span>
+<span id="L532"><span class="lineNum">     532</span>                 :             : }</span>
+<span id="L533"><span class="lineNum">     533</span>                 :             : </span>
+<span id="L534"><span class="lineNum">     534</span>                 :<span class="tlaGNC">       25092 : int LogWriterFile::write(LogType type, void *ptr, size_t size, uint64_t dropout_start)</span></span>
+<span id="L535"><span class="lineNum">     535</span>                 :             : {</span>
+<span id="L536"><span class="lineNum">     536</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 25092 times"> + </span>]:<span class="tlaGNC">       25092 :         if (!is_started(type)) {</span></span>
+<span id="L537"><span class="lineNum">     537</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                 return 0;</span></span>
+<span id="L538"><span class="lineNum">     538</span>                 :             :         }</span>
+<span id="L539"><span class="lineNum">     539</span>                 :             : </span>
+<span id="L540"><span class="lineNum">     540</span>                 :             :         // Bytes available to write</span>
+<span id="L541"><span class="lineNum">     541</span>                 :<span class="tlaGNC tlaBgGNC">       25092 :         size_t available = _buffers[(int)type].available();</span></span>
+<span id="L542"><span class="lineNum">     542</span>                 :<span class="tlaGNC">       25092 :         size_t dropout_size = 0;</span></span>
+<span id="L543"><span class="lineNum">     543</span>                 :             : </span>
+<span id="L544"><span class="lineNum">     544</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 25092 times"> + </span>]:<span class="tlaGNC">       25092 :         if (dropout_start) {</span></span>
+<span id="L545"><span class="lineNum">     545</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                 dropout_size = sizeof(ulog_message_dropout_s);</span></span>
+<span id="L546"><span class="lineNum">     546</span>                 :             :         }</span>
+<span id="L547"><span class="lineNum">     547</span>                 :             : </span>
+<span id="L548"><span class="lineNum">     548</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 25092 times"> + </span>]:<span class="tlaGNC tlaBgGNC">       25092 :         if (size + dropout_size &gt; available) {</span></span>
+<span id="L549"><span class="lineNum">     549</span>                 :             :                 // buffer overflow</span>
+<span id="L550"><span class="lineNum">     550</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                 return -1;</span></span>
+<span id="L551"><span class="lineNum">     551</span>                 :             :         }</span>
+<span id="L552"><span class="lineNum">     552</span>                 :             : </span>
+<span id="L553"><span class="lineNum">     553</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 25092 times"> + </span>]:<span class="tlaGNC tlaBgGNC">       25092 :         if (dropout_start) {</span></span>
+<span id="L554"><span class="lineNum">     554</span>                 :             :                 //write dropout msg</span>
+<span id="L555"><span class="lineNum">     555</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                 ulog_message_dropout_s dropout_msg;</span></span>
+<span id="L556"><span class="lineNum">     556</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 dropout_msg.duration = (uint16_t)(hrt_elapsed_time(&amp;dropout_start) / 1000);</span></span>
+<span id="L557"><span class="lineNum">     557</span>                 :<span class="tlaUNC">           0 :                 _buffers[(int)type].write_no_check(&amp;dropout_msg, sizeof(dropout_msg));</span></span>
+<span id="L558"><span class="lineNum">     558</span>                 :             :         }</span>
+<span id="L559"><span class="lineNum">     559</span>                 :             : </span>
+<span id="L560"><span class="lineNum">     560</span>                 :<span class="tlaGNC tlaBgGNC">       25092 :         _buffers[(int)type].write_no_check(ptr, size);</span></span>
+<span id="L561"><span class="lineNum">     561</span>                 :<span class="tlaGNC">       25092 :         return 0;</span></span>
+<span id="L562"><span class="lineNum">     562</span>                 :             : }</span>
+<span id="L563"><span class="lineNum">     563</span>                 :             : </span>
+<span id="L564"><span class="lineNum">     564</span>                 :<span class="tlaGNC">           2 : const char *log_type_str(LogType type)</span></span>
+<span id="L565"><span class="lineNum">     565</span>                 :             : {</span>
+<span id="L566"><span class="lineNum">     566</span>   [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">           2 :         switch (type) {</span></span>
+<span id="L567"><span class="lineNum">     567</span>                 :<span class="tlaGNC">           2 :         case LogType::Full: return &quot;full&quot;;</span></span>
+<span id="L568"><span class="lineNum">     568</span>                 :             : </span>
+<span id="L569"><span class="lineNum">     569</span>                 :<span class="tlaUNC tlaBgUNC">           0 :         case LogType::Mission: return &quot;mission&quot;;</span></span>
+<span id="L570"><span class="lineNum">     570</span>                 :             : </span>
+<span id="L571"><span class="lineNum">     571</span>                 :<span class="tlaUNC">           0 :         case LogType::Count: break;</span></span>
+<span id="L572"><span class="lineNum">     572</span>                 :             :         }</span>
+<span id="L573"><span class="lineNum">     573</span>                 :             : </span>
+<span id="L574"><span class="lineNum">     574</span>                 :<span class="tlaUNC">           0 :         return &quot;unknown&quot;;</span></span>
+<span id="L575"><span class="lineNum">     575</span>                 :             : }</span>
+<span id="L576"><span class="lineNum">     576</span>                 :             : </span>
+<span id="L577"><span class="lineNum">     577</span>                 :<span class="tlaGNC tlaBgGNC">           2 : LogWriterFile::LogFileBuffer::LogFileBuffer(size_t log_buffer_desired_size, size_t log_buffer_min_size,</span></span>
+<span id="L578"><span class="lineNum">     578</span>                 :<span class="tlaGNC">           2 :                 perf_counter_t perf_write, perf_counter_t perf_fsync) :</span></span>
+<span id="L579"><span class="lineNum">     579</span>                 :<span class="tlaGNC">           2 :         _buffer_size(log_buffer_desired_size),</span></span>
+<span id="L580"><span class="lineNum">     580</span>                 :<span class="tlaGNC">           2 :         _buffer_size_min(log_buffer_min_size),</span></span>
+<span id="L581"><span class="lineNum">     581</span>                 :<span class="tlaGNC">           2 :         _perf_write(perf_write),</span></span>
+<span id="L582"><span class="lineNum">     582</span>                 :<span class="tlaGNC">           2 :         _perf_fsync(perf_fsync)</span></span>
+<span id="L583"><span class="lineNum">     583</span>                 :             : {</span>
+<span id="L584"><span class="lineNum">     584</span>                 :<span class="tlaGNC">           2 : }</span></span>
+<span id="L585"><span class="lineNum">     585</span>                 :             : </span>
+<span id="L586"><span class="lineNum">     586</span>                 :<span class="tlaUNC tlaBgUNC">           0 : LogWriterFile::LogFileBuffer::~LogFileBuffer()</span></span>
+<span id="L587"><span class="lineNum">     587</span>                 :             : {</span>
+<span id="L588"><span class="lineNum">     588</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         if (_fd &gt;= 0) {</span></span>
+<span id="L589"><span class="lineNum">     589</span>                 :<span class="tlaUNC">           0 :                 close(_fd);</span></span>
+<span id="L590"><span class="lineNum">     590</span>                 :             :         }</span>
+<span id="L591"><span class="lineNum">     591</span>                 :             : </span>
+<span id="L592"><span class="lineNum">     592</span>                 :<span class="tlaUNC">           0 :         free(_buffer);</span></span>
+<span id="L593"><span class="lineNum">     593</span>                 :             : </span>
+<span id="L594"><span class="lineNum">     594</span>                 :<span class="tlaUNC">           0 :         perf_free(_perf_write);</span></span>
+<span id="L595"><span class="lineNum">     595</span>                 :<span class="tlaUNC">           0 :         perf_free(_perf_fsync);</span></span>
+<span id="L596"><span class="lineNum">     596</span>                 :<span class="tlaUNC">           0 : }</span></span>
+<span id="L597"><span class="lineNum">     597</span>                 :             : </span>
+<span id="L598"><span class="lineNum">     598</span>                 :<span class="tlaGNC tlaBgGNC">       25092 : void LogWriterFile::LogFileBuffer::write_no_check(void *ptr, size_t size)</span></span>
+<span id="L599"><span class="lineNum">     599</span>                 :             : {</span>
+<span id="L600"><span class="lineNum">     600</span>                 :<span class="tlaGNC">       25092 :         size_t n = _buffer_size - _head;        // bytes to end of the buffer</span></span>
+<span id="L601"><span class="lineNum">     601</span>                 :             : </span>
+<span id="L602"><span class="lineNum">     602</span>                 :<span class="tlaGNC">       25092 :         uint8_t *buffer_c = static_cast&lt;uint8_t *&gt;(ptr);</span></span>
+<span id="L603"><span class="lineNum">     603</span>                 :             : </span>
+<span id="L604"><span class="lineNum">     604</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 25092 times"> + </span>]:<span class="tlaGNC">       25092 :         if (size &gt; n) {</span></span>
+<span id="L605"><span class="lineNum">     605</span>                 :             :                 // Message goes over the end of the buffer</span>
+<span id="L606"><span class="lineNum">     606</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                 memcpy(&amp;(_buffer[_head]), buffer_c, n);</span></span>
+<span id="L607"><span class="lineNum">     607</span>                 :<span class="tlaUNC">           0 :                 _head = 0;</span></span>
+<span id="L608"><span class="lineNum">     608</span>                 :             : </span>
+<span id="L609"><span class="lineNum">     609</span>                 :             :         } else {</span>
+<span id="L610"><span class="lineNum">     610</span>                 :<span class="tlaGNC tlaBgGNC">       25092 :                 n = 0;</span></span>
+<span id="L611"><span class="lineNum">     611</span>                 :             :         }</span>
+<span id="L612"><span class="lineNum">     612</span>                 :             : </span>
+<span id="L613"><span class="lineNum">     613</span>                 :             :         // now: n = bytes already written</span>
+<span id="L614"><span class="lineNum">     614</span>                 :<span class="tlaGNC">       25092 :         size_t p = size - n;    // number of bytes to write</span></span>
+<span id="L615"><span class="lineNum">     615</span>                 :             : </span>
+<span id="L616"><span class="lineNum">     616</span>                 :<span class="tlaGNC">       25092 :         memcpy(&amp;(_buffer[_head]), &amp;(buffer_c[n]), p);</span></span>
+<span id="L617"><span class="lineNum">     617</span>                 :<span class="tlaGNC">       25092 :         _head = (_head + p) % _buffer_size;</span></span>
+<span id="L618"><span class="lineNum">     618</span>                 :<span class="tlaGNC">       25092 :         _count += size;</span></span>
+<span id="L619"><span class="lineNum">     619</span>                 :<span class="tlaGNC">       25092 : }</span></span>
+<span id="L620"><span class="lineNum">     620</span>                 :             : </span>
+<span id="L621"><span class="lineNum">     621</span>                 :<span class="tlaGNC">       20902 : size_t LogWriterFile::LogFileBuffer::get_read_ptr(void **ptr, bool *is_part)</span></span>
+<span id="L622"><span class="lineNum">     622</span>                 :             : {</span>
+<span id="L623"><span class="lineNum">     623</span>                 :             :         // bytes available to read</span>
+<span id="L624"><span class="lineNum">     624</span>                 :<span class="tlaGNC">       20902 :         int read_ptr = _head - _count;</span></span>
+<span id="L625"><span class="lineNum">     625</span>                 :             : </span>
+<span id="L626"><span class="lineNum">     626</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 20902 times"> + </span>]:<span class="tlaGNC">       20902 :         if (read_ptr &lt; 0) {</span></span>
+<span id="L627"><span class="lineNum">     627</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                 read_ptr += _buffer_size;</span></span>
+<span id="L628"><span class="lineNum">     628</span>                 :<span class="tlaUNC">           0 :                 *ptr = &amp;_buffer[read_ptr];</span></span>
+<span id="L629"><span class="lineNum">     629</span>                 :<span class="tlaUNC">           0 :                 *is_part = true;</span></span>
+<span id="L630"><span class="lineNum">     630</span>                 :<span class="tlaUNC">           0 :                 return _buffer_size - read_ptr;</span></span>
+<span id="L631"><span class="lineNum">     631</span>                 :             : </span>
+<span id="L632"><span class="lineNum">     632</span>                 :             :         } else {</span>
+<span id="L633"><span class="lineNum">     633</span>                 :<span class="tlaGNC tlaBgGNC">       20902 :                 *ptr = &amp;_buffer[read_ptr];</span></span>
+<span id="L634"><span class="lineNum">     634</span>                 :<span class="tlaGNC">       20902 :                 *is_part = false;</span></span>
+<span id="L635"><span class="lineNum">     635</span>                 :<span class="tlaGNC">       20902 :                 return _count;</span></span>
+<span id="L636"><span class="lineNum">     636</span>                 :             :         }</span>
+<span id="L637"><span class="lineNum">     637</span>                 :             : }</span>
+<span id="L638"><span class="lineNum">     638</span>                 :             : </span>
+<span id="L639"><span class="lineNum">     639</span>                 :<span class="tlaGNC">           1 : bool LogWriterFile::LogFileBuffer::start_log(const char *filename)</span></span>
+<span id="L640"><span class="lineNum">     640</span>                 :             : {</span>
+<span id="L641"><span class="lineNum">     641</span>                 :<span class="tlaGNC">           1 :         _fd = ::open(filename, O_CREAT | O_WRONLY, PX4_O_MODE_666);</span></span>
+<span id="L642"><span class="lineNum">     642</span>                 :<span class="tlaGNC">           1 :         _had_write_error.store(false);</span></span>
+<span id="L643"><span class="lineNum">     643</span>                 :             : </span>
+<span id="L644"><span class="lineNum">     644</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span>]:<span class="tlaGNC">           1 :         if (_fd &lt; 0) {</span></span>
+<span id="L645"><span class="lineNum">     645</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                 PX4_ERR(&quot;Can't open log file %s, errno: %d&quot;, filename, errno);</span></span>
+<span id="L646"><span class="lineNum">     646</span>                 :<span class="tlaUNC">           0 :                 return false;</span></span>
+<span id="L647"><span class="lineNum">     647</span>                 :             :         }</span>
+<span id="L648"><span class="lineNum">     648</span>                 :             : </span>
+<span id="L649"><span class="lineNum">     649</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC tlaBgGNC">           1 :         if (_buffer == nullptr) {</span></span>
+<span id="L650"><span class="lineNum">     650</span>                 :<span class="tlaGNC">           1 :                 _buffer_size = math::max(_buffer_size, _buffer_size_min);</span></span>
+<span id="L651"><span class="lineNum">     651</span>                 :             : </span>
+<span id="L652"><span class="lineNum">     652</span>                 :             : #if defined(__PX4_NUTTX)</span>
+<span id="L653"><span class="lineNum">     653</span>                 :             :                 struct mallinfo alloc_info = mallinfo();</span>
+<span id="L654"><span class="lineNum">     654</span>                 :             : </span>
+<span id="L655"><span class="lineNum">     655</span>                 :             :                 // reduced to largest available free chunk, but leave at least 1 kB available</span>
+<span id="L656"><span class="lineNum">     656</span>                 :             :                 static constexpr ssize_t one_kb = 1024;</span>
+<span id="L657"><span class="lineNum">     657</span>                 :             :                 const ssize_t reduced_buffer_size = math::max((alloc_info.mxordblk - one_kb) / one_kb * one_kb,</span>
+<span id="L658"><span class="lineNum">     658</span>                 :             :                                                     (ssize_t)_buffer_size_min);</span>
+<span id="L659"><span class="lineNum">     659</span>                 :             : </span>
+<span id="L660"><span class="lineNum">     660</span>                 :             :                 if ((reduced_buffer_size &gt; 0) &amp;&amp; ((ssize_t)_buffer_size &gt; reduced_buffer_size)) {</span>
+<span id="L661"><span class="lineNum">     661</span>                 :             :                         PX4_WARN(&quot;requested buffer size %dB limited to available %dB (available plus 1 kB margin)&quot;,</span>
+<span id="L662"><span class="lineNum">     662</span>                 :             :                                  _buffer_size, reduced_buffer_size);</span>
+<span id="L663"><span class="lineNum">     663</span>                 :             : </span>
+<span id="L664"><span class="lineNum">     664</span>                 :             :                         _buffer_size = reduced_buffer_size;</span>
+<span id="L665"><span class="lineNum">     665</span>                 :             :                 }</span>
+<span id="L666"><span class="lineNum">     666</span>                 :             : </span>
+<span id="L667"><span class="lineNum">     667</span>                 :             : #endif // __PX4_NUTTX</span>
+<span id="L668"><span class="lineNum">     668</span>                 :             : </span>
+<span id="L669"><span class="lineNum">     669</span>                 :<span class="tlaGNC">           1 :                 _buffer = (uint8_t *) px4_cache_aligned_alloc(_buffer_size);</span></span>
+<span id="L670"><span class="lineNum">     670</span>                 :             : </span>
+<span id="L671"><span class="lineNum">     671</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span>]:<span class="tlaGNC">           1 :                 if (_buffer == nullptr) {</span></span>
+<span id="L672"><span class="lineNum">     672</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                         PX4_ERR(&quot;Can't create log buffer&quot;);</span></span>
+<span id="L673"><span class="lineNum">     673</span>                 :<span class="tlaUNC">           0 :                         ::close(_fd);</span></span>
+<span id="L674"><span class="lineNum">     674</span>                 :<span class="tlaUNC">           0 :                         _fd = -1;</span></span>
+<span id="L675"><span class="lineNum">     675</span>                 :<span class="tlaUNC">           0 :                         return false;</span></span>
+<span id="L676"><span class="lineNum">     676</span>                 :             :                 }</span>
+<span id="L677"><span class="lineNum">     677</span>                 :             :         }</span>
+<span id="L678"><span class="lineNum">     678</span>                 :             : </span>
+<span id="L679"><span class="lineNum">     679</span>                 :             :         // Clear buffer and counters</span>
+<span id="L680"><span class="lineNum">     680</span>                 :<span class="tlaGNC tlaBgGNC">           1 :         _head = 0;</span></span>
+<span id="L681"><span class="lineNum">     681</span>                 :<span class="tlaGNC">           1 :         _count = 0;</span></span>
+<span id="L682"><span class="lineNum">     682</span>                 :<span class="tlaGNC">           1 :         _total_written = 0;</span></span>
+<span id="L683"><span class="lineNum">     683</span>                 :             : </span>
+<span id="L684"><span class="lineNum">     684</span>                 :<span class="tlaGNC">           1 :         _should_run = true;</span></span>
+<span id="L685"><span class="lineNum">     685</span>                 :             : </span>
+<span id="L686"><span class="lineNum">     686</span>                 :<span class="tlaGNC">           1 :         return true;</span></span>
+<span id="L687"><span class="lineNum">     687</span>                 :             : }</span>
+<span id="L688"><span class="lineNum">     688</span>                 :             : </span>
+<span id="L689"><span class="lineNum">     689</span>                 :<span class="tlaGNC">         105 : void LogWriterFile::LogFileBuffer::fsync() const</span></span>
+<span id="L690"><span class="lineNum">     690</span>                 :             : {</span>
+<span id="L691"><span class="lineNum">     691</span>                 :<span class="tlaGNC">         105 :         perf_begin(_perf_fsync);</span></span>
+<span id="L692"><span class="lineNum">     692</span>                 :<span class="tlaGNC">         105 :         ::fsync(_fd);</span></span>
+<span id="L693"><span class="lineNum">     693</span>                 :<span class="tlaGNC">         105 :         perf_end(_perf_fsync);</span></span>
+<span id="L694"><span class="lineNum">     694</span>                 :<span class="tlaGNC">         105 : }</span></span>
+<span id="L695"><span class="lineNum">     695</span>                 :             : </span>
+<span id="L696"><span class="lineNum">     696</span>                 :<span class="tlaGNC">         727 : ssize_t LogWriterFile::LogFileBuffer::write_to_file(const void *buffer, size_t size, bool call_fsync) const</span></span>
+<span id="L697"><span class="lineNum">     697</span>                 :             : {</span>
+<span id="L698"><span class="lineNum">     698</span>                 :<span class="tlaGNC">         727 :         perf_begin(_perf_write);</span></span>
+<span id="L699"><span class="lineNum">     699</span>                 :<span class="tlaGNC">         727 :         ssize_t ret = ::write(_fd, buffer, size);</span></span>
+<span id="L700"><span class="lineNum">     700</span>                 :<span class="tlaGNC">         727 :         perf_end(_perf_write);</span></span>
+<span id="L701"><span class="lineNum">     701</span>                 :             : </span>
+<span id="L702"><span class="lineNum">     702</span>         [<span class="tlaGBC" title="Branch 0 was taken 7 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 720 times"> + </span>]:<span class="tlaGNC">         727 :         if (call_fsync) {</span></span>
+<span id="L703"><span class="lineNum">     703</span>                 :<span class="tlaGNC">           7 :                 fsync();</span></span>
+<span id="L704"><span class="lineNum">     704</span>                 :             :         }</span>
+<span id="L705"><span class="lineNum">     705</span>                 :             : </span>
+<span id="L706"><span class="lineNum">     706</span>                 :<span class="tlaGNC">         727 :         return ret;</span></span>
+<span id="L707"><span class="lineNum">     707</span>                 :             : }</span>
+<span id="L708"><span class="lineNum">     708</span>                 :             : </span>
+<span id="L709"><span class="lineNum">     709</span>                 :<span class="tlaGNC">       10451 : void LogWriterFile::LogFileBuffer::close_file()</span></span>
+<span id="L710"><span class="lineNum">     710</span>                 :             : {</span>
+<span id="L711"><span class="lineNum">     711</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 10451 times"> + </span>]:<span class="tlaGNC">       10451 :         if (_fd &gt;= 0) {</span></span>
+<span id="L712"><span class="lineNum">     712</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                 int res = close(_fd);</span></span>
+<span id="L713"><span class="lineNum">     713</span>                 :             : </span>
+<span id="L714"><span class="lineNum">     714</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 if (res) {</span></span>
+<span id="L715"><span class="lineNum">     715</span>                 :<span class="tlaUNC">           0 :                         PX4_WARN(&quot;closing log file failed (%i)&quot;, errno);</span></span>
+<span id="L716"><span class="lineNum">     716</span>                 :             : </span>
+<span id="L717"><span class="lineNum">     717</span>                 :             :                 } else {</span>
+<span id="L718"><span class="lineNum">     718</span>                 :<span class="tlaUNC">           0 :                         PX4_INFO(&quot;closed logfile, bytes written: %zu&quot;, _total_written);</span></span>
+<span id="L719"><span class="lineNum">     719</span>                 :             :                 }</span>
+<span id="L720"><span class="lineNum">     720</span>                 :             :         }</span>
+<span id="L721"><span class="lineNum">     721</span>                 :<span class="tlaGNC tlaBgGNC">       10451 : }</span></span>
+<span id="L722"><span class="lineNum">     722</span>                 :             : </span>
+<span id="L723"><span class="lineNum">     723</span>                 :<span class="tlaGNC">       10451 : void LogWriterFile::LogFileBuffer::reset()</span></span>
+<span id="L724"><span class="lineNum">     724</span>                 :             : {</span>
+<span id="L725"><span class="lineNum">     725</span>                 :<span class="tlaGNC">       10451 :         _head = 0;</span></span>
+<span id="L726"><span class="lineNum">     726</span>                 :<span class="tlaGNC">       10451 :         _count = 0;</span></span>
+<span id="L727"><span class="lineNum">     727</span>                 :<span class="tlaGNC">       10451 :         _fd = -1;</span></span>
+<span id="L728"><span class="lineNum">     728</span>                 :<span class="tlaGNC">       10451 : }</span></span>
+<span id="L729"><span class="lineNum">     729</span>                 :             : </span>
+<span id="L730"><span class="lineNum">     730</span>                 :             : }</span>
+<span id="L731"><span class="lineNum">     731</span>                 :             : }</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

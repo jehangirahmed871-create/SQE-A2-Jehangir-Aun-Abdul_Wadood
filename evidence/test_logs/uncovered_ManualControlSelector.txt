@@ -1,0 +1,3 @@
+=== UNCOVERED LINES IN ManualControlSelector.cpp (0) ===
+
+=== MISSED BRANCH LINES IN ManualControlSelector.cpp (0) ===

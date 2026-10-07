@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov_filtered.info - src/modules/ekf2/EKF/imu_down_sampler/imu_down_sampler.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../../../index.html">top level</a> - <a href="index.html">src/modules/ekf2/EKF/imu_down_sampler</a> - imu_down_sampler.cpp<span style="font-size: 80%;"> (source / <a href="imu_down_sampler.cpp.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov_filtered.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">32</td>
+            <td class="headerCovTableEntry">32</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-10-02 17:31:18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryLo">61.5&nbsp;%</td>
+            <td class="headerCovTableEntry">52</td>
+            <td class="headerCovTableEntry">32</td>
+          </tr>
+                  <tr><td><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : #include &quot;imu_down_sampler/imu_down_sampler.hpp&quot;</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             : </span>
+<span id="L3"><span class="lineNum">       3</span>                 :             : #include &lt;lib/mathlib/mathlib.h&gt;</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             : </span>
+<span id="L5"><span class="lineNum">       5</span>   [<span class="tlaGBC" title="Branch 0 was taken 270 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 135 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 270 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 135 times"> + </span>]:<span class="tlaGNC tlaBgGNC">         675 : ImuDownSampler::ImuDownSampler(int32_t &amp;target_dt_us) : _target_dt_us(target_dt_us)</span></span>
+<span id="L6"><span class="lineNum">       6</span>                 :             : {</span>
+<span id="L7"><span class="lineNum">       7</span>                 :<span class="tlaGNC">         135 :         reset();</span></span>
+<span id="L8"><span class="lineNum">       8</span>                 :<span class="tlaGNC">         135 : }</span></span>
+<span id="L9"><span class="lineNum">       9</span>                 :             : </span>
+<span id="L10"><span class="lineNum">      10</span>                 :             : // integrate imu samples until target dt reached</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             : // assumes that dt of the gyroscope is close to the dt of the accelerometer</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             : // returns true if target dt is reached</span>
+<span id="L13"><span class="lineNum">      13</span>                 :<span class="tlaGNC">      761867 : bool ImuDownSampler::update(const imuSample &amp;imu_sample_new)</span></span>
+<span id="L14"><span class="lineNum">      14</span>                 :             : {</span>
+<span id="L15"><span class="lineNum">      15</span>                 :<span class="tlaGNC">      761867 :         _delta_ang_dt_avg = 0.9f * _delta_ang_dt_avg + 0.1f * imu_sample_new.delta_ang_dt;</span></span>
+<span id="L16"><span class="lineNum">      16</span>                 :             : </span>
+<span id="L17"><span class="lineNum">      17</span>                 :             :         // accumulate time deltas</span>
+<span id="L18"><span class="lineNum">      18</span>                 :<span class="tlaGNC">      761867 :         _imu_down_sampled.time_us = imu_sample_new.time_us;</span></span>
+<span id="L19"><span class="lineNum">      19</span>                 :<span class="tlaGNC">      761867 :         _imu_down_sampled.delta_ang_dt += imu_sample_new.delta_ang_dt;</span></span>
+<span id="L20"><span class="lineNum">      20</span>                 :<span class="tlaGNC">      761867 :         _imu_down_sampled.delta_vel_dt += imu_sample_new.delta_vel_dt;</span></span>
+<span id="L21"><span class="lineNum">      21</span>                 :<span class="tlaGNC">      761867 :         _imu_down_sampled.delta_vel_clipping[0] |= imu_sample_new.delta_vel_clipping[0];</span></span>
+<span id="L22"><span class="lineNum">      22</span>                 :<span class="tlaGNC">      761867 :         _imu_down_sampled.delta_vel_clipping[1] |= imu_sample_new.delta_vel_clipping[1];</span></span>
+<span id="L23"><span class="lineNum">      23</span>                 :<span class="tlaGNC">      761867 :         _imu_down_sampled.delta_vel_clipping[2] |= imu_sample_new.delta_vel_clipping[2];</span></span>
+<span id="L24"><span class="lineNum">      24</span>                 :             : </span>
+<span id="L25"><span class="lineNum">      25</span>                 :             :         // use a quaternion to accumulate delta angle data</span>
+<span id="L26"><span class="lineNum">      26</span>                 :             :         // this quaternion represents the rotation from the start to end of the accumulation period</span>
+<span id="L27"><span class="lineNum">      27</span>   [<span class="tlaGBC" title="Branch 0 was taken 761867 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 761867 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">      761867 :         const Quatf delta_q(AxisAnglef(imu_sample_new.delta_ang));</span></span>
+<span id="L28"><span class="lineNum">      28</span>   [<span class="tlaGBC" title="Branch 0 was taken 761867 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 761867 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">      761867 :         _delta_angle_accumulated = _delta_angle_accumulated * delta_q;</span></span>
+<span id="L29"><span class="lineNum">      29</span>         [<span class="tlaGBC" title="Branch 0 was taken 761867 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">      761867 :         _delta_angle_accumulated.normalize();</span></span>
+<span id="L30"><span class="lineNum">      30</span>                 :             : </span>
+<span id="L31"><span class="lineNum">      31</span>                 :             :         // rotate the accumulated delta velocity data forward each time so it is always in the updated rotation frame</span>
+<span id="L32"><span class="lineNum">      32</span>   [<span class="tlaGBC" title="Branch 0 was taken 761867 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 761867 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">      761867 :         const Dcmf delta_R(delta_q.inversed());</span></span>
+<span id="L33"><span class="lineNum">      33</span>   [<span class="tlaGBC" title="Branch 0 was taken 761867 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 761867 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">      761867 :         _imu_down_sampled.delta_vel = delta_R * _imu_down_sampled.delta_vel;</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 761867 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L34"><span class="lineNum">      34</span>                 :             : </span>
+<span id="L35"><span class="lineNum">      35</span>                 :             :         // accumulate the most recent delta velocity data at the updated rotation frame</span>
+<span id="L36"><span class="lineNum">      36</span>                 :             :         // assume effective sample time is halfway between the previous and current rotation frame</span>
+<span id="L37"><span class="lineNum">      37</span>   [<span class="tlaGBC" title="Branch 0 was taken 761867 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 761867 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">      761867 :         _imu_down_sampled.delta_vel += (imu_sample_new.delta_vel + delta_R * imu_sample_new.delta_vel) * 0.5f;</span></span>
+<span class="lineNum">        </span> <span class="tlaGBC" title="Branch 4 was taken 761867 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 761867 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaGBC" title="Branch 8 was taken 761867 times"> + </span> 
+<span class="lineNum">        </span>       <span class="tlaUNC" title="Branch 9 was not taken"> - </span><span class="tlaGBC" title="Branch 10 was taken 761867 times"> + </span><span class="tlaUNC" title="Branch 11 was not taken"> - </span>]
+<span id="L38"><span class="lineNum">      38</span>                 :             : </span>
+<span id="L39"><span class="lineNum">      39</span>                 :<span class="tlaGNC">      761867 :         _accumulated_samples++;</span></span>
+<span id="L40"><span class="lineNum">      40</span>                 :             : </span>
+<span id="L41"><span class="lineNum">      41</span>                 :             : </span>
+<span id="L42"><span class="lineNum">      42</span>                 :             :         // required number of samples accumulated and the total time is at least half of the target</span>
+<span id="L43"><span class="lineNum">      43</span>                 :             :         //  OR total time already exceeds the target</span>
+<span id="L44"><span class="lineNum">      44</span>   [<span class="tlaGBC" title="Branch 0 was taken 380905 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 380962 times"> + </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 380905 times"> + </span>]:<span class="tlaGNC">      761867 :         if ((_accumulated_samples &gt;= _required_samples &amp;&amp; _imu_down_sampled.delta_ang_dt &gt; _min_dt_s)</span></span>
+<span id="L45"><span class="lineNum">      45</span>         [<span class="tlaGBC" title="Branch 0 was taken 8 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 380954 times"> + </span>]:<span class="tlaGNC">      380962 :             || (_imu_down_sampled.delta_ang_dt &gt; _target_dt_s)) {</span></span>
+<span id="L46"><span class="lineNum">      46</span>                 :             : </span>
+<span id="L47"><span class="lineNum">      47</span>   [<span class="tlaGBC" title="Branch 0 was taken 380913 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 380913 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">      380913 :                 _imu_down_sampled.delta_ang = AxisAnglef(_delta_angle_accumulated);</span></span>
+<span id="L48"><span class="lineNum">      48</span>                 :<span class="tlaGNC">      380913 :                 return true;</span></span>
+<span id="L49"><span class="lineNum">      49</span>                 :             :         }</span>
+<span id="L50"><span class="lineNum">      50</span>                 :             : </span>
+<span id="L51"><span class="lineNum">      51</span>                 :<span class="tlaGNC">      380954 :         return false;</span></span>
+<span id="L52"><span class="lineNum">      52</span>                 :             : }</span>
+<span id="L53"><span class="lineNum">      53</span>                 :             : </span>
+<span id="L54"><span class="lineNum">      54</span>                 :<span class="tlaGNC">      381048 : void ImuDownSampler::reset()</span></span>
+<span id="L55"><span class="lineNum">      55</span>                 :             : {</span>
+<span id="L56"><span class="lineNum">      56</span>   [<span class="tlaGBC" title="Branch 0 was taken 762096 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 381048 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 762096 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 381048 times"> + </span> :<span class="tlaGNC">     1905240 :         _imu_down_sampled = {};</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 381048 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L57"><span class="lineNum">      57</span>                 :<span class="tlaGNC">      381048 :         _delta_angle_accumulated.setIdentity();</span></span>
+<span id="L58"><span class="lineNum">      58</span>                 :<span class="tlaGNC">      381048 :         _accumulated_samples = 0;</span></span>
+<span id="L59"><span class="lineNum">      59</span>                 :             : </span>
+<span id="L60"><span class="lineNum">      60</span>                 :             :         // target dt in seconds safely constrained</span>
+<span id="L61"><span class="lineNum">      61</span>                 :<span class="tlaGNC">      381048 :         float target_dt_s = math::constrain(_target_dt_us, (int32_t)1000, (int32_t)100000) * 1e-6f;</span></span>
+<span id="L62"><span class="lineNum">      62</span>                 :             : </span>
+<span id="L63"><span class="lineNum">      63</span>                 :<span class="tlaGNC">      381048 :         _required_samples = math::max((int)roundf(target_dt_s / _delta_ang_dt_avg), 1);</span></span>
+<span id="L64"><span class="lineNum">      64</span>                 :             : </span>
+<span id="L65"><span class="lineNum">      65</span>                 :<span class="tlaGNC">      381048 :         _target_dt_s = _required_samples * _delta_ang_dt_avg;</span></span>
+<span id="L66"><span class="lineNum">      66</span>                 :             : </span>
+<span id="L67"><span class="lineNum">      67</span>                 :             :         // minimum delta angle dt (in addition to number of samples)</span>
+<span id="L68"><span class="lineNum">      68</span>                 :<span class="tlaGNC">      381048 :         _min_dt_s = math::max(_delta_ang_dt_avg * (_required_samples - 1.f), _delta_ang_dt_avg * 0.5f);</span></span>
+<span id="L69"><span class="lineNum">      69</span>                 :<span class="tlaGNC">      381048 : }</span></span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

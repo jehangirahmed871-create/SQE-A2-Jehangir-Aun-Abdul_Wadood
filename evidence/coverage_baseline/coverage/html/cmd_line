@@ -1,0 +1,1 @@
+genhtml coverage/lcov_filtered.info --branch-coverage --ignore-errors mismatch,negative,unmapped,source -o coverage/html

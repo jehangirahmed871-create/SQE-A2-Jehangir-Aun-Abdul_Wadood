@@ -1,0 +1,390 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov_filtered.info - src/lib/collision_prevention/ObstacleMathTest.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../index.html">top level</a> - <a href="index.html">src/lib/collision_prevention</a> - ObstacleMathTest.cpp<span style="font-size: 80%;"> (source / <a href="ObstacleMathTest.cpp.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov_filtered.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">100</td>
+            <td class="headerCovTableEntry">100</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-10-02 17:31:18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">24</td>
+            <td class="headerCovTableEntry">24</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryLo">24.8&nbsp;%</td>
+            <td class="headerCovTableEntry">282</td>
+            <td class="headerCovTableEntry">70</td>
+          </tr>
+                  <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : /****************************************************************************</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             :  *</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             :  *   Copyright (C) 2025 PX4 Development Team. All rights reserved.</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             :  *</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             :  * Redistribution and use in source and binary forms, with or without</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             :  * modification, are permitted provided that the following conditions</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             :  * are met:</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             :  *</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             :  * 1. Redistributions of source code must retain the above copyright</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             :  *    notice, this list of conditions and the following disclaimer.</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             :  * 2. Redistributions in binary form must reproduce the above copyright</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             :  *    notice, this list of conditions and the following disclaimer in</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             :  *    the documentation and/or other materials provided with the</span>
+<span id="L14"><span class="lineNum">      14</span>                 :             :  *    distribution.</span>
+<span id="L15"><span class="lineNum">      15</span>                 :             :  * 3. Neither the name PX4 nor the names of its contributors may be</span>
+<span id="L16"><span class="lineNum">      16</span>                 :             :  *    used to endorse or promote products derived from this software</span>
+<span id="L17"><span class="lineNum">      17</span>                 :             :  *    without specific prior written permission.</span>
+<span id="L18"><span class="lineNum">      18</span>                 :             :  *</span>
+<span id="L19"><span class="lineNum">      19</span>                 :             :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span id="L20"><span class="lineNum">      20</span>                 :             :  * &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span id="L21"><span class="lineNum">      21</span>                 :             :  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS</span>
+<span id="L22"><span class="lineNum">      22</span>                 :             :  * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE</span>
+<span id="L23"><span class="lineNum">      23</span>                 :             :  * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,</span>
+<span id="L24"><span class="lineNum">      24</span>                 :             :  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,</span>
+<span id="L25"><span class="lineNum">      25</span>                 :             :  * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS</span>
+<span id="L26"><span class="lineNum">      26</span>                 :             :  * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED</span>
+<span id="L27"><span class="lineNum">      27</span>                 :             :  * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT</span>
+<span id="L28"><span class="lineNum">      28</span>                 :             :  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN</span>
+<span id="L29"><span class="lineNum">      29</span>                 :             :  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</span>
+<span id="L30"><span class="lineNum">      30</span>                 :             :  * POSSIBILITY OF SUCH DAMAGE.</span>
+<span id="L31"><span class="lineNum">      31</span>                 :             :  *</span>
+<span id="L32"><span class="lineNum">      32</span>                 :             :  ****************************************************************************/</span>
+<span id="L33"><span class="lineNum">      33</span>                 :             : </span>
+<span id="L34"><span class="lineNum">      34</span>                 :             : #include &lt;gtest/gtest.h&gt;</span>
+<span id="L35"><span class="lineNum">      35</span>                 :             : #include &lt;matrix/math.hpp&gt;</span>
+<span id="L36"><span class="lineNum">      36</span>                 :             : #include &lt;lib/mathlib/mathlib.h&gt;</span>
+<span id="L37"><span class="lineNum">      37</span>                 :             : #include &quot;ObstacleMath.hpp&quot;</span>
+<span id="L38"><span class="lineNum">      38</span>                 :             : </span>
+<span id="L39"><span class="lineNum">      39</span>                 :             : using namespace matrix;</span>
+<span id="L40"><span class="lineNum">      40</span>                 :             : </span>
+<span id="L41"><span class="lineNum">      41</span>                 :<span class="tlaGNC tlaBgGNC">           4 : TEST(ObstacleMathTest, ProjectDistanceOnHorizontalPlane)</span></span>
+<span id="L42"><span class="lineNum">      42</span>                 :             : {</span>
+<span id="L43"><span class="lineNum">      43</span>                 :             :         // standard vehicle orientation inputs</span>
+<span id="L44"><span class="lineNum">      44</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">           1 :         Quatf vehicle_pitch_up_45(Eulerf(0.0f, M_PI_4_F, 0.0f));</span></span>
+<span id="L45"><span class="lineNum">      45</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">           1 :         Quatf vehicle_roll_right_45(Eulerf(M_PI_4_F, 0.0f, 0.0f));</span></span>
+<span id="L46"><span class="lineNum">      46</span>                 :             : </span>
+<span id="L47"><span class="lineNum">      47</span>                 :             :         // GIVEN: a distance, sensor orientation, and quaternion representing the vehicle's orientation</span>
+<span id="L48"><span class="lineNum">      48</span>                 :<span class="tlaGNC">           1 :         float distance = 1.0f;</span></span>
+<span id="L49"><span class="lineNum">      49</span>                 :<span class="tlaGNC">           1 :         float sensor_orientation = 0; // radians (forward facing)</span></span>
+<span id="L50"><span class="lineNum">      50</span>                 :             : </span>
+<span id="L51"><span class="lineNum">      51</span>                 :             :         // WHEN: we project the distance onto the horizontal plane</span>
+<span id="L52"><span class="lineNum">      52</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :         ObstacleMath::project_distance_on_horizontal_plane(distance, sensor_orientation, vehicle_pitch_up_45);</span></span>
+<span id="L53"><span class="lineNum">      53</span>                 :             : </span>
+<span id="L54"><span class="lineNum">      54</span>                 :             :         // THEN: the distance should be scaled correctly</span>
+<span id="L55"><span class="lineNum">      55</span>                 :<span class="tlaGNC">           1 :         float expected_scale    = sqrtf(2) / 2;</span></span>
+<span id="L56"><span class="lineNum">      56</span>                 :<span class="tlaGNC">           1 :         float expected_distance = 1.0f * expected_scale;</span></span>
+<span id="L57"><span class="lineNum">      57</span>                 :             : </span>
+<span id="L58"><span class="lineNum">      58</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span> :<span class="tlaGNC">           1 :         EXPECT_NEAR(distance, expected_distance, 1e-5);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaUNC" title="Branch 6 was not taken"> - </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaUNC" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L59"><span class="lineNum">      59</span>                 :             : </span>
+<span id="L60"><span class="lineNum">      60</span>                 :             :         // GIVEN: a distance, sensor orientation, and quaternion representing the vehicle's orientation</span>
+<span id="L61"><span class="lineNum">      61</span>                 :<span class="tlaGNC">           1 :         distance = 1.0f;</span></span>
+<span id="L62"><span class="lineNum">      62</span>                 :             : </span>
+<span id="L63"><span class="lineNum">      63</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :         ObstacleMath::project_distance_on_horizontal_plane(distance, sensor_orientation, vehicle_roll_right_45);</span></span>
+<span id="L64"><span class="lineNum">      64</span>                 :             : </span>
+<span id="L65"><span class="lineNum">      65</span>                 :             :         // THEN: the distance should be scaled correctly</span>
+<span id="L66"><span class="lineNum">      66</span>                 :<span class="tlaGNC">           1 :         expected_scale     = 1.f;</span></span>
+<span id="L67"><span class="lineNum">      67</span>                 :<span class="tlaGNC">           1 :         expected_distance  = 1.0f * expected_scale;</span></span>
+<span id="L68"><span class="lineNum">      68</span>                 :             : </span>
+<span id="L69"><span class="lineNum">      69</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span> :<span class="tlaGNC">           1 :         EXPECT_NEAR(distance, expected_distance, 1e-5);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaUNC" title="Branch 6 was not taken"> - </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaUNC" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L70"><span class="lineNum">      70</span>                 :             : </span>
+<span id="L71"><span class="lineNum">      71</span>                 :             :         // GIVEN: a distance, sensor orientation, and quaternion representing the vehicle's orientation</span>
+<span id="L72"><span class="lineNum">      72</span>                 :<span class="tlaGNC">           1 :         distance = 1.0f;</span></span>
+<span id="L73"><span class="lineNum">      73</span>                 :<span class="tlaGNC">           1 :         sensor_orientation = M_PI_2_F; // radians (right facing)</span></span>
+<span id="L74"><span class="lineNum">      74</span>                 :             : </span>
+<span id="L75"><span class="lineNum">      75</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :         ObstacleMath::project_distance_on_horizontal_plane(distance, sensor_orientation, vehicle_roll_right_45);</span></span>
+<span id="L76"><span class="lineNum">      76</span>                 :             : </span>
+<span id="L77"><span class="lineNum">      77</span>                 :             :         // THEN: the distance should be scaled correctly</span>
+<span id="L78"><span class="lineNum">      78</span>                 :<span class="tlaGNC">           1 :         expected_scale     = sqrtf(2) / 2;</span></span>
+<span id="L79"><span class="lineNum">      79</span>                 :<span class="tlaGNC">           1 :         expected_distance  = 1.0f * expected_scale;</span></span>
+<span id="L80"><span class="lineNum">      80</span>                 :             : </span>
+<span id="L81"><span class="lineNum">      81</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span> :<span class="tlaGNC">           1 :         EXPECT_NEAR(distance, expected_distance, 1e-5);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaUNC" title="Branch 6 was not taken"> - </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaUNC" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L82"><span class="lineNum">      82</span>                 :             : </span>
+<span id="L83"><span class="lineNum">      83</span>                 :             :         // GIVEN: a distance, sensor orientation, and quaternion representing the vehicle's orientation</span>
+<span id="L84"><span class="lineNum">      84</span>                 :<span class="tlaGNC">           1 :         distance = 1.0f;</span></span>
+<span id="L85"><span class="lineNum">      85</span>                 :             : </span>
+<span id="L86"><span class="lineNum">      86</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :         ObstacleMath::project_distance_on_horizontal_plane(distance, sensor_orientation, vehicle_pitch_up_45);</span></span>
+<span id="L87"><span class="lineNum">      87</span>                 :             : </span>
+<span id="L88"><span class="lineNum">      88</span>                 :             :         // THEN: the distance should be scaled correctly</span>
+<span id="L89"><span class="lineNum">      89</span>                 :<span class="tlaGNC">           1 :         expected_scale     = 1.f;</span></span>
+<span id="L90"><span class="lineNum">      90</span>                 :<span class="tlaGNC">           1 :         expected_distance  = 1.0f * expected_scale;</span></span>
+<span id="L91"><span class="lineNum">      91</span>                 :             : </span>
+<span id="L92"><span class="lineNum">      92</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span> :<span class="tlaGNC">           1 :         EXPECT_NEAR(distance, expected_distance, 1e-5);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaUNC" title="Branch 6 was not taken"> - </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaUNC" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L93"><span class="lineNum">      93</span>                 :<span class="tlaGNC">           1 : }</span></span>
+<span id="L94"><span class="lineNum">      94</span>                 :             : </span>
+<span id="L95"><span class="lineNum">      95</span>                 :<span class="tlaGNC">           4 : TEST(ObstacleMathTest, GetBinAtAngle)</span></span>
+<span id="L96"><span class="lineNum">      96</span>                 :             : {</span>
+<span id="L97"><span class="lineNum">      97</span>                 :<span class="tlaGNC">           1 :         float bin_width = 5.0f;</span></span>
+<span id="L98"><span class="lineNum">      98</span>                 :             : </span>
+<span id="L99"><span class="lineNum">      99</span>                 :             :         // GIVEN: a start bin, bin width, and angle</span>
+<span id="L100"><span class="lineNum">     100</span>                 :<span class="tlaGNC">           1 :         float angle = 0.0f;</span></span>
+<span id="L101"><span class="lineNum">     101</span>                 :             : </span>
+<span id="L102"><span class="lineNum">     102</span>                 :             :         // WHEN: we calculate the bin index at the angle</span>
+<span id="L103"><span class="lineNum">     103</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :         uint16_t bin_index = ObstacleMath::get_bin_at_angle(bin_width, angle);</span></span>
+<span id="L104"><span class="lineNum">     104</span>                 :             : </span>
+<span id="L105"><span class="lineNum">     105</span>                 :             :         // THEN: the bin index should be correct</span>
+<span id="L106"><span class="lineNum">     106</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span> :<span class="tlaGNC">           1 :         EXPECT_EQ(bin_index, 0);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaUNC" title="Branch 6 was not taken"> - </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaUNC" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L107"><span class="lineNum">     107</span>                 :             : </span>
+<span id="L108"><span class="lineNum">     108</span>                 :             :         // GIVEN: a start bin, bin width, and angle</span>
+<span id="L109"><span class="lineNum">     109</span>                 :<span class="tlaGNC">           1 :         angle = 90.0f;</span></span>
+<span id="L110"><span class="lineNum">     110</span>                 :             : </span>
+<span id="L111"><span class="lineNum">     111</span>                 :             :         // WHEN: we calculate the bin index at the angle</span>
+<span id="L112"><span class="lineNum">     112</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :         bin_index = ObstacleMath::get_bin_at_angle(bin_width, angle);</span></span>
+<span id="L113"><span class="lineNum">     113</span>                 :             : </span>
+<span id="L114"><span class="lineNum">     114</span>                 :             :         // THEN: the bin index should be correct</span>
+<span id="L115"><span class="lineNum">     115</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span> :<span class="tlaGNC">           1 :         EXPECT_EQ(bin_index, 18);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaUNC" title="Branch 6 was not taken"> - </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaUNC" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L116"><span class="lineNum">     116</span>                 :             : </span>
+<span id="L117"><span class="lineNum">     117</span>                 :             :         // GIVEN: a start bin, bin width, and angle</span>
+<span id="L118"><span class="lineNum">     118</span>                 :<span class="tlaGNC">           1 :         angle = -90.0f;</span></span>
+<span id="L119"><span class="lineNum">     119</span>                 :             : </span>
+<span id="L120"><span class="lineNum">     120</span>                 :             :         // WHEN: we calculate the bin index at the angle</span>
+<span id="L121"><span class="lineNum">     121</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :         bin_index = ObstacleMath::get_bin_at_angle(bin_width, angle);</span></span>
+<span id="L122"><span class="lineNum">     122</span>                 :             : </span>
+<span id="L123"><span class="lineNum">     123</span>                 :             :         // THEN: the bin index should be correct</span>
+<span id="L124"><span class="lineNum">     124</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span> :<span class="tlaGNC">           1 :         EXPECT_EQ(bin_index, 54);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaUNC" title="Branch 6 was not taken"> - </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaUNC" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L125"><span class="lineNum">     125</span>                 :             : </span>
+<span id="L126"><span class="lineNum">     126</span>                 :             :         // GIVEN: a start bin, bin width, and angle</span>
+<span id="L127"><span class="lineNum">     127</span>                 :<span class="tlaGNC">           1 :         angle = 450.0f;</span></span>
+<span id="L128"><span class="lineNum">     128</span>                 :             : </span>
+<span id="L129"><span class="lineNum">     129</span>                 :             :         // WHEN: we calculate the bin index at the angle</span>
+<span id="L130"><span class="lineNum">     130</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :         bin_index = ObstacleMath::get_bin_at_angle(bin_width, angle);</span></span>
+<span id="L131"><span class="lineNum">     131</span>                 :             : </span>
+<span id="L132"><span class="lineNum">     132</span>                 :             :         // THEN: the bin index should be correct</span>
+<span id="L133"><span class="lineNum">     133</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span> :<span class="tlaGNC">           1 :         EXPECT_EQ(bin_index, 18);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaUNC" title="Branch 6 was not taken"> - </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaUNC" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L134"><span class="lineNum">     134</span>                 :<span class="tlaGNC">           1 : }</span></span>
+<span id="L135"><span class="lineNum">     135</span>                 :             : </span>
+<span id="L136"><span class="lineNum">     136</span>                 :<span class="tlaGNC">           4 : TEST(ObstacleMathTest, GetLowerBound)</span></span>
+<span id="L137"><span class="lineNum">     137</span>                 :             : {</span>
+<span id="L138"><span class="lineNum">     138</span>                 :             :         // GIVEN: an invalid bin index, non-integer bin width, and a negative non-integer angle offset</span>
+<span id="L139"><span class="lineNum">     139</span>                 :<span class="tlaGNC">           1 :         int      bin          = -1;</span></span>
+<span id="L140"><span class="lineNum">     140</span>                 :<span class="tlaGNC">           1 :         float    bin_width    =  7.5f;</span></span>
+<span id="L141"><span class="lineNum">     141</span>                 :<span class="tlaGNC">           1 :         float    angle_offset = -4.3f;</span></span>
+<span id="L142"><span class="lineNum">     142</span>                 :             : </span>
+<span id="L143"><span class="lineNum">     143</span>                 :             :         // WHEN: we calculate the lower bound angle of the bin</span>
+<span id="L144"><span class="lineNum">     144</span>                 :<span class="tlaGNC">           1 :         float lower_bound = ObstacleMath::get_lower_bound_angle(bin, bin_width, angle_offset);</span></span>
+<span id="L145"><span class="lineNum">     145</span>                 :             : </span>
+<span id="L146"><span class="lineNum">     146</span>                 :             :         // THEN: the lower bound angle should be correct. The bin index is wrapped to the end and</span>
+<span id="L147"><span class="lineNum">     147</span>                 :             :         // the angle offset is applied in the counter-clockwise direction.</span>
+<span id="L148"><span class="lineNum">     148</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span> :<span class="tlaGNC">           1 :         EXPECT_FLOAT_EQ(lower_bound, 344.45);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaUNC" title="Branch 6 was not taken"> - </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaUNC" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L149"><span class="lineNum">     149</span>                 :             : </span>
+<span id="L150"><span class="lineNum">     150</span>                 :<span class="tlaGNC">           1 : }</span></span>
+<span id="L151"><span class="lineNum">     151</span>                 :             : </span>
+<span id="L152"><span class="lineNum">     152</span>                 :             : </span>
+<span id="L153"><span class="lineNum">     153</span>                 :<span class="tlaGNC">           4 : TEST(ObstacleMathTest, OffsetBinIndex)</span></span>
+<span id="L154"><span class="lineNum">     154</span>                 :             : {</span>
+<span id="L155"><span class="lineNum">     155</span>                 :             :         // In this test, we want to offset the bin index by a negative and positive angle.</span>
+<span id="L156"><span class="lineNum">     156</span>                 :             :         // We take the output of the first offset and offset it by the same angle in the</span>
+<span id="L157"><span class="lineNum">     157</span>                 :             :         // opposite direction to return back to the original bin index.</span>
+<span id="L158"><span class="lineNum">     158</span>                 :             : </span>
+<span id="L159"><span class="lineNum">     159</span>                 :             :         // GIVEN: a bin index, bin width, and a negative angle offset</span>
+<span id="L160"><span class="lineNum">     160</span>                 :<span class="tlaGNC">           1 :         uint16_t bin = 0;</span></span>
+<span id="L161"><span class="lineNum">     161</span>                 :<span class="tlaGNC">           1 :         float bin_width = 5.0f;</span></span>
+<span id="L162"><span class="lineNum">     162</span>                 :<span class="tlaGNC">           1 :         float angle_offset = -120.0f;</span></span>
+<span id="L163"><span class="lineNum">     163</span>                 :             : </span>
+<span id="L164"><span class="lineNum">     164</span>                 :             :         // WHEN: we offset the bin index by the negative angle</span>
+<span id="L165"><span class="lineNum">     165</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :         uint16_t new_bin_index = ObstacleMath::get_offset_bin_index(bin, bin_width, angle_offset);</span></span>
+<span id="L166"><span class="lineNum">     166</span>                 :             : </span>
+<span id="L167"><span class="lineNum">     167</span>                 :             :         // THEN: the new bin index should be correctly offset by the wrapped angle</span>
+<span id="L168"><span class="lineNum">     168</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span> :<span class="tlaGNC">           1 :         EXPECT_EQ(new_bin_index, 24);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaUNC" title="Branch 6 was not taken"> - </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaUNC" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L169"><span class="lineNum">     169</span>                 :             : </span>
+<span id="L170"><span class="lineNum">     170</span>                 :             :         // GIVEN: the output bin index of the previous offset, bin width, and the same angle</span>
+<span id="L171"><span class="lineNum">     171</span>                 :             :         // offset in positive direction</span>
+<span id="L172"><span class="lineNum">     172</span>                 :<span class="tlaGNC">           1 :         bin = 24;</span></span>
+<span id="L173"><span class="lineNum">     173</span>                 :<span class="tlaGNC">           1 :         bin_width = 5.0f;</span></span>
+<span id="L174"><span class="lineNum">     174</span>                 :<span class="tlaGNC">           1 :         angle_offset = 120.0f;</span></span>
+<span id="L175"><span class="lineNum">     175</span>                 :             : </span>
+<span id="L176"><span class="lineNum">     176</span>                 :             :         // WHEN: we offset the bin index by the positive angle</span>
+<span id="L177"><span class="lineNum">     177</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :         new_bin_index = ObstacleMath::get_offset_bin_index(bin, bin_width, angle_offset);</span></span>
+<span id="L178"><span class="lineNum">     178</span>                 :             : </span>
+<span id="L179"><span class="lineNum">     179</span>                 :             :         // THEN: the new bin index should return back to the original bin index</span>
+<span id="L180"><span class="lineNum">     180</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span> :<span class="tlaGNC">           1 :         EXPECT_EQ(new_bin_index, 0);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaUNC" title="Branch 6 was not taken"> - </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaUNC" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L181"><span class="lineNum">     181</span>                 :<span class="tlaGNC">           1 : }</span></span>
+<span id="L182"><span class="lineNum">     182</span>                 :             : </span>
+<span id="L183"><span class="lineNum">     183</span>                 :             : </span>
+<span id="L184"><span class="lineNum">     184</span>                 :<span class="tlaGNC">           4 : TEST(ObstacleMathTest, WrapBin)</span></span>
+<span id="L185"><span class="lineNum">     185</span>                 :             : {</span>
+<span id="L186"><span class="lineNum">     186</span>                 :             :         // GIVEN: a bin index within bounds and the number of bins</span>
+<span id="L187"><span class="lineNum">     187</span>                 :<span class="tlaGNC">           1 :         int bin = 0;</span></span>
+<span id="L188"><span class="lineNum">     188</span>                 :<span class="tlaGNC">           1 :         int bin_count = 72;</span></span>
+<span id="L189"><span class="lineNum">     189</span>                 :             : </span>
+<span id="L190"><span class="lineNum">     190</span>                 :             :         // WHEN: we wrap a bin index within the bounds</span>
+<span id="L191"><span class="lineNum">     191</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :         int wrapped_bin = ObstacleMath::wrap_bin(bin, bin_count);</span></span>
+<span id="L192"><span class="lineNum">     192</span>                 :             : </span>
+<span id="L193"><span class="lineNum">     193</span>                 :             :         // THEN: the wrapped bin index should stay 0</span>
+<span id="L194"><span class="lineNum">     194</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span> :<span class="tlaGNC">           1 :         EXPECT_EQ(wrapped_bin, 0);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaUNC" title="Branch 6 was not taken"> - </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaUNC" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L195"><span class="lineNum">     195</span>                 :             : </span>
+<span id="L196"><span class="lineNum">     196</span>                 :             :         // GIVEN: a bin index that is out of bounds, and the number of bins</span>
+<span id="L197"><span class="lineNum">     197</span>                 :<span class="tlaGNC">           1 :         bin = 73;</span></span>
+<span id="L198"><span class="lineNum">     198</span>                 :<span class="tlaGNC">           1 :         bin_count = 72;</span></span>
+<span id="L199"><span class="lineNum">     199</span>                 :             : </span>
+<span id="L200"><span class="lineNum">     200</span>                 :             :         // WHEN: we wrap a bin index that is larger than the number of bins</span>
+<span id="L201"><span class="lineNum">     201</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :         wrapped_bin = ObstacleMath::wrap_bin(bin, bin_count);</span></span>
+<span id="L202"><span class="lineNum">     202</span>                 :             : </span>
+<span id="L203"><span class="lineNum">     203</span>                 :             :         // THEN: the wrapped bin index should be wrapped back to the beginning</span>
+<span id="L204"><span class="lineNum">     204</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span> :<span class="tlaGNC">           1 :         EXPECT_EQ(wrapped_bin, 1);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaUNC" title="Branch 6 was not taken"> - </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaUNC" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L205"><span class="lineNum">     205</span>                 :             : </span>
+<span id="L206"><span class="lineNum">     206</span>                 :             :         // GIVEN: a negative bin index and the number of bins</span>
+<span id="L207"><span class="lineNum">     207</span>                 :<span class="tlaGNC">           1 :         bin = -1;</span></span>
+<span id="L208"><span class="lineNum">     208</span>                 :<span class="tlaGNC">           1 :         bin_count = 72;</span></span>
+<span id="L209"><span class="lineNum">     209</span>                 :             : </span>
+<span id="L210"><span class="lineNum">     210</span>                 :             :         // WHEN: we wrap a bin index that is negative</span>
+<span id="L211"><span class="lineNum">     211</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :         wrapped_bin = ObstacleMath::wrap_bin(bin, bin_count);</span></span>
+<span id="L212"><span class="lineNum">     212</span>                 :             : </span>
+<span id="L213"><span class="lineNum">     213</span>                 :             :         // THEN: the wrapped bin index should be wrapped back to the end</span>
+<span id="L214"><span class="lineNum">     214</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span> :<span class="tlaGNC">           1 :         EXPECT_EQ(wrapped_bin, 71);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaUNC" title="Branch 6 was not taken"> - </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaUNC" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L215"><span class="lineNum">     215</span>                 :<span class="tlaGNC">           1 : }</span></span>
+<span id="L216"><span class="lineNum">     216</span>                 :             : </span>
+<span id="L217"><span class="lineNum">     217</span>                 :<span class="tlaGNC">           4 : TEST(ObstacleMathTest, HandleMissedBins)</span></span>
+<span id="L218"><span class="lineNum">     218</span>                 :             : {</span>
+<span id="L219"><span class="lineNum">     219</span>                 :             :         // In this test, the current and previous bin are adjacent to the bins that are outside</span>
+<span id="L220"><span class="lineNum">     220</span>                 :             :         // the sensor field of view. The missed bins (0,1,6 &amp; 7) should be populated, and no</span>
+<span id="L221"><span class="lineNum">     221</span>                 :             :         // data should be filled in the bins outside the FOV.</span>
+<span id="L222"><span class="lineNum">     222</span>                 :             : </span>
+<span id="L223"><span class="lineNum">     223</span>                 :             :         // GIVEN: measurements, current bin, previous bin, bin width, and field of view offset</span>
+<span id="L224"><span class="lineNum">     224</span>                 :<span class="tlaGNC">           1 :         float measurements[8] = {0, 0, 1, 0, 0, 2, 0, 0};</span></span>
+<span id="L225"><span class="lineNum">     225</span>                 :<span class="tlaGNC">           1 :         int   current_bin     = 2;</span></span>
+<span id="L226"><span class="lineNum">     226</span>                 :<span class="tlaGNC">           1 :         int   previous_bin    = 5;</span></span>
+<span id="L227"><span class="lineNum">     227</span>                 :<span class="tlaGNC">           1 :         int   bin_width       = 45.0f;</span></span>
+<span id="L228"><span class="lineNum">     228</span>                 :<span class="tlaGNC">           1 :         float fov             = 270.0f;</span></span>
+<span id="L229"><span class="lineNum">     229</span>                 :<span class="tlaGNC">           1 :         float fov_offset      = 360.0f - fov / 2;</span></span>
+<span id="L230"><span class="lineNum">     230</span>                 :             : </span>
+<span id="L231"><span class="lineNum">     231</span>                 :<span class="tlaGNC">           1 :         float measurement     = measurements[current_bin];</span></span>
+<span id="L232"><span class="lineNum">     232</span>                 :             : </span>
+<span id="L233"><span class="lineNum">     233</span>                 :             :         // WHEN: we handle missed bins</span>
+<span id="L234"><span class="lineNum">     234</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :         int current_bin_offset  = ObstacleMath::get_offset_bin_index(current_bin,  bin_width, fov_offset);</span></span>
+<span id="L235"><span class="lineNum">     235</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :         int previous_bin_offset = ObstacleMath::get_offset_bin_index(previous_bin, bin_width, fov_offset);</span></span>
+<span id="L236"><span class="lineNum">     236</span>                 :             : </span>
+<span id="L237"><span class="lineNum">     237</span>                 :<span class="tlaGNC">           1 :         int start = math::min(current_bin_offset, previous_bin_offset) + 1;</span></span>
+<span id="L238"><span class="lineNum">     238</span>                 :<span class="tlaGNC">           1 :         int end   = math::max(current_bin_offset, previous_bin_offset);</span></span>
+<span id="L239"><span class="lineNum">     239</span>                 :             : </span>
+<span id="L240"><span class="lineNum">     240</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span> :<span class="tlaGNC">           1 :         EXPECT_EQ(start, 1);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaUNC" title="Branch 6 was not taken"> - </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaUNC" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L241"><span class="lineNum">     241</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span> :<span class="tlaGNC">           1 :         EXPECT_EQ(end,   5);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaUNC" title="Branch 6 was not taken"> - </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaUNC" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L242"><span class="lineNum">     242</span>                 :             : </span>
+<span id="L243"><span class="lineNum">     243</span>         [<span class="tlaGBC" title="Branch 0 was taken 4 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span>]:<span class="tlaGNC">           5 :         for (uint16_t i = start; i &lt; end; i++) {</span></span>
+<span id="L244"><span class="lineNum">     244</span>         [<span class="tlaGBC" title="Branch 0 was taken 4 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           4 :                 uint16_t bin_index = ObstacleMath::get_offset_bin_index(i, bin_width, -fov_offset);</span></span>
+<span id="L245"><span class="lineNum">     245</span>                 :<span class="tlaGNC">           4 :                 measurements[bin_index] = measurement;</span></span>
+<span id="L246"><span class="lineNum">     246</span>                 :             :         }</span>
+<span id="L247"><span class="lineNum">     247</span>                 :             : </span>
+<span id="L248"><span class="lineNum">     248</span>                 :             :         // THEN: the correct missed bins should be populated with the measurement</span>
+<span id="L249"><span class="lineNum">     249</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span> :<span class="tlaGNC">           1 :         EXPECT_EQ(measurements[0], 1);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaUNC" title="Branch 6 was not taken"> - </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaUNC" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L250"><span class="lineNum">     250</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span> :<span class="tlaGNC">           1 :         EXPECT_EQ(measurements[1], 1);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaUNC" title="Branch 6 was not taken"> - </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaUNC" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L251"><span class="lineNum">     251</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span> :<span class="tlaGNC">           1 :         EXPECT_EQ(measurements[2], 1);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaUNC" title="Branch 6 was not taken"> - </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaUNC" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L252"><span class="lineNum">     252</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span> :<span class="tlaGNC">           1 :         EXPECT_EQ(measurements[3], 0);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaUNC" title="Branch 6 was not taken"> - </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaUNC" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L253"><span class="lineNum">     253</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span> :<span class="tlaGNC">           1 :         EXPECT_EQ(measurements[4], 0);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaUNC" title="Branch 6 was not taken"> - </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaUNC" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L254"><span class="lineNum">     254</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span> :<span class="tlaGNC">           1 :         EXPECT_EQ(measurements[5], 2);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaUNC" title="Branch 6 was not taken"> - </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaUNC" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L255"><span class="lineNum">     255</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span> :<span class="tlaGNC">           1 :         EXPECT_EQ(measurements[6], 1);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaUNC" title="Branch 6 was not taken"> - </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaUNC" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L256"><span class="lineNum">     256</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span> :<span class="tlaGNC">           1 :         EXPECT_EQ(measurements[7], 1);</span></span>
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 4 was not taken"> - </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaUNC" title="Branch 6 was not taken"> - </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaUNC" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L257"><span class="lineNum">     257</span>                 :<span class="tlaGNC">           1 : }</span></span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

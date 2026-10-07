@@ -1,0 +1,5 @@
+FILE: src/modules/manual_control/ManualControlSelector.cpp
+
+== UNCOVERED LINES (0) ==
+
+== LINES WITH MISSED BRANCHES (0 lines) ==

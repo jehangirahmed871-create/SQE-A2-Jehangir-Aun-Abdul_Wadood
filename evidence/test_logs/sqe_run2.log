@@ -1,0 +1,424 @@
+[1/3] Building CXX object src/modules/manual_control/CMakeFiles/functional-ManualControlSQE.dir/ManualControlSQETest.cpp.o
+[2/3] Linking CXX executable functional-ManualControlSQE
+[2/3] Running tests
+   Site: Al-Khwarizmi
+   Build name: Linux-c++
+Test project /home/jehangir_ahmed/sqe/PX4-Autopilot/build/px4_sitl_test
+    Start 108: functional-ManualControlSQE
+1/1 Test #108: functional-ManualControlSQE ......***Failed    0.28 sec
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:lp_default not available
+ERROR [px4_work_queue] init failed
+[0;32m[==========] [mRunning 32 tests from 1 test suite.
+[0;32m[----------] [mGlobal test environment set-up.
+[0;32m[----------] [m32 tests from SQEManualControl
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_01_NavStateFromParamMapping
+[0;32m[       OK ] [mSQEManualControl.TC_C_01_NavStateFromParamMapping (0 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_02_NavStateFromParamInvalid
+[0;32m[       OK ] [mSQEManualControl.TC_C_02_NavStateFromParamInvalid (0 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_03_PrintUsage
+
+### Description
+Module consuming manual_control_inputs publishing one manual_control_setpoint.
+
+
+
+Usage: manual_control <command> [arguments...]
+ Commands:
+
+   start
+
+   stop
+
+   status        print status info
+WARN  [manual_control] sqe test reason
+
+
+### Description
+Module consuming manual_control_inputs publishing one manual_control_setpoint.
+
+
+
+Usage: manual_control <command> [arguments...]
+ Commands:
+
+   start
+
+   stop
+
+   status        print status info
+[0;32m[       OK ] [mSQEManualControl.TC_C_03_PrintUsage (0 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_04_CustomCommandAndPrintStatus
+WARN  [manual_control] unknown command
+
+
+### Description
+Module consuming manual_control_inputs publishing one manual_control_setpoint.
+
+
+
+Usage: manual_control <command> [arguments...]
+ Commands:
+
+   start
+
+   stop
+
+   status        print status info
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+manual_control: cycle: 0 events, 0us elapsed, 0.00us avg, min 0us max 0us 0.000us rms
+manual_control: interval: 0 events, 0.00us avg, min 0us max 0us 0.000us rms
+[0;32m[       OK ] [mSQEManualControl.TC_C_04_CustomCommandAndPrintStatus (0 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_26_ModeSlotsMapToConfiguredModes
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+[0;32m[       OK ] [mSQEManualControl.TC_C_26_ModeSlotsMapToConfiguredModes (1 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_05_UnassignedModeSlotIgnored
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+[0;32m[       OK ] [mSQEManualControl.TC_C_05_UnassignedModeSlotIgnored (0 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_06_ModeSlotNoneAndOverflow
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+WARN  [manual_control] mode slot overflow
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+WARN  [manual_control] mode slot overflow
+[0;32m[       OK ] [mSQEManualControl.TC_C_06_ModeSlotNoneAndOverflow (0 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_07_NoSwitchUpdateNoAction
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+[0;32m[       OK ] [mSQEManualControl.TC_C_07_NoSwitchUpdateNoAction (0 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_08_SwitchesIgnoredForNonRcSource
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+[0;32m[       OK ] [mSQEManualControl.TC_C_08_SwitchesIgnoredForNonRcSource (0 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_09_ArmSwitch
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+[0;32m[       OK ] [mSQEManualControl.TC_C_09_ArmSwitch (0 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_10_ArmButtonHoldToggleOnce
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+[0;32m[       OK ] [mSQEManualControl.TC_C_10_ArmButtonHoldToggleOnce (0 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_10b_ArmButtonShortPressIgnored
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+[0;32m[       OK ] [mSQEManualControl.TC_C_10b_ArmButtonShortPressIgnored (0 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_11_ReturnLoiterOffboardSwitches
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+[0;32m[       OK ] [mSQEManualControl.TC_C_11_ReturnLoiterOffboardSwitches (1 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_12_KillAndTerminationSwitches
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+[0;32m[       OK ] [mSQEManualControl.TC_C_12_KillAndTerminationSwitches (1 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_13_LandingGearSwitch
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+[0;32m[       OK ] [mSQEManualControl.TC_C_13_LandingGearSwitch (0 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_14_TransitionSwitch
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+[0;32m[       OK ] [mSQEManualControl.TC_C_14_TransitionSwitch (0 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_15a_PhotoSwitch
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+/home/jehangir_ahmed/sqe/PX4-Autopilot/src/modules/manual_control/ManualControlSQETest.cpp:669: Failure
+Expected equality of these values:
+  c1.size()
+    Which is: 1
+  2u
+    Which is: 2
+Stack trace:
+  0x626127dc06b7: SQEManualControl_TC_C_15a_PhotoSwitch_Test::TestBody()
+  0x626127ebd1eb: testing::internal::HandleExceptionsInMethodIfSupported<>()
+  0x626127e77ff3: testing::Test::Run()
+  0x626127e792a6: testing::TestInfo::Run()
+... Google Test internal frames ...
+
+[0;31m[  FAILED  ] [mSQEManualControl.TC_C_15a_PhotoSwitch (32 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_15b_VideoSwitchStartStop
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+[0;32m[       OK ] [mSQEManualControl.TC_C_15b_VideoSwitchStartStop (0 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_16a_ArmGestureRequestsArmOnce
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+[0;32m[       OK ] [mSQEManualControl.TC_C_16a_ArmGestureRequestsArmOnce (0 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_16b_DisarmGestureRequestsDisarmOnce
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+[0;32m[       OK ] [mSQEManualControl.TC_C_16b_DisarmGestureRequestsDisarmOnce (0 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_16c_GestureDisabledByParameter
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+[0;32m[       OK ] [mSQEManualControl.TC_C_16c_GestureDisabledByParameter (0 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_16d_GestureReleasedEarly
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+[0;32m[       OK ] [mSQEManualControl.TC_C_16d_GestureReleasedEarly (0 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_17_GestureBoundaries
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+[0;32m[       OK ] [mSQEManualControl.TC_C_17_GestureBoundaries (2 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_27_GestureHysteresisResetOnInputLoss
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+[0;32m[       OK ] [mSQEManualControl.TC_C_27_GestureHysteresisResetOnInputLoss (0 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_18a_KillGesture
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+[0;32m[       OK ] [mSQEManualControl.TC_C_18a_KillGesture (0 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_18b_KillGestureDisabled
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+[0;32m[       OK ] [mSQEManualControl.TC_C_18b_KillGestureDisabled (0 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_18c_KillGesturePartialAndBoundaries
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+[0;32m[       OK ] [mSQEManualControl.TC_C_18c_KillGesturePartialAndBoundaries (1 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_19_SticksMovingPerAxis
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+[0;32m[       OK ] [mSQEManualControl.TC_C_19_SticksMovingPerAxis (0 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_21_InvalidSetpointPublishedOnce
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+[0;32m[       OK ] [mSQEManualControl.TC_C_21_InvalidSetpointPublishedOnce (0 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_23a_ArmGestureDisabledWhenArmSwitchMapped
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+WARN  [manual_control] Arm stick gesture disabled if arm switch in use	
+[0;32m[       OK ] [mSQEManualControl.TC_C_23a_ArmGestureDisabledWhenArmSwitchMapped (0 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_23b_ArmGestureKeptWhenNoArmSwitch
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+[0;32m[       OK ] [mSQEManualControl.TC_C_23b_ArmGestureKeptWhenNoArmSwitch (0 ms)
+[0;32m[ RUN      ] [mSQEManualControl.TC_C_24_YawAirmodeVersusArmGesture
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+WARN  [manual_control] Yaw Airmode requires disabling the stick arm gesture	
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+WARN  [manual_control] Yaw Airmode requires disabling the stick arm gesture	
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+ERROR [px4_work_queue] not running
+ERROR [px4_work_queue] wq:hp_default not available
+ERROR [px4_work_queue] init failed
+[0;32m[       OK ] [mSQEManualControl.TC_C_24_YawAirmodeVersusArmGesture (0 ms)
+[0;32m[----------] [m32 tests from SQEManualControl (58 ms total)
+
+[0;32m[----------] [mGlobal test environment tear-down
+[0;32m[==========] [m32 tests from 1 test suite ran. (58 ms total)
+[0;32m[  PASSED  ] [m31 tests.
+[0;31m[  FAILED  ] [m1 test, listed below:
+[0;31m[  FAILED  ] [mSQEManualControl.TC_C_15a_PhotoSwitch
+
+ 1 FAILED TEST
+
+
+0% tests passed, 1 tests failed out of 1
+
+Total Test time (real) =   0.48 sec
+
+The following tests FAILED:
+	108 - functional-ManualControlSQE (Failed)
+Errors while running CTest
+FAILED: test/CMakeFiles/test_results /home/jehangir_ahmed/sqe/PX4-Autopilot/build/px4_sitl_test/test/CMakeFiles/test_results 
+cd /home/jehangir_ahmed/sqe/PX4-Autopilot/build/px4_sitl_test && GTEST_COLOR=1 /usr/bin/ctest --output-on-failure -T Test -R ManualControlSQE --exclude-regex antlr4_tests_NOT_BUILT
+ninja: build stopped: subcommand failed.
+make: *** [Makefile:411: tests] Error 1

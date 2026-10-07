@@ -1,0 +1,47 @@
+FILE: src/modules/manual_control/ManualControlSelector.cpp
+
+== UNCOVERED LINES (25) ==
+  80 | case RcInMode::RcOrMavlinkWithFallback:
+  81 | match = (input.data_source == _setpoint.data_source) || !_setpoint.valid;
+  82 | break;
+  84 | case RcInMode::RcOrMavlinkKeepFirst:
+  85 | match = (input.data_source == _first_valid_source)
+  86 | || (_first_valid_source == manual_control_setpoint_s::SOURCE_UNKNOWN);
+  87 | break;
+  89 | case RcInMode::PriorityRcThenMavlinkAscending:
+  90 | match = !_setpoint.valid || (input.data_source <= _setpoint.data_source);
+  91 | break;
+  93 | case RcInMode::PriorityMavlinkAscendingThenRc:
+  94 | match = !_setpoint.valid
+  95 | || (isRc(input.data_source) && isRc(_setpoint.data_source))
+  96 | || (isMavlink(input.data_source) && (isRc(_setpoint.data_source) || input.data_source <= _setpoint.d
+  97 | break;
+  99 | case RcInMode::PriorityRcThenMavlinkDescending:
+ 100 | match = !_setpoint.valid
+ 101 | || isRc(input.data_source)
+ 102 | || (isMavlink(input.data_source) && isMavlink(_setpoint.data_source) && input.data_source >= _setpoi
+ 103 | break;
+ 105 | case RcInMode::PriorityMavlinkDescendingThenRc:
+ 106 | match = !_setpoint.valid || (input.data_source >= _setpoint.data_source);
+ 107 | break;
+ 109 | case RcInMode::DisableManualControl:
+ 111 | break;
+
+== LINES WITH MISSED BRANCHES (17 lines) ==
+  50 | missed=1 | if (isInputValid(input, now)) {
+  71 | missed=7 | switch (_rc_in_mode) { // COM_RC_IN_MODE
+  77 | missed=1 | match = isMavlink(input.data_source) && ((input.data_source == _setpoint.data_source) || !_setpoint.
+  81 | missed=4 | match = (input.data_source == _setpoint.data_source) || !_setpoint.valid;
+  86 | missed=4 | || (_first_valid_source == manual_control_setpoint_s::SOURCE_UNKNOWN);
+  90 | missed=4 | match = !_setpoint.valid || (input.data_source <= _setpoint.data_source);
+  95 | missed=4 | || (isRc(input.data_source) && isRc(_setpoint.data_source))
+  96 | missed=8 | || (isMavlink(input.data_source) && (isRc(_setpoint.data_source) || input.data_source <= _setpoint.d
+ 101 | missed=2 | || isRc(input.data_source)
+ 102 | missed=8 | || (isMavlink(input.data_source) && isMavlink(_setpoint.data_source) && input.data_source >= _setpoi
+ 106 | missed=4 | match = !_setpoint.valid || (input.data_source >= _setpoint.data_source);
+ 114 | missed=2 | return sample_newer_than_timeout && input.valid && match;
+ 130 | missed=1 | || source == manual_control_setpoint_s::SOURCE_MAVLINK_1
+ 131 | missed=1 | || source == manual_control_setpoint_s::SOURCE_MAVLINK_2
+ 132 | missed=1 | || source == manual_control_setpoint_s::SOURCE_MAVLINK_3
+ 133 | missed=1 | || source == manual_control_setpoint_s::SOURCE_MAVLINK_4
+ 134 | missed=1 | || source == manual_control_setpoint_s::SOURCE_MAVLINK_5);

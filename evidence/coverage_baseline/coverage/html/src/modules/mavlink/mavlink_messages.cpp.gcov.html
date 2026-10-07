@@ -1,0 +1,648 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov_filtered.info - src/modules/mavlink/mavlink_messages.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../index.html">top level</a> - <a href="index.html">src/modules/mavlink</a> - mavlink_messages.cpp<span style="font-size: 80%;"> (source / <a href="mavlink_messages.cpp.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov_filtered.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryLo">31.2&nbsp;%</td>
+            <td class="headerCovTableEntry">16</td>
+            <td class="headerCovTableEntry">5</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-10-02 17:31:18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryLo">33.3&nbsp;%</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">1</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryLo">28.6&nbsp;%</td>
+            <td class="headerCovTableEntry">14</td>
+            <td class="headerCovTableEntry">4</td>
+          </tr>
+                  <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : /****************************************************************************</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             :  *</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             :  *   Copyright (c) 2012-2022 PX4 Development Team. All rights reserved.</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             :  *</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             :  * Redistribution and use in source and binary forms, with or without</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             :  * modification, are permitted provided that the following conditions</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             :  * are met:</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             :  *</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             :  * 1. Redistributions of source code must retain the above copyright</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             :  *    notice, this list of conditions and the following disclaimer.</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             :  * 2. Redistributions in binary form must reproduce the above copyright</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             :  *    notice, this list of conditions and the following disclaimer in</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             :  *    the documentation and/or other materials provided with the</span>
+<span id="L14"><span class="lineNum">      14</span>                 :             :  *    distribution.</span>
+<span id="L15"><span class="lineNum">      15</span>                 :             :  * 3. Neither the name PX4 nor the names of its contributors may be</span>
+<span id="L16"><span class="lineNum">      16</span>                 :             :  *    used to endorse or promote products derived from this software</span>
+<span id="L17"><span class="lineNum">      17</span>                 :             :  *    without specific prior written permission.</span>
+<span id="L18"><span class="lineNum">      18</span>                 :             :  *</span>
+<span id="L19"><span class="lineNum">      19</span>                 :             :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span id="L20"><span class="lineNum">      20</span>                 :             :  * &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span id="L21"><span class="lineNum">      21</span>                 :             :  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS</span>
+<span id="L22"><span class="lineNum">      22</span>                 :             :  * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE</span>
+<span id="L23"><span class="lineNum">      23</span>                 :             :  * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,</span>
+<span id="L24"><span class="lineNum">      24</span>                 :             :  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,</span>
+<span id="L25"><span class="lineNum">      25</span>                 :             :  * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS</span>
+<span id="L26"><span class="lineNum">      26</span>                 :             :  * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED</span>
+<span id="L27"><span class="lineNum">      27</span>                 :             :  * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT</span>
+<span id="L28"><span class="lineNum">      28</span>                 :             :  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN</span>
+<span id="L29"><span class="lineNum">      29</span>                 :             :  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</span>
+<span id="L30"><span class="lineNum">      30</span>                 :             :  * POSSIBILITY OF SUCH DAMAGE.</span>
+<span id="L31"><span class="lineNum">      31</span>                 :             :  *</span>
+<span id="L32"><span class="lineNum">      32</span>                 :             :  ****************************************************************************/</span>
+<span id="L33"><span class="lineNum">      33</span>                 :             : </span>
+<span id="L34"><span class="lineNum">      34</span>                 :             : /**</span>
+<span id="L35"><span class="lineNum">      35</span>                 :             :  * @file mavlink_messages.cpp</span>
+<span id="L36"><span class="lineNum">      36</span>                 :             :  * MAVLink 2.0 message formatters implementation.</span>
+<span id="L37"><span class="lineNum">      37</span>                 :             :  *</span>
+<span id="L38"><span class="lineNum">      38</span>                 :             :  * @author Lorenz Meier &lt;lorenz@px4.io&gt;</span>
+<span id="L39"><span class="lineNum">      39</span>                 :             :  * @author Anton Babushkin &lt;anton.babushkin@me.com&gt;</span>
+<span id="L40"><span class="lineNum">      40</span>                 :             :  */</span>
+<span id="L41"><span class="lineNum">      41</span>                 :             : </span>
+<span id="L42"><span class="lineNum">      42</span>                 :             : #include &quot;mavlink_main.h&quot;</span>
+<span id="L43"><span class="lineNum">      43</span>                 :             : #include &quot;mavlink_messages.h&quot;</span>
+<span id="L44"><span class="lineNum">      44</span>                 :             : #include &quot;mavlink_command_sender.h&quot;</span>
+<span id="L45"><span class="lineNum">      45</span>                 :             : #include &quot;mavlink_simple_analyzer.h&quot;</span>
+<span id="L46"><span class="lineNum">      46</span>                 :             : </span>
+<span id="L47"><span class="lineNum">      47</span>                 :             : #include &lt;drivers/drv_pwm_output.h&gt;</span>
+<span id="L48"><span class="lineNum">      48</span>                 :             : #include &lt;lib/conversion/rotation.h&gt;</span>
+<span id="L49"><span class="lineNum">      49</span>                 :             : #include &lt;lib/geo/geo.h&gt;</span>
+<span id="L50"><span class="lineNum">      50</span>                 :             : #include &lt;lib/mathlib/mathlib.h&gt;</span>
+<span id="L51"><span class="lineNum">      51</span>                 :             : #include &lt;lib/matrix/matrix/math.hpp&gt;</span>
+<span id="L52"><span class="lineNum">      52</span>                 :             : #include &lt;px4_platform_common/time.h&gt;</span>
+<span id="L53"><span class="lineNum">      53</span>                 :             : #include &lt;math.h&gt;</span>
+<span id="L54"><span class="lineNum">      54</span>                 :             : </span>
+<span id="L55"><span class="lineNum">      55</span>                 :             : #include &lt;uORB/Subscription.hpp&gt;</span>
+<span id="L56"><span class="lineNum">      56</span>                 :             : #include &lt;uORB/SubscriptionMultiArray.hpp&gt;</span>
+<span id="L57"><span class="lineNum">      57</span>                 :             : #include &lt;uORB/topics/vehicle_status.h&gt;</span>
+<span id="L58"><span class="lineNum">      58</span>                 :             : </span>
+<span id="L59"><span class="lineNum">      59</span>                 :             : #include &quot;streams/ACTUATOR_OUTPUT_STATUS.hpp&quot;</span>
+<span id="L60"><span class="lineNum">      60</span>                 :             : #include &quot;streams/ALTITUDE.hpp&quot;</span>
+<span id="L61"><span class="lineNum">      61</span>                 :             : #include &quot;streams/ATTITUDE.hpp&quot;</span>
+<span id="L62"><span class="lineNum">      62</span>                 :             : #include &quot;streams/ATTITUDE_QUATERNION.hpp&quot;</span>
+<span id="L63"><span class="lineNum">      63</span>                 :             : #include &quot;streams/ATTITUDE_TARGET.hpp&quot;</span>
+<span id="L64"><span class="lineNum">      64</span>                 :             : #include &quot;streams/AUTOPILOT_VERSION.hpp&quot;</span>
+<span id="L65"><span class="lineNum">      65</span>                 :             : #include &quot;streams/BATTERY_STATUS.hpp&quot;</span>
+<span id="L66"><span class="lineNum">      66</span>                 :             : #include &quot;streams/CAMERA_IMAGE_CAPTURED.hpp&quot;</span>
+<span id="L67"><span class="lineNum">      67</span>                 :             : #include &quot;streams/CAMERA_TRIGGER.hpp&quot;</span>
+<span id="L68"><span class="lineNum">      68</span>                 :             : #include &quot;streams/COMMAND_LONG.hpp&quot;</span>
+<span id="L69"><span class="lineNum">      69</span>                 :             : #include &quot;streams/COMPONENT_INFORMATION.hpp&quot;</span>
+<span id="L70"><span class="lineNum">      70</span>                 :             : #include &quot;streams/COMPONENT_METADATA.hpp&quot;</span>
+<span id="L71"><span class="lineNum">      71</span>                 :             : #include &quot;streams/DISTANCE_SENSOR.hpp&quot;</span>
+<span id="L72"><span class="lineNum">      72</span>                 :             : #include &quot;streams/EFI_STATUS.hpp&quot;</span>
+<span id="L73"><span class="lineNum">      73</span>                 :             : #include &quot;streams/ESC_INFO.hpp&quot;</span>
+<span id="L74"><span class="lineNum">      74</span>                 :             : #include &quot;streams/ESC_STATUS.hpp&quot;</span>
+<span id="L75"><span class="lineNum">      75</span>                 :             : #include &quot;streams/ESTIMATOR_STATUS.hpp&quot;</span>
+<span id="L76"><span class="lineNum">      76</span>                 :             : #include &quot;streams/EXTENDED_SYS_STATE.hpp&quot;</span>
+<span id="L77"><span class="lineNum">      77</span>                 :             : #include &quot;streams/FLIGHT_INFORMATION.hpp&quot;</span>
+<span id="L78"><span class="lineNum">      78</span>                 :             : #if defined(MAVLINK_MSG_ID_GLOBAL_POSITION)</span>
+<span id="L79"><span class="lineNum">      79</span>                 :             : #include &quot;streams/GLOBAL_POSITION.hpp&quot;</span>
+<span id="L80"><span class="lineNum">      80</span>                 :             : #endif //MAVLINK_MSG_ID_GLOBAL_POSITION</span>
+<span id="L81"><span class="lineNum">      81</span>                 :             : #include &quot;streams/GLOBAL_POSITION_INT.hpp&quot;</span>
+<span id="L82"><span class="lineNum">      82</span>                 :             : #if defined(MAVLINK_MSG_ID_GNSS_INTEGRITY)</span>
+<span id="L83"><span class="lineNum">      83</span>                 :             : #include &quot;streams/GNSS_INTEGRITY.hpp&quot;</span>
+<span id="L84"><span class="lineNum">      84</span>                 :             : #endif</span>
+<span id="L85"><span class="lineNum">      85</span>                 :             : #include &quot;streams/GPS_GLOBAL_ORIGIN.hpp&quot;</span>
+<span id="L86"><span class="lineNum">      86</span>                 :             : #include &quot;streams/GPS_RAW_INT.hpp&quot;</span>
+<span id="L87"><span class="lineNum">      87</span>                 :             : #include &quot;streams/GPS_RTCM_DATA.hpp&quot;</span>
+<span id="L88"><span class="lineNum">      88</span>                 :             : #include &quot;streams/GPS_STATUS.hpp&quot;</span>
+<span id="L89"><span class="lineNum">      89</span>                 :             : #include &quot;streams/HEARTBEAT.hpp&quot;</span>
+<span id="L90"><span class="lineNum">      90</span>                 :             : #include &quot;streams/HIGHRES_IMU.hpp&quot;</span>
+<span id="L91"><span class="lineNum">      91</span>                 :             : #include &quot;streams/HIL_ACTUATOR_CONTROLS.hpp&quot;</span>
+<span id="L92"><span class="lineNum">      92</span>                 :             : #include &quot;streams/HIL_STATE_QUATERNION.hpp&quot;</span>
+<span id="L93"><span class="lineNum">      93</span>                 :             : #include &quot;streams/HOME_POSITION.hpp&quot;</span>
+<span id="L94"><span class="lineNum">      94</span>                 :             : #include &quot;streams/HYGROMETER_SENSOR.hpp&quot;</span>
+<span id="L95"><span class="lineNum">      95</span>                 :             : #include &quot;streams/LANDING_TARGET.hpp&quot;</span>
+<span id="L96"><span class="lineNum">      96</span>                 :             : #include &quot;streams/LOCAL_POSITION_NED.hpp&quot;</span>
+<span id="L97"><span class="lineNum">      97</span>                 :             : #include &quot;streams/MAG_CAL_REPORT.hpp&quot;</span>
+<span id="L98"><span class="lineNum">      98</span>                 :             : #include &quot;streams/MANUAL_CONTROL.hpp&quot;</span>
+<span id="L99"><span class="lineNum">      99</span>                 :             : #include &quot;streams/MOUNT_ORIENTATION.hpp&quot;</span>
+<span id="L100"><span class="lineNum">     100</span>                 :             : #include &quot;streams/NAV_CONTROLLER_OUTPUT.hpp&quot;</span>
+<span id="L101"><span class="lineNum">     101</span>                 :             : #include &quot;streams/OBSTACLE_DISTANCE.hpp&quot;</span>
+<span id="L102"><span class="lineNum">     102</span>                 :             : #include &quot;streams/OPEN_DRONE_ID_BASIC_ID.hpp&quot;</span>
+<span id="L103"><span class="lineNum">     103</span>                 :             : #include &quot;streams/OPEN_DRONE_ID_LOCATION.hpp&quot;</span>
+<span id="L104"><span class="lineNum">     104</span>                 :             : #include &quot;streams/OPEN_DRONE_ID_SYSTEM.hpp&quot;</span>
+<span id="L105"><span class="lineNum">     105</span>                 :             : #include &quot;streams/OPEN_DRONE_ID_ARM_STATUS.hpp&quot;</span>
+<span id="L106"><span class="lineNum">     106</span>                 :             : #include &quot;streams/OPTICAL_FLOW_RAD.hpp&quot;</span>
+<span id="L107"><span class="lineNum">     107</span>                 :             : #include &quot;streams/ORBIT_EXECUTION_STATUS.hpp&quot;</span>
+<span id="L108"><span class="lineNum">     108</span>                 :             : #include &quot;streams/PING.hpp&quot;</span>
+<span id="L109"><span class="lineNum">     109</span>                 :             : #include &quot;streams/POSITION_TARGET_GLOBAL_INT.hpp&quot;</span>
+<span id="L110"><span class="lineNum">     110</span>                 :             : #include &quot;streams/POSITION_TARGET_LOCAL_NED.hpp&quot;</span>
+<span id="L111"><span class="lineNum">     111</span>                 :             : #include &quot;streams/PROTOCOL_VERSION.hpp&quot;</span>
+<span id="L112"><span class="lineNum">     112</span>                 :             : #include &quot;streams/RAW_RPM.hpp&quot;</span>
+<span id="L113"><span class="lineNum">     113</span>                 :             : #include &quot;streams/RC_CHANNELS.hpp&quot;</span>
+<span id="L114"><span class="lineNum">     114</span>                 :             : #include &quot;streams/SCALED_IMU.hpp&quot;</span>
+<span id="L115"><span class="lineNum">     115</span>                 :             : #include &quot;streams/SCALED_IMU2.hpp&quot;</span>
+<span id="L116"><span class="lineNum">     116</span>                 :             : #include &quot;streams/SCALED_IMU3.hpp&quot;</span>
+<span id="L117"><span class="lineNum">     117</span>                 :             : #include &quot;streams/SCALED_PRESSURE.hpp&quot;</span>
+<span id="L118"><span class="lineNum">     118</span>                 :             : #include &quot;streams/SERVO_OUTPUT_RAW.hpp&quot;</span>
+<span id="L119"><span class="lineNum">     119</span>                 :             : #include &quot;streams/STATUSTEXT.hpp&quot;</span>
+<span id="L120"><span class="lineNum">     120</span>                 :             : #include &quot;streams/STORAGE_INFORMATION.hpp&quot;</span>
+<span id="L121"><span class="lineNum">     121</span>                 :             : #include &quot;streams/SYS_STATUS.hpp&quot;</span>
+<span id="L122"><span class="lineNum">     122</span>                 :             : #include &quot;streams/SYSTEM_TIME.hpp&quot;</span>
+<span id="L123"><span class="lineNum">     123</span>                 :             : #include &quot;streams/TIME_ESTIMATE_TO_TARGET.hpp&quot;</span>
+<span id="L124"><span class="lineNum">     124</span>                 :             : #include &quot;streams/TIMESYNC.hpp&quot;</span>
+<span id="L125"><span class="lineNum">     125</span>                 :             : #include &quot;streams/VFR_HUD.hpp&quot;</span>
+<span id="L126"><span class="lineNum">     126</span>                 :             : #include &quot;streams/VIBRATION.hpp&quot;</span>
+<span id="L127"><span class="lineNum">     127</span>                 :             : #include &quot;streams/WIND_COV.hpp&quot;</span>
+<span id="L128"><span class="lineNum">     128</span>                 :             : #if defined(MAVLINK_MSG_ID_FIGURE_EIGHT_EXECUTION_STATUS)</span>
+<span id="L129"><span class="lineNum">     129</span>                 :             : #include &quot;streams/FIGURE_EIGHT_EXECUTION_STATUS.hpp&quot;</span>
+<span id="L130"><span class="lineNum">     130</span>                 :             : #endif // MAVLINK_MSG_ID_FIGURE_EIGHT_EXECUTION_STATUS</span>
+<span id="L131"><span class="lineNum">     131</span>                 :             : #if defined(MAVLINK_MSG_ID_FUEL_STATUS)</span>
+<span id="L132"><span class="lineNum">     132</span>                 :             : #include &quot;streams/FUEL_STATUS.hpp&quot;</span>
+<span id="L133"><span class="lineNum">     133</span>                 :             : #endif // MAVLINK_MSG_ID_FUEL_STATUS</span>
+<span id="L134"><span class="lineNum">     134</span>                 :             : </span>
+<span id="L135"><span class="lineNum">     135</span>                 :             : #ifdef MAVLINK_MSG_ID_AVAILABLE_MODES // Only defined if development.xml is used</span>
+<span id="L136"><span class="lineNum">     136</span>                 :             : #include &quot;streams/AVAILABLE_MODES.hpp&quot;</span>
+<span id="L137"><span class="lineNum">     137</span>                 :             : #include &quot;streams/CURRENT_MODE.hpp&quot;</span>
+<span id="L138"><span class="lineNum">     138</span>                 :             : #endif</span>
+<span id="L139"><span class="lineNum">     139</span>                 :             : </span>
+<span id="L140"><span class="lineNum">     140</span>                 :             : #if !defined(CONSTRAINED_FLASH)</span>
+<span id="L141"><span class="lineNum">     141</span>                 :             : # include &quot;streams/ADSB_VEHICLE.hpp&quot;</span>
+<span id="L142"><span class="lineNum">     142</span>                 :             : # include &quot;streams/AUTOPILOT_STATE_FOR_GIMBAL_DEVICE.hpp&quot;</span>
+<span id="L143"><span class="lineNum">     143</span>                 :             : # include &quot;streams/BATTERY_INFO.hpp&quot;</span>
+<span id="L144"><span class="lineNum">     144</span>                 :             : # include &quot;streams/DEBUG.hpp&quot;</span>
+<span id="L145"><span class="lineNum">     145</span>                 :             : # include &quot;streams/DEBUG_FLOAT_ARRAY.hpp&quot;</span>
+<span id="L146"><span class="lineNum">     146</span>                 :             : # include &quot;streams/DEBUG_VECT.hpp&quot;</span>
+<span id="L147"><span class="lineNum">     147</span>                 :             : # include &quot;streams/GIMBAL_DEVICE_ATTITUDE_STATUS.hpp&quot;</span>
+<span id="L148"><span class="lineNum">     148</span>                 :             : # include &quot;streams/GIMBAL_DEVICE_SET_ATTITUDE.hpp&quot;</span>
+<span id="L149"><span class="lineNum">     149</span>                 :             : # include &quot;streams/GIMBAL_MANAGER_INFORMATION.hpp&quot;</span>
+<span id="L150"><span class="lineNum">     150</span>                 :             : # include &quot;streams/GIMBAL_MANAGER_STATUS.hpp&quot;</span>
+<span id="L151"><span class="lineNum">     151</span>                 :             : # include &quot;streams/GIMBAL_DEVICE_INFORMATION.hpp&quot;</span>
+<span id="L152"><span class="lineNum">     152</span>                 :             : # include &quot;streams/GPS2_RAW.hpp&quot;</span>
+<span id="L153"><span class="lineNum">     153</span>                 :             : # include &quot;streams/HIGH_LATENCY2.hpp&quot;</span>
+<span id="L154"><span class="lineNum">     154</span>                 :             : # include &quot;streams/LINK_NODE_STATUS.hpp&quot;</span>
+<span id="L155"><span class="lineNum">     155</span>                 :             : # include &quot;streams/NAMED_VALUE_FLOAT.hpp&quot;</span>
+<span id="L156"><span class="lineNum">     156</span>                 :             : # include &quot;streams/ODOMETRY.hpp&quot;</span>
+<span id="L157"><span class="lineNum">     157</span>                 :             : # include &quot;streams/SCALED_PRESSURE2.hpp&quot;</span>
+<span id="L158"><span class="lineNum">     158</span>                 :             : # include &quot;streams/SCALED_PRESSURE3.hpp&quot;</span>
+<span id="L159"><span class="lineNum">     159</span>                 :             : # include &quot;streams/UAVIONIX_ADSB_OUT_CFG.hpp&quot;</span>
+<span id="L160"><span class="lineNum">     160</span>                 :             : # include &quot;streams/UAVIONIX_ADSB_OUT_DYNAMIC.hpp&quot;</span>
+<span id="L161"><span class="lineNum">     161</span>                 :             : #endif // !CONSTRAINED_FLASH</span>
+<span id="L162"><span class="lineNum">     162</span>                 :             : </span>
+<span id="L163"><span class="lineNum">     163</span>                 :             : // ensure PX4 rotation enum and MAV_SENSOR_ROTATION align</span>
+<span id="L164"><span class="lineNum">     164</span>                 :             : static_assert(MAV_SENSOR_ROTATION_NONE == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_NONE),</span>
+<span id="L165"><span class="lineNum">     165</span>                 :             :               &quot;Roll: 0, Pitch: 0, Yaw: 0&quot;);</span>
+<span id="L166"><span class="lineNum">     166</span>                 :             : static_assert(MAV_SENSOR_ROTATION_YAW_45 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_YAW_45),</span>
+<span id="L167"><span class="lineNum">     167</span>                 :             :               &quot;Roll: 0, Pitch: 0, Yaw: 45&quot;);</span>
+<span id="L168"><span class="lineNum">     168</span>                 :             : static_assert(MAV_SENSOR_ROTATION_YAW_90 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_YAW_90),</span>
+<span id="L169"><span class="lineNum">     169</span>                 :             :               &quot;Roll: 0, Pitch: 0, Yaw: 90&quot;);</span>
+<span id="L170"><span class="lineNum">     170</span>                 :             : static_assert(MAV_SENSOR_ROTATION_YAW_135 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_YAW_135),</span>
+<span id="L171"><span class="lineNum">     171</span>                 :             :               &quot;Roll: 0, Pitch: 0, Yaw: 135&quot;);</span>
+<span id="L172"><span class="lineNum">     172</span>                 :             : static_assert(MAV_SENSOR_ROTATION_YAW_180 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_YAW_180),</span>
+<span id="L173"><span class="lineNum">     173</span>                 :             :               &quot;Roll: 0, Pitch: 0, Yaw: 180&quot;);</span>
+<span id="L174"><span class="lineNum">     174</span>                 :             : static_assert(MAV_SENSOR_ROTATION_YAW_225 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_YAW_225),</span>
+<span id="L175"><span class="lineNum">     175</span>                 :             :               &quot;Roll: 0, Pitch: 0, Yaw: 225&quot;);</span>
+<span id="L176"><span class="lineNum">     176</span>                 :             : static_assert(MAV_SENSOR_ROTATION_YAW_270 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_YAW_270),</span>
+<span id="L177"><span class="lineNum">     177</span>                 :             :               &quot;Roll: 0, Pitch: 0, Yaw: 270&quot;);</span>
+<span id="L178"><span class="lineNum">     178</span>                 :             : static_assert(MAV_SENSOR_ROTATION_YAW_315 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_YAW_315),</span>
+<span id="L179"><span class="lineNum">     179</span>                 :             :               &quot;Roll: 0, Pitch: 0, Yaw: 315&quot;);</span>
+<span id="L180"><span class="lineNum">     180</span>                 :             : static_assert(MAV_SENSOR_ROTATION_ROLL_180 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_ROLL_180),</span>
+<span id="L181"><span class="lineNum">     181</span>                 :             :               &quot;Roll: 180, Pitch: 0, Yaw: 0&quot;);</span>
+<span id="L182"><span class="lineNum">     182</span>                 :             : static_assert(MAV_SENSOR_ROTATION_ROLL_180_YAW_45 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_ROLL_180_YAW_45),</span>
+<span id="L183"><span class="lineNum">     183</span>                 :             :               &quot;Roll: 180, Pitch: 0, Yaw: 45&quot;);</span>
+<span id="L184"><span class="lineNum">     184</span>                 :             : static_assert(MAV_SENSOR_ROTATION_ROLL_180_YAW_90 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_ROLL_180_YAW_90),</span>
+<span id="L185"><span class="lineNum">     185</span>                 :             :               &quot;Roll: 180, Pitch: 0, Yaw: 90&quot;);</span>
+<span id="L186"><span class="lineNum">     186</span>                 :             : static_assert(MAV_SENSOR_ROTATION_ROLL_180_YAW_135 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_ROLL_180_YAW_135),</span>
+<span id="L187"><span class="lineNum">     187</span>                 :             :               &quot;Roll: 180, Pitch: 0, Yaw: 135&quot;);</span>
+<span id="L188"><span class="lineNum">     188</span>                 :             : static_assert(MAV_SENSOR_ROTATION_PITCH_180 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_PITCH_180),</span>
+<span id="L189"><span class="lineNum">     189</span>                 :             :               &quot;Roll: 0, Pitch: 180, Yaw: 0&quot;);</span>
+<span id="L190"><span class="lineNum">     190</span>                 :             : static_assert(MAV_SENSOR_ROTATION_ROLL_180_YAW_225 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_ROLL_180_YAW_225),</span>
+<span id="L191"><span class="lineNum">     191</span>                 :             :               &quot;Roll: 180, Pitch: 0, Yaw: 225&quot;);</span>
+<span id="L192"><span class="lineNum">     192</span>                 :             : static_assert(MAV_SENSOR_ROTATION_ROLL_180_YAW_270 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_ROLL_180_YAW_270),</span>
+<span id="L193"><span class="lineNum">     193</span>                 :             :               &quot;Roll: 180, Pitch: 0, Yaw: 270&quot;);</span>
+<span id="L194"><span class="lineNum">     194</span>                 :             : static_assert(MAV_SENSOR_ROTATION_ROLL_180_YAW_315 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_ROLL_180_YAW_315),</span>
+<span id="L195"><span class="lineNum">     195</span>                 :             :               &quot;Roll: 180, Pitch: 0, Yaw: 315&quot;);</span>
+<span id="L196"><span class="lineNum">     196</span>                 :             : static_assert(MAV_SENSOR_ROTATION_ROLL_90 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_ROLL_90),</span>
+<span id="L197"><span class="lineNum">     197</span>                 :             :               &quot;Roll: 90, Pitch: 0, Yaw: 0&quot;);</span>
+<span id="L198"><span class="lineNum">     198</span>                 :             : static_assert(MAV_SENSOR_ROTATION_ROLL_90_YAW_45 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_ROLL_90_YAW_45),</span>
+<span id="L199"><span class="lineNum">     199</span>                 :             :               &quot;Roll: 90, Pitch: 0, Yaw: 45&quot;);</span>
+<span id="L200"><span class="lineNum">     200</span>                 :             : static_assert(MAV_SENSOR_ROTATION_ROLL_90_YAW_90 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_ROLL_90_YAW_90),</span>
+<span id="L201"><span class="lineNum">     201</span>                 :             :               &quot;Roll: 90, Pitch: 0, Yaw: 90&quot;);</span>
+<span id="L202"><span class="lineNum">     202</span>                 :             : static_assert(MAV_SENSOR_ROTATION_ROLL_90_YAW_135 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_ROLL_90_YAW_135),</span>
+<span id="L203"><span class="lineNum">     203</span>                 :             :               &quot;Roll: 90, Pitch: 0, Yaw: 135&quot;);</span>
+<span id="L204"><span class="lineNum">     204</span>                 :             : static_assert(MAV_SENSOR_ROTATION_ROLL_270 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_ROLL_270),</span>
+<span id="L205"><span class="lineNum">     205</span>                 :             :               &quot;Roll: 270, Pitch: 0, Yaw: 0&quot;);</span>
+<span id="L206"><span class="lineNum">     206</span>                 :             : static_assert(MAV_SENSOR_ROTATION_ROLL_270_YAW_45 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_ROLL_270_YAW_45),</span>
+<span id="L207"><span class="lineNum">     207</span>                 :             :               &quot;Roll: 270, Pitch: 0, Yaw: 45&quot;);</span>
+<span id="L208"><span class="lineNum">     208</span>                 :             : static_assert(MAV_SENSOR_ROTATION_ROLL_270_YAW_90 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_ROLL_270_YAW_90),</span>
+<span id="L209"><span class="lineNum">     209</span>                 :             :               &quot;Roll: 270, Pitch: 0, Yaw: 90&quot;);</span>
+<span id="L210"><span class="lineNum">     210</span>                 :             : static_assert(MAV_SENSOR_ROTATION_ROLL_270_YAW_135 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_ROLL_270_YAW_135),</span>
+<span id="L211"><span class="lineNum">     211</span>                 :             :               &quot;Roll: 270, Pitch: 0, Yaw: 135&quot;);</span>
+<span id="L212"><span class="lineNum">     212</span>                 :             : static_assert(MAV_SENSOR_ROTATION_PITCH_90 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_PITCH_90),</span>
+<span id="L213"><span class="lineNum">     213</span>                 :             :               &quot;Roll: 0, Pitch: 90, Yaw: 0&quot;);</span>
+<span id="L214"><span class="lineNum">     214</span>                 :             : static_assert(MAV_SENSOR_ROTATION_PITCH_270 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_PITCH_270),</span>
+<span id="L215"><span class="lineNum">     215</span>                 :             :               &quot;Roll: 0, Pitch: 270, Yaw: 0&quot;);</span>
+<span id="L216"><span class="lineNum">     216</span>                 :             : static_assert(MAV_SENSOR_ROTATION_PITCH_180_YAW_90 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_PITCH_180_YAW_90),</span>
+<span id="L217"><span class="lineNum">     217</span>                 :             :               &quot;Roll: 0, Pitch: 180, Yaw: 90&quot;);</span>
+<span id="L218"><span class="lineNum">     218</span>                 :             : static_assert(MAV_SENSOR_ROTATION_PITCH_180_YAW_270 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_PITCH_180_YAW_270),</span>
+<span id="L219"><span class="lineNum">     219</span>                 :             :               &quot;Roll: 0, Pitch: 180, Yaw: 270&quot;);</span>
+<span id="L220"><span class="lineNum">     220</span>                 :             : static_assert(MAV_SENSOR_ROTATION_ROLL_90_PITCH_90 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_ROLL_90_PITCH_90),</span>
+<span id="L221"><span class="lineNum">     221</span>                 :             :               &quot;Roll: 90, Pitch: 90, Yaw: 0&quot;);</span>
+<span id="L222"><span class="lineNum">     222</span>                 :             : static_assert(MAV_SENSOR_ROTATION_ROLL_180_PITCH_90 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_ROLL_180_PITCH_90),</span>
+<span id="L223"><span class="lineNum">     223</span>                 :             :               &quot;Roll: 180, Pitch: 90, Yaw: 0&quot;);</span>
+<span id="L224"><span class="lineNum">     224</span>                 :             : static_assert(MAV_SENSOR_ROTATION_ROLL_270_PITCH_90 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_ROLL_270_PITCH_90),</span>
+<span id="L225"><span class="lineNum">     225</span>                 :             :               &quot;Roll: 270, Pitch: 90, Yaw: 0&quot;);</span>
+<span id="L226"><span class="lineNum">     226</span>                 :             : static_assert(MAV_SENSOR_ROTATION_ROLL_90_PITCH_180 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_ROLL_90_PITCH_180),</span>
+<span id="L227"><span class="lineNum">     227</span>                 :             :               &quot;Roll: 90, Pitch: 180, Yaw: 0&quot;);</span>
+<span id="L228"><span class="lineNum">     228</span>                 :             : static_assert(MAV_SENSOR_ROTATION_ROLL_270_PITCH_180 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;</span>
+<span id="L229"><span class="lineNum">     229</span>                 :             :               (ROTATION_ROLL_270_PITCH_180), &quot;Roll: 270, Pitch: 180, Yaw: 0&quot;);</span>
+<span id="L230"><span class="lineNum">     230</span>                 :             : static_assert(MAV_SENSOR_ROTATION_ROLL_90_PITCH_270 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_ROLL_90_PITCH_270),</span>
+<span id="L231"><span class="lineNum">     231</span>                 :             :               &quot;Roll: 90, Pitch: 270, Yaw: 0&quot;);</span>
+<span id="L232"><span class="lineNum">     232</span>                 :             : static_assert(MAV_SENSOR_ROTATION_ROLL_180_PITCH_270 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;</span>
+<span id="L233"><span class="lineNum">     233</span>                 :             :               (ROTATION_ROLL_180_PITCH_270), &quot;Roll: 180, Pitch: 270, Yaw: 0&quot;);</span>
+<span id="L234"><span class="lineNum">     234</span>                 :             : static_assert(MAV_SENSOR_ROTATION_ROLL_270_PITCH_270 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;</span>
+<span id="L235"><span class="lineNum">     235</span>                 :             :               (ROTATION_ROLL_270_PITCH_270), &quot;Roll: 270, Pitch: 270, Yaw: 0&quot;);</span>
+<span id="L236"><span class="lineNum">     236</span>                 :             : static_assert(MAV_SENSOR_ROTATION_ROLL_90_PITCH_180_YAW_90 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;</span>
+<span id="L237"><span class="lineNum">     237</span>                 :             :               (ROTATION_ROLL_90_PITCH_180_YAW_90),</span>
+<span id="L238"><span class="lineNum">     238</span>                 :             :               &quot;Roll: 90, Pitch: 180, Yaw: 90&quot;);</span>
+<span id="L239"><span class="lineNum">     239</span>                 :             : static_assert(MAV_SENSOR_ROTATION_ROLL_90_YAW_270 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_ROLL_90_YAW_270),</span>
+<span id="L240"><span class="lineNum">     240</span>                 :             :               &quot;Roll: 90, Pitch: 0, Yaw: 270&quot;);</span>
+<span id="L241"><span class="lineNum">     241</span>                 :             : static_assert(MAV_SENSOR_ROTATION_ROLL_90_PITCH_68_YAW_293 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;</span>
+<span id="L242"><span class="lineNum">     242</span>                 :             :               (ROTATION_ROLL_90_PITCH_68_YAW_293),</span>
+<span id="L243"><span class="lineNum">     243</span>                 :             :               &quot;Roll: 90, Pitch: 68, Yaw: 293&quot;);</span>
+<span id="L244"><span class="lineNum">     244</span>                 :             : static_assert(MAV_SENSOR_ROTATION_PITCH_315 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_PITCH_315), &quot;Pitch: 315&quot;);</span>
+<span id="L245"><span class="lineNum">     245</span>                 :             : static_assert(MAV_SENSOR_ROTATION_ROLL_90_PITCH_315 == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_ROLL_90_PITCH_315),</span>
+<span id="L246"><span class="lineNum">     246</span>                 :             :               &quot;Roll: 90, Pitch: 315&quot;);</span>
+<span id="L247"><span class="lineNum">     247</span>                 :             : </span>
+<span id="L248"><span class="lineNum">     248</span>                 :             : // Note: Update the number (41, as of writing) below to the number of 'normal' rotation enums in MAVLink spec:</span>
+<span id="L249"><span class="lineNum">     249</span>                 :             : // https://mavlink.io/en/messages/common.html#MAV_SENSOR_ORIENTATION</span>
+<span id="L250"><span class="lineNum">     250</span>                 :             : static_assert(41 == ROTATION_MAX, &quot;Keep MAV_SENSOR_ROTATION and PX4 Rotation in sync&quot;);</span>
+<span id="L251"><span class="lineNum">     251</span>                 :             : </span>
+<span id="L252"><span class="lineNum">     252</span>                 :             : static_assert(MAV_SENSOR_ROTATION_CUSTOM == static_cast&lt;MAV_SENSOR_ORIENTATION&gt;(ROTATION_CUSTOM), &quot;Custom Rotation&quot;);</span>
+<span id="L253"><span class="lineNum">     253</span>                 :             : </span>
+<span id="L254"><span class="lineNum">     254</span>                 :             : </span>
+<span id="L255"><span class="lineNum">     255</span>                 :             : static const StreamListItem streams_list[] = {</span>
+<span id="L256"><span class="lineNum">     256</span>                 :             : #if defined(HEARTBEAT_HPP)</span>
+<span id="L257"><span class="lineNum">     257</span>                 :             :         create_stream_list_item&lt;MavlinkStreamHeartbeat&gt;(),</span>
+<span id="L258"><span class="lineNum">     258</span>                 :             : #endif // HEARTBEAT_HPP</span>
+<span id="L259"><span class="lineNum">     259</span>                 :             : #if defined(STATUSTEXT_HPP)</span>
+<span id="L260"><span class="lineNum">     260</span>                 :             :         create_stream_list_item&lt;MavlinkStreamStatustext&gt;(),</span>
+<span id="L261"><span class="lineNum">     261</span>                 :             : #endif // STATUSTEXT_HPP</span>
+<span id="L262"><span class="lineNum">     262</span>                 :             : #if defined(COMMAND_LONG_HPP)</span>
+<span id="L263"><span class="lineNum">     263</span>                 :             :         create_stream_list_item&lt;MavlinkStreamCommandLong&gt;(),</span>
+<span id="L264"><span class="lineNum">     264</span>                 :             : #endif // COMMAND_LONG_HPP</span>
+<span id="L265"><span class="lineNum">     265</span>                 :             : #if defined(SYS_STATUS_HPP)</span>
+<span id="L266"><span class="lineNum">     266</span>                 :             :         create_stream_list_item&lt;MavlinkStreamSysStatus&gt;(),</span>
+<span id="L267"><span class="lineNum">     267</span>                 :             : #endif // SYS_STATUS_HPP</span>
+<span id="L268"><span class="lineNum">     268</span>                 :             :         create_stream_list_item&lt;MavlinkStreamBatteryStatus&gt;(),</span>
+<span id="L269"><span class="lineNum">     269</span>                 :             : #if defined(BATTERY_INFO_HPP)</span>
+<span id="L270"><span class="lineNum">     270</span>                 :             :         create_stream_list_item&lt;MavlinkStreamBatteryInfo&gt;(),</span>
+<span id="L271"><span class="lineNum">     271</span>                 :             : #endif // BATTERY_INFO_HPP</span>
+<span id="L272"><span class="lineNum">     272</span>                 :             : #if defined(HIGHRES_IMU_HPP)</span>
+<span id="L273"><span class="lineNum">     273</span>                 :             :         create_stream_list_item&lt;MavlinkStreamHighresIMU&gt;(),</span>
+<span id="L274"><span class="lineNum">     274</span>                 :             : #endif // HIGHRES_IMU_HPP</span>
+<span id="L275"><span class="lineNum">     275</span>                 :             : #if defined(SCALED_IMU_HPP)</span>
+<span id="L276"><span class="lineNum">     276</span>                 :             :         create_stream_list_item&lt;MavlinkStreamScaledIMU&gt;(),</span>
+<span id="L277"><span class="lineNum">     277</span>                 :             : #endif // SCALED_IMU_HPP</span>
+<span id="L278"><span class="lineNum">     278</span>                 :             : #if defined(SCALED_IMU2_HPP)</span>
+<span id="L279"><span class="lineNum">     279</span>                 :             :         create_stream_list_item&lt;MavlinkStreamScaledIMU2&gt;(),</span>
+<span id="L280"><span class="lineNum">     280</span>                 :             : #endif // SCALED_IMU2_HPP</span>
+<span id="L281"><span class="lineNum">     281</span>                 :             : #if defined(SCALED_IMU3_HPP)</span>
+<span id="L282"><span class="lineNum">     282</span>                 :             :         create_stream_list_item&lt;MavlinkStreamScaledIMU3&gt;(),</span>
+<span id="L283"><span class="lineNum">     283</span>                 :             : #endif // SCALED_IMU3_HPP</span>
+<span id="L284"><span class="lineNum">     284</span>                 :             : #if defined(SCALED_PRESSURE_HPP)</span>
+<span id="L285"><span class="lineNum">     285</span>                 :             :         create_stream_list_item&lt;MavlinkStreamScaledPressure&gt;(),</span>
+<span id="L286"><span class="lineNum">     286</span>                 :             : #endif // SCALED_PRESSURE</span>
+<span id="L287"><span class="lineNum">     287</span>                 :             : #if defined(SCALED_PRESSURE2_HPP)</span>
+<span id="L288"><span class="lineNum">     288</span>                 :             :         create_stream_list_item&lt;MavlinkStreamScaledPressure2&gt;(),</span>
+<span id="L289"><span class="lineNum">     289</span>                 :             : #endif // SCALED_PRESSURE2</span>
+<span id="L290"><span class="lineNum">     290</span>                 :             : #if defined(SCALED_PRESSURE3_HPP)</span>
+<span id="L291"><span class="lineNum">     291</span>                 :             :         create_stream_list_item&lt;MavlinkStreamScaledPressure3&gt;(),</span>
+<span id="L292"><span class="lineNum">     292</span>                 :             : #endif // SCALED_PRESSURE3</span>
+<span id="L293"><span class="lineNum">     293</span>                 :             : #if defined(ACTUATOR_OUTPUT_STATUS_HPP)</span>
+<span id="L294"><span class="lineNum">     294</span>                 :             :         create_stream_list_item&lt;MavlinkStreamActuatorOutputStatus&gt;(),</span>
+<span id="L295"><span class="lineNum">     295</span>                 :             : #endif // ACTUATOR_OUTPUT_STATUS_HPP</span>
+<span id="L296"><span class="lineNum">     296</span>                 :             : #if defined(ATTITUDE_HPP)</span>
+<span id="L297"><span class="lineNum">     297</span>                 :             :         create_stream_list_item&lt;MavlinkStreamAttitude&gt;(),</span>
+<span id="L298"><span class="lineNum">     298</span>                 :             : #endif // ATTITUDE_HPP</span>
+<span id="L299"><span class="lineNum">     299</span>                 :             : #if defined(ATTITUDE_QUATERNION_HPP)</span>
+<span id="L300"><span class="lineNum">     300</span>                 :             :         create_stream_list_item&lt;MavlinkStreamAttitudeQuaternion&gt;(),</span>
+<span id="L301"><span class="lineNum">     301</span>                 :             : #endif // ATTITUDE_QUATERNION_HPP</span>
+<span id="L302"><span class="lineNum">     302</span>                 :             : #if defined(VFR_HUD_HPP)</span>
+<span id="L303"><span class="lineNum">     303</span>                 :             :         create_stream_list_item&lt;MavlinkStreamVFRHUD&gt;(),</span>
+<span id="L304"><span class="lineNum">     304</span>                 :             : #endif // VFR_HUD_HPP</span>
+<span id="L305"><span class="lineNum">     305</span>                 :             : #if defined(GPS_GLOBAL_ORIGIN_HPP)</span>
+<span id="L306"><span class="lineNum">     306</span>                 :             :         create_stream_list_item&lt;MavlinkStreamGpsGlobalOrigin&gt;(),</span>
+<span id="L307"><span class="lineNum">     307</span>                 :             : #endif // GPS_GLOBAL_ORIGIN_HPP</span>
+<span id="L308"><span class="lineNum">     308</span>                 :             : #if defined(GPS_RAW_INT_HPP)</span>
+<span id="L309"><span class="lineNum">     309</span>                 :             :         create_stream_list_item&lt;MavlinkStreamGPSRawInt&gt;(),</span>
+<span id="L310"><span class="lineNum">     310</span>                 :             : #endif // GPS_RAW_INT_HPP</span>
+<span id="L311"><span class="lineNum">     311</span>                 :             : #if defined(GPS2_RAW_HPP)</span>
+<span id="L312"><span class="lineNum">     312</span>                 :             :         create_stream_list_item&lt;MavlinkStreamGPS2Raw&gt;(),</span>
+<span id="L313"><span class="lineNum">     313</span>                 :             : #endif // GPS2_RAW_HPP</span>
+<span id="L314"><span class="lineNum">     314</span>                 :             : #if defined(SYSTEM_TIME_HPP)</span>
+<span id="L315"><span class="lineNum">     315</span>                 :             :         create_stream_list_item&lt;MavlinkStreamSystemTime&gt;(),</span>
+<span id="L316"><span class="lineNum">     316</span>                 :             : #endif // SYSTEM_TIME_HPP</span>
+<span id="L317"><span class="lineNum">     317</span>                 :             : #if defined(TIME_ESTIMATE_TO_TARGET_HPP)</span>
+<span id="L318"><span class="lineNum">     318</span>                 :             :         create_stream_list_item&lt;MavlinkStreamTimeEstimateToTarget&gt;(),</span>
+<span id="L319"><span class="lineNum">     319</span>                 :             : #endif // TIME_ESTIMATE_TO_TARGET_HPP</span>
+<span id="L320"><span class="lineNum">     320</span>                 :             : #if defined(TIMESYNC_HPP)</span>
+<span id="L321"><span class="lineNum">     321</span>                 :             :         create_stream_list_item&lt;MavlinkStreamTimesync&gt;(),</span>
+<span id="L322"><span class="lineNum">     322</span>                 :             : #endif // TIMESYNC_HPP</span>
+<span id="L323"><span class="lineNum">     323</span>                 :             : #if defined(GLOBAL_POSITION_INT_HPP)</span>
+<span id="L324"><span class="lineNum">     324</span>                 :             :         create_stream_list_item&lt;MavlinkStreamGlobalPositionInt&gt;(),</span>
+<span id="L325"><span class="lineNum">     325</span>                 :             : #endif // GLOBAL_POSITION_INT_HPP</span>
+<span id="L326"><span class="lineNum">     326</span>                 :             : #if defined(LANDING_TARGET_HPP)</span>
+<span id="L327"><span class="lineNum">     327</span>                 :             :         create_stream_list_item&lt;MavlinkStreamLandingTarget&gt;(),</span>
+<span id="L328"><span class="lineNum">     328</span>                 :             : #endif</span>
+<span id="L329"><span class="lineNum">     329</span>                 :             : #if defined(LOCAL_POSITION_NED_HPP)</span>
+<span id="L330"><span class="lineNum">     330</span>                 :             :         create_stream_list_item&lt;MavlinkStreamLocalPositionNED&gt;(),</span>
+<span id="L331"><span class="lineNum">     331</span>                 :             : #endif // LOCAL_POSITION_NED_HPP</span>
+<span id="L332"><span class="lineNum">     332</span>                 :             : #if defined(MAG_CAL_REPORT_HPP)</span>
+<span id="L333"><span class="lineNum">     333</span>                 :             :         create_stream_list_item&lt;MavlinkStreamMagCalReport&gt;(),</span>
+<span id="L334"><span class="lineNum">     334</span>                 :             : #endif // MAG_CAL_REPORT_HPP</span>
+<span id="L335"><span class="lineNum">     335</span>                 :             : #if defined(ODOMETRY_HPP)</span>
+<span id="L336"><span class="lineNum">     336</span>                 :             :         create_stream_list_item&lt;MavlinkStreamOdometry&gt;(),</span>
+<span id="L337"><span class="lineNum">     337</span>                 :             : #endif // ODOMETRY_HPP</span>
+<span id="L338"><span class="lineNum">     338</span>                 :             : #if defined(ESTIMATOR_STATUS_HPP)</span>
+<span id="L339"><span class="lineNum">     339</span>                 :             :         create_stream_list_item&lt;MavlinkStreamEstimatorStatus&gt;(),</span>
+<span id="L340"><span class="lineNum">     340</span>                 :             : #endif // ESTIMATOR_STATUS_HPP</span>
+<span id="L341"><span class="lineNum">     341</span>                 :             : #if defined(VIBRATION_HPP)</span>
+<span id="L342"><span class="lineNum">     342</span>                 :             :         create_stream_list_item&lt;MavlinkStreamVibration&gt;(),</span>
+<span id="L343"><span class="lineNum">     343</span>                 :             : #endif // VIBRATION_HPP</span>
+<span id="L344"><span class="lineNum">     344</span>                 :             : #if defined(AUTOPILOT_STATE_FOR_GIMBAL_DEVICE_HPP)</span>
+<span id="L345"><span class="lineNum">     345</span>                 :             :         create_stream_list_item&lt;MavlinkStreamAutopilotStateForGimbalDevice&gt;(),</span>
+<span id="L346"><span class="lineNum">     346</span>                 :             : #endif // AUTOPILOT_STATE_FOR_GIMBAL_DEVICE_HPP</span>
+<span id="L347"><span class="lineNum">     347</span>                 :             : #if defined(GIMBAL_DEVICE_ATTITUDE_STATUS_HPP)</span>
+<span id="L348"><span class="lineNum">     348</span>                 :             :         create_stream_list_item&lt;MavlinkStreamGimbalDeviceAttitudeStatus&gt;(),</span>
+<span id="L349"><span class="lineNum">     349</span>                 :             : #endif // GIMBAL_DEVICE_ATTITUDE_STATUS_HPP</span>
+<span id="L350"><span class="lineNum">     350</span>                 :             : #if defined(GIMBAL_MANAGER_INFORMATION_HPP)</span>
+<span id="L351"><span class="lineNum">     351</span>                 :             :         create_stream_list_item&lt;MavlinkStreamGimbalManagerInformation&gt;(),</span>
+<span id="L352"><span class="lineNum">     352</span>                 :             : #endif // GIMBAL_MANAGER_INFORMATION_HPP</span>
+<span id="L353"><span class="lineNum">     353</span>                 :             : #if defined(GIMBAL_DEVICE_INFORMATION_HPP)</span>
+<span id="L354"><span class="lineNum">     354</span>                 :             :         create_stream_list_item&lt;MavlinkStreamGimbalDeviceInformation&gt;(),</span>
+<span id="L355"><span class="lineNum">     355</span>                 :             : #endif // GIMBAL_DEVICE_INFORMATION_HPP</span>
+<span id="L356"><span class="lineNum">     356</span>                 :             : #if defined(GIMBAL_MANAGER_STATUS_HPP)</span>
+<span id="L357"><span class="lineNum">     357</span>                 :             :         create_stream_list_item&lt;MavlinkStreamGimbalManagerStatus&gt;(),</span>
+<span id="L358"><span class="lineNum">     358</span>                 :             : #endif // GIMBAL_MANAGER_STATUS_HPP</span>
+<span id="L359"><span class="lineNum">     359</span>                 :             : #if defined(GIMBAL_DEVICE_SET_ATTITUDE_HPP)</span>
+<span id="L360"><span class="lineNum">     360</span>                 :             :         create_stream_list_item&lt;MavlinkStreamGimbalDeviceSetAttitude&gt;(),</span>
+<span id="L361"><span class="lineNum">     361</span>                 :             : #endif // GIMBAL_DEVICE_SET_ATTITUDE_HPP</span>
+<span id="L362"><span class="lineNum">     362</span>                 :             : #if defined(HOME_POSITION_HPP)</span>
+<span id="L363"><span class="lineNum">     363</span>                 :             :         create_stream_list_item&lt;MavlinkStreamHomePosition&gt;(),</span>
+<span id="L364"><span class="lineNum">     364</span>                 :             : #endif // HOME_POSITION_HPP</span>
+<span id="L365"><span class="lineNum">     365</span>                 :             : #if defined(HYGROMETER_SENSOR_HPP)</span>
+<span id="L366"><span class="lineNum">     366</span>                 :             :         create_stream_list_item&lt;MavlinkStreamHygrometerSensor&gt;(),</span>
+<span id="L367"><span class="lineNum">     367</span>                 :             : #endif // HYGROMETER_SENSOR_HPP</span>
+<span id="L368"><span class="lineNum">     368</span>                 :             : #if defined(SERVO_OUTPUT_RAW_HPP)</span>
+<span id="L369"><span class="lineNum">     369</span>                 :             :         create_stream_list_item&lt;MavlinkStreamServoOutputRaw&lt;0&gt; &gt;(),</span>
+<span id="L370"><span class="lineNum">     370</span>                 :             :         create_stream_list_item&lt;MavlinkStreamServoOutputRaw&lt;1&gt; &gt;(),</span>
+<span id="L371"><span class="lineNum">     371</span>                 :             : #endif // SERVO_OUTPUT_RAW_HPP</span>
+<span id="L372"><span class="lineNum">     372</span>                 :             : #if defined(HIL_ACTUATOR_CONTROLS_HPP)</span>
+<span id="L373"><span class="lineNum">     373</span>                 :             :         create_stream_list_item&lt;MavlinkStreamHILActuatorControls&gt;(),</span>
+<span id="L374"><span class="lineNum">     374</span>                 :             : #endif // HIL_ACTUATOR_CONTROLS_HPP</span>
+<span id="L375"><span class="lineNum">     375</span>                 :             : #if defined(POSITION_TARGET_GLOBAL_INT_HPP)</span>
+<span id="L376"><span class="lineNum">     376</span>                 :             :         create_stream_list_item&lt;MavlinkStreamPositionTargetGlobalInt&gt;(),</span>
+<span id="L377"><span class="lineNum">     377</span>                 :             : #endif // POSITION_TARGET_GLOBAL_INT_HPP</span>
+<span id="L378"><span class="lineNum">     378</span>                 :             : #if defined(POSITION_TARGET_LOCAL_NED_HPP)</span>
+<span id="L379"><span class="lineNum">     379</span>                 :             :         create_stream_list_item&lt;MavlinkStreamPositionTargetLocalNed&gt;(),</span>
+<span id="L380"><span class="lineNum">     380</span>                 :             : #endif // POSITION_TARGET_LOCAL_NED_HPP</span>
+<span id="L381"><span class="lineNum">     381</span>                 :             : #if defined(ATTITUDE_TARGET_HPP)</span>
+<span id="L382"><span class="lineNum">     382</span>                 :             :         create_stream_list_item&lt;MavlinkStreamAttitudeTarget&gt;(),</span>
+<span id="L383"><span class="lineNum">     383</span>                 :             : #endif // ATTITUDE_TARGET_HPP</span>
+<span id="L384"><span class="lineNum">     384</span>                 :             : #if defined(RC_CHANNELS_HPP)</span>
+<span id="L385"><span class="lineNum">     385</span>                 :             :         create_stream_list_item&lt;MavlinkStreamRCChannels&gt;(),</span>
+<span id="L386"><span class="lineNum">     386</span>                 :             : #endif // RC_CHANNELS_HPP</span>
+<span id="L387"><span class="lineNum">     387</span>                 :             : #if defined(MANUAL_CONTROL_HPP)</span>
+<span id="L388"><span class="lineNum">     388</span>                 :             :         create_stream_list_item&lt;MavlinkStreamManualControl&gt;(),</span>
+<span id="L389"><span class="lineNum">     389</span>                 :             : #endif // MANUAL_CONTROL_HPP</span>
+<span id="L390"><span class="lineNum">     390</span>                 :             : #if defined(OPTICAL_FLOW_RAD_HPP)</span>
+<span id="L391"><span class="lineNum">     391</span>                 :             :         create_stream_list_item&lt;MavlinkStreamOpticalFlowRad&gt;(),</span>
+<span id="L392"><span class="lineNum">     392</span>                 :             : #endif // OPTICAL_FLOW_RAD_HPP</span>
+<span id="L393"><span class="lineNum">     393</span>                 :             : #if defined(NAMED_VALUE_FLOAT_HPP)</span>
+<span id="L394"><span class="lineNum">     394</span>                 :             :         create_stream_list_item&lt;MavlinkStreamNamedValueFloat&gt;(),</span>
+<span id="L395"><span class="lineNum">     395</span>                 :             : #endif // NAMED_VALUE_FLOAT_HPP</span>
+<span id="L396"><span class="lineNum">     396</span>                 :             : #if defined(DEBUG_HPP)</span>
+<span id="L397"><span class="lineNum">     397</span>                 :             :         create_stream_list_item&lt;MavlinkStreamDebug&gt;(),</span>
+<span id="L398"><span class="lineNum">     398</span>                 :             : #endif // DEBUG_HPP</span>
+<span id="L399"><span class="lineNum">     399</span>                 :             : #if defined(DEBUG_VECT_HPP)</span>
+<span id="L400"><span class="lineNum">     400</span>                 :             :         create_stream_list_item&lt;MavlinkStreamDebugVect&gt;(),</span>
+<span id="L401"><span class="lineNum">     401</span>                 :             : #endif // DEBUG_VECT_HPP</span>
+<span id="L402"><span class="lineNum">     402</span>                 :             : #if defined(DEBUG_FLOAT_ARRAY_HPP)</span>
+<span id="L403"><span class="lineNum">     403</span>                 :             :         create_stream_list_item&lt;MavlinkStreamDebugFloatArray&gt;(),</span>
+<span id="L404"><span class="lineNum">     404</span>                 :             : #endif // DEBUG_FLOAT_ARRAY_HPP</span>
+<span id="L405"><span class="lineNum">     405</span>                 :             : #if defined(NAV_CONTROLLER_OUTPUT_HPP)</span>
+<span id="L406"><span class="lineNum">     406</span>                 :             :         create_stream_list_item&lt;MavlinkStreamNavControllerOutput&gt;(),</span>
+<span id="L407"><span class="lineNum">     407</span>                 :             : #endif // NAV_CONTROLLER_OUTPUT_HPP</span>
+<span id="L408"><span class="lineNum">     408</span>                 :             : #if defined(CAMERA_TRIGGER_HPP)</span>
+<span id="L409"><span class="lineNum">     409</span>                 :             :         create_stream_list_item&lt;MavlinkStreamCameraTrigger&gt;(),</span>
+<span id="L410"><span class="lineNum">     410</span>                 :             : #endif // CAMERA_TRIGGER_HPP</span>
+<span id="L411"><span class="lineNum">     411</span>                 :             : #if defined(CAMERA_IMAGE_CAPTURED_HPP)</span>
+<span id="L412"><span class="lineNum">     412</span>                 :             :         create_stream_list_item&lt;MavlinkStreamCameraImageCaptured&gt;(),</span>
+<span id="L413"><span class="lineNum">     413</span>                 :             : #endif // CAMERA_IMAGE_CAPTURED_HPP</span>
+<span id="L414"><span class="lineNum">     414</span>                 :             : #if defined(DISTANCE_SENSOR_HPP)</span>
+<span id="L415"><span class="lineNum">     415</span>                 :             :         create_stream_list_item&lt;MavlinkStreamDistanceSensor&gt;(),</span>
+<span id="L416"><span class="lineNum">     416</span>                 :             : #endif // DISTANCE_SENSOR_HPP</span>
+<span id="L417"><span class="lineNum">     417</span>                 :             : #if defined(EXTENDED_SYS_STATE_HPP)</span>
+<span id="L418"><span class="lineNum">     418</span>                 :             :         create_stream_list_item&lt;MavlinkStreamExtendedSysState&gt;(),</span>
+<span id="L419"><span class="lineNum">     419</span>                 :             : #endif // EXTENDED_SYS_STATE_HPP</span>
+<span id="L420"><span class="lineNum">     420</span>                 :             : #if defined(ALTITUDE_HPP)</span>
+<span id="L421"><span class="lineNum">     421</span>                 :             :         create_stream_list_item&lt;MavlinkStreamAltitude&gt;(),</span>
+<span id="L422"><span class="lineNum">     422</span>                 :             : #endif // ALTITUDE_HPP</span>
+<span id="L423"><span class="lineNum">     423</span>                 :             : #if defined(ADSB_VEHICLE_HPP)</span>
+<span id="L424"><span class="lineNum">     424</span>                 :             :         create_stream_list_item&lt;MavlinkStreamADSBVehicle&gt;(),</span>
+<span id="L425"><span class="lineNum">     425</span>                 :             : #endif // ADSB_VEHICLE_HPP</span>
+<span id="L426"><span class="lineNum">     426</span>                 :             : #if defined(COLLISION_HPP)</span>
+<span id="L427"><span class="lineNum">     427</span>                 :             :         create_stream_list_item&lt;MavlinkStreamCollision&gt;(),</span>
+<span id="L428"><span class="lineNum">     428</span>                 :             : #endif // COLLISION_HPP</span>
+<span id="L429"><span class="lineNum">     429</span>                 :             : #if defined(WIND_COV_HPP)</span>
+<span id="L430"><span class="lineNum">     430</span>                 :             :         create_stream_list_item&lt;MavlinkStreamWindCov&gt;(),</span>
+<span id="L431"><span class="lineNum">     431</span>                 :             : #endif // WIND_COV_HPP</span>
+<span id="L432"><span class="lineNum">     432</span>                 :             : #if defined(MOUNT_ORIENTATION_HPP)</span>
+<span id="L433"><span class="lineNum">     433</span>                 :             :         create_stream_list_item&lt;MavlinkStreamMountOrientation&gt;(),</span>
+<span id="L434"><span class="lineNum">     434</span>                 :             : #endif // MOUNT_ORIENTATION_HPP</span>
+<span id="L435"><span class="lineNum">     435</span>                 :             : #if defined(HIGH_LATENCY2_HPP)</span>
+<span id="L436"><span class="lineNum">     436</span>                 :             :         create_stream_list_item&lt;MavlinkStreamHighLatency2&gt;(),</span>
+<span id="L437"><span class="lineNum">     437</span>                 :             : #endif // HIGH_LATENCY2_HPP</span>
+<span id="L438"><span class="lineNum">     438</span>                 :             : #if defined(HIL_STATE_QUATERNION_HPP)</span>
+<span id="L439"><span class="lineNum">     439</span>                 :             :         create_stream_list_item&lt;MavlinkStreamHILStateQuaternion&gt;(),</span>
+<span id="L440"><span class="lineNum">     440</span>                 :             : #endif // HIL_STATE_QUATERNION_HPP</span>
+<span id="L441"><span class="lineNum">     441</span>                 :             : #if defined(PING_HPP)</span>
+<span id="L442"><span class="lineNum">     442</span>                 :             :         create_stream_list_item&lt;MavlinkStreamPing&gt;(),</span>
+<span id="L443"><span class="lineNum">     443</span>                 :             : #endif // PING_HPP</span>
+<span id="L444"><span class="lineNum">     444</span>                 :             : #if defined(ORBIT_EXECUTION_STATUS_HPP)</span>
+<span id="L445"><span class="lineNum">     445</span>                 :             :         create_stream_list_item&lt;MavlinkStreamOrbitStatus&gt;(),</span>
+<span id="L446"><span class="lineNum">     446</span>                 :             : #endif // ORBIT_EXECUTION_STATUS_HPP</span>
+<span id="L447"><span class="lineNum">     447</span>                 :             : #if defined(FIGURE_EIGHT_EXECUTION_STATUS_HPP)</span>
+<span id="L448"><span class="lineNum">     448</span>                 :             :         create_stream_list_item&lt;MavlinkStreamFigureEightStatus&gt;(),</span>
+<span id="L449"><span class="lineNum">     449</span>                 :             : #endif // FIGURE_EIGHT_EXECUTION_STATUS_HPP</span>
+<span id="L450"><span class="lineNum">     450</span>                 :             : #if defined(OBSTACLE_DISTANCE_HPP)</span>
+<span id="L451"><span class="lineNum">     451</span>                 :             :         create_stream_list_item&lt;MavlinkStreamObstacleDistance&gt;(),</span>
+<span id="L452"><span class="lineNum">     452</span>                 :             : #endif // OBSTACLE_DISTANCE_HPP</span>
+<span id="L453"><span class="lineNum">     453</span>                 :             : #if defined(OPEN_DRONE_ID_BASIC_ID_HPP)</span>
+<span id="L454"><span class="lineNum">     454</span>                 :             :         create_stream_list_item&lt;MavlinkStreamOpenDroneIdBasicId&gt;(),</span>
+<span id="L455"><span class="lineNum">     455</span>                 :             : #endif // OPEN_DRONE_ID_BASIC_ID_HPP</span>
+<span id="L456"><span class="lineNum">     456</span>                 :             : #if defined(OPEN_DRONE_ID_LOCATION_HPP)</span>
+<span id="L457"><span class="lineNum">     457</span>                 :             :         create_stream_list_item&lt;MavlinkStreamOpenDroneIdLocation&gt;(),</span>
+<span id="L458"><span class="lineNum">     458</span>                 :             : #endif // OPEN_DRONE_ID_LOCATION_HPP</span>
+<span id="L459"><span class="lineNum">     459</span>                 :             : #if defined(OPEN_DRONE_ID_SYSTEM_HPP)</span>
+<span id="L460"><span class="lineNum">     460</span>                 :             :         create_stream_list_item&lt;MavlinkStreamOpenDroneIdSystem&gt;(),</span>
+<span id="L461"><span class="lineNum">     461</span>                 :             : #endif // OPEN_DRONE_ID_SYSTEM_HPP</span>
+<span id="L462"><span class="lineNum">     462</span>                 :             : #if defined(OPEN_DRONE_ID_ARM_STATUS_HPP)</span>
+<span id="L463"><span class="lineNum">     463</span>                 :             :         create_stream_list_item&lt;MavlinkStreamOpenDroneIdArmStatus&gt;(),</span>
+<span id="L464"><span class="lineNum">     464</span>                 :             : #endif // OPEN_DRONE_ID_ARM_STATUS_HPP</span>
+<span id="L465"><span class="lineNum">     465</span>                 :             : #if defined(ESC_INFO_HPP)</span>
+<span id="L466"><span class="lineNum">     466</span>                 :             :         create_stream_list_item&lt;MavlinkStreamESCInfo&gt;(),</span>
+<span id="L467"><span class="lineNum">     467</span>                 :             : #endif // ESC_INFO_HPP</span>
+<span id="L468"><span class="lineNum">     468</span>                 :             : #if defined(ESC_STATUS_HPP)</span>
+<span id="L469"><span class="lineNum">     469</span>                 :             :         create_stream_list_item&lt;MavlinkStreamESCStatus&gt;(),</span>
+<span id="L470"><span class="lineNum">     470</span>                 :             : #endif // ESC_STATUS_HPP</span>
+<span id="L471"><span class="lineNum">     471</span>                 :             : #if defined(AUTOPILOT_VERSION_HPP)</span>
+<span id="L472"><span class="lineNum">     472</span>                 :             :         create_stream_list_item&lt;MavlinkStreamAutopilotVersion&gt;(),</span>
+<span id="L473"><span class="lineNum">     473</span>                 :             : #endif // AUTOPILOT_VERSION_HPP</span>
+<span id="L474"><span class="lineNum">     474</span>                 :             : #if defined(PROTOCOL_VERSION_HPP)</span>
+<span id="L475"><span class="lineNum">     475</span>                 :             :         create_stream_list_item&lt;MavlinkStreamProtocolVersion&gt;(),</span>
+<span id="L476"><span class="lineNum">     476</span>                 :             : #endif // PROTOCOL_VERSION_HPP</span>
+<span id="L477"><span class="lineNum">     477</span>                 :             : #if defined(FLIGHT_INFORMATION_HPP)</span>
+<span id="L478"><span class="lineNum">     478</span>                 :             :         create_stream_list_item&lt;MavlinkStreamFlightInformation&gt;(),</span>
+<span id="L479"><span class="lineNum">     479</span>                 :             : #endif // FLIGHT_INFORMATION_HPP</span>
+<span id="L480"><span class="lineNum">     480</span>                 :             : #if defined(FUEL_STATUS_HPP)</span>
+<span id="L481"><span class="lineNum">     481</span>                 :             :         create_stream_list_item&lt;MavlinkStreamFuelStatus&gt;(),</span>
+<span id="L482"><span class="lineNum">     482</span>                 :             : #endif // FUEL_STATUS_HPP</span>
+<span id="L483"><span class="lineNum">     483</span>                 :             : #if defined(GPS_STATUS_HPP)</span>
+<span id="L484"><span class="lineNum">     484</span>                 :             :         create_stream_list_item&lt;MavlinkStreamGPSStatus&gt;(),</span>
+<span id="L485"><span class="lineNum">     485</span>                 :             : #endif // GPS_STATUS_HPP</span>
+<span id="L486"><span class="lineNum">     486</span>                 :             : #if defined(LINK_NODE_STATUS_HPP)</span>
+<span id="L487"><span class="lineNum">     487</span>                 :             :         create_stream_list_item&lt;MavlinkStreamLinkNodeStatus&gt;(),</span>
+<span id="L488"><span class="lineNum">     488</span>                 :             : #endif // LINK_NODE_STATUS_HPP</span>
+<span id="L489"><span class="lineNum">     489</span>                 :             : #if defined(STORAGE_INFORMATION_HPP)</span>
+<span id="L490"><span class="lineNum">     490</span>                 :             :         create_stream_list_item&lt;MavlinkStreamStorageInformation&gt;(),</span>
+<span id="L491"><span class="lineNum">     491</span>                 :             : #endif // STORAGE_INFORMATION_HPP</span>
+<span id="L492"><span class="lineNum">     492</span>                 :             : #if defined(COMPONENT_INFORMATION_HPP)</span>
+<span id="L493"><span class="lineNum">     493</span>                 :             :         create_stream_list_item&lt;MavlinkStreamComponentInformation&gt;(),</span>
+<span id="L494"><span class="lineNum">     494</span>                 :             : #endif // COMPONENT_INFORMATION_HPP</span>
+<span id="L495"><span class="lineNum">     495</span>                 :             : #if defined(COMPONENT_METADATA_HPP)</span>
+<span id="L496"><span class="lineNum">     496</span>                 :             :         create_stream_list_item&lt;MavlinkStreamComponentMetadata&gt;(),</span>
+<span id="L497"><span class="lineNum">     497</span>                 :             : #endif // COMPONENT_METADATA_HPP</span>
+<span id="L498"><span class="lineNum">     498</span>                 :             : #if defined(RAW_RPM_HPP)</span>
+<span id="L499"><span class="lineNum">     499</span>                 :             :         create_stream_list_item&lt;MavlinkStreamRawRpm&gt;(),</span>
+<span id="L500"><span class="lineNum">     500</span>                 :             : #endif // RAW_RPM_HPP</span>
+<span id="L501"><span class="lineNum">     501</span>                 :             : #if defined(EFI_STATUS_HPP)</span>
+<span id="L502"><span class="lineNum">     502</span>                 :             :         create_stream_list_item&lt;MavlinkStreamEfiStatus&gt;(),</span>
+<span id="L503"><span class="lineNum">     503</span>                 :             : #endif // EFI_STATUS_HPP</span>
+<span id="L504"><span class="lineNum">     504</span>                 :             : #if defined(GPS_RTCM_DATA_HPP)</span>
+<span id="L505"><span class="lineNum">     505</span>                 :             :         create_stream_list_item&lt;MavlinkStreamGPSRTCMData&gt;(),</span>
+<span id="L506"><span class="lineNum">     506</span>                 :             : #endif // GPS_RTCM_DATA_HPP</span>
+<span id="L507"><span class="lineNum">     507</span>                 :             : #if defined(UAVIONIX_ADSB_OUT_CFG_HPP)</span>
+<span id="L508"><span class="lineNum">     508</span>                 :             :         create_stream_list_item&lt;MavlinkStreamUavionixADSBOutCfg&gt;(),</span>
+<span id="L509"><span class="lineNum">     509</span>                 :             : #endif // UAVIONIX_ADSB_OUT_CFG_HPP</span>
+<span id="L510"><span class="lineNum">     510</span>                 :             : #if defined(UAVIONIX_ADSB_OUT_DYNAMIC_HPP)</span>
+<span id="L511"><span class="lineNum">     511</span>                 :             :         create_stream_list_item&lt;MavlinkStreamUavionixADSBOutDynamic&gt;(),</span>
+<span id="L512"><span class="lineNum">     512</span>                 :             : #endif // UAVIONIX_ADSB_OUT_DYNAMIC_HPP</span>
+<span id="L513"><span class="lineNum">     513</span>                 :             : #if defined(GNSS_INTEGRITY_HPP)</span>
+<span id="L514"><span class="lineNum">     514</span>                 :             :         create_stream_list_item&lt;MavlinkStreamGNSSIntegrity&gt;(),</span>
+<span id="L515"><span class="lineNum">     515</span>                 :             : #endif // GNSS_INTEGRITY_HPP</span>
+<span id="L516"><span class="lineNum">     516</span>                 :             : #if defined(AVAILABLE_MODES_HPP)</span>
+<span id="L517"><span class="lineNum">     517</span>                 :             :         create_stream_list_item&lt;MavlinkStreamAvailableModes&gt;(),</span>
+<span id="L518"><span class="lineNum">     518</span>                 :             : #endif // AVAILABLE_MODES_HPP</span>
+<span id="L519"><span class="lineNum">     519</span>                 :             : #if defined(CURRENT_MODE_HPP)</span>
+<span id="L520"><span class="lineNum">     520</span>                 :             :         create_stream_list_item&lt;MavlinkStreamCurrentMode&gt;(),</span>
+<span id="L521"><span class="lineNum">     521</span>                 :             : #endif // CURRENT_MODE_HPP</span>
+<span id="L522"><span class="lineNum">     522</span>                 :             : #if defined(GLOBAL_POSITION_HPP)</span>
+<span id="L523"><span class="lineNum">     523</span>                 :             :         create_stream_list_item&lt;MavlinkStreamGLobalPosition&gt;(),</span>
+<span id="L524"><span class="lineNum">     524</span>                 :             : #endif // GLOBAL_POSITION_HPP</span>
+<span id="L525"><span class="lineNum">     525</span>                 :             : };</span>
+<span id="L526"><span class="lineNum">     526</span>                 :             : </span>
+<span id="L527"><span class="lineNum">     527</span>                 :<span class="tlaUNC tlaBgUNC">           0 : const char *get_stream_name(const uint16_t msg_id)</span></span>
+<span id="L528"><span class="lineNum">     528</span>                 :             : {</span>
+<span id="L529"><span class="lineNum">     529</span>                 :             :         // search for stream with specified msg id in supported streams list</span>
+<span id="L530"><span class="lineNum">     530</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         for (const auto &amp;stream : streams_list) {</span></span>
+<span id="L531"><span class="lineNum">     531</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 if (msg_id == stream.get_id()) {</span></span>
+<span id="L532"><span class="lineNum">     532</span>                 :<span class="tlaUNC">           0 :                         return stream.get_name();</span></span>
+<span id="L533"><span class="lineNum">     533</span>                 :             :                 }</span>
+<span id="L534"><span class="lineNum">     534</span>                 :             :         }</span>
+<span id="L535"><span class="lineNum">     535</span>                 :             : </span>
+<span id="L536"><span class="lineNum">     536</span>                 :<span class="tlaUNC">           0 :         return nullptr;</span></span>
+<span id="L537"><span class="lineNum">     537</span>                 :             : }</span>
+<span id="L538"><span class="lineNum">     538</span>                 :             : </span>
+<span id="L539"><span class="lineNum">     539</span>                 :<span class="tlaGNC tlaBgGNC">         171 : MavlinkStream *create_mavlink_stream(const char *stream_name, Mavlink *mavlink)</span></span>
+<span id="L540"><span class="lineNum">     540</span>                 :             : {</span>
+<span id="L541"><span class="lineNum">     541</span>                 :             :         // search for stream with specified name in supported streams list</span>
+<span id="L542"><span class="lineNum">     542</span>         [<span class="tlaGBC" title="Branch 0 was taken 171 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         171 :         if (stream_name != nullptr) {</span></span>
+<span id="L543"><span class="lineNum">     543</span>         [<span class="tlaGBC" title="Branch 0 was taken 7980 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">        7980 :                 for (const auto &amp;stream : streams_list) {</span></span>
+<span id="L544"><span class="lineNum">     544</span>         [<span class="tlaGBC" title="Branch 0 was taken 171 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 7809 times"> + </span>]:<span class="tlaGNC">        7980 :                         if (strcmp(stream_name, stream.get_name()) == 0) {</span></span>
+<span id="L545"><span class="lineNum">     545</span>                 :<span class="tlaGNC">         171 :                                 return stream.new_instance(mavlink);</span></span>
+<span id="L546"><span class="lineNum">     546</span>                 :             :                         }</span>
+<span id="L547"><span class="lineNum">     547</span>                 :             :                 }</span>
+<span id="L548"><span class="lineNum">     548</span>                 :             :         }</span>
+<span id="L549"><span class="lineNum">     549</span>                 :             : </span>
+<span id="L550"><span class="lineNum">     550</span>                 :<span class="tlaUNC tlaBgUNC">           0 :         return nullptr;</span></span>
+<span id="L551"><span class="lineNum">     551</span>                 :             : }</span>
+<span id="L552"><span class="lineNum">     552</span>                 :             : </span>
+<span id="L553"><span class="lineNum">     553</span>                 :<span class="tlaUNC">           0 : MavlinkStream *create_mavlink_stream(const uint16_t msg_id, Mavlink *mavlink)</span></span>
+<span id="L554"><span class="lineNum">     554</span>                 :             : {</span>
+<span id="L555"><span class="lineNum">     555</span>                 :             :         // search for stream with specified name in supported streams list</span>
+<span id="L556"><span class="lineNum">     556</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         for (const auto &amp;stream : streams_list) {</span></span>
+<span id="L557"><span class="lineNum">     557</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 if (msg_id == stream.get_id()) {</span></span>
+<span id="L558"><span class="lineNum">     558</span>                 :<span class="tlaUNC">           0 :                         return stream.new_instance(mavlink);</span></span>
+<span id="L559"><span class="lineNum">     559</span>                 :             :                 }</span>
+<span id="L560"><span class="lineNum">     560</span>                 :             :         }</span>
+<span id="L561"><span class="lineNum">     561</span>                 :             : </span>
+<span id="L562"><span class="lineNum">     562</span>                 :<span class="tlaUNC">           0 :         return nullptr;</span></span>
+<span id="L563"><span class="lineNum">     563</span>                 :             : }</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

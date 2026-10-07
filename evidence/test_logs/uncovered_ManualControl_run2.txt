@@ -1,0 +1,32 @@
+FILE: src/modules/manual_control/ManualControl.cpp
+
+== UNCOVERED LINES (27) ==
+  53 | bool ManualControl::init()
+  55 | ScheduleNow();
+  56 | return true;
+  59 | void ManualControl::Run()
+  61 | if (should_exit()) {
+  62 | ScheduleClear();
+  63 | exit_and_cleanup();
+  64 | return;
+  67 | perf_begin(_loop_perf);
+  68 | perf_count(_loop_interval_perf);
+  70 | processInput(hrt_absolute_time());
+  73 | ScheduleDelayed(200_ms);
+  75 | perf_end(_loop_perf);
+ 518 | int ManualControl::task_spawn(int argc, char *argv[])
+ 520 | ManualControl *instance = new ManualControl();
+ 522 | if (instance) {
+ 523 | _object.store(instance);
+ 524 | _task_id = task_id_is_work_queue;
+ 526 | if (instance->init()) {
+ 527 | return PX4_OK;
+ 531 | PX4_ERR("alloc failed");
+ 534 | delete instance;
+ 535 | _object.store(nullptr);
+ 536 | _task_id = -1;
+ 538 | return PX4_ERROR;
+ 607 | extern "C" __EXPORT int manual_control_main(int argc, char *argv[])
+ 609 | return ManualControl::main(argc, argv);
+
+== LINES WITH MISSED BRANCHES (0 lines) ==

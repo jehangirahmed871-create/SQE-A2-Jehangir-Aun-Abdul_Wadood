@@ -1,0 +1,6 @@
+=== UNCOVERED LINES IN UserModeIntention.cpp (0) ===
+
+=== MISSED BRANCH LINES IN UserModeIntention.cpp (3) ===
+  62 | missed=2 | if (!allow_change && allow_fallback) {
+  63 | missed=1 | if (user_intended_nav_state == vehicle_status_s::NAVIGATION_STATE_POSCTL) {
+  82 | missed=2 | || user_intended_nav_state == vehicle_status_s::NAVIGATION_STATE_TERMINATION) {

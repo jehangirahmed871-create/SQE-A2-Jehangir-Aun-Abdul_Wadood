@@ -1,0 +1,311 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov_filtered.info - src/modules/ekf2/EKF/aid_sources/gnss/gnss_height_control.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../../../../index.html">top level</a> - <a href="index.html">src/modules/ekf2/EKF/aid_sources/gnss</a> - gnss_height_control.cpp<span style="font-size: 80%;"> (source / <a href="gnss_height_control.cpp.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov_filtered.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryHi">92.0&nbsp;%</td>
+            <td class="headerCovTableEntry">100</td>
+            <td class="headerCovTableEntry">92</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-10-02 17:31:18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryLo">65.7&nbsp;%</td>
+            <td class="headerCovTableEntry">140</td>
+            <td class="headerCovTableEntry">92</td>
+          </tr>
+                  <tr><td><img src="../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : /****************************************************************************</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             :  *</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             :  *   Copyright (c) 2022 PX4 Development Team. All rights reserved.</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             :  *</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             :  * Redistribution and use in source and binary forms, with or without</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             :  * modification, are permitted provided that the following conditions</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             :  * are met:</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             :  *</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             :  * 1. Redistributions of source code must retain the above copyright</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             :  *    notice, this list of conditions and the following disclaimer.</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             :  * 2. Redistributions in binary form must reproduce the above copyright</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             :  *    notice, this list of conditions and the following disclaimer in</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             :  *    the documentation and/or other materials provided with the</span>
+<span id="L14"><span class="lineNum">      14</span>                 :             :  *    distribution.</span>
+<span id="L15"><span class="lineNum">      15</span>                 :             :  * 3. Neither the name PX4 nor the names of its contributors may be</span>
+<span id="L16"><span class="lineNum">      16</span>                 :             :  *    used to endorse or promote products derived from this software</span>
+<span id="L17"><span class="lineNum">      17</span>                 :             :  *    without specific prior written permission.</span>
+<span id="L18"><span class="lineNum">      18</span>                 :             :  *</span>
+<span id="L19"><span class="lineNum">      19</span>                 :             :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span id="L20"><span class="lineNum">      20</span>                 :             :  * &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span id="L21"><span class="lineNum">      21</span>                 :             :  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS</span>
+<span id="L22"><span class="lineNum">      22</span>                 :             :  * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE</span>
+<span id="L23"><span class="lineNum">      23</span>                 :             :  * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,</span>
+<span id="L24"><span class="lineNum">      24</span>                 :             :  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,</span>
+<span id="L25"><span class="lineNum">      25</span>                 :             :  * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS</span>
+<span id="L26"><span class="lineNum">      26</span>                 :             :  * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED</span>
+<span id="L27"><span class="lineNum">      27</span>                 :             :  * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT</span>
+<span id="L28"><span class="lineNum">      28</span>                 :             :  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN</span>
+<span id="L29"><span class="lineNum">      29</span>                 :             :  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</span>
+<span id="L30"><span class="lineNum">      30</span>                 :             :  * POSSIBILITY OF SUCH DAMAGE.</span>
+<span id="L31"><span class="lineNum">      31</span>                 :             :  *</span>
+<span id="L32"><span class="lineNum">      32</span>                 :             :  ****************************************************************************/</span>
+<span id="L33"><span class="lineNum">      33</span>                 :             : </span>
+<span id="L34"><span class="lineNum">      34</span>                 :             : /**</span>
+<span id="L35"><span class="lineNum">      35</span>                 :             :  * @file gnss_height_control.cpp</span>
+<span id="L36"><span class="lineNum">      36</span>                 :             :  * Control functions for ekf GNSS height fusion</span>
+<span id="L37"><span class="lineNum">      37</span>                 :             :  */</span>
+<span id="L38"><span class="lineNum">      38</span>                 :             : </span>
+<span id="L39"><span class="lineNum">      39</span>                 :             : #include &quot;ekf.h&quot;</span>
+<span id="L40"><span class="lineNum">      40</span>                 :             : </span>
+<span id="L41"><span class="lineNum">      41</span>                 :<span class="tlaGNC tlaBgGNC">      380473 : void Ekf::controlGnssHeightFusion(const gnssSample &amp;gps_sample)</span></span>
+<span id="L42"><span class="lineNum">      42</span>                 :             : {</span>
+<span id="L43"><span class="lineNum">      43</span>                 :             :         static constexpr const char *HGT_SRC_NAME = &quot;GNSS&quot;;</span>
+<span id="L44"><span class="lineNum">      44</span>                 :             : </span>
+<span id="L45"><span class="lineNum">      45</span>                 :<span class="tlaGNC">      380473 :         auto &amp;aid_src = _aid_src_gnss_hgt;</span></span>
+<span id="L46"><span class="lineNum">      46</span>                 :<span class="tlaGNC">      380473 :         HeightBiasEstimator &amp;bias_est = _gps_hgt_b_est;</span></span>
+<span id="L47"><span class="lineNum">      47</span>                 :             : </span>
+<span id="L48"><span class="lineNum">      48</span>                 :<span class="tlaGNC">      380473 :         bias_est.predict(_dt_ekf_avg);</span></span>
+<span id="L49"><span class="lineNum">      49</span>                 :             : </span>
+<span id="L50"><span class="lineNum">      50</span>         [<span class="tlaGBC" title="Branch 0 was taken 7072 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 373401 times"> + </span>]:<span class="tlaGNC">      380473 :         if (_gps_data_ready) {</span></span>
+<span id="L51"><span class="lineNum">      51</span>                 :             : </span>
+<span id="L52"><span class="lineNum">      52</span>                 :             :                 // relax the upper observation noise limit which prevents bad GPS perturbing the position estimate</span>
+<span id="L53"><span class="lineNum">      53</span>                 :<span class="tlaGNC">        7072 :                 float noise = math::max(gps_sample.vacc, 1.5f * _params.ekf2_gps_p_noise); // use 1.5 as a typical ratio of vacc/hacc</span></span>
+<span id="L54"><span class="lineNum">      54</span>                 :             : </span>
+<span id="L55"><span class="lineNum">      55</span>   [<span class="tlaGBC" title="Branch 0 was taken 7072 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 6927 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 145 times"> + </span>]:<span class="tlaGNC">        7072 :                 if (!isOnlyActiveSourceOfVerticalPositionAiding(_control_status.flags.gps_hgt)) {</span></span>
+<span id="L56"><span class="lineNum">      56</span>                 :             :                         // if we are not using another source of aiding, then we are reliant on the GPS</span>
+<span id="L57"><span class="lineNum">      57</span>                 :             :                         // observations to constrain attitude errors and must limit the observation noise value.</span>
+<span id="L58"><span class="lineNum">      58</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 6927 times"> + </span>]:<span class="tlaGNC">        6927 :                         if (noise &gt; _params.ekf2_noaid_noise) {</span></span>
+<span id="L59"><span class="lineNum">      59</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                                 noise = _params.ekf2_noaid_noise;</span></span>
+<span id="L60"><span class="lineNum">      60</span>                 :             :                         }</span>
+<span id="L61"><span class="lineNum">      61</span>                 :             :                 }</span>
+<span id="L62"><span class="lineNum">      62</span>                 :             : </span>
+<span id="L63"><span class="lineNum">      63</span>   [<span class="tlaGBC" title="Branch 0 was taken 7072 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 7072 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC tlaBgGNC">        7072 :                 const Vector3f pos_offset_body = _params.gps_pos_body - _params.imu_pos_body;</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 7072 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L64"><span class="lineNum">      64</span>   [<span class="tlaGBC" title="Branch 0 was taken 7072 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 7072 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">        7072 :                 const Vector3f pos_offset_earth = _R_to_earth * pos_offset_body;</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 7072 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L65"><span class="lineNum">      65</span>         [<span class="tlaGBC" title="Branch 0 was taken 7072 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">        7072 :                 const float gnss_alt = gps_sample.alt + pos_offset_earth(2);</span></span>
+<span id="L66"><span class="lineNum">      66</span>                 :             : </span>
+<span id="L67"><span class="lineNum">      67</span>                 :<span class="tlaGNC">        7072 :                 const float measurement = gnss_alt;</span></span>
+<span id="L68"><span class="lineNum">      68</span>                 :<span class="tlaGNC">        7072 :                 const float measurement_var = sq(noise);</span></span>
+<span id="L69"><span class="lineNum">      69</span>                 :             : </span>
+<span id="L70"><span class="lineNum">      70</span>   [<span class="tlaGBC" title="Branch 0 was taken 7072 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 7072 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">        7072 :                 const bool measurement_valid = PX4_ISFINITE(measurement) &amp;&amp; PX4_ISFINITE(measurement_var);</span></span>
+<span id="L71"><span class="lineNum">      71</span>                 :             : </span>
+<span id="L72"><span class="lineNum">      72</span>                 :             :                 // GNSS position, vertical position GNSS measurement has opposite sign to earth z axis</span>
+<span id="L73"><span class="lineNum">      73</span>                 :<span class="tlaGNC">        7072 :                 updateVerticalPositionAidStatus(aid_src,</span></span>
+<span id="L74"><span class="lineNum">      74</span>         [<span class="tlaGBC" title="Branch 0 was taken 7072 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">        7072 :                                                 gps_sample.time_us,</span></span>
+<span id="L75"><span class="lineNum">      75</span>                 :<span class="tlaGNC">        7072 :                                                 -(measurement - bias_est.getBias()),</span></span>
+<span id="L76"><span class="lineNum">      76</span>                 :<span class="tlaGNC">        7072 :                                                 measurement_var + bias_est.getBiasVar(),</span></span>
+<span id="L77"><span class="lineNum">      77</span>                 :             :                                                 math::max(_params.ekf2_gps_p_gate, 1.f));</span>
+<span id="L78"><span class="lineNum">      78</span>                 :             : </span>
+<span id="L79"><span class="lineNum">      79</span>                 :             :                 // determine if we should use height aiding</span>
+<span id="L80"><span class="lineNum">      80</span>                 :             :                 const bool common_conditions_passing = measurement_valid</span>
+<span id="L81"><span class="lineNum">      81</span>         [<span class="tlaGBC" title="Branch 0 was taken 7072 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">        7072 :                                                        &amp;&amp; _local_origin_lat_lon.isInitialized()</span></span>
+<span id="L82"><span class="lineNum">      82</span>         [<span class="tlaGBC" title="Branch 0 was taken 7070 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 2 times"> + </span>]:<span class="tlaGNC">        7072 :                                                        &amp;&amp; _gnss_checks.passed()</span></span>
+<span id="L83"><span class="lineNum">      83</span>   [<span class="tlaGBC" title="Branch 0 was taken 7072 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 7037 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 33 times"> + </span>]:<span class="tlaGNC">       14144 :                                                        &amp;&amp; !_control_status.flags.gnss_fault;</span></span>
+<span id="L84"><span class="lineNum">      84</span>                 :             : </span>
+<span id="L85"><span class="lineNum">      85</span>                 :<span class="tlaGNC">       14144 :                 const bool continuing_conditions_passing = (_params.ekf2_gps_ctrl &amp; static_cast&lt;int32_t&gt;(GnssCtrl::VPOS))</span></span>
+<span id="L86"><span class="lineNum">      86</span>   [<span class="tlaGBC" title="Branch 0 was taken 2339 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 4733 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 2305 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 34 times"> + </span>]:<span class="tlaGNC">        7072 :                                 &amp;&amp; common_conditions_passing;</span></span>
+<span id="L87"><span class="lineNum">      87</span>                 :             : </span>
+<span id="L88"><span class="lineNum">      88</span>                 :             :                 const bool starting_conditions_passing = continuing_conditions_passing</span>
+<span id="L89"><span class="lineNum">      89</span>   [<span class="tlaGBC" title="Branch 0 was taken 2305 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 4767 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 2305 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">        7072 :                                 &amp;&amp; isNewestSampleRecent(_time_last_gps_buffer_push, 2 * GNSS_MAX_INTERVAL);</span></span>
+<span id="L90"><span class="lineNum">      90</span>                 :             : </span>
+<span id="L91"><span class="lineNum">      91</span>                 :             :                 const bool altitude_initialisation_conditions_passing = common_conditions_passing</span>
+<span id="L92"><span class="lineNum">      92</span>         [<span class="tlaGBC" title="Branch 0 was taken 570 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 6467 times"> + </span>]:<span class="tlaGNC">        7037 :                                 &amp;&amp; !PX4_ISFINITE(_local_origin_alt)</span></span>
+<span id="L93"><span class="lineNum">      93</span>         [<span class="tlaGBC" title="Branch 0 was taken 5 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 565 times"> + </span>]:<span class="tlaGNC">         570 :                                 &amp;&amp; _params.ekf2_hgt_ref == static_cast&lt;int32_t&gt;(HeightSensor::GNSS)</span></span>
+<span id="L94"><span class="lineNum">      94</span>   [<span class="tlaGBC" title="Branch 0 was taken 7037 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 35 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 5 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">       14109 :                                 &amp;&amp; isNewestSampleRecent(_time_last_gps_buffer_push, 2 * GNSS_MAX_INTERVAL);</span></span>
+<span id="L95"><span class="lineNum">      95</span>                 :             : </span>
+<span id="L96"><span class="lineNum">      96</span>         [<span class="tlaGBC" title="Branch 0 was taken 2288 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 4784 times"> + </span>]:<span class="tlaGNC">        7072 :                 if (_control_status.flags.gps_hgt) {</span></span>
+<span id="L97"><span class="lineNum">      97</span>         [<span class="tlaGBC" title="Branch 0 was taken 2287 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span>]:<span class="tlaGNC">        2288 :                         if (continuing_conditions_passing) {</span></span>
+<span id="L98"><span class="lineNum">      98</span>                 :             : </span>
+<span id="L99"><span class="lineNum">      99</span>                 :             :                                 // update the bias estimator before updating the main filter but after</span>
+<span id="L100"><span class="lineNum">     100</span>                 :             :                                 // using its current state to compute the vertical position innovation</span>
+<span id="L101"><span class="lineNum">     101</span>         [<span class="tlaGBC" title="Branch 0 was taken 2287 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">        2287 :                                 bias_est.setMaxStateNoise(sqrtf(measurement_var));</span></span>
+<span id="L102"><span class="lineNum">     102</span>                 :<span class="tlaGNC">        2287 :                                 bias_est.setProcessNoiseSpectralDensity(_params.gps_hgt_bias_nsd);</span></span>
+<span id="L103"><span class="lineNum">     103</span>         [<span class="tlaGBC" title="Branch 0 was taken 2287 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">        2287 :                                 bias_est.fuseBias(measurement - _gpos.altitude(), measurement_var + P(State::pos.idx + 2, State::pos.idx + 2));</span></span>
+<span id="L104"><span class="lineNum">     104</span>                 :             : </span>
+<span id="L105"><span class="lineNum">     105</span>         [<span class="tlaGBC" title="Branch 0 was taken 2287 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">        2287 :                                 fuseVerticalPosition(aid_src);</span></span>
+<span id="L106"><span class="lineNum">     106</span>                 :             : </span>
+<span id="L107"><span class="lineNum">     107</span>                 :<span class="tlaGNC">        2287 :                                 const bool is_fusion_failing = isTimedOut(aid_src.time_last_fuse, _params.hgt_fusion_timeout_max);</span></span>
+<span id="L108"><span class="lineNum">     108</span>                 :             : </span>
+<span id="L109"><span class="lineNum">     109</span>   [<span class="tlaGBC" title="Branch 0 was taken 2287 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 5 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 2282 times"> + </span> :<span class="tlaGNC">        2287 :                                 if (isHeightResetRequired() &amp;&amp; (_height_sensor_ref == HeightSensor::GNSS) &amp;&amp; isGnssHgtResetAllowed()) {</span></span>
+<span class="lineNum">        </span> <span class="tlaGBC" title="Branch 4 was taken 5 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 5 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaGBC" title="Branch 8 was taken 5 times"> + </span> 
+<span class="lineNum">        </span>       <span class="tlaUNC" title="Branch 9 was not taken"> - </span><span class="tlaGBC" title="Branch 10 was taken 5 times"> + </span><span class="tlaGBC" title="Branch 11 was taken 2282 times"> + </span>]
+<span id="L110"><span class="lineNum">     110</span>                 :             :                                         // All height sources are failing</span>
+<span id="L111"><span class="lineNum">     111</span>         [<span class="tlaGBC" title="Branch 0 was taken 5 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           5 :                                         ECL_WARN(&quot;%s height fusion reset required, all height sources failing&quot;, HGT_SRC_NAME);</span></span>
+<span id="L112"><span class="lineNum">     112</span>                 :             : </span>
+<span id="L113"><span class="lineNum">     113</span>                 :<span class="tlaGNC">           5 :                                         _information_events.flags.reset_hgt_to_gps = true;</span></span>
+<span id="L114"><span class="lineNum">     114</span>         [<span class="tlaGBC" title="Branch 0 was taken 5 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           5 :                                         resetAltitudeTo(measurement, measurement_var);</span></span>
+<span id="L115"><span class="lineNum">     115</span>                 :<span class="tlaGNC">           5 :                                         bias_est.setBias(-_gpos.altitude() + measurement);</span></span>
+<span id="L116"><span class="lineNum">     116</span>         [<span class="tlaGBC" title="Branch 0 was taken 5 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           5 :                                         resetAidSourceStatusZeroInnovation(aid_src);</span></span>
+<span id="L117"><span class="lineNum">     117</span>                 :             : </span>
+<span id="L118"><span class="lineNum">     118</span>                 :<span class="tlaGNC">           5 :                                         aid_src.time_last_fuse = _time_delayed_us;</span></span>
+<span id="L119"><span class="lineNum">     119</span>                 :             : </span>
+<span id="L120"><span class="lineNum">     120</span>         [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 2280 times"> + </span>]:<span class="tlaGNC">        2282 :                                 } else if (is_fusion_failing) {</span></span>
+<span id="L121"><span class="lineNum">     121</span>                 :             :                                         // Some other height source is still working</span>
+<span id="L122"><span class="lineNum">     122</span>         [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           2 :                                         ECL_WARN(&quot;stopping %s height fusion, fusion failing&quot;, HGT_SRC_NAME);</span></span>
+<span id="L123"><span class="lineNum">     123</span>                 :<span class="tlaGNC">           2 :                                         stopGpsHgtFusion();</span></span>
+<span id="L124"><span class="lineNum">     124</span>                 :             : </span>
+<span id="L125"><span class="lineNum">     125</span>   [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 2 times"> + </span>]:<span class="tlaGNC">           2 :                                         if (!isGnssHgtResetAllowed()) {</span></span>
+<span id="L126"><span class="lineNum">     126</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                                                 _control_status.flags.gnss_hgt_fault = true;</span></span>
+<span id="L127"><span class="lineNum">     127</span>                 :<span class="tlaUNC">           0 :                                                 _time_last_gnss_hgt_rejected = _time_delayed_us;</span></span>
+<span id="L128"><span class="lineNum">     128</span>                 :             :                                         }</span>
+<span id="L129"><span class="lineNum">     129</span>                 :             :                                 }</span>
+<span id="L130"><span class="lineNum">     130</span>                 :             : </span>
+<span id="L131"><span class="lineNum">     131</span>                 :             :                         } else {</span>
+<span id="L132"><span class="lineNum">     132</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC tlaBgGNC">           1 :                                 ECL_WARN(&quot;stopping %s height fusion, continuing conditions failing&quot;, HGT_SRC_NAME);</span></span>
+<span id="L133"><span class="lineNum">     133</span>                 :<span class="tlaGNC">           1 :                                 stopGpsHgtFusion();</span></span>
+<span id="L134"><span class="lineNum">     134</span>                 :             :                         }</span>
+<span id="L135"><span class="lineNum">     135</span>                 :             : </span>
+<span id="L136"><span class="lineNum">     136</span>                 :             :                 } else {</span>
+<span id="L137"><span class="lineNum">     137</span>         [<span class="tlaGBC" title="Branch 0 was taken 5 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 4779 times"> + </span>]:<span class="tlaGNC">        4784 :                         if (altitude_initialisation_conditions_passing) {</span></span>
+<span id="L138"><span class="lineNum">     138</span>                 :             :                                 // Altitude not initialized, GNSS is the configured height reference</span>
+<span id="L139"><span class="lineNum">     139</span>                 :<span class="tlaGNC">           5 :                                 _information_events.flags.reset_hgt_to_gps = true;</span></span>
+<span id="L140"><span class="lineNum">     140</span>         [<span class="tlaGBC" title="Branch 0 was taken 5 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           5 :                                 initialiseAltitudeTo(measurement, measurement_var);</span></span>
+<span id="L141"><span class="lineNum">     141</span>         [<span class="tlaGBC" title="Branch 0 was taken 5 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           5 :                                 bias_est.reset();</span></span>
+<span id="L142"><span class="lineNum">     142</span>                 :             : </span>
+<span id="L143"><span class="lineNum">     143</span>                 :             :                                 // Start fusion if GPS vertical position control is also enabled</span>
+<span id="L144"><span class="lineNum">     144</span>         [<span class="tlaGBC" title="Branch 0 was taken 4 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span>]:<span class="tlaGNC">           5 :                                 if (starting_conditions_passing) {</span></span>
+<span id="L145"><span class="lineNum">     145</span>                 :<span class="tlaGNC">           4 :                                         _height_sensor_ref = HeightSensor::GNSS;</span></span>
+<span id="L146"><span class="lineNum">     146</span>         [<span class="tlaGBC" title="Branch 0 was taken 4 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           4 :                                         resetAidSourceStatusZeroInnovation(aid_src);</span></span>
+<span id="L147"><span class="lineNum">     147</span>                 :<span class="tlaGNC">           4 :                                         aid_src.time_last_fuse = _time_delayed_us;</span></span>
+<span id="L148"><span class="lineNum">     148</span>                 :<span class="tlaGNC">           4 :                                         bias_est.setFusionActive();</span></span>
+<span id="L149"><span class="lineNum">     149</span>                 :<span class="tlaGNC">           4 :                                         _control_status.flags.gps_hgt = true;</span></span>
+<span id="L150"><span class="lineNum">     150</span>                 :             :                                 }</span>
+<span id="L151"><span class="lineNum">     151</span>                 :             : </span>
+<span id="L152"><span class="lineNum">     152</span>         [<span class="tlaGBC" title="Branch 0 was taken 14 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 4765 times"> + </span>]:<span class="tlaGNC">        4779 :                         } else if (starting_conditions_passing) {</span></span>
+<span id="L153"><span class="lineNum">     153</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 13 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">          14 :                                 if (_params.ekf2_hgt_ref == static_cast&lt;int32_t&gt;(HeightSensor::GNSS) &amp;&amp; isGnssHgtResetAllowed()) {</span></span>
+<span class="lineNum">        </span>    <span class="tlaGBC" title="Branch 4 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 7 was taken 13 times"> + </span>]
+<span id="L154"><span class="lineNum">     154</span>                 :<span class="tlaGNC">           1 :                                         _height_sensor_ref = HeightSensor::GNSS;</span></span>
+<span id="L155"><span class="lineNum">     155</span>                 :<span class="tlaGNC">           1 :                                         _information_events.flags.reset_hgt_to_gps = true;</span></span>
+<span id="L156"><span class="lineNum">     156</span>                 :             : </span>
+<span id="L157"><span class="lineNum">     157</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :                                         resetAltitudeTo(measurement, measurement_var);</span></span>
+<span id="L158"><span class="lineNum">     158</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :                                         bias_est.reset();</span></span>
+<span id="L159"><span class="lineNum">     159</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :                                         resetAidSourceStatusZeroInnovation(aid_src);</span></span>
+<span id="L160"><span class="lineNum">     160</span>                 :             : </span>
+<span id="L161"><span class="lineNum">     161</span>                 :<span class="tlaGNC">           1 :                                         aid_src.time_last_fuse = _time_delayed_us;</span></span>
+<span id="L162"><span class="lineNum">     162</span>                 :<span class="tlaGNC">           1 :                                         bias_est.setFusionActive();</span></span>
+<span id="L163"><span class="lineNum">     163</span>                 :<span class="tlaGNC">           1 :                                         _control_status.flags.gps_hgt = true;</span></span>
+<span id="L164"><span class="lineNum">     164</span>                 :<span class="tlaGNC">           1 :                                         _control_status.flags.gnss_hgt_fault = false;</span></span>
+<span id="L165"><span class="lineNum">     165</span>                 :             : </span>
+<span id="L166"><span class="lineNum">     166</span>                 :             :                                 } else {</span>
+<span id="L167"><span class="lineNum">     167</span>                 :<span class="tlaGNC">          13 :                                         bool is_gnss_hgt_consistent = true;</span></span>
+<span id="L168"><span class="lineNum">     168</span>                 :             : </span>
+<span id="L169"><span class="lineNum">     169</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 13 times"> + </span>]:<span class="tlaGNC">          13 :                                         if (_control_status.flags.gnss_hgt_fault) {</span></span>
+<span id="L170"><span class="lineNum">     170</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC tlaBgUNC">           0 :                                                 if (aid_src.innovation_rejected) {</span></span>
+<span id="L171"><span class="lineNum">     171</span>                 :<span class="tlaUNC">           0 :                                                         _time_last_gnss_hgt_rejected = _time_delayed_us;</span></span>
+<span id="L172"><span class="lineNum">     172</span>                 :             :                                                 }</span>
+<span id="L173"><span class="lineNum">     173</span>                 :             : </span>
+<span id="L174"><span class="lineNum">     174</span>                 :<span class="tlaUNC">           0 :                                                 is_gnss_hgt_consistent = isTimedOut(_time_last_gnss_hgt_rejected, _params.hgt_fusion_timeout_max);</span></span>
+<span id="L175"><span class="lineNum">     175</span>                 :             :                                         }</span>
+<span id="L176"><span class="lineNum">     176</span>                 :             : </span>
+<span id="L177"><span class="lineNum">     177</span>         [<span class="tlaGBC" title="Branch 0 was taken 13 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC tlaBgGNC">          13 :                                         if (is_gnss_hgt_consistent) {</span></span>
+<span id="L178"><span class="lineNum">     178</span>         [<span class="tlaGBC" title="Branch 0 was taken 13 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          13 :                                                 if (_params.ekf2_hgt_ref != static_cast&lt;int32_t&gt;(HeightSensor::GNSS)) {</span></span>
+<span id="L179"><span class="lineNum">     179</span>                 :<span class="tlaGNC">          13 :                                                         bias_est.setBias(-_gpos.altitude() + measurement);</span></span>
+<span id="L180"><span class="lineNum">     180</span>                 :             :                                                 }</span>
+<span id="L181"><span class="lineNum">     181</span>                 :             : </span>
+<span id="L182"><span class="lineNum">     182</span>                 :<span class="tlaGNC">          13 :                                                 aid_src.time_last_fuse = _time_delayed_us;</span></span>
+<span id="L183"><span class="lineNum">     183</span>                 :<span class="tlaGNC">          13 :                                                 bias_est.setFusionActive();</span></span>
+<span id="L184"><span class="lineNum">     184</span>                 :<span class="tlaGNC">          13 :                                                 _control_status.flags.gps_hgt = true;</span></span>
+<span id="L185"><span class="lineNum">     185</span>                 :<span class="tlaGNC">          13 :                                                 _control_status.flags.gnss_hgt_fault = false;</span></span>
+<span id="L186"><span class="lineNum">     186</span>                 :             :                                         }</span>
+<span id="L187"><span class="lineNum">     187</span>                 :             :                                 }</span>
+<span id="L188"><span class="lineNum">     188</span>                 :             :                         }</span>
+<span id="L189"><span class="lineNum">     189</span>                 :             :                 }</span>
+<span id="L190"><span class="lineNum">     190</span>                 :             : </span>
+<span id="L191"><span class="lineNum">     191</span>                 :<span class="tlaGNC">      746802 :         } else if (_control_status.flags.gps_hgt</span></span>
+<span id="L192"><span class="lineNum">     192</span>   [<span class="tlaGBC" title="Branch 0 was taken 44031 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 329370 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 4 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 44027 times"> + </span> :<span class="tlaGNC">      373401 :                    &amp;&amp; !isNewestSampleRecent(_time_last_gps_buffer_push, 2 * GNSS_MAX_INTERVAL)) {</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 4 times"> + </span><span class="tlaGBC" title="Branch 5 was taken 373397 times"> + </span>]
+<span id="L193"><span class="lineNum">     193</span>                 :             :                 // No data anymore. Stop until it comes back.</span>
+<span id="L194"><span class="lineNum">     194</span>                 :<span class="tlaGNC">           4 :                 ECL_WARN(&quot;stopping %s height fusion, no data&quot;, HGT_SRC_NAME);</span></span>
+<span id="L195"><span class="lineNum">     195</span>                 :<span class="tlaGNC">           4 :                 stopGpsHgtFusion();</span></span>
+<span id="L196"><span class="lineNum">     196</span>                 :             :         }</span>
+<span id="L197"><span class="lineNum">     197</span>                 :<span class="tlaGNC">      380473 : }</span></span>
+<span id="L198"><span class="lineNum">     198</span>                 :             : </span>
+<span id="L199"><span class="lineNum">     199</span>                 :<span class="tlaGNC">      171130 : void Ekf::stopGpsHgtFusion()</span></span>
+<span id="L200"><span class="lineNum">     200</span>                 :             : {</span>
+<span id="L201"><span class="lineNum">     201</span>         [<span class="tlaGBC" title="Branch 0 was taken 7 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 171123 times"> + </span>]:<span class="tlaGNC">      171130 :         if (_control_status.flags.gps_hgt) {</span></span>
+<span id="L202"><span class="lineNum">     202</span>                 :             : </span>
+<span id="L203"><span class="lineNum">     203</span>         [<span class="tlaGBC" title="Branch 0 was taken 3 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 4 times"> + </span>]:<span class="tlaGNC">           7 :                 if (_height_sensor_ref == HeightSensor::GNSS) {</span></span>
+<span id="L204"><span class="lineNum">     204</span>                 :<span class="tlaGNC">           3 :                         _height_sensor_ref = HeightSensor::UNKNOWN;</span></span>
+<span id="L205"><span class="lineNum">     205</span>                 :             :                 }</span>
+<span id="L206"><span class="lineNum">     206</span>                 :             : </span>
+<span id="L207"><span class="lineNum">     207</span>                 :<span class="tlaGNC">           7 :                 _gps_hgt_b_est.setFusionInactive();</span></span>
+<span id="L208"><span class="lineNum">     208</span>                 :             : </span>
+<span id="L209"><span class="lineNum">     209</span>                 :<span class="tlaGNC">           7 :                 _control_status.flags.gps_hgt = false;</span></span>
+<span id="L210"><span class="lineNum">     210</span>                 :             :         }</span>
+<span id="L211"><span class="lineNum">     211</span>                 :<span class="tlaGNC">      171130 : }</span></span>
+<span id="L212"><span class="lineNum">     212</span>                 :             : </span>
+<span id="L213"><span class="lineNum">     213</span>                 :<span class="tlaGNC">           8 : bool Ekf::isGnssHgtResetAllowed()</span></span>
+<span id="L214"><span class="lineNum">     214</span>                 :             : {</span>
+<span id="L215"><span class="lineNum">     215</span>                 :<span class="tlaUNC tlaBgUNC">           0 :         const bool allowed = !(static_cast&lt;GnssMode&gt;(_params.ekf2_gps_mode) == GnssMode::kDeadReckoning</span></span>
+<span id="L216"><span class="lineNum">     216</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                                &amp;&amp; isOtherSourceOfVerticalPositionAidingThan(_control_status.flags.gps_hgt))</span></span>
+<span id="L217"><span class="lineNum">     217</span>   [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 8 times"> + </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC tlaBgGNC">           8 :                              || !PX4_ISFINITE(_local_origin_alt);</span></span>
+<span id="L218"><span class="lineNum">     218</span>                 :             : </span>
+<span id="L219"><span class="lineNum">     219</span>                 :<span class="tlaGNC">           8 :         return allowed;</span></span>
+<span id="L220"><span class="lineNum">     220</span>                 :             : }</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+FILE: src/modules/manual_control/ManualControlSelector.cpp
+
+== UNCOVERED LINES (0) ==
+
+== LINES WITH MISSED BRANCHES (3 lines) ==
+ 102 | missed=1 | || (isMavlink(input.data_source) && isMavlink(_setpoint.data_source) && input.data_source >= _setpoi
+ 131 | missed=1 | || source == manual_control_setpoint_s::SOURCE_MAVLINK_2
+ 134 | missed=1 | || source == manual_control_setpoint_s::SOURCE_MAVLINK_5);

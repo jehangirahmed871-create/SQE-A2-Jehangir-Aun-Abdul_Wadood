@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov_filtered.info - platforms/posix/src/px4/common/lib_crc32.c</title>
+  <link rel="stylesheet" type="text/css" href="../../../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../../../index.html">top level</a> - <a href="index.html">platforms/posix/src/px4/common</a> - lib_crc32.c<span style="font-size: 80%;"> (source / <a href="lib_crc32.c.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov_filtered.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntry">6</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-10-02 17:31:18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+                  <tr><td><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : /************************************************************************************************</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             :  * libc/misc/lib_crc32.c</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             :  *</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             :  * This file is a part of NuttX:</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             :  *</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             :  *   Copyright (C) 2010-2011 Gregory Nutt. All rights reserved.</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             :  *</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             :  * The logic in this file was developed by Gary S. Brown:</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             :  *</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             :  *   COPYRIGHT (C) 1986 Gary S. Brown.  You may use this program, or code or tables</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             :  *   extracted from it, as desired without restriction.</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             :  *</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             :  * First, the polynomial itself and its table of feedback terms.  The polynomial is:</span>
+<span id="L14"><span class="lineNum">      14</span>                 :             :  *</span>
+<span id="L15"><span class="lineNum">      15</span>                 :             :  *    X^32+X^26+X^23+X^22+X^16+X^12+X^11+X^10+X^8+X^7+X^5+X^4+X^2+X^1+X^0</span>
+<span id="L16"><span class="lineNum">      16</span>                 :             :  *</span>
+<span id="L17"><span class="lineNum">      17</span>                 :             :  * Note that we take it &quot;backwards&quot; and put the highest-order term in the lowest-order bit.</span>
+<span id="L18"><span class="lineNum">      18</span>                 :             :  * The X^32 term is &quot;implied&quot;; the LSB is the X^31 term, etc.  The X^0 term (usually shown</span>
+<span id="L19"><span class="lineNum">      19</span>                 :             :  * as &quot;+1&quot;) results in the MSB being 1</span>
+<span id="L20"><span class="lineNum">      20</span>                 :             :  *</span>
+<span id="L21"><span class="lineNum">      21</span>                 :             :  * Note that the usual hardware shift register implementation, which is what we're using</span>
+<span id="L22"><span class="lineNum">      22</span>                 :             :  * (we're merely optimizing it by doing eight-bit chunks at a time) shifts bits into the</span>
+<span id="L23"><span class="lineNum">      23</span>                 :             :  * lowest-order term.  In our implementation, that means shifting towards the right.  Why</span>
+<span id="L24"><span class="lineNum">      24</span>                 :             :  * do we do it this way?  Because the calculated CRC must be transmitted in order from</span>
+<span id="L25"><span class="lineNum">      25</span>                 :             :  * highest-order term to lowest-order term.  UARTs transmit characters in order from LSB</span>
+<span id="L26"><span class="lineNum">      26</span>                 :             :  * to MSB.  By storing the CRC this way we hand it to the UART in the order low-byte to</span>
+<span id="L27"><span class="lineNum">      27</span>                 :             :  * high-byte; the UART sends each low-bit to hight-bit; and the result is transmission bit</span>
+<span id="L28"><span class="lineNum">      28</span>                 :             :  * by bit from highest- to lowest-order term without requiring any bit shuffling on our</span>
+<span id="L29"><span class="lineNum">      29</span>                 :             :  * part.  Reception works similarly</span>
+<span id="L30"><span class="lineNum">      30</span>                 :             :  *</span>
+<span id="L31"><span class="lineNum">      31</span>                 :             :  * The feedback terms table consists of 256, 32-bit entries.  Notes</span>
+<span id="L32"><span class="lineNum">      32</span>                 :             :  *</span>
+<span id="L33"><span class="lineNum">      33</span>                 :             :  * - The table can be generated at runtime if desired; code to do so is shown later.  It</span>
+<span id="L34"><span class="lineNum">      34</span>                 :             :  *   might not be obvious, but the feedback terms simply represent the results of eight</span>
+<span id="L35"><span class="lineNum">      35</span>                 :             :  *   shift/xor operations for all combinations of data and CRC register values</span>
+<span id="L36"><span class="lineNum">      36</span>                 :             :  *</span>
+<span id="L37"><span class="lineNum">      37</span>                 :             :  * - The values must be right-shifted by eight bits by the updcrc logic; the shift must</span>
+<span id="L38"><span class="lineNum">      38</span>                 :             :  *   be u_(bring in zeroes).  On some hardware you could probably optimize the shift in</span>
+<span id="L39"><span class="lineNum">      39</span>                 :             :  *   assembler by using byte-swap instructions polynomial $edb88320</span>
+<span id="L40"><span class="lineNum">      40</span>                 :             :   ************************************************************************************************/</span>
+<span id="L41"><span class="lineNum">      41</span>                 :             : </span>
+<span id="L42"><span class="lineNum">      42</span>                 :             : /************************************************************************************************</span>
+<span id="L43"><span class="lineNum">      43</span>                 :             :  * Included Files</span>
+<span id="L44"><span class="lineNum">      44</span>                 :             :  ************************************************************************************************/</span>
+<span id="L45"><span class="lineNum">      45</span>                 :             : </span>
+<span id="L46"><span class="lineNum">      46</span>                 :             : #include &lt;sys/types.h&gt;</span>
+<span id="L47"><span class="lineNum">      47</span>                 :             : #include &lt;stdint.h&gt;</span>
+<span id="L48"><span class="lineNum">      48</span>                 :             : #include &lt;crc32.h&gt;</span>
+<span id="L49"><span class="lineNum">      49</span>                 :             : </span>
+<span id="L50"><span class="lineNum">      50</span>                 :             : // Needed for Linux</span>
+<span id="L51"><span class="lineNum">      51</span>                 :             : #define FAR</span>
+<span id="L52"><span class="lineNum">      52</span>                 :             : </span>
+<span id="L53"><span class="lineNum">      53</span>                 :             : /************************************************************************************************</span>
+<span id="L54"><span class="lineNum">      54</span>                 :             :  * Private Data</span>
+<span id="L55"><span class="lineNum">      55</span>                 :             :  ************************************************************************************************/</span>
+<span id="L56"><span class="lineNum">      56</span>                 :             : </span>
+<span id="L57"><span class="lineNum">      57</span>                 :             : static const uint32_t crc32_tab[] = {</span>
+<span id="L58"><span class="lineNum">      58</span>                 :             :         0x00000000, 0x77073096, 0xee0e612c, 0x990951ba, 0x076dc419, 0x706af48f, 0xe963a535, 0x9e6495a3,</span>
+<span id="L59"><span class="lineNum">      59</span>                 :             :         0x0edb8832, 0x79dcb8a4, 0xe0d5e91e, 0x97d2d988, 0x09b64c2b, 0x7eb17cbd, 0xe7b82d07, 0x90bf1d91,</span>
+<span id="L60"><span class="lineNum">      60</span>                 :             :         0x1db71064, 0x6ab020f2, 0xf3b97148, 0x84be41de, 0x1adad47d, 0x6ddde4eb, 0xf4d4b551, 0x83d385c7,</span>
+<span id="L61"><span class="lineNum">      61</span>                 :             :         0x136c9856, 0x646ba8c0, 0xfd62f97a, 0x8a65c9ec, 0x14015c4f, 0x63066cd9, 0xfa0f3d63, 0x8d080df5,</span>
+<span id="L62"><span class="lineNum">      62</span>                 :             :         0x3b6e20c8, 0x4c69105e, 0xd56041e4, 0xa2677172, 0x3c03e4d1, 0x4b04d447, 0xd20d85fd, 0xa50ab56b,</span>
+<span id="L63"><span class="lineNum">      63</span>                 :             :         0x35b5a8fa, 0x42b2986c, 0xdbbbc9d6, 0xacbcf940, 0x32d86ce3, 0x45df5c75, 0xdcd60dcf, 0xabd13d59,</span>
+<span id="L64"><span class="lineNum">      64</span>                 :             :         0x26d930ac, 0x51de003a, 0xc8d75180, 0xbfd06116, 0x21b4f4b5, 0x56b3c423, 0xcfba9599, 0xb8bda50f,</span>
+<span id="L65"><span class="lineNum">      65</span>                 :             :         0x2802b89e, 0x5f058808, 0xc60cd9b2, 0xb10be924, 0x2f6f7c87, 0x58684c11, 0xc1611dab, 0xb6662d3d,</span>
+<span id="L66"><span class="lineNum">      66</span>                 :             :         0x76dc4190, 0x01db7106, 0x98d220bc, 0xefd5102a, 0x71b18589, 0x06b6b51f, 0x9fbfe4a5, 0xe8b8d433,</span>
+<span id="L67"><span class="lineNum">      67</span>                 :             :         0x7807c9a2, 0x0f00f934, 0x9609a88e, 0xe10e9818, 0x7f6a0dbb, 0x086d3d2d, 0x91646c97, 0xe6635c01,</span>
+<span id="L68"><span class="lineNum">      68</span>                 :             :         0x6b6b51f4, 0x1c6c6162, 0x856530d8, 0xf262004e, 0x6c0695ed, 0x1b01a57b, 0x8208f4c1, 0xf50fc457,</span>
+<span id="L69"><span class="lineNum">      69</span>                 :             :         0x65b0d9c6, 0x12b7e950, 0x8bbeb8ea, 0xfcb9887c, 0x62dd1ddf, 0x15da2d49, 0x8cd37cf3, 0xfbd44c65,</span>
+<span id="L70"><span class="lineNum">      70</span>                 :             :         0x4db26158, 0x3ab551ce, 0xa3bc0074, 0xd4bb30e2, 0x4adfa541, 0x3dd895d7, 0xa4d1c46d, 0xd3d6f4fb,</span>
+<span id="L71"><span class="lineNum">      71</span>                 :             :         0x4369e96a, 0x346ed9fc, 0xad678846, 0xda60b8d0, 0x44042d73, 0x33031de5, 0xaa0a4c5f, 0xdd0d7cc9,</span>
+<span id="L72"><span class="lineNum">      72</span>                 :             :         0x5005713c, 0x270241aa, 0xbe0b1010, 0xc90c2086, 0x5768b525, 0x206f85b3, 0xb966d409, 0xce61e49f,</span>
+<span id="L73"><span class="lineNum">      73</span>                 :             :         0x5edef90e, 0x29d9c998, 0xb0d09822, 0xc7d7a8b4, 0x59b33d17, 0x2eb40d81, 0xb7bd5c3b, 0xc0ba6cad,</span>
+<span id="L74"><span class="lineNum">      74</span>                 :             :         0xedb88320, 0x9abfb3b6, 0x03b6e20c, 0x74b1d29a, 0xead54739, 0x9dd277af, 0x04db2615, 0x73dc1683,</span>
+<span id="L75"><span class="lineNum">      75</span>                 :             :         0xe3630b12, 0x94643b84, 0x0d6d6a3e, 0x7a6a5aa8, 0xe40ecf0b, 0x9309ff9d, 0x0a00ae27, 0x7d079eb1,</span>
+<span id="L76"><span class="lineNum">      76</span>                 :             :         0xf00f9344, 0x8708a3d2, 0x1e01f268, 0x6906c2fe, 0xf762575d, 0x806567cb, 0x196c3671, 0x6e6b06e7,</span>
+<span id="L77"><span class="lineNum">      77</span>                 :             :         0xfed41b76, 0x89d32be0, 0x10da7a5a, 0x67dd4acc, 0xf9b9df6f, 0x8ebeeff9, 0x17b7be43, 0x60b08ed5,</span>
+<span id="L78"><span class="lineNum">      78</span>                 :             :         0xd6d6a3e8, 0xa1d1937e, 0x38d8c2c4, 0x4fdff252, 0xd1bb67f1, 0xa6bc5767, 0x3fb506dd, 0x48b2364b,</span>
+<span id="L79"><span class="lineNum">      79</span>                 :             :         0xd80d2bda, 0xaf0a1b4c, 0x36034af6, 0x41047a60, 0xdf60efc3, 0xa867df55, 0x316e8eef, 0x4669be79,</span>
+<span id="L80"><span class="lineNum">      80</span>                 :             :         0xcb61b38c, 0xbc66831a, 0x256fd2a0, 0x5268e236, 0xcc0c7795, 0xbb0b4703, 0x220216b9, 0x5505262f,</span>
+<span id="L81"><span class="lineNum">      81</span>                 :             :         0xc5ba3bbe, 0xb2bd0b28, 0x2bb45a92, 0x5cb36a04, 0xc2d7ffa7, 0xb5d0cf31, 0x2cd99e8b, 0x5bdeae1d,</span>
+<span id="L82"><span class="lineNum">      82</span>                 :             :         0x9b64c2b0, 0xec63f226, 0x756aa39c, 0x026d930a, 0x9c0906a9, 0xeb0e363f, 0x72076785, 0x05005713,</span>
+<span id="L83"><span class="lineNum">      83</span>                 :             :         0x95bf4a82, 0xe2b87a14, 0x7bb12bae, 0x0cb61b38, 0x92d28e9b, 0xe5d5be0d, 0x7cdcefb7, 0x0bdbdf21,</span>
+<span id="L84"><span class="lineNum">      84</span>                 :             :         0x86d3d2d4, 0xf1d4e242, 0x68ddb3f8, 0x1fda836e, 0x81be16cd, 0xf6b9265b, 0x6fb077e1, 0x18b74777,</span>
+<span id="L85"><span class="lineNum">      85</span>                 :             :         0x88085ae6, 0xff0f6a70, 0x66063bca, 0x11010b5c, 0x8f659eff, 0xf862ae69, 0x616bffd3, 0x166ccf45,</span>
+<span id="L86"><span class="lineNum">      86</span>                 :             :         0xa00ae278, 0xd70dd2ee, 0x4e048354, 0x3903b3c2, 0xa7672661, 0xd06016f7, 0x4969474d, 0x3e6e77db,</span>
+<span id="L87"><span class="lineNum">      87</span>                 :             :         0xaed16a4a, 0xd9d65adc, 0x40df0b66, 0x37d83bf0, 0xa9bcae53, 0xdebb9ec5, 0x47b2cf7f, 0x30b5ffe9,</span>
+<span id="L88"><span class="lineNum">      88</span>                 :             :         0xbdbdf21c, 0xcabac28a, 0x53b39330, 0x24b4a3a6, 0xbad03605, 0xcdd70693, 0x54de5729, 0x23d967bf,</span>
+<span id="L89"><span class="lineNum">      89</span>                 :             :         0xb3667a2e, 0xc4614ab8, 0x5d681b02, 0x2a6f2b94, 0xb40bbe37, 0xc30c8ea1, 0x5a05df1b, 0x2d02ef8d</span>
+<span id="L90"><span class="lineNum">      90</span>                 :             : };</span>
+<span id="L91"><span class="lineNum">      91</span>                 :             : </span>
+<span id="L92"><span class="lineNum">      92</span>                 :             : /************************************************************************************************</span>
+<span id="L93"><span class="lineNum">      93</span>                 :             :  * Public Functions</span>
+<span id="L94"><span class="lineNum">      94</span>                 :             :  ************************************************************************************************/</span>
+<span id="L95"><span class="lineNum">      95</span>                 :             : /************************************************************************************************</span>
+<span id="L96"><span class="lineNum">      96</span>                 :             :  * Name: crc32part</span>
+<span id="L97"><span class="lineNum">      97</span>                 :             :  *</span>
+<span id="L98"><span class="lineNum">      98</span>                 :             :  * Description:</span>
+<span id="L99"><span class="lineNum">      99</span>                 :             :  *   Continue CRC calculation on a part of the buffer.</span>
+<span id="L100"><span class="lineNum">     100</span>                 :             :  *</span>
+<span id="L101"><span class="lineNum">     101</span>                 :             :  ************************************************************************************************/</span>
+<span id="L102"><span class="lineNum">     102</span>                 :             : </span>
+<span id="L103"><span class="lineNum">     103</span>                 :<span class="tlaUNC tlaBgUNC">           0 : uint32_t crc32part(FAR const uint8_t *src, size_t len, uint32_t crc32val)</span></span>
+<span id="L104"><span class="lineNum">     104</span>                 :             : {</span>
+<span id="L105"><span class="lineNum">     105</span>                 :             :         size_t i;</span>
+<span id="L106"><span class="lineNum">     106</span>                 :             : </span>
+<span id="L107"><span class="lineNum">     107</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         for (i = 0;  i &lt; len;  i++) {</span></span>
+<span id="L108"><span class="lineNum">     108</span>                 :<span class="tlaUNC">           0 :                 crc32val = crc32_tab[(crc32val ^ src[i]) &amp; 0xff] ^ (crc32val &gt;&gt; 8);</span></span>
+<span id="L109"><span class="lineNum">     109</span>                 :             :         }</span>
+<span id="L110"><span class="lineNum">     110</span>                 :             : </span>
+<span id="L111"><span class="lineNum">     111</span>                 :<span class="tlaUNC">           0 :         return crc32val;</span></span>
+<span id="L112"><span class="lineNum">     112</span>                 :             : }</span>
+<span id="L113"><span class="lineNum">     113</span>                 :             : </span>
+<span id="L114"><span class="lineNum">     114</span>                 :             : /************************************************************************************************</span>
+<span id="L115"><span class="lineNum">     115</span>                 :             :  * Name: crc32</span>
+<span id="L116"><span class="lineNum">     116</span>                 :             :  *</span>
+<span id="L117"><span class="lineNum">     117</span>                 :             :  * Description:</span>
+<span id="L118"><span class="lineNum">     118</span>                 :             :  *   Return a 32-bit CRC of the contents of the 'src' buffer, length 'len'</span>
+<span id="L119"><span class="lineNum">     119</span>                 :             :  *</span>
+<span id="L120"><span class="lineNum">     120</span>                 :             :  ************************************************************************************************/</span>
+<span id="L121"><span class="lineNum">     121</span>                 :             : </span>
+<span id="L122"><span class="lineNum">     122</span>                 :<span class="tlaUNC">           0 : uint32_t crc32(FAR const uint8_t *src, size_t len)</span></span>
+<span id="L123"><span class="lineNum">     123</span>                 :             : {</span>
+<span id="L124"><span class="lineNum">     124</span>                 :<span class="tlaUNC">           0 :         return crc32part(src, len, 0);</span></span>
+<span id="L125"><span class="lineNum">     125</span>                 :             : }</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

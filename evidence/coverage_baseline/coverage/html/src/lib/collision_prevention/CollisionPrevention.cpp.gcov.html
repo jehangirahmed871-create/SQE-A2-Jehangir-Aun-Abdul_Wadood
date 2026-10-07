@@ -1,0 +1,696 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov_filtered.info - src/lib/collision_prevention/CollisionPrevention.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../index.html">top level</a> - <a href="index.html">src/lib/collision_prevention</a> - CollisionPrevention.cpp<span style="font-size: 80%;"> (source / <a href="CollisionPrevention.cpp.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov_filtered.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryHi">99.0&nbsp;%</td>
+            <td class="headerCovTableEntry">287</td>
+            <td class="headerCovTableEntry">284</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-10-02 17:31:18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">19</td>
+            <td class="headerCovTableEntry">19</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryLo">69.2&nbsp;%</td>
+            <td class="headerCovTableEntry">390</td>
+            <td class="headerCovTableEntry">270</td>
+          </tr>
+                  <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : /****************************************************************************</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             :  *</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             :  *   Copyright (c) 2018-2024 PX4 Development Team. All rights reserved.</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             :  *</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             :  * Redistribution and use in source and binary forms, with or without</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             :  * modification, are permitted provided that the following conditions</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             :  * are met:</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             :  *</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             :  * 1. Redistributions of source code must retain the above copyright</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             :  *    notice, this list of conditions and the following disclaimer.</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             :  * 2. Redistributions in binary form must reproduce the above copyright</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             :  *    notice, this list of conditions and the following disclaimer in</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             :  *    the documentation and/or other materials provided with the</span>
+<span id="L14"><span class="lineNum">      14</span>                 :             :  *    distribution.</span>
+<span id="L15"><span class="lineNum">      15</span>                 :             :  * 3. Neither the name PX4 nor the names of its contributors may be</span>
+<span id="L16"><span class="lineNum">      16</span>                 :             :  *    used to endorse or promote products derived from this software</span>
+<span id="L17"><span class="lineNum">      17</span>                 :             :  *    without specific prior written permission.</span>
+<span id="L18"><span class="lineNum">      18</span>                 :             :  *</span>
+<span id="L19"><span class="lineNum">      19</span>                 :             :  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS</span>
+<span id="L20"><span class="lineNum">      20</span>                 :             :  * &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT</span>
+<span id="L21"><span class="lineNum">      21</span>                 :             :  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS</span>
+<span id="L22"><span class="lineNum">      22</span>                 :             :  * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE</span>
+<span id="L23"><span class="lineNum">      23</span>                 :             :  * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,</span>
+<span id="L24"><span class="lineNum">      24</span>                 :             :  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,</span>
+<span id="L25"><span class="lineNum">      25</span>                 :             :  * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS</span>
+<span id="L26"><span class="lineNum">      26</span>                 :             :  * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED</span>
+<span id="L27"><span class="lineNum">      27</span>                 :             :  * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT</span>
+<span id="L28"><span class="lineNum">      28</span>                 :             :  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN</span>
+<span id="L29"><span class="lineNum">      29</span>                 :             :  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE</span>
+<span id="L30"><span class="lineNum">      30</span>                 :             :  * POSSIBILITY OF SUCH DAMAGE.</span>
+<span id="L31"><span class="lineNum">      31</span>                 :             :  *</span>
+<span id="L32"><span class="lineNum">      32</span>                 :             :  ****************************************************************************/</span>
+<span id="L33"><span class="lineNum">      33</span>                 :             : </span>
+<span id="L34"><span class="lineNum">      34</span>                 :             : /**</span>
+<span id="L35"><span class="lineNum">      35</span>                 :             :  * @file CollisionPrevention.cpp</span>
+<span id="L36"><span class="lineNum">      36</span>                 :             :  * CollisionPrevention controller.</span>
+<span id="L37"><span class="lineNum">      37</span>                 :             :  *</span>
+<span id="L38"><span class="lineNum">      38</span>                 :             :  */</span>
+<span id="L39"><span class="lineNum">      39</span>                 :             : </span>
+<span id="L40"><span class="lineNum">      40</span>                 :             : #include &quot;CollisionPrevention.hpp&quot;</span>
+<span id="L41"><span class="lineNum">      41</span>                 :             : #include &quot;ObstacleMath.hpp&quot;</span>
+<span id="L42"><span class="lineNum">      42</span>                 :             : #include &lt;px4_platform_common/events.h&gt;</span>
+<span id="L43"><span class="lineNum">      43</span>                 :             : </span>
+<span id="L44"><span class="lineNum">      44</span>                 :             : using namespace matrix;</span>
+<span id="L45"><span class="lineNum">      45</span>                 :             : </span>
+<span id="L46"><span class="lineNum">      46</span>                 :<span class="tlaGNC tlaBgGNC">          23 : CollisionPrevention::CollisionPrevention(ModuleParams *parent) :</span></span>
+<span id="L47"><span class="lineNum">      47</span>   [<span class="tlaGBC" title="Branch 0 was taken 23 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 23 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 23 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">          46 :         ModuleParams(parent)</span></span>
+<span class="lineNum">        </span> <span class="tlaGBC" title="Branch 4 was taken 23 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 23 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaGBC" title="Branch 8 was taken 23 times"> + </span> 
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 9 was not taken"> - </span><span class="tlaGBC" title="Branch 10 was taken 23 times"> + </span><span class="tlaUNC" title="Branch 11 was not taken"> - </span><span class="tlaGBC" title="Branch 12 was taken 23 times"> + </span><span class="tlaUNC" title="Branch 13 was not taken"> - </span> 
+<span class="lineNum">        </span> <span class="tlaGBC" title="Branch 14 was taken 23 times"> + </span><span class="tlaUNC" title="Branch 15 was not taken"> - </span><span class="tlaGBC" title="Branch 16 was taken 23 times"> + </span><span class="tlaUNC" title="Branch 17 was not taken"> - </span><span class="tlaGBC" title="Branch 18 was taken 23 times"> + </span> 
+<span class="lineNum">        </span> <span class="tlaUNC" title="Branch 19 was not taken"> - </span><span class="tlaGBC" title="Branch 20 was taken 23 times"> + </span><span class="tlaUNC" title="Branch 21 was not taken"> - </span><span class="tlaGBC" title="Branch 22 was taken 23 times"> + </span><span class="tlaUNC" title="Branch 23 was not taken"> - </span> 
+<span class="lineNum">        </span> <span class="tlaGBC" title="Branch 24 was taken 23 times"> + </span><span class="tlaUNC" title="Branch 25 was not taken"> - </span><span class="tlaGBC" title="Branch 26 was taken 23 times"> + </span><span class="tlaUNC" title="Branch 27 was not taken"> - </span><span class="tlaGBC" title="Branch 28 was taken 23 times"> + </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 29 was not taken"> - </span>]
+<span id="L48"><span class="lineNum">      48</span>                 :             : {</span>
+<span id="L49"><span class="lineNum">      49</span>                 :             :         static_assert(BIN_SIZE &gt;= 5, &quot;BIN_SIZE must be at least 5&quot;);</span>
+<span id="L50"><span class="lineNum">      50</span>                 :             :         static_assert(360 % BIN_SIZE == 0, &quot;BIN_SIZE must divide 360 evenly&quot;);</span>
+<span id="L51"><span class="lineNum">      51</span>                 :             : </span>
+<span id="L52"><span class="lineNum">      52</span>                 :             :         // initialize internal obstacle map</span>
+<span id="L53"><span class="lineNum">      53</span>                 :<span class="tlaGNC">          23 :         _obstacle_map_body_frame.frame = obstacle_distance_s::MAV_FRAME_BODY_FRD;</span></span>
+<span id="L54"><span class="lineNum">      54</span>                 :<span class="tlaGNC">          23 :         _obstacle_map_body_frame.increment = BIN_SIZE;</span></span>
+<span id="L55"><span class="lineNum">      55</span>                 :<span class="tlaGNC">          23 :         _obstacle_map_body_frame.min_distance = UINT16_MAX;</span></span>
+<span id="L56"><span class="lineNum">      56</span>                 :             : </span>
+<span id="L57"><span class="lineNum">      57</span>         [<span class="tlaGBC" title="Branch 0 was taken 1656 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 23 times"> + </span>]:<span class="tlaGNC">        1679 :         for (uint32_t i = 0 ; i &lt; BIN_COUNT; i++) {</span></span>
+<span id="L58"><span class="lineNum">      58</span>                 :<span class="tlaGNC">        1656 :                 _obstacle_map_body_frame.distances[i] = UINT16_MAX;</span></span>
+<span id="L59"><span class="lineNum">      59</span>                 :             :         }</span>
+<span id="L60"><span class="lineNum">      60</span>                 :<span class="tlaGNC">          23 : }</span></span>
+<span id="L61"><span class="lineNum">      61</span>                 :             : </span>
+<span id="L62"><span class="lineNum">      62</span>                 :<span class="tlaGNC">        9474 : hrt_abstime CollisionPrevention::getTime()</span></span>
+<span id="L63"><span class="lineNum">      63</span>                 :             : {</span>
+<span id="L64"><span class="lineNum">      64</span>                 :<span class="tlaGNC">        9474 :         return hrt_absolute_time();</span></span>
+<span id="L65"><span class="lineNum">      65</span>                 :             : }</span>
+<span id="L66"><span class="lineNum">      66</span>                 :             : </span>
+<span id="L67"><span class="lineNum">      67</span>                 :<span class="tlaGNC">          89 : hrt_abstime CollisionPrevention::getElapsedTime(const hrt_abstime *ptr)</span></span>
+<span id="L68"><span class="lineNum">      68</span>                 :             : {</span>
+<span id="L69"><span class="lineNum">      69</span>                 :<span class="tlaGNC">          89 :         return hrt_absolute_time() - *ptr;</span></span>
+<span id="L70"><span class="lineNum">      70</span>                 :             : }</span>
+<span id="L71"><span class="lineNum">      71</span>                 :             : </span>
+<span id="L72"><span class="lineNum">      72</span>                 :<span class="tlaGNC">           2 : bool CollisionPrevention::is_active()</span></span>
+<span id="L73"><span class="lineNum">      73</span>                 :             : {</span>
+<span id="L74"><span class="lineNum">      74</span>                 :<span class="tlaGNC">           2 :         bool activated = _param_cp_dist.get() &gt; 0;</span></span>
+<span id="L75"><span class="lineNum">      75</span>                 :             : </span>
+<span id="L76"><span class="lineNum">      76</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 2 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">           2 :         if (activated &amp;&amp; !_was_active) {</span></span>
+<span id="L77"><span class="lineNum">      77</span>                 :<span class="tlaGNC">           1 :                 _time_activated = getTime();</span></span>
+<span id="L78"><span class="lineNum">      78</span>                 :             :         }</span>
+<span id="L79"><span class="lineNum">      79</span>                 :             : </span>
+<span id="L80"><span class="lineNum">      80</span>                 :<span class="tlaGNC">           2 :         _was_active = activated;</span></span>
+<span id="L81"><span class="lineNum">      81</span>                 :<span class="tlaGNC">           2 :         return activated;</span></span>
+<span id="L82"><span class="lineNum">      82</span>                 :             : }</span>
+<span id="L83"><span class="lineNum">      83</span>                 :             : </span>
+<span id="L84"><span class="lineNum">      84</span>                 :<span class="tlaGNC">         108 : void CollisionPrevention::modifySetpoint(Vector2f &amp;setpoint_accel, const Vector2f &amp;setpoint_vel)</span></span>
+<span id="L85"><span class="lineNum">      85</span>                 :             : {</span>
+<span id="L86"><span class="lineNum">      86</span>   [<span class="tlaGBC" title="Branch 0 was taken 108 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 5 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 103 times"> + </span>]:<span class="tlaGNC">         108 :         if (_vehicle_attitude_sub.updated()) {</span></span>
+<span id="L87"><span class="lineNum">      87</span>                 :             :                 vehicle_attitude_s vehicle_attitude;</span>
+<span id="L88"><span class="lineNum">      88</span>                 :             : </span>
+<span id="L89"><span class="lineNum">      89</span>   [<span class="tlaGBC" title="Branch 0 was taken 5 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 5 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">           5 :                 if (_vehicle_attitude_sub.copy(&amp;vehicle_attitude)) {</span></span>
+<span id="L90"><span class="lineNum">      90</span>   [<span class="tlaGBC" title="Branch 0 was taken 5 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 5 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">           5 :                         _vehicle_attitude = Quatf(vehicle_attitude.q);</span></span>
+<span id="L91"><span class="lineNum">      91</span>   [<span class="tlaGBC" title="Branch 0 was taken 5 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 5 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">           5 :                         _vehicle_yaw = Eulerf(_vehicle_attitude).psi();</span></span>
+<span id="L92"><span class="lineNum">      92</span>                 :             :                 }</span>
+<span id="L93"><span class="lineNum">      93</span>                 :             :         }</span>
+<span id="L94"><span class="lineNum">      94</span>                 :             : </span>
+<span id="L95"><span class="lineNum">      95</span>                 :             :         //calculate movement constraints based on range data</span>
+<span id="L96"><span class="lineNum">      96</span>         [<span class="tlaGBC" title="Branch 0 was taken 108 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         108 :         const Vector2f original_setpoint = setpoint_accel;</span></span>
+<span id="L97"><span class="lineNum">      97</span>         [<span class="tlaGBC" title="Branch 0 was taken 108 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         108 :         _updateObstacleMap();</span></span>
+<span id="L98"><span class="lineNum">      98</span>         [<span class="tlaGBC" title="Branch 0 was taken 108 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         108 :         _updateObstacleData();</span></span>
+<span id="L99"><span class="lineNum">      99</span>         [<span class="tlaGBC" title="Branch 0 was taken 108 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         108 :         _calculateConstrainedSetpoint(setpoint_accel, setpoint_vel);</span></span>
+<span id="L100"><span class="lineNum">     100</span>                 :             : </span>
+<span id="L101"><span class="lineNum">     101</span>                 :             :         // publish constraints</span>
+<span id="L102"><span class="lineNum">     102</span>                 :<span class="tlaGNC">         108 :         collision_constraints_s constraints{};</span></span>
+<span id="L103"><span class="lineNum">     103</span>         [<span class="tlaGBC" title="Branch 0 was taken 108 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         108 :         original_setpoint.copyTo(constraints.original_setpoint);</span></span>
+<span id="L104"><span class="lineNum">     104</span>         [<span class="tlaGBC" title="Branch 0 was taken 108 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         108 :         setpoint_accel.copyTo(constraints.adapted_setpoint);</span></span>
+<span id="L105"><span class="lineNum">     105</span>         [<span class="tlaGBC" title="Branch 0 was taken 108 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         108 :         constraints.timestamp = getTime();</span></span>
+<span id="L106"><span class="lineNum">     106</span>         [<span class="tlaGBC" title="Branch 0 was taken 108 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         108 :         _constraints_pub.publish(constraints);</span></span>
+<span id="L107"><span class="lineNum">     107</span>                 :<span class="tlaGNC">         108 : }</span></span>
+<span id="L108"><span class="lineNum">     108</span>                 :             : </span>
+<span id="L109"><span class="lineNum">     109</span>                 :<span class="tlaGNC">         108 : void CollisionPrevention::_updateObstacleMap()</span></span>
+<span id="L110"><span class="lineNum">     110</span>                 :             : {</span>
+<span id="L111"><span class="lineNum">     111</span>                 :             :         // add distance sensor data</span>
+<span id="L112"><span class="lineNum">     112</span>         [<span class="tlaGBC" title="Branch 0 was taken 1080 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 108 times"> + </span>]:<span class="tlaGNC">        1188 :         for (auto &amp;dist_sens_sub : _distance_sensor_subs) {</span></span>
+<span id="L113"><span class="lineNum">     113</span>                 :             :                 distance_sensor_s distance_sensor;</span>
+<span id="L114"><span class="lineNum">     114</span>                 :             : </span>
+<span id="L115"><span class="lineNum">     115</span>   [<span class="tlaGBC" title="Branch 0 was taken 1080 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 3 was taken 1079 times"> + </span>]:<span class="tlaGNC">        1080 :                 if (dist_sens_sub.update(&amp;distance_sensor)) {</span></span>
+<span id="L116"><span class="lineNum">     116</span>                 :             :                         // consider only instances with valid data and orientations useful for collision prevention</span>
+<span id="L117"><span class="lineNum">     117</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :                         if ((getElapsedTime(&amp;distance_sensor.timestamp) &lt; RANGE_STREAM_TIMEOUT_US) &amp;&amp;</span></span>
+<span id="L118"><span class="lineNum">     118</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">           2 :                             (distance_sensor.orientation != distance_sensor_s::ROTATION_DOWNWARD_FACING) &amp;&amp;</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L119"><span class="lineNum">     119</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :                             (distance_sensor.orientation != distance_sensor_s::ROTATION_UPWARD_FACING)) {</span></span>
+<span id="L120"><span class="lineNum">     120</span>                 :             : </span>
+<span id="L121"><span class="lineNum">     121</span>                 :             :                                 // update message description</span>
+<span id="L122"><span class="lineNum">     122</span>                 :<span class="tlaGNC">           1 :                                 _obstacle_map_body_frame.timestamp = math::max(_obstacle_map_body_frame.timestamp, distance_sensor.timestamp);</span></span>
+<span id="L123"><span class="lineNum">     123</span>                 :<span class="tlaGNC">           2 :                                 _obstacle_map_body_frame.max_distance = math::max(_obstacle_map_body_frame.max_distance,</span></span>
+<span id="L124"><span class="lineNum">     124</span>                 :<span class="tlaGNC">           1 :                                                                         (uint16_t)(distance_sensor.max_distance * 100.0f));</span></span>
+<span id="L125"><span class="lineNum">     125</span>                 :<span class="tlaGNC">           2 :                                 _obstacle_map_body_frame.min_distance = math::min(_obstacle_map_body_frame.min_distance,</span></span>
+<span id="L126"><span class="lineNum">     126</span>                 :<span class="tlaGNC">           1 :                                                                         (uint16_t)(distance_sensor.min_distance * 100.0f));</span></span>
+<span id="L127"><span class="lineNum">     127</span>                 :             : </span>
+<span id="L128"><span class="lineNum">     128</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           1 :                                 _addDistanceSensorData(distance_sensor, _vehicle_attitude);</span></span>
+<span id="L129"><span class="lineNum">     129</span>                 :             :                         }</span>
+<span id="L130"><span class="lineNum">     130</span>                 :             :                 }</span>
+<span id="L131"><span class="lineNum">     131</span>                 :             :         }</span>
+<span id="L132"><span class="lineNum">     132</span>                 :             : </span>
+<span id="L133"><span class="lineNum">     133</span>                 :             :         // add obstacle distance data</span>
+<span id="L134"><span class="lineNum">     134</span>         [<span class="tlaGBC" title="Branch 0 was taken 92 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 16 times"> + </span>]:<span class="tlaGNC">         108 :         if (_sub_obstacle_distance.update()) {</span></span>
+<span id="L135"><span class="lineNum">     135</span>                 :<span class="tlaGNC">          92 :                 const obstacle_distance_s &amp;obstacle_distance = _sub_obstacle_distance.get();</span></span>
+<span id="L136"><span class="lineNum">     136</span>                 :             : </span>
+<span id="L137"><span class="lineNum">     137</span>                 :             :                 // Update map with obstacle data if the data is not stale</span>
+<span id="L138"><span class="lineNum">     138</span>   [<span class="tlaGBC" title="Branch 0 was taken 92 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 92 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">          92 :                 if (getElapsedTime(&amp;obstacle_distance.timestamp) &lt; RANGE_STREAM_TIMEOUT_US &amp;&amp; obstacle_distance.increment &gt; 0.f) {</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 92 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L139"><span class="lineNum">     139</span>                 :             :                         //update message description</span>
+<span id="L140"><span class="lineNum">     140</span>                 :<span class="tlaGNC">          92 :                         _obstacle_map_body_frame.timestamp = math::max(_obstacle_map_body_frame.timestamp, obstacle_distance.timestamp);</span></span>
+<span id="L141"><span class="lineNum">     141</span>                 :<span class="tlaGNC">         184 :                         _obstacle_map_body_frame.max_distance = math::max(_obstacle_map_body_frame.max_distance,</span></span>
+<span id="L142"><span class="lineNum">     142</span>                 :<span class="tlaGNC">          92 :                                                                 obstacle_distance.max_distance);</span></span>
+<span id="L143"><span class="lineNum">     143</span>                 :<span class="tlaGNC">         184 :                         _obstacle_map_body_frame.min_distance = math::min(_obstacle_map_body_frame.min_distance,</span></span>
+<span id="L144"><span class="lineNum">     144</span>                 :<span class="tlaGNC">          92 :                                                                 obstacle_distance.min_distance);</span></span>
+<span id="L145"><span class="lineNum">     145</span>                 :<span class="tlaGNC">          92 :                         _addObstacleSensorData(obstacle_distance, _vehicle_yaw);</span></span>
+<span id="L146"><span class="lineNum">     146</span>                 :             :                 }</span>
+<span id="L147"><span class="lineNum">     147</span>                 :             :         }</span>
+<span id="L148"><span class="lineNum">     148</span>                 :             : </span>
+<span id="L149"><span class="lineNum">     149</span>                 :             :         // publish fused obtacle distance message with data from offboard obstacle_distance and distance sensor</span>
+<span id="L150"><span class="lineNum">     150</span>                 :<span class="tlaGNC">         108 :         _obstacle_distance_fused_pub.publish(_obstacle_map_body_frame);</span></span>
+<span id="L151"><span class="lineNum">     151</span>                 :<span class="tlaGNC">         108 : }</span></span>
+<span id="L152"><span class="lineNum">     152</span>                 :             : </span>
+<span id="L153"><span class="lineNum">     153</span>                 :<span class="tlaGNC">         108 : void CollisionPrevention::_updateObstacleData()</span></span>
+<span id="L154"><span class="lineNum">     154</span>                 :             : {</span>
+<span id="L155"><span class="lineNum">     155</span>                 :<span class="tlaGNC">         108 :         _obstacle_data_present = false;</span></span>
+<span id="L156"><span class="lineNum">     156</span>                 :<span class="tlaGNC">         108 :         _closest_dist = UINT16_MAX;</span></span>
+<span id="L157"><span class="lineNum">     157</span>                 :<span class="tlaGNC">         108 :         _closest_dist_dir.setZero();</span></span>
+<span id="L158"><span class="lineNum">     158</span>                 :             : </span>
+<span id="L159"><span class="lineNum">     159</span>         [<span class="tlaGBC" title="Branch 0 was taken 7776 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 108 times"> + </span>]:<span class="tlaGNC">        7884 :         for (int i = 0; i &lt; BIN_COUNT; i++) {</span></span>
+<span id="L160"><span class="lineNum">     160</span>                 :             :                 // if the data is stale, reset the bin</span>
+<span id="L161"><span class="lineNum">     161</span>   [<span class="tlaGBC" title="Branch 0 was taken 7776 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 4305 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 3471 times"> + </span>]:<span class="tlaGNC">        7776 :                 if (getTime() - _data_timestamps[i] &gt; RANGE_STREAM_TIMEOUT_US) {</span></span>
+<span id="L162"><span class="lineNum">     162</span>                 :<span class="tlaGNC">        4305 :                         _obstacle_map_body_frame.distances[i] = UINT16_MAX;</span></span>
+<span id="L163"><span class="lineNum">     163</span>                 :             :                 }</span>
+<span id="L164"><span class="lineNum">     164</span>                 :             : </span>
+<span id="L165"><span class="lineNum">     165</span>         [<span class="tlaGBC" title="Branch 0 was taken 7776 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">        7776 :                 float angle = wrap_2pi(_vehicle_yaw + math::radians((float)i * BIN_SIZE +</span></span>
+<span id="L166"><span class="lineNum">     166</span>                 :<span class="tlaGNC">        7776 :                                        _obstacle_map_body_frame.angle_offset));</span></span>
+<span id="L167"><span class="lineNum">     167</span>         [<span class="tlaGBC" title="Branch 0 was taken 7776 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">        7776 :                 const Vector2f bin_direction = {cosf(angle), sinf(angle)};</span></span>
+<span id="L168"><span class="lineNum">     168</span>                 :<span class="tlaGNC">        7776 :                 const uint16_t bin_distance = _obstacle_map_body_frame.distances[i];</span></span>
+<span id="L169"><span class="lineNum">     169</span>                 :             : </span>
+<span id="L170"><span class="lineNum">     170</span>                 :             :                 // check if there is avaliable data and the data of the map is not stale</span>
+<span id="L171"><span class="lineNum">     171</span>                 :<span class="tlaGNC">        7776 :                 if (bin_distance &lt; UINT16_MAX</span></span>
+<span id="L172"><span class="lineNum">     172</span>   [<span class="tlaGBC" title="Branch 0 was taken 3471 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 4305 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 3471 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">        7776 :                     &amp;&amp; (getTime() - _obstacle_map_body_frame.timestamp) &lt; RANGE_STREAM_TIMEOUT_US) {</span></span>
+<span class="lineNum">        </span>    <span class="tlaGBC" title="Branch 4 was taken 3399 times"> + </span><span class="tlaGBC" title="Branch 5 was taken 72 times"> + </span><span class="tlaGBC" title="Branch 6 was taken 3399 times"> + </span><span class="tlaGBC" title="Branch 7 was taken 4377 times"> + </span>]
+<span id="L173"><span class="lineNum">     173</span>                 :<span class="tlaGNC">        3399 :                         _obstacle_data_present = true;</span></span>
+<span id="L174"><span class="lineNum">     174</span>                 :             :                 }</span>
+<span id="L175"><span class="lineNum">     175</span>                 :             : </span>
+<span id="L176"><span class="lineNum">     176</span>         [<span class="tlaGBC" title="Branch 0 was taken 185 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 7591 times"> + </span>]:<span class="tlaGNC">        7776 :                 if (bin_distance * 0.01f &lt; _closest_dist) {</span></span>
+<span id="L177"><span class="lineNum">     177</span>                 :<span class="tlaGNC">         185 :                         _closest_dist = bin_distance * 0.01f;</span></span>
+<span id="L178"><span class="lineNum">     178</span>         [<span class="tlaGBC" title="Branch 0 was taken 185 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         185 :                         _closest_dist_dir = bin_direction;</span></span>
+<span id="L179"><span class="lineNum">     179</span>                 :             :                 }</span>
+<span id="L180"><span class="lineNum">     180</span>                 :             :         }</span>
+<span id="L181"><span class="lineNum">     181</span>                 :<span class="tlaGNC">         108 : }</span></span>
+<span id="L182"><span class="lineNum">     182</span>                 :             : </span>
+<span id="L183"><span class="lineNum">     183</span>                 :<span class="tlaGNC">         108 : void CollisionPrevention::_calculateConstrainedSetpoint(Vector2f &amp;setpoint_accel, const Vector2f &amp;setpoint_vel)</span></span>
+<span id="L184"><span class="lineNum">     184</span>                 :             : {</span>
+<span id="L185"><span class="lineNum">     185</span>         [<span class="tlaGBC" title="Branch 0 was taken 108 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         108 :         const float setpoint_length = setpoint_accel.norm();</span></span>
+<span id="L186"><span class="lineNum">     186</span>                 :<span class="tlaGNC">         108 :         _min_dist_to_keep = math::max(_obstacle_map_body_frame.min_distance / 100.0f, _param_cp_dist.get());</span></span>
+<span id="L187"><span class="lineNum">     187</span>                 :             : </span>
+<span id="L188"><span class="lineNum">     188</span>         [<span class="tlaGBC" title="Branch 0 was taken 108 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         108 :         const hrt_abstime now = getTime();</span></span>
+<span id="L189"><span class="lineNum">     189</span>                 :             : </span>
+<span id="L190"><span class="lineNum">     190</span>                 :<span class="tlaGNC">         108 :         const bool is_stick_deflected = setpoint_length &gt; 0.001f;</span></span>
+<span id="L191"><span class="lineNum">     191</span>                 :             : </span>
+<span id="L192"><span class="lineNum">     192</span>   [<span class="tlaGBC" title="Branch 0 was taken 100 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 8 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 100 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">         108 :         if (_obstacle_data_present &amp;&amp; is_stick_deflected) {</span></span>
+<span id="L193"><span class="lineNum">     193</span>                 :             : </span>
+<span id="L194"><span class="lineNum">     194</span>         [<span class="tlaGBC" title="Branch 0 was taken 100 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         100 :                 _transformSetpoint(setpoint_accel);</span></span>
+<span id="L195"><span class="lineNum">     195</span>                 :             : </span>
+<span id="L196"><span class="lineNum">     196</span>                 :<span class="tlaGNC">         100 :                 float vel_comp_accel = INFINITY;</span></span>
+<span id="L197"><span class="lineNum">     197</span>                 :<span class="tlaGNC">         100 :                 Vector2f vel_comp_accel_dir{};</span></span>
+<span id="L198"><span class="lineNum">     198</span>                 :             : </span>
+<span id="L199"><span class="lineNum">     199</span>         [<span class="tlaGBC" title="Branch 0 was taken 100 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         100 :                 _getVelocityCompensationAcceleration(_vehicle_yaw, setpoint_vel, now,</span></span>
+<span id="L200"><span class="lineNum">     200</span>                 :             :                                                      vel_comp_accel, vel_comp_accel_dir);</span>
+<span id="L201"><span class="lineNum">     201</span>                 :             : </span>
+<span id="L202"><span class="lineNum">     202</span>                 :<span class="tlaGNC">         100 :                 Vector2f constr_accel_setpoint{};</span></span>
+<span id="L203"><span class="lineNum">     203</span>                 :             : </span>
+<span id="L204"><span class="lineNum">     204</span>   [<span class="tlaGBC" title="Branch 0 was taken 100 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 65 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 35 times"> + </span>]:<span class="tlaGNC">         100 :                 if (_checkSetpointDirectionFeasability()) {</span></span>
+<span id="L205"><span class="lineNum">     205</span>   [<span class="tlaGBC" title="Branch 0 was taken 65 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 65 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">          65 :                         constr_accel_setpoint = _constrainAccelerationSetpoint(setpoint_length);</span></span>
+<span id="L206"><span class="lineNum">     206</span>                 :             :                 }</span>
+<span id="L207"><span class="lineNum">     207</span>                 :             : </span>
+<span id="L208"><span class="lineNum">     208</span>   [<span class="tlaGBC" title="Branch 0 was taken 100 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 100 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">         100 :                 setpoint_accel = constr_accel_setpoint + vel_comp_accel * vel_comp_accel_dir;</span></span>
+<span class="lineNum">        </span> <span class="tlaGBC" title="Branch 4 was taken 100 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 100 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaGBC" title="Branch 8 was taken 100 times"> + </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 9 was not taken"> - </span>]
+<span id="L209"><span class="lineNum">     209</span>                 :             : </span>
+<span id="L210"><span class="lineNum">     210</span>         [<span class="tlaGBC" title="Branch 0 was taken 8 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         108 :         } else if (!_obstacle_data_present) {</span></span>
+<span id="L211"><span class="lineNum">     211</span>                 :             :                 // allow no movement</span>
+<span id="L212"><span class="lineNum">     212</span>                 :<span class="tlaGNC">           8 :                 setpoint_accel.setZero();</span></span>
+<span id="L213"><span class="lineNum">     213</span>                 :             : </span>
+<span id="L214"><span class="lineNum">     214</span>                 :             :                 // if distance data is stale, switch to Loiter</span>
+<span id="L215"><span class="lineNum">     215</span>   [<span class="tlaGBC" title="Branch 0 was taken 8 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 3 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 5 times"> + </span> :<span class="tlaGNC">           8 :                 if (getElapsedTime(&amp;_last_timeout_warning) &gt; 1_s &amp;&amp; getElapsedTime(&amp;_time_activated) &gt; 1_s) {</span></span>
+<span class="lineNum">        </span> <span class="tlaGBC" title="Branch 4 was taken 3 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 3 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaGBC" title="Branch 8 was taken 3 times"> + </span> 
+<span class="lineNum">        </span>             <span class="tlaGBC" title="Branch 9 was taken 5 times"> + </span>]
+<span id="L216"><span class="lineNum">     216</span>   [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 2 was taken 2 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span>]:<span class="tlaGNC">           5 :                         if ((now - _obstacle_map_body_frame.timestamp) &gt; TIMEOUT_HOLD_US &amp;&amp;</span></span>
+<span id="L217"><span class="lineNum">     217</span>   [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 2 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">           2 :                             getElapsedTime(&amp;_time_activated) &gt; TIMEOUT_HOLD_US) {</span></span>
+<span id="L218"><span class="lineNum">     218</span>         [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           2 :                                 _publishVehicleCmdDoLoiter();</span></span>
+<span id="L219"><span class="lineNum">     219</span>                 :             :                         }</span>
+<span id="L220"><span class="lineNum">     220</span>                 :             : </span>
+<span id="L221"><span class="lineNum">     221</span>         [<span class="tlaGBC" title="Branch 0 was taken 3 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           3 :                         PX4_WARN(&quot;No obstacle data, not moving...&quot;);</span></span>
+<span id="L222"><span class="lineNum">     222</span>                 :<span class="tlaGNC">           3 :                         _last_timeout_warning = now;</span></span>
+<span id="L223"><span class="lineNum">     223</span>                 :             :                 }</span>
+<span id="L224"><span class="lineNum">     224</span>                 :             :         }</span>
+<span id="L225"><span class="lineNum">     225</span>                 :<span class="tlaGNC">         108 : }</span></span>
+<span id="L226"><span class="lineNum">     226</span>                 :             : </span>
+<span id="L227"><span class="lineNum">     227</span>                 :             : // TODO this gives false output if the offset is not a multiple of the resolution. to be fixed...</span>
+<span id="L228"><span class="lineNum">     228</span>                 :<span class="tlaGNC">         108 : void CollisionPrevention::_addObstacleSensorData(const obstacle_distance_s &amp;obstacle, const float vehicle_yaw)</span></span>
+<span id="L229"><span class="lineNum">     229</span>                 :             : {</span>
+<span id="L230"><span class="lineNum">     230</span>                 :             : </span>
+<span id="L231"><span class="lineNum">     231</span>                 :<span class="tlaGNC">         108 :         float vehicle_orientation_deg = math::degrees(vehicle_yaw);</span></span>
+<span id="L232"><span class="lineNum">     232</span>                 :             : </span>
+<span id="L233"><span class="lineNum">     233</span>                 :             : </span>
+<span id="L234"><span class="lineNum">     234</span>   [<span class="tlaGBC" title="Branch 0 was taken 7 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 101 times"> + </span><span class="tlaUNC" title="Branch 2 was not taken"> - </span><span class="tlaGBC" title="Branch 3 was taken 7 times"> + </span>]:<span class="tlaGNC">         108 :         if (obstacle.frame == obstacle.MAV_FRAME_GLOBAL || obstacle.frame == obstacle.MAV_FRAME_LOCAL_NED) {</span></span>
+<span id="L235"><span class="lineNum">     235</span>                 :             :                 // Obstacle message arrives in local_origin frame (north aligned)</span>
+<span id="L236"><span class="lineNum">     236</span>                 :             :                 // corresponding data index (convert to world frame and shift by msg offset)</span>
+<span id="L237"><span class="lineNum">     237</span>         [<span class="tlaGBC" title="Branch 0 was taken 7272 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 101 times"> + </span>]:<span class="tlaGNC">        7373 :                 for (int i = 0; i &lt; BIN_COUNT; i++) {</span></span>
+<span id="L238"><span class="lineNum">     238</span>   [<span class="tlaGBC" title="Branch 0 was taken 520992 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 7272 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 520992 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">      528264 :                         for (int j = 0; (j &lt; 360 / obstacle.increment) &amp;&amp; (j &lt; BIN_COUNT); j++) {</span></span>
+<span id="L239"><span class="lineNum">     239</span>                 :<span class="tlaGNC">      520992 :                                 float bin_lower_angle = ObstacleMath::get_lower_bound_angle(i, _obstacle_map_body_frame.increment,</span></span>
+<span id="L240"><span class="lineNum">     240</span>                 :             :                                                         _obstacle_map_body_frame.angle_offset);</span>
+<span id="L241"><span class="lineNum">     241</span>                 :<span class="tlaGNC">      520992 :                                 float bin_upper_angle = ObstacleMath::get_lower_bound_angle(i + 1, _obstacle_map_body_frame.increment,</span></span>
+<span id="L242"><span class="lineNum">     242</span>                 :             :                                                         _obstacle_map_body_frame.angle_offset);</span>
+<span id="L243"><span class="lineNum">     243</span>                 :<span class="tlaGNC">     1041984 :                                 float msg_lower_angle = ObstacleMath::get_lower_bound_angle(j, obstacle.increment,</span></span>
+<span id="L244"><span class="lineNum">     244</span>                 :<span class="tlaGNC">      520992 :                                                         obstacle.angle_offset - vehicle_orientation_deg);</span></span>
+<span id="L245"><span class="lineNum">     245</span>                 :<span class="tlaGNC">     1041984 :                                 float msg_upper_angle = ObstacleMath::get_lower_bound_angle(j + 1, obstacle.increment,</span></span>
+<span id="L246"><span class="lineNum">     246</span>                 :<span class="tlaGNC">      520992 :                                                         obstacle.angle_offset - vehicle_orientation_deg);</span></span>
+<span id="L247"><span class="lineNum">     247</span>                 :             : </span>
+<span id="L248"><span class="lineNum">     248</span>                 :             :                                 // if a bin stretches over the 0/360 degree line, adjust the angles</span>
+<span id="L249"><span class="lineNum">     249</span>         [<span class="tlaGBC" title="Branch 0 was taken 7236 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 513756 times"> + </span>]:<span class="tlaGNC">      520992 :                                 if (bin_lower_angle &gt; bin_upper_angle) {</span></span>
+<span id="L250"><span class="lineNum">     250</span>                 :<span class="tlaGNC">        7236 :                                         bin_lower_angle -= 360;</span></span>
+<span id="L251"><span class="lineNum">     251</span>                 :             :                                 }</span>
+<span id="L252"><span class="lineNum">     252</span>                 :             : </span>
+<span id="L253"><span class="lineNum">     253</span>         [<span class="tlaGBC" title="Branch 0 was taken 7272 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 513720 times"> + </span>]:<span class="tlaGNC">      520992 :                                 if (msg_lower_angle &gt; msg_upper_angle) {</span></span>
+<span id="L254"><span class="lineNum">     254</span>                 :<span class="tlaGNC">        7272 :                                         msg_lower_angle -= 360;</span></span>
+<span id="L255"><span class="lineNum">     255</span>                 :             :                                 }</span>
+<span id="L256"><span class="lineNum">     256</span>                 :             : </span>
+<span id="L257"><span class="lineNum">     257</span>                 :             :                                 // Check for overlaps.</span>
+<span id="L258"><span class="lineNum">     258</span>   [<span class="tlaGBC" title="Branch 0 was taken 256920 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 264072 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 256766 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 154 times"> + </span> :<span class="tlaGNC">      520992 :                                 if ((msg_lower_angle &gt; bin_lower_angle &amp;&amp; msg_lower_angle &lt; bin_upper_angle) ||</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 264038 times"> + </span><span class="tlaGBC" title="Branch 5 was taken 256800 times"> + </span>]
+<span id="L259"><span class="lineNum">     259</span>   [<span class="tlaGBC" title="Branch 0 was taken 263882 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 156 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 263916 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 256766 times"> + </span>]:<span class="tlaGNC">      520838 :                                     (msg_upper_angle &gt; bin_lower_angle &amp;&amp; msg_upper_angle &lt; bin_upper_angle) ||</span></span>
+<span id="L260"><span class="lineNum">     260</span>   [<span class="tlaGBC" title="Branch 0 was taken 256800 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 7116 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 256766 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 256800 times"> + </span>]:<span class="tlaGNC">      520682 :                                     (msg_lower_angle &lt;= bin_lower_angle &amp;&amp; msg_upper_angle &gt;= bin_upper_angle) ||</span></span>
+<span id="L261"><span class="lineNum">     261</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 256766 times"> + </span>]:<span class="tlaGNC">      256766 :                                     (msg_lower_angle &gt;= bin_lower_angle &amp;&amp; msg_upper_angle &lt;= bin_upper_angle)) {</span></span>
+<span id="L262"><span class="lineNum">     262</span>         [<span class="tlaGBC" title="Branch 0 was taken 2971 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 4455 times"> + </span>]:<span class="tlaGNC">        7426 :                                         if (obstacle.distances[j] != UINT16_MAX) {</span></span>
+<span id="L263"><span class="lineNum">     263</span>         [<span class="tlaGBC" title="Branch 0 was taken 2961 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 10 times"> + </span>]:<span class="tlaGNC">        2971 :                                                 if (_enterData(i, obstacle.max_distance * 0.01f, obstacle.distances[j] * 0.01f)) {</span></span>
+<span id="L264"><span class="lineNum">     264</span>                 :<span class="tlaGNC">        2961 :                                                         _obstacle_map_body_frame.distances[i] = obstacle.distances[j];</span></span>
+<span id="L265"><span class="lineNum">     265</span>                 :<span class="tlaGNC">        2961 :                                                         _data_timestamps[i] = _obstacle_map_body_frame.timestamp;</span></span>
+<span id="L266"><span class="lineNum">     266</span>                 :<span class="tlaGNC">        2961 :                                                         _data_maxranges[i] = obstacle.max_distance;</span></span>
+<span id="L267"><span class="lineNum">     267</span>                 :<span class="tlaGNC">        2961 :                                                         _data_fov[i] = 1;</span></span>
+<span id="L268"><span class="lineNum">     268</span>                 :             :                                                 }</span>
+<span id="L269"><span class="lineNum">     269</span>                 :             :                                         }</span>
+<span id="L270"><span class="lineNum">     270</span>                 :             :                                 }</span>
+<span id="L271"><span class="lineNum">     271</span>                 :             : </span>
+<span id="L272"><span class="lineNum">     272</span>                 :             :                         }</span>
+<span id="L273"><span class="lineNum">     273</span>                 :             :                 }</span>
+<span id="L274"><span class="lineNum">     274</span>                 :             : </span>
+<span id="L275"><span class="lineNum">     275</span>         [<span class="tlaGBC" title="Branch 0 was taken 7 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         108 :         } else if (obstacle.frame == obstacle.MAV_FRAME_BODY_FRD) {</span></span>
+<span id="L276"><span class="lineNum">     276</span>                 :             :                 // Obstacle message arrives in body frame (front aligned)</span>
+<span id="L277"><span class="lineNum">     277</span>                 :             :                 // corresponding data index (shift by msg offset)</span>
+<span id="L278"><span class="lineNum">     278</span>         [<span class="tlaGBC" title="Branch 0 was taken 504 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 7 times"> + </span>]:<span class="tlaGNC">         511 :                 for (int i = 0; i &lt; BIN_COUNT; i++) {</span></span>
+<span id="L279"><span class="lineNum">     279</span>         [<span class="tlaGBC" title="Branch 0 was taken 33696 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 504 times"> + </span>]:<span class="tlaGNC">       34200 :                         for (int j = 0; j &lt; 360 / obstacle.increment; j++) {</span></span>
+<span id="L280"><span class="lineNum">     280</span>                 :<span class="tlaGNC">       33696 :                                 float bin_lower_angle = ObstacleMath::get_lower_bound_angle(i, _obstacle_map_body_frame.increment,</span></span>
+<span id="L281"><span class="lineNum">     281</span>                 :             :                                                         _obstacle_map_body_frame.angle_offset);</span>
+<span id="L282"><span class="lineNum">     282</span>                 :<span class="tlaGNC">       33696 :                                 float bin_upper_angle = ObstacleMath::get_lower_bound_angle(i + 1, _obstacle_map_body_frame.increment,</span></span>
+<span id="L283"><span class="lineNum">     283</span>                 :             :                                                         _obstacle_map_body_frame.angle_offset);</span>
+<span id="L284"><span class="lineNum">     284</span>                 :<span class="tlaGNC">       33696 :                                 float msg_lower_angle = ObstacleMath::get_lower_bound_angle(j, obstacle.increment, obstacle.angle_offset);</span></span>
+<span id="L285"><span class="lineNum">     285</span>                 :<span class="tlaGNC">       33696 :                                 float msg_upper_angle = ObstacleMath::get_lower_bound_angle(j + 1, obstacle.increment, obstacle.angle_offset);</span></span>
+<span id="L286"><span class="lineNum">     286</span>                 :             : </span>
+<span id="L287"><span class="lineNum">     287</span>                 :             :                                 // if a bin stretches over the 0/360 degree line, adjust the angles</span>
+<span id="L288"><span class="lineNum">     288</span>         [<span class="tlaGBC" title="Branch 0 was taken 468 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 33228 times"> + </span>]:<span class="tlaGNC">       33696 :                                 if (bin_lower_angle &gt; bin_upper_angle) {</span></span>
+<span id="L289"><span class="lineNum">     289</span>                 :<span class="tlaGNC">         468 :                                         bin_lower_angle -= 360;</span></span>
+<span id="L290"><span class="lineNum">     290</span>                 :             :                                 }</span>
+<span id="L291"><span class="lineNum">     291</span>                 :             : </span>
+<span id="L292"><span class="lineNum">     292</span>         [<span class="tlaGBC" title="Branch 0 was taken 504 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 33192 times"> + </span>]:<span class="tlaGNC">       33696 :                                 if (msg_lower_angle &gt; msg_upper_angle) {</span></span>
+<span id="L293"><span class="lineNum">     293</span>                 :<span class="tlaGNC">         504 :                                         msg_lower_angle -= 360;</span></span>
+<span id="L294"><span class="lineNum">     294</span>                 :             :                                 }</span>
+<span id="L295"><span class="lineNum">     295</span>                 :             : </span>
+<span id="L296"><span class="lineNum">     296</span>                 :             :                                 // Check for overlaps.</span>
+<span id="L297"><span class="lineNum">     297</span>   [<span class="tlaGBC" title="Branch 0 was taken 16656 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 17040 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 16502 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 154 times"> + </span> :<span class="tlaGNC">       33696 :                                 if ((msg_lower_angle &gt; bin_lower_angle &amp;&amp; msg_lower_angle &lt; bin_upper_angle) ||</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 17006 times"> + </span><span class="tlaGBC" title="Branch 5 was taken 16536 times"> + </span>]
+<span id="L298"><span class="lineNum">     298</span>   [<span class="tlaGBC" title="Branch 0 was taken 16850 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 156 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 16884 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 16502 times"> + </span>]:<span class="tlaGNC">       33542 :                                     (msg_upper_angle &gt; bin_lower_angle &amp;&amp; msg_upper_angle &lt; bin_upper_angle) ||</span></span>
+<span id="L299"><span class="lineNum">     299</span>   [<span class="tlaGBC" title="Branch 0 was taken 16536 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 348 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 16502 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 16536 times"> + </span>]:<span class="tlaGNC">       33386 :                                     (msg_lower_angle &lt;= bin_lower_angle &amp;&amp; msg_upper_angle &gt;= bin_upper_angle) ||</span></span>
+<span id="L300"><span class="lineNum">     300</span>         [<span class="tlaUNC" title="Branch 0 was not taken"> - </span><span class="tlaGBC" title="Branch 1 was taken 16502 times"> + </span>]:<span class="tlaGNC">       16502 :                                     (msg_lower_angle &gt;= bin_lower_angle &amp;&amp; msg_upper_angle &lt;= bin_upper_angle)) {</span></span>
+<span id="L301"><span class="lineNum">     301</span>         [<span class="tlaGBC" title="Branch 0 was taken 62 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 596 times"> + </span>]:<span class="tlaGNC">         658 :                                         if (obstacle.distances[j] != UINT16_MAX) {</span></span>
+<span id="L302"><span class="lineNum">     302</span>                 :             : </span>
+<span id="L303"><span class="lineNum">     303</span>         [<span class="tlaGBC" title="Branch 0 was taken 62 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          62 :                                                 if (_enterData(i, obstacle.max_distance * 0.01f, obstacle.distances[j] * 0.01f)) {</span></span>
+<span id="L304"><span class="lineNum">     304</span>                 :<span class="tlaGNC">          62 :                                                         _obstacle_map_body_frame.distances[i] = obstacle.distances[j];</span></span>
+<span id="L305"><span class="lineNum">     305</span>                 :<span class="tlaGNC">          62 :                                                         _data_timestamps[i] = _obstacle_map_body_frame.timestamp;</span></span>
+<span id="L306"><span class="lineNum">     306</span>                 :<span class="tlaGNC">          62 :                                                         _data_maxranges[i] = obstacle.max_distance;</span></span>
+<span id="L307"><span class="lineNum">     307</span>                 :<span class="tlaGNC">          62 :                                                         _data_fov[i] = 1;</span></span>
+<span id="L308"><span class="lineNum">     308</span>                 :             :                                                 }</span>
+<span id="L309"><span class="lineNum">     309</span>                 :             :                                         }</span>
+<span id="L310"><span class="lineNum">     310</span>                 :             :                                 }</span>
+<span id="L311"><span class="lineNum">     311</span>                 :             : </span>
+<span id="L312"><span class="lineNum">     312</span>                 :             :                         }</span>
+<span id="L313"><span class="lineNum">     313</span>                 :             :                 }</span>
+<span id="L314"><span class="lineNum">     314</span>                 :             : </span>
+<span id="L315"><span class="lineNum">     315</span>                 :             :         } else {</span>
+<span id="L316"><span class="lineNum">     316</span>                 :<span class="tlaUNC tlaBgUNC">           0 :                 mavlink_log_critical(&amp;_mavlink_log_pub, &quot;Obstacle message received in unsupported frame %i\t&quot;,</span></span>
+<span id="L317"><span class="lineNum">     317</span>                 :             :                                      obstacle.frame);</span>
+<span id="L318"><span class="lineNum">     318</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :                 events::send&lt;uint8_t&gt;(events::ID(&quot;col_prev_unsup_frame&quot;), events::Log::Error,</span></span>
+<span id="L319"><span class="lineNum">     319</span>                 :<span class="tlaUNC">           0 :                                       &quot;Obstacle message received in unsupported frame {1}&quot;, obstacle.frame);</span></span>
+<span id="L320"><span class="lineNum">     320</span>                 :             :         }</span>
+<span id="L321"><span class="lineNum">     321</span>                 :<span class="tlaGNC tlaBgGNC">         108 : }</span></span>
+<span id="L322"><span class="lineNum">     322</span>                 :             : </span>
+<span id="L323"><span class="lineNum">     323</span>                 :             : bool</span>
+<span id="L324"><span class="lineNum">     324</span>                 :<span class="tlaGNC">        3096 : CollisionPrevention::_enterData(int map_index, float sensor_range, float sensor_reading)</span></span>
+<span id="L325"><span class="lineNum">     325</span>                 :             : {</span>
+<span id="L326"><span class="lineNum">     326</span>                 :             :         //use data from this sensor if:</span>
+<span id="L327"><span class="lineNum">     327</span>                 :             :         //1. this sensor data is in range, the bin contains already valid data and this data is coming from the same or less range sensor</span>
+<span id="L328"><span class="lineNum">     328</span>                 :             :         //2. this sensor data is in range, and the last reading was out of range</span>
+<span id="L329"><span class="lineNum">     329</span>                 :             :         //3. this sensor data is out of range, the last reading was as well and this is the sensor with longest range</span>
+<span id="L330"><span class="lineNum">     330</span>                 :             :         //4. this sensor data is out of range, the last reading was valid and coming from the same sensor</span>
+<span id="L331"><span class="lineNum">     331</span>                 :             : </span>
+<span id="L332"><span class="lineNum">     332</span>                 :<span class="tlaGNC">        3096 :         uint16_t sensor_range_cm = static_cast&lt;uint16_t&gt;(100.0f * sensor_range + 0.5f); //convert to cm</span></span>
+<span id="L333"><span class="lineNum">     333</span>                 :             : </span>
+<span id="L334"><span class="lineNum">     334</span>         [<span class="tlaGBC" title="Branch 0 was taken 2979 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 117 times"> + </span>]:<span class="tlaGNC">        3096 :         if (sensor_reading &lt; sensor_range) {</span></span>
+<span id="L335"><span class="lineNum">     335</span>         [<span class="tlaGBC" title="Branch 0 was taken 2536 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 443 times"> + </span>]:<span class="tlaGNC">        2979 :                 if ((_obstacle_map_body_frame.distances[map_index] &lt; _data_maxranges[map_index]</span></span>
+<span id="L336"><span class="lineNum">     336</span>         [<span class="tlaGBC" title="Branch 0 was taken 11 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 2525 times"> + </span>]:<span class="tlaGNC">        2536 :                      &amp;&amp; sensor_range_cm &lt;= _data_maxranges[map_index])</span></span>
+<span id="L337"><span class="lineNum">     337</span>         [<span class="tlaGBC" title="Branch 0 was taken 443 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 11 times"> + </span>]:<span class="tlaGNC">         454 :                     || _obstacle_map_body_frame.distances[map_index] &gt;= _data_maxranges[map_index]) {</span></span>
+<span id="L338"><span class="lineNum">     338</span>                 :             : </span>
+<span id="L339"><span class="lineNum">     339</span>                 :<span class="tlaGNC">        2968 :                         return true;</span></span>
+<span id="L340"><span class="lineNum">     340</span>                 :             :                 }</span>
+<span id="L341"><span class="lineNum">     341</span>                 :             : </span>
+<span id="L342"><span class="lineNum">     342</span>                 :             :         } else {</span>
+<span id="L343"><span class="lineNum">     343</span>         [<span class="tlaGBC" title="Branch 0 was taken 99 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 18 times"> + </span>]:<span class="tlaGNC">         117 :                 if ((_obstacle_map_body_frame.distances[map_index] &gt;= _data_maxranges[map_index]</span></span>
+<span id="L344"><span class="lineNum">     344</span>         [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 98 times"> + </span>]:<span class="tlaGNC">          99 :                      &amp;&amp; sensor_range_cm &gt;= _data_maxranges[map_index])</span></span>
+<span id="L345"><span class="lineNum">     345</span>         [<span class="tlaGBC" title="Branch 0 was taken 18 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 1 time"> + </span>]:<span class="tlaGNC">          19 :                     || (_obstacle_map_body_frame.distances[map_index] &lt; _data_maxranges[map_index]</span></span>
+<span id="L346"><span class="lineNum">     346</span>         [<span class="tlaGBC" title="Branch 0 was taken 16 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 2 times"> + </span>]:<span class="tlaGNC">          18 :                         &amp;&amp; sensor_range_cm == _data_maxranges[map_index])) {</span></span>
+<span id="L347"><span class="lineNum">     347</span>                 :             : </span>
+<span id="L348"><span class="lineNum">     348</span>                 :<span class="tlaGNC">         114 :                         return true;</span></span>
+<span id="L349"><span class="lineNum">     349</span>                 :             :                 }</span>
+<span id="L350"><span class="lineNum">     350</span>                 :             :         }</span>
+<span id="L351"><span class="lineNum">     351</span>                 :             : </span>
+<span id="L352"><span class="lineNum">     352</span>                 :<span class="tlaGNC">          14 :         return false;</span></span>
+<span id="L353"><span class="lineNum">     353</span>                 :             : }</span>
+<span id="L354"><span class="lineNum">     354</span>                 :             : </span>
+<span id="L355"><span class="lineNum">     355</span>                 :             : bool</span>
+<span id="L356"><span class="lineNum">     356</span>                 :<span class="tlaGNC">         100 : CollisionPrevention::_checkSetpointDirectionFeasability()</span></span>
+<span id="L357"><span class="lineNum">     357</span>                 :             : {</span>
+<span id="L358"><span class="lineNum">     358</span>                 :<span class="tlaGNC">         100 :         bool setpoint_feasible = true;</span></span>
+<span id="L359"><span class="lineNum">     359</span>                 :             : </span>
+<span id="L360"><span class="lineNum">     360</span>         [<span class="tlaGBC" title="Branch 0 was taken 7200 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 100 times"> + </span>]:<span class="tlaGNC">        7300 :         for (int i = 0; i &lt; BIN_COUNT; i++) {</span></span>
+<span id="L361"><span class="lineNum">     361</span>                 :             :                 // check if our setpoint is either pointing in a direction where data exists, or if not, wether we are allowed to go where there is no data</span>
+<span id="L362"><span class="lineNum">     362</span>   [<span class="tlaGBC" title="Branch 0 was taken 3801 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 3399 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 36 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 3765 times"> + </span> :<span class="tlaGNC">        7202 :                 if ((_obstacle_map_body_frame.distances[i] == UINT16_MAX &amp;&amp; i == _setpoint_index) &amp;&amp; (!_param_cp_go_no_data.get()</span></span>
+<span class="lineNum">        </span>    <span class="tlaGBC" title="Branch 4 was taken 2 times"> + </span><span class="tlaGBC" title="Branch 5 was taken 34 times"> + </span><span class="tlaGBC" title="Branch 6 was taken 35 times"> + </span><span class="tlaGBC" title="Branch 7 was taken 7165 times"> + </span>]
+<span id="L363"><span class="lineNum">     363</span>   [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 3 was taken 1 time"> + </span>]:<span class="tlaGNC">           2 :                                 || (_param_cp_go_no_data.get() &amp;&amp; _data_fov[i]))) {</span></span>
+<span id="L364"><span class="lineNum">     364</span>                 :<span class="tlaGNC">          35 :                         setpoint_feasible =  false;</span></span>
+<span id="L365"><span class="lineNum">     365</span>                 :             : </span>
+<span id="L366"><span class="lineNum">     366</span>                 :             :                 }</span>
+<span id="L367"><span class="lineNum">     367</span>                 :             :         }</span>
+<span id="L368"><span class="lineNum">     368</span>                 :             : </span>
+<span id="L369"><span class="lineNum">     369</span>                 :<span class="tlaGNC">         100 :         return setpoint_feasible;</span></span>
+<span id="L370"><span class="lineNum">     370</span>                 :             : }</span>
+<span id="L371"><span class="lineNum">     371</span>                 :             : </span>
+<span id="L372"><span class="lineNum">     372</span>                 :             : void</span>
+<span id="L373"><span class="lineNum">     373</span>                 :<span class="tlaGNC">         100 : CollisionPrevention::_transformSetpoint(const Vector2f &amp;setpoint)</span></span>
+<span id="L374"><span class="lineNum">     374</span>                 :             : {</span>
+<span id="L375"><span class="lineNum">     375</span>                 :<span class="tlaGNC">         100 :         const float sp_angle_body_frame = atan2f(setpoint(1), setpoint(0)) - _vehicle_yaw;</span></span>
+<span id="L376"><span class="lineNum">     376</span>                 :<span class="tlaGNC">         100 :         const float sp_angle_with_offset_deg = ObstacleMath::wrap_360(math::degrees(sp_angle_body_frame) -</span></span>
+<span id="L377"><span class="lineNum">     377</span>                 :<span class="tlaGNC">         100 :                                                _obstacle_map_body_frame.angle_offset);</span></span>
+<span id="L378"><span class="lineNum">     378</span>                 :<span class="tlaGNC">         100 :         _setpoint_index = floor(sp_angle_with_offset_deg / BIN_SIZE);</span></span>
+<span id="L379"><span class="lineNum">     379</span>                 :             :         // change setpoint direction slightly (max by _param_cp_guide_ang degrees) to help guide through narrow gaps</span>
+<span id="L380"><span class="lineNum">     380</span>   [<span class="tlaGBC" title="Branch 0 was taken 100 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 100 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">         100 :         _setpoint_dir = setpoint.unit_or_zero();</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 100 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L381"><span class="lineNum">     381</span>                 :<span class="tlaGNC">         100 :         _adaptSetpointDirection(_setpoint_dir, _setpoint_index, _vehicle_yaw);</span></span>
+<span id="L382"><span class="lineNum">     382</span>                 :<span class="tlaGNC">         100 : }</span></span>
+<span id="L383"><span class="lineNum">     383</span>                 :             : </span>
+<span id="L384"><span class="lineNum">     384</span>                 :             : void</span>
+<span id="L385"><span class="lineNum">     385</span>                 :<span class="tlaGNC">           9 : CollisionPrevention::_addDistanceSensorData(distance_sensor_s &amp;distance_sensor, const Quatf &amp;vehicle_attitude)</span></span>
+<span id="L386"><span class="lineNum">     386</span>                 :             : {</span>
+<span id="L387"><span class="lineNum">     387</span>                 :             :         // clamp at maximum sensor range</span>
+<span id="L388"><span class="lineNum">     388</span>                 :<span class="tlaGNC">           9 :         float distance_reading = math::min(distance_sensor.current_distance, distance_sensor.max_distance);</span></span>
+<span id="L389"><span class="lineNum">     389</span>                 :             : </span>
+<span id="L390"><span class="lineNum">     390</span>                 :             :         // negative values indicate out of range but valid measurements.</span>
+<span id="L391"><span class="lineNum">     391</span>   [<span class="tlaGBC" title="Branch 0 was taken 1 time"> + </span><span class="tlaGBC" title="Branch 1 was taken 8 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 1 time"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">           9 :         if (fabsf(distance_sensor.current_distance - -1.f) &lt; FLT_EPSILON &amp;&amp; distance_sensor.signal_quality == 0) {</span></span>
+<span id="L392"><span class="lineNum">     392</span>                 :<span class="tlaGNC">           1 :                 distance_reading = distance_sensor.max_distance;</span></span>
+<span id="L393"><span class="lineNum">     393</span>                 :             :         }</span>
+<span id="L394"><span class="lineNum">     394</span>                 :             : </span>
+<span id="L395"><span class="lineNum">     395</span>                 :             :         // discard values below min range</span>
+<span id="L396"><span class="lineNum">     396</span>         [<span class="tlaGBC" title="Branch 0 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           9 :         if (distance_reading &gt; distance_sensor.min_distance) {</span></span>
+<span id="L397"><span class="lineNum">     397</span>                 :<span class="tlaGNC">          18 :                 float sensor_yaw_body_rad = ObstacleMath::sensor_orientation_to_yaw_offset(static_cast&lt;ObstacleMath::SensorOrientation&gt;</span></span>
+<span id="L398"><span class="lineNum">     398</span>         [<span class="tlaGBC" title="Branch 0 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           9 :                                             (distance_sensor.orientation), distance_sensor.q);</span></span>
+<span id="L399"><span class="lineNum">     399</span>         [<span class="tlaGBC" title="Branch 0 was taken 9 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           9 :                 float sensor_yaw_body_deg = math::degrees(wrap_2pi(sensor_yaw_body_rad));</span></span>
+<span id="L400"><span class="lineNum">     400</span>                 :             : </span>
+<span id="L401"><span class="lineNum">     401</span>                 :             :                 // calculate the field of view boundary bin indices</span>
+<span id="L402"><span class="lineNum">     402</span>                 :<span class="tlaGNC">           9 :                 int lower_bound = (int)round((sensor_yaw_body_deg  - math::degrees(distance_sensor.h_fov / 2.0f)) / BIN_SIZE);</span></span>
+<span id="L403"><span class="lineNum">     403</span>                 :<span class="tlaGNC">           9 :                 int upper_bound = (int)round((sensor_yaw_body_deg  + math::degrees(distance_sensor.h_fov / 2.0f)) / BIN_SIZE);</span></span>
+<span id="L404"><span class="lineNum">     404</span>                 :             : </span>
+<span id="L405"><span class="lineNum">     405</span>         [<span class="tlaGBC" title="Branch 0 was taken 7 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 2 times"> + </span>]:<span class="tlaGNC">           9 :                 if (distance_reading &lt; distance_sensor.max_distance) {</span></span>
+<span id="L406"><span class="lineNum">     406</span>         [<span class="tlaGBC" title="Branch 0 was taken 7 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           7 :                         ObstacleMath::project_distance_on_horizontal_plane(distance_reading, sensor_yaw_body_rad, vehicle_attitude);</span></span>
+<span id="L407"><span class="lineNum">     407</span>                 :             :                 }</span>
+<span id="L408"><span class="lineNum">     408</span>                 :             : </span>
+<span id="L409"><span class="lineNum">     409</span>                 :<span class="tlaGNC">           9 :                 uint16_t sensor_range = static_cast&lt;uint16_t&gt;(100.0f * distance_sensor.max_distance + 0.5f); // convert to cm</span></span>
+<span id="L410"><span class="lineNum">     410</span>                 :             : </span>
+<span id="L411"><span class="lineNum">     411</span>         [<span class="tlaGBC" title="Branch 0 was taken 45 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 9 times"> + </span>]:<span class="tlaGNC">          54 :                 for (int bin = lower_bound; bin &lt;= upper_bound; ++bin) {</span></span>
+<span id="L412"><span class="lineNum">     412</span>         [<span class="tlaGBC" title="Branch 0 was taken 45 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          45 :                         int wrapped_bin = ObstacleMath::wrap_bin(bin, BIN_COUNT);</span></span>
+<span id="L413"><span class="lineNum">     413</span>                 :             : </span>
+<span id="L414"><span class="lineNum">     414</span>         [<span class="tlaGBC" title="Branch 0 was taken 45 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          45 :                         if (_enterData(wrapped_bin, distance_sensor.max_distance, distance_reading)) {</span></span>
+<span id="L415"><span class="lineNum">     415</span>                 :<span class="tlaGNC">          45 :                                 _obstacle_map_body_frame.distances[wrapped_bin] = static_cast&lt;uint16_t&gt;(100.0f * distance_reading + 0.5f);</span></span>
+<span id="L416"><span class="lineNum">     416</span>                 :<span class="tlaGNC">          45 :                                 _data_timestamps[wrapped_bin] = _obstacle_map_body_frame.timestamp;</span></span>
+<span id="L417"><span class="lineNum">     417</span>                 :<span class="tlaGNC">          45 :                                 _data_maxranges[wrapped_bin] = sensor_range;</span></span>
+<span id="L418"><span class="lineNum">     418</span>                 :<span class="tlaGNC">          45 :                                 _data_fov[wrapped_bin] = 1;</span></span>
+<span id="L419"><span class="lineNum">     419</span>                 :             :                         }</span>
+<span id="L420"><span class="lineNum">     420</span>                 :             :                 }</span>
+<span id="L421"><span class="lineNum">     421</span>                 :             :         }</span>
+<span id="L422"><span class="lineNum">     422</span>                 :<span class="tlaGNC">           9 : }</span></span>
+<span id="L423"><span class="lineNum">     423</span>                 :             : </span>
+<span id="L424"><span class="lineNum">     424</span>                 :             : void</span>
+<span id="L425"><span class="lineNum">     425</span>                 :<span class="tlaGNC">         102 : CollisionPrevention::_adaptSetpointDirection(Vector2f &amp;setpoint_dir, int &amp;setpoint_index, float vehicle_yaw_angle_rad)</span></span>
+<span id="L426"><span class="lineNum">     426</span>                 :             : {</span>
+<span id="L427"><span class="lineNum">     427</span>                 :<span class="tlaGNC">         102 :         const int guidance_bins = floor(_param_cp_guide_ang.get() / BIN_SIZE);</span></span>
+<span id="L428"><span class="lineNum">     428</span>                 :<span class="tlaGNC">         102 :         const int sp_index_original = setpoint_index;</span></span>
+<span id="L429"><span class="lineNum">     429</span>                 :<span class="tlaGNC">         102 :         float best_cost = 9999.f;</span></span>
+<span id="L430"><span class="lineNum">     430</span>                 :<span class="tlaGNC">         102 :         int new_sp_index = setpoint_index;</span></span>
+<span id="L431"><span class="lineNum">     431</span>                 :             : </span>
+<span id="L432"><span class="lineNum">     432</span>         [<span class="tlaGBC" title="Branch 0 was taken 1302 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 102 times"> + </span>]:<span class="tlaGNC">        1404 :         for (int i = sp_index_original - guidance_bins; i &lt;= sp_index_original + guidance_bins; i++) {</span></span>
+<span id="L433"><span class="lineNum">     433</span>                 :             : </span>
+<span id="L434"><span class="lineNum">     434</span>                 :             :                 // apply moving average filter to the distance array to be able to center in larger gaps</span>
+<span id="L435"><span class="lineNum">     435</span>                 :<span class="tlaGNC">        1302 :                 const int filter_size = 1;</span></span>
+<span id="L436"><span class="lineNum">     436</span>                 :<span class="tlaGNC">        1302 :                 float mean_dist = 0;</span></span>
+<span id="L437"><span class="lineNum">     437</span>                 :             : </span>
+<span id="L438"><span class="lineNum">     438</span>         [<span class="tlaGBC" title="Branch 0 was taken 3906 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 1302 times"> + </span>]:<span class="tlaGNC">        5208 :                 for (int j = i - filter_size; j &lt;= i + filter_size; j++) {</span></span>
+<span id="L439"><span class="lineNum">     439</span>                 :<span class="tlaGNC">        3906 :                         int bin = ObstacleMath::wrap_bin(j, BIN_COUNT);</span></span>
+<span id="L440"><span class="lineNum">     440</span>                 :             : </span>
+<span id="L441"><span class="lineNum">     441</span>         [<span class="tlaGBC" title="Branch 0 was taken 2026 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 1880 times"> + </span>]:<span class="tlaGNC">        3906 :                         if (_obstacle_map_body_frame.distances[bin] == UINT16_MAX) {</span></span>
+<span id="L442"><span class="lineNum">     442</span>                 :<span class="tlaGNC">        2026 :                                 mean_dist += _param_cp_dist.get() * 100.f;</span></span>
+<span id="L443"><span class="lineNum">     443</span>                 :             : </span>
+<span id="L444"><span class="lineNum">     444</span>                 :             :                         } else {</span>
+<span id="L445"><span class="lineNum">     445</span>                 :<span class="tlaGNC">        1880 :                                 mean_dist += _obstacle_map_body_frame.distances[bin];</span></span>
+<span id="L446"><span class="lineNum">     446</span>                 :             :                         }</span>
+<span id="L447"><span class="lineNum">     447</span>                 :             :                 }</span>
+<span id="L448"><span class="lineNum">     448</span>                 :             : </span>
+<span id="L449"><span class="lineNum">     449</span>                 :<span class="tlaGNC">        1302 :                 const int bin = ObstacleMath::wrap_bin(i, BIN_COUNT);</span></span>
+<span id="L450"><span class="lineNum">     450</span>                 :<span class="tlaGNC">        1302 :                 mean_dist = mean_dist / (2.f * filter_size + 1.f);</span></span>
+<span id="L451"><span class="lineNum">     451</span>                 :<span class="tlaGNC">        1302 :                 const float deviation_cost = _param_cp_dist.get() * 50.f * abs(i - sp_index_original);</span></span>
+<span id="L452"><span class="lineNum">     452</span>                 :<span class="tlaGNC">        1302 :                 const float bin_cost = deviation_cost - mean_dist - _obstacle_map_body_frame.distances[bin];</span></span>
+<span id="L453"><span class="lineNum">     453</span>                 :             : </span>
+<span id="L454"><span class="lineNum">     454</span>   [<span class="tlaGBC" title="Branch 0 was taken 1004 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 298 times"> + </span><span class="tlaGBC" title="Branch 2 was taken 329 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 675 times"> + </span>]:<span class="tlaGNC">        1302 :                 if (bin_cost &lt; best_cost &amp;&amp; _obstacle_map_body_frame.distances[bin] != UINT16_MAX) {</span></span>
+<span id="L455"><span class="lineNum">     455</span>                 :<span class="tlaGNC">         329 :                         best_cost = bin_cost;</span></span>
+<span id="L456"><span class="lineNum">     456</span>                 :<span class="tlaGNC">         329 :                         new_sp_index = bin;</span></span>
+<span id="L457"><span class="lineNum">     457</span>                 :             :                 }</span>
+<span id="L458"><span class="lineNum">     458</span>                 :             :         }</span>
+<span id="L459"><span class="lineNum">     459</span>                 :             : </span>
+<span id="L460"><span class="lineNum">     460</span>                 :             :         //only change setpoint direction if it was moved to a different bin</span>
+<span id="L461"><span class="lineNum">     461</span>         [<span class="tlaGBC" title="Branch 0 was taken 20 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 82 times"> + </span>]:<span class="tlaGNC">         102 :         if (new_sp_index != setpoint_index) {</span></span>
+<span id="L462"><span class="lineNum">     462</span>                 :<span class="tlaGNC">          20 :                 float angle = math::radians((float)new_sp_index * BIN_SIZE + _obstacle_map_body_frame.angle_offset);</span></span>
+<span id="L463"><span class="lineNum">     463</span>                 :<span class="tlaGNC">          20 :                 angle = wrap_2pi(vehicle_yaw_angle_rad + angle);</span></span>
+<span id="L464"><span class="lineNum">     464</span>   [<span class="tlaGBC" title="Branch 0 was taken 20 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 20 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">          20 :                 setpoint_dir = {cosf(angle), sinf(angle)};</span></span>
+<span id="L465"><span class="lineNum">     465</span>                 :<span class="tlaGNC">          20 :                 setpoint_index = new_sp_index;</span></span>
+<span id="L466"><span class="lineNum">     466</span>                 :             :         }</span>
+<span id="L467"><span class="lineNum">     467</span>                 :<span class="tlaGNC">         102 : }</span></span>
+<span id="L468"><span class="lineNum">     468</span>                 :             : </span>
+<span id="L469"><span class="lineNum">     469</span>                 :<span class="tlaGNC">          65 : float CollisionPrevention::_getObstacleDistance(const Vector2f &amp;direction)</span></span>
+<span id="L470"><span class="lineNum">     470</span>                 :             : {</span>
+<span id="L471"><span class="lineNum">     471</span>                 :<span class="tlaGNC">          65 :         float obstacle_distance = 0.f;</span></span>
+<span id="L472"><span class="lineNum">     472</span>                 :<span class="tlaGNC">          65 :         const float direction_norm = direction.norm();</span></span>
+<span id="L473"><span class="lineNum">     473</span>                 :             : </span>
+<span id="L474"><span class="lineNum">     474</span>         [<span class="tlaGBC" title="Branch 0 was taken 47 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 18 times"> + </span>]:<span class="tlaGNC">          65 :         if (direction_norm &gt; FLT_EPSILON) {</span></span>
+<span id="L475"><span class="lineNum">     475</span>   [<span class="tlaGBC" title="Branch 0 was taken 47 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 47 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">          47 :                 Vector2f dir = direction / direction_norm;</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 47 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L476"><span class="lineNum">     476</span>   [<span class="tlaGBC" title="Branch 0 was taken 47 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 47 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">          47 :                 const float sp_angle_body_frame = atan2f(dir(1), dir(0)) - _vehicle_yaw;</span></span>
+<span id="L477"><span class="lineNum">     477</span>                 :             :                 const float sp_angle_with_offset_deg =</span>
+<span id="L478"><span class="lineNum">     478</span>         [<span class="tlaGBC" title="Branch 0 was taken 47 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          47 :                         ObstacleMath::wrap_360(math::degrees(sp_angle_body_frame) - _obstacle_map_body_frame.angle_offset);</span></span>
+<span id="L479"><span class="lineNum">     479</span>                 :             : </span>
+<span id="L480"><span class="lineNum">     480</span>         [<span class="tlaGBC" title="Branch 0 was taken 47 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          47 :                 const int dir_index = ObstacleMath::get_bin_at_angle(BIN_SIZE, sp_angle_with_offset_deg);</span></span>
+<span id="L481"><span class="lineNum">     481</span>                 :<span class="tlaGNC">          47 :                 obstacle_distance   = _obstacle_map_body_frame.distances[dir_index] * 0.01f;</span></span>
+<span id="L482"><span class="lineNum">     482</span>                 :             :         }</span>
+<span id="L483"><span class="lineNum">     483</span>                 :             : </span>
+<span id="L484"><span class="lineNum">     484</span>                 :<span class="tlaGNC">          65 :         return obstacle_distance;</span></span>
+<span id="L485"><span class="lineNum">     485</span>                 :             : }</span>
+<span id="L486"><span class="lineNum">     486</span>                 :             : </span>
+<span id="L487"><span class="lineNum">     487</span>                 :             : Vector2f</span>
+<span id="L488"><span class="lineNum">     488</span>                 :<span class="tlaGNC">          65 : CollisionPrevention::_constrainAccelerationSetpoint(const float &amp;setpoint_length)</span></span>
+<span id="L489"><span class="lineNum">     489</span>                 :             : {</span>
+<span id="L490"><span class="lineNum">     490</span>                 :<span class="tlaGNC">          65 :         Vector2f new_setpoint{};</span></span>
+<span id="L491"><span class="lineNum">     491</span>   [<span class="tlaGBC" title="Branch 0 was taken 65 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 65 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">          65 :         const Vector2f normal_component = _closest_dist_dir * (_setpoint_dir.dot(_closest_dist_dir));</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 65 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L492"><span class="lineNum">     492</span>   [<span class="tlaGBC" title="Branch 0 was taken 65 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 65 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">          65 :         const Vector2f tangential_component = _setpoint_dir - normal_component;</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 65 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span>]
+<span id="L493"><span class="lineNum">     493</span>                 :             : </span>
+<span id="L494"><span class="lineNum">     494</span>         [<span class="tlaGBC" title="Branch 0 was taken 65 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          65 :         const float normal_scale = _getScale(_closest_dist);</span></span>
+<span id="L495"><span class="lineNum">     495</span>                 :             : </span>
+<span id="L496"><span class="lineNum">     496</span>                 :             : </span>
+<span id="L497"><span class="lineNum">     497</span>         [<span class="tlaGBC" title="Branch 0 was taken 65 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          65 :         const float closest_dist_tangential = _getObstacleDistance(tangential_component);</span></span>
+<span id="L498"><span class="lineNum">     498</span>         [<span class="tlaGBC" title="Branch 0 was taken 65 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">          65 :         const float tangential_scale = _getScale(closest_dist_tangential);</span></span>
+<span id="L499"><span class="lineNum">     499</span>                 :             : </span>
+<span id="L500"><span class="lineNum">     500</span>                 :             : </span>
+<span id="L501"><span class="lineNum">     501</span>                 :             :         // only scale accelerations towards the obstacle</span>
+<span id="L502"><span class="lineNum">     502</span>   [<span class="tlaGBC" title="Branch 0 was taken 65 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 40 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 25 times"> + </span>]:<span class="tlaGNC">          65 :         if (_closest_dist_dir.dot(_setpoint_dir) &gt; 0) {</span></span>
+<span id="L503"><span class="lineNum">     503</span>   [<span class="tlaGBC" title="Branch 0 was taken 40 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 40 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span> :<span class="tlaGNC">          40 :                 new_setpoint = (tangential_component * tangential_scale + normal_component * normal_scale) * setpoint_length;</span></span>
+<span class="lineNum">        </span> <span class="tlaGBC" title="Branch 4 was taken 40 times"> + </span><span class="tlaUNC" title="Branch 5 was not taken"> - </span><span class="tlaGBC" title="Branch 6 was taken 40 times"> + </span><span class="tlaUNC" title="Branch 7 was not taken"> - </span><span class="tlaGBC" title="Branch 8 was taken 40 times"> + </span> 
+<span class="lineNum">        </span>       <span class="tlaUNC" title="Branch 9 was not taken"> - </span><span class="tlaGBC" title="Branch 10 was taken 40 times"> + </span><span class="tlaUNC" title="Branch 11 was not taken"> - </span>]
+<span id="L504"><span class="lineNum">     504</span>                 :             : </span>
+<span id="L505"><span class="lineNum">     505</span>                 :             :         } else {</span>
+<span id="L506"><span class="lineNum">     506</span>   [<span class="tlaGBC" title="Branch 0 was taken 25 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 25 times"> + </span><span class="tlaUNC" title="Branch 3 was not taken"> - </span>]:<span class="tlaGNC">          25 :                 new_setpoint = _setpoint_dir * setpoint_length;</span></span>
+<span id="L507"><span class="lineNum">     507</span>                 :             :         }</span>
+<span id="L508"><span class="lineNum">     508</span>                 :             : </span>
+<span id="L509"><span class="lineNum">     509</span>         [<span class="tlaGBC" title="Branch 0 was taken 65 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         130 :         return new_setpoint;</span></span>
+<span id="L510"><span class="lineNum">     510</span>                 :             : }</span>
+<span id="L511"><span class="lineNum">     511</span>                 :             : </span>
+<span id="L512"><span class="lineNum">     512</span>                 :             : float</span>
+<span id="L513"><span class="lineNum">     513</span>                 :<span class="tlaGNC">         130 : CollisionPrevention::_getScale(const float &amp;reference_distance)</span></span>
+<span id="L514"><span class="lineNum">     514</span>                 :             : {</span>
+<span id="L515"><span class="lineNum">     515</span>                 :<span class="tlaGNC">         130 :         float scale = (reference_distance - _min_dist_to_keep);</span></span>
+<span id="L516"><span class="lineNum">     516</span>                 :<span class="tlaGNC">         130 :         const float scale_distance = math::max(_min_dist_to_keep, _param_mpc_vel_manual.get() / _param_mpc_xy_p.get());</span></span>
+<span id="L517"><span class="lineNum">     517</span>                 :             : </span>
+<span id="L518"><span class="lineNum">     518</span>                 :             :         // if scale is positive, square it and scale it with the scale_distance</span>
+<span id="L519"><span class="lineNum">     519</span>         [<span class="tlaGBC" title="Branch 0 was taken 108 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 22 times"> + </span>]:<span class="tlaGNC">         130 :         scale = scale &gt; 0 ? powf(scale / scale_distance, 2) : scale;</span></span>
+<span id="L520"><span class="lineNum">     520</span>                 :<span class="tlaGNC">         130 :         scale = math::min(scale, 1.0f);</span></span>
+<span id="L521"><span class="lineNum">     521</span>                 :<span class="tlaGNC">         130 :         return scale;</span></span>
+<span id="L522"><span class="lineNum">     522</span>                 :             : }</span>
+<span id="L523"><span class="lineNum">     523</span>                 :             : </span>
+<span id="L524"><span class="lineNum">     524</span>                 :<span class="tlaGNC">         100 : void CollisionPrevention::_getVelocityCompensationAcceleration(const float vehicle_yaw_angle_rad,</span></span>
+<span id="L525"><span class="lineNum">     525</span>                 :             :                 const Vector2f &amp;setpoint_vel,</span>
+<span id="L526"><span class="lineNum">     526</span>                 :             :                 const hrt_abstime now, float &amp;vel_comp_accel, Vector2f &amp;vel_comp_accel_dir)</span>
+<span id="L527"><span class="lineNum">     527</span>                 :             : {</span>
+<span id="L528"><span class="lineNum">     528</span>         [<span class="tlaGBC" title="Branch 0 was taken 7200 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 100 times"> + </span>]:<span class="tlaGNC">        7300 :         for (int i = 0; i &lt; BIN_COUNT; i++) {</span></span>
+<span id="L529"><span class="lineNum">     529</span>                 :<span class="tlaGNC">        7200 :                 const float max_range = _data_maxranges[i] * 0.01f;</span></span>
+<span id="L530"><span class="lineNum">     530</span>                 :             : </span>
+<span id="L531"><span class="lineNum">     531</span>                 :             :                 // get the vector pointing into the direction of current bin</span>
+<span id="L532"><span class="lineNum">     532</span>         [<span class="tlaGBC" title="Branch 0 was taken 7200 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">        7200 :                 float bin_angle = wrap_2pi(vehicle_yaw_angle_rad</span></span>
+<span id="L533"><span class="lineNum">     533</span>                 :<span class="tlaGNC">        7200 :                                            + math::radians((float)i * BIN_SIZE + _obstacle_map_body_frame.angle_offset));</span></span>
+<span id="L534"><span class="lineNum">     534</span>                 :             : </span>
+<span id="L535"><span class="lineNum">     535</span>         [<span class="tlaGBC" title="Branch 0 was taken 7200 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">        7200 :                 const Vector2f bin_direction = { cosf(bin_angle), sinf(bin_angle) };</span></span>
+<span id="L536"><span class="lineNum">     536</span>                 :<span class="tlaGNC">        7200 :                 float bin_distance = _obstacle_map_body_frame.distances[i];</span></span>
+<span id="L537"><span class="lineNum">     537</span>                 :             : </span>
+<span id="L538"><span class="lineNum">     538</span>                 :             :                 // only consider bins which are between min and max values</span>
+<span id="L539"><span class="lineNum">     539</span>   [<span class="tlaGBC" title="Branch 0 was taken 7200 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 3399 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 3801 times"> + </span>]:<span class="tlaGNC">        7200 :                 if (bin_distance &gt; _obstacle_map_body_frame.min_distance &amp;&amp; bin_distance &lt; UINT16_MAX) {</span></span>
+<span id="L540"><span class="lineNum">     540</span>                 :<span class="tlaGNC">        3399 :                         const float distance = bin_distance * 0.01f;</span></span>
+<span id="L541"><span class="lineNum">     541</span>                 :             : </span>
+<span id="L542"><span class="lineNum">     542</span>                 :             :                         // Assume current velocity is sufficiently close to the setpoint velocity, this breaks down if flying high</span>
+<span id="L543"><span class="lineNum">     543</span>                 :             :                         // acceleration maneuvers</span>
+<span id="L544"><span class="lineNum">     544</span>         [<span class="tlaGBC" title="Branch 0 was taken 3399 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">        3399 :                         const float curr_vel_parallel = math::max(0.f, setpoint_vel.dot(bin_direction));</span></span>
+<span id="L545"><span class="lineNum">     545</span>                 :<span class="tlaGNC">        3399 :                         float delay_distance = curr_vel_parallel * _param_cp_delay.get();</span></span>
+<span id="L546"><span class="lineNum">     546</span>                 :             : </span>
+<span id="L547"><span class="lineNum">     547</span>                 :<span class="tlaGNC">        3399 :                         const hrt_abstime data_age = now - _data_timestamps[i];</span></span>
+<span id="L548"><span class="lineNum">     548</span>                 :             : </span>
+<span id="L549"><span class="lineNum">     549</span>         [<span class="tlaGBC" title="Branch 0 was taken 3185 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 214 times"> + </span>]:<span class="tlaGNC">        3399 :                         if (distance &lt; max_range) {</span></span>
+<span id="L550"><span class="lineNum">     550</span>                 :<span class="tlaGNC">        3185 :                                 delay_distance += curr_vel_parallel * (data_age * 1e-6f);</span></span>
+<span id="L551"><span class="lineNum">     551</span>                 :             :                         }</span>
+<span id="L552"><span class="lineNum">     552</span>                 :             : </span>
+<span id="L553"><span class="lineNum">     553</span>                 :<span class="tlaGNC">        3399 :                         const float stop_distance = distance - _min_dist_to_keep - delay_distance;</span></span>
+<span id="L554"><span class="lineNum">     554</span>                 :             : </span>
+<span id="L555"><span class="lineNum">     555</span>                 :             :                         float curr_acc_vel_constraint;</span>
+<span id="L556"><span class="lineNum">     556</span>                 :             : </span>
+<span id="L557"><span class="lineNum">     557</span>         [<span class="tlaGBC" title="Branch 0 was taken 3307 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 92 times"> + </span>]:<span class="tlaGNC">        3399 :                         if (stop_distance &gt;= 0.f) {</span></span>
+<span id="L558"><span class="lineNum">     558</span>                 :<span class="tlaGNC">        3307 :                                 const float max_vel = math::trajectory::computeMaxSpeedFromDistance(_param_mpc_jerk_max.get(),</span></span>
+<span id="L559"><span class="lineNum">     559</span>                 :             :                                                       _param_mpc_acc_hor.get(), stop_distance, 0.f);</span>
+<span id="L560"><span class="lineNum">     560</span>                 :<span class="tlaGNC">        3307 :                                 curr_acc_vel_constraint = _param_mpc_xy_vel_p_acc.get() * math::min(max_vel - curr_vel_parallel, 0.f);</span></span>
+<span id="L561"><span class="lineNum">     561</span>                 :             : </span>
+<span id="L562"><span class="lineNum">     562</span>                 :             :                         } else {</span>
+<span id="L563"><span class="lineNum">     563</span>                 :<span class="tlaGNC">          92 :                                 curr_acc_vel_constraint = -1.f * _param_mpc_xy_vel_p_acc.get() * curr_vel_parallel;</span></span>
+<span id="L564"><span class="lineNum">     564</span>                 :             :                         }</span>
+<span id="L565"><span class="lineNum">     565</span>                 :             : </span>
+<span id="L566"><span class="lineNum">     566</span>         [<span class="tlaGBC" title="Branch 0 was taken 100 times"> + </span><span class="tlaGBC" title="Branch 1 was taken 3299 times"> + </span>]:<span class="tlaGNC">        3399 :                         if (curr_acc_vel_constraint &lt; vel_comp_accel) {</span></span>
+<span id="L567"><span class="lineNum">     567</span>                 :<span class="tlaGNC">         100 :                                 vel_comp_accel = curr_acc_vel_constraint;</span></span>
+<span id="L568"><span class="lineNum">     568</span>         [<span class="tlaGBC" title="Branch 0 was taken 100 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">         100 :                                 vel_comp_accel_dir = bin_direction;</span></span>
+<span id="L569"><span class="lineNum">     569</span>                 :             :                         }</span>
+<span id="L570"><span class="lineNum">     570</span>                 :             :                 }</span>
+<span id="L571"><span class="lineNum">     571</span>                 :             :         }</span>
+<span id="L572"><span class="lineNum">     572</span>                 :<span class="tlaGNC">         100 : }</span></span>
+<span id="L573"><span class="lineNum">     573</span>                 :             : </span>
+<span id="L574"><span class="lineNum">     574</span>                 :<span class="tlaGNC">           2 : void CollisionPrevention::_publishVehicleCmdDoLoiter()</span></span>
+<span id="L575"><span class="lineNum">     575</span>                 :             : {</span>
+<span id="L576"><span class="lineNum">     576</span>                 :<span class="tlaGNC">           2 :         vehicle_command_s command{};</span></span>
+<span id="L577"><span class="lineNum">     577</span>                 :<span class="tlaGNC">           2 :         command.command = vehicle_command_s::VEHICLE_CMD_DO_SET_MODE;</span></span>
+<span id="L578"><span class="lineNum">     578</span>                 :<span class="tlaGNC">           2 :         command.param1 = 1.f; // base mode VEHICLE_MODE_FLAG_CUSTOM_MODE_ENABLED</span></span>
+<span id="L579"><span class="lineNum">     579</span>                 :<span class="tlaGNC">           2 :         command.param2 = (float)PX4_CUSTOM_MAIN_MODE_AUTO;</span></span>
+<span id="L580"><span class="lineNum">     580</span>                 :<span class="tlaGNC">           2 :         command.param3 = (float)PX4_CUSTOM_SUB_MODE_AUTO_LOITER;</span></span>
+<span id="L581"><span class="lineNum">     581</span>                 :<span class="tlaGNC">           2 :         command.target_system = 1;</span></span>
+<span id="L582"><span class="lineNum">     582</span>                 :<span class="tlaGNC">           2 :         command.target_component = 1;</span></span>
+<span id="L583"><span class="lineNum">     583</span>                 :<span class="tlaGNC">           2 :         command.source_system = 1;</span></span>
+<span id="L584"><span class="lineNum">     584</span>                 :<span class="tlaGNC">           2 :         command.source_component = 1;</span></span>
+<span id="L585"><span class="lineNum">     585</span>                 :<span class="tlaGNC">           2 :         command.confirmation = false;</span></span>
+<span id="L586"><span class="lineNum">     586</span>                 :<span class="tlaGNC">           2 :         command.from_external = false;</span></span>
+<span id="L587"><span class="lineNum">     587</span>         [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           2 :         command.timestamp = getTime();</span></span>
+<span id="L588"><span class="lineNum">     588</span>         [<span class="tlaGBC" title="Branch 0 was taken 2 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">           2 :         _vehicle_command_pub.publish(command);</span></span>
+<span id="L589"><span class="lineNum">     589</span>                 :<span class="tlaGNC">           2 : }</span></span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

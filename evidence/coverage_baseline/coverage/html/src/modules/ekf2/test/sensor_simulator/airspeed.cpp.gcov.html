@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - lcov_filtered.info - src/modules/ekf2/test/sensor_simulator/airspeed.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../../../../index.html">top level</a> - <a href="index.html">src/modules/ekf2/test/sensor_simulator</a> - airspeed.cpp<span style="font-size: 80%;"> (source / <a href="airspeed.cpp.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">lcov_filtered.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
+            <td class="headerCovTableEntry">19</td>
+            <td class="headerCovTableEntry">19</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2026-10-02 17:31:18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryMed">80.0&nbsp;%</td>
+            <td class="headerCovTableEntry">5</td>
+            <td class="headerCovTableEntry">4</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryLo">70.0&nbsp;%</td>
+            <td class="headerCovTableEntry">10</td>
+            <td class="headerCovTableEntry">7</td>
+          </tr>
+                  <tr><td><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : #include &quot;airspeed.h&quot;</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             : </span>
+<span id="L3"><span class="lineNum">       3</span>                 :             : namespace sensor_simulator</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             : {</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             : namespace sensor</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             : {</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             : </span>
+<span id="L8"><span class="lineNum">       8</span>         [<span class="tlaGBC" title="Branch 0 was taken 114 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC tlaBgGNC">         114 : Airspeed::Airspeed(std::shared_ptr&lt;Ekf&gt; ekf): Sensor(ekf)</span></span>
+<span id="L9"><span class="lineNum">       9</span>                 :             : {</span>
+<span id="L10"><span class="lineNum">      10</span>                 :<span class="tlaGNC">         114 : }</span></span>
+<span id="L11"><span class="lineNum">      11</span>                 :             : </span>
+<span id="L12"><span class="lineNum">      12</span>                 :<span class="tlaGNC">         114 : Airspeed::~Airspeed()</span></span>
+<span id="L13"><span class="lineNum">      13</span>                 :             : {</span>
+<span id="L14"><span class="lineNum">      14</span>                 :<span class="tlaGNC">         114 : }</span></span>
+<span id="L15"><span class="lineNum">      15</span>                 :             : </span>
+<span id="L16"><span class="lineNum">      16</span>                 :<span class="tlaGNC">       12410 : void Airspeed::send(uint64_t time)</span></span>
+<span id="L17"><span class="lineNum">      17</span>                 :             : {</span>
+<span id="L18"><span class="lineNum">      18</span>                 :<span class="tlaGNC">       12410 :         float ias2tas = 1.f;</span></span>
+<span id="L19"><span class="lineNum">      19</span>                 :             : </span>
+<span id="L20"><span class="lineNum">      20</span>                 :<span class="tlaGNC">       12410 :         if (PX4_ISFINITE(_indicated_airspeed_data)</span></span>
+<span id="L21"><span class="lineNum">      21</span>   [<span class="tlaGBC" title="Branch 0 was taken 12410 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span><span class="tlaGBC" title="Branch 2 was taken 6310 times"> + </span><span class="tlaGBC" title="Branch 3 was taken 6100 times"> + </span> :<span class="tlaGNC">       12410 :             &amp;&amp; (_indicated_airspeed_data &gt; FLT_EPSILON)) {</span></span>
+<span class="lineNum">        </span>          <span class="tlaGBC" title="Branch 4 was taken 6310 times"> + </span><span class="tlaGBC" title="Branch 5 was taken 6100 times"> + </span>]
+<span id="L22"><span class="lineNum">      22</span>                 :<span class="tlaGNC">        6310 :                 ias2tas = _true_airspeed_data / _indicated_airspeed_data;</span></span>
+<span id="L23"><span class="lineNum">      23</span>                 :             :         }</span>
+<span id="L24"><span class="lineNum">      24</span>                 :             : </span>
+<span id="L25"><span class="lineNum">      25</span>                 :<span class="tlaGNC">       12410 :         airspeedSample airspeed_sample;</span></span>
+<span id="L26"><span class="lineNum">      26</span>                 :<span class="tlaGNC">       12410 :         airspeed_sample.time_us = time;</span></span>
+<span id="L27"><span class="lineNum">      27</span>                 :<span class="tlaGNC">       12410 :         airspeed_sample.eas2tas = ias2tas;</span></span>
+<span id="L28"><span class="lineNum">      28</span>                 :<span class="tlaGNC">       12410 :         airspeed_sample.true_airspeed = _true_airspeed_data;</span></span>
+<span id="L29"><span class="lineNum">      29</span>         [<span class="tlaGBC" title="Branch 0 was taken 12410 times"> + </span><span class="tlaUNC" title="Branch 1 was not taken"> - </span>]:<span class="tlaGNC">       12410 :         _ekf-&gt;setAirspeedData(airspeed_sample);</span></span>
+<span id="L30"><span class="lineNum">      30</span>                 :<span class="tlaGNC">       12410 : }</span></span>
+<span id="L31"><span class="lineNum">      31</span>                 :             : </span>
+<span id="L32"><span class="lineNum">      32</span>                 :<span class="tlaGNC">        7156 : void Airspeed::setData(float true_airspeed, float indicated_airspeed)</span></span>
+<span id="L33"><span class="lineNum">      33</span>                 :             : {</span>
+<span id="L34"><span class="lineNum">      34</span>                 :<span class="tlaGNC">        7156 :         _true_airspeed_data = true_airspeed;</span></span>
+<span id="L35"><span class="lineNum">      35</span>                 :<span class="tlaGNC">        7156 :         _indicated_airspeed_data = indicated_airspeed;</span></span>
+<span id="L36"><span class="lineNum">      36</span>                 :<span class="tlaGNC">        7156 : }</span></span>
+<span id="L37"><span class="lineNum">      37</span>                 :             : </span>
+<span id="L38"><span class="lineNum">      38</span>                 :             : } // namespace sensor</span>
+<span id="L39"><span class="lineNum">      39</span>                 :             : } // namespace sensor_simulator</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>
